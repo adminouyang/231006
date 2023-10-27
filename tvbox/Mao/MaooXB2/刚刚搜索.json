@@ -1,0 +1,38 @@
+{
+    "站名": "刚刚搜索",
+    "头部集合": "User-Agent$Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1#Origin$https://play.fuqizhishi.comReferer$https://play.fuqizhishi.com",
+    "分类url": "https://vip.fuqizhishi.com/1024api.php?out=jsonp&wd={cateId}",
+    "分类": "人世间$人世间#伊藤舞雪$伊藤舞雪",
+//    "分类值": "rsj&dldl",
+    "二次截取": "info\":&&);[替换:}\\]>>},]",
+    "数组": "{&&},",
+    "图片": "https://tuapi.eees.cc/api.php?category=meinv&type=302",
+    "标题": "title\":\"&&\"",
+    "链接": "&flag=+flag\":&&,+&id=+id\":\"&&\"",
+    "链接前缀": "https://vip.fuqizhishi.com/1024api.php?out=jsonp",
+    "搜索url": "https://vip.fuqizhishi.com/1024api.php?out=jsonp&wd={wd}",
+    "搜索二次截取": "info\":&&);[替换:}\\]>>},]",
+    "搜索数组": "{&&},",
+    "搜索图片": "https://tuapi.eees.cc/api.php?category=meinv&type=302",
+    "搜索标题": "title\":\"&&\"",
+    "副标题": "from\":\"&&\"",
+    "搜索链接": "&flag=+flag\":&&,+&id=+id\":\"&&\"",
+    "搜索链接前缀": "https://vip.fuqizhishi.com/1024api.php?out=jsonp",
+
+    "影片类型":"type\":\"&&\"",
+//    "影片年代":"videoinfo.year",
+    "影片地区":"part\":&&,",
+//    "导演":"videoinfo.director[].name(💞️)",
+//    "主演":"videoinfo.starring[].name(💞)",
+
+    "简介":"flag_name\":\"&&\"",
+    
+   "播放数组": "video\":&&);[替换:{\"flag\":\">>空#\",\"flag_name\":\">>空#\",\"part\":>>空#,\"video\":>>空#\",>>},#\"\\]>>},#\">>{\"]",
+    "播放二次截取": "",
+    "播放列表": "{&&},",
+    "播放标题": "\"&&$",
+    "播放链接": "https://play.fuqizhishi.com/ggtv/?url=+$&&$",
+    "播放链接前缀": "",
+    "嗅探词": ".mp4#.m3u8#.flv",
+    "过滤词": "baidu.com"
+}

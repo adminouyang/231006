@@ -1,0 +1,58 @@
+{
+    "title": "奇粹",
+    "author": "JMG0926",
+    "Headers": "PC_UA",
+    //UTF-8，GBK，GB2312
+    "Coding_format": "UTF-8",
+    "PicNeedProxy": "0",
+    "homeContent": "1",
+    "rcmed_url": "http://www.blssv.com",
+    "home_arr_rule": "body&&.module-items",
+    "hmepi_arr_rule": ".module-item",
+    "home_is_jsoup": "1",
+    "home_title": "a,0&&title",
+    "home_url": "a,0&&href",
+    "home_pic": "img&&data-src",
+    "home_subtitle": ".module-item-text&&Text",
+    "home_prefix": "http://www.blssv.com",
+    
+    "firstpage": "1",
+    "class_url": "http://www.blssv.com/index.php/vod/show/area/{area}/by/{by}/class/{class}/id/{cateId}/page/{catePg}/year/{year}.html",
+    "class_name": "电影&电视剧&动漫&海外&综艺",
+    "class_value": "20&21&22&23&24",
+    "filterdata": {},
+
+    "cat_mode": "1",
+    "cat_arr_rule": ".module-items&&.module-item",
+   
+    "SHeaders": "User-Agent$PC_UA",
+    "search_url": "http://www.blssv.com/index.php/ajax/suggest?mid=1&wd={wd}&limit=500",
+    "search_mode": "0",
+    "sea_arr_rule": "list",
+    "sea_is_jsoup": "1",
+    "sea_pic": "pic",
+    "sea_title": "name",
+    "sea_url": "id",
+    "search_prefix": "http://www.blssv.com/index.php/vod/detail/id/",
+    "search_suffix": ".html",
+
+    "proj_is_jsoup": "1",
+    "proj_actor": ".video-info&&.video-info-items,1&&Text!主演：",
+    "proj_plot": ".video-info&&.video-info-items,-1&&Text!剧情：",
+
+    "tab_arr_rule": ".module-tab-items&&.module-tab-item",
+    "tab_title": "Text",
+
+    "list_arr_rule": "body&&.sort-item",
+    "epi_arr_rule": "a",
+    "epi_is_jsoup": "1",
+    "epi_title": "a&&Text!最新",
+    "epi_url": "a&&href",
+    "epi_reverse": "0",
+    "epiurl_prefix": "http://www.blssv.com",
+    "epiurl_suffix": "",
+    "Anal_MacPlayer": "0",
+    "ManualSniffer": "1",
+    "VideoFormat": ".m3u8",
+    "VideoFilter": ".html#=http#=https#51.la#url="
+}
