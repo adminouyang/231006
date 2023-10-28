@@ -8,7 +8,18 @@
       "api": "./lib/drpy2.min.js",
       "ext": "./lib/drpy.js"
     },
-	    {
+    {
+            "key": "drpy_js_直播大全",
+            "name": "电视 | 直播大全[js]",
+            "type": 3,
+            "api": "./lib/live2cms.js",
+            "style": {
+                "type": "oval"
+            },
+            "changeable": 0,
+            "ext": "./电视直播/live2mv_data.json"
+    },	  
+    {
       "key": "drpy_js_360影视",
       "name": "官源 | 360[js]",
       "type": 3,
