@@ -1,5 +1,7 @@
 //https://gitee.com/reap_chen_hao_admin/tvbox-for-personal-use/raw/master/xb.json
 //https://gitee.com/yobnn/tvbox/raw/master/tvbox/ysc.json
+//https://codeberg.org/ouyang/TVBox-line/raw/branch/main/tvbox/电视直播/测试频道.m3u
+//https://weixine.net/tv/ysclive.txt
 //以下全部出自网络和大佬资源，如有冒犯请联系删除。[所有内容仅供学习使用，请勿用于违法用途]
 {
 	"spider": "https://gitee.com/yobnn/tvbox/raw/master/tvbox/YSC.jar;md5;3f08f3d7e02cdf04894f1befeefd0d4b",
@@ -7,7 +9,7 @@
 	"lives": [{
 		    "name": "live",
 		    "type": 0,
-		    "url": "https://weixine.net/tv/ysclive.txt",
+		    "url": "https://codeberg.org/ouyang/TVBox-line/raw/branch/main/tvbox/电视直播/测试频道.m3u",
 		    "epg": "http://epg.112114.xyz/?ch={name}&date={date}",
                     "logo": "https://epg.112114.xyz/logo/{name}.png"
 	    }],
