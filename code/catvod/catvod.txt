@@ -1,6 +1,15 @@
 {
   "sites": [
-     {
+   {
+      "key": "豆豆",
+      "name": "🌕公众号【catvod】",
+      "type": 3,
+      "api": "csp_DouDou",
+      "searchable": 0,
+      "quickSearch": 0,
+      "filterable": 0
+    },
+    {
       "key": "YiSo",
       "name": "😹易搜┃搜索",
       "type": 3,
@@ -70,15 +79,7 @@
       "filterable": 0,
       "ext": "http://127.0.0.1:9978/file/tvfan/token.txt+4k|auto|fhd"
     },   
-   {
-      "key": "豆豆",
-      "name": "🌕公众号【catvod】",
-      "type": 3,
-      "api": "csp_DouDou",
-      "searchable": 0,
-      "quickSearch": 0,
-      "filterable": 0
-    },
+
     {
             "key": "开心自营",
             "name": "开心自营 ",
@@ -420,22 +421,10 @@
  "lives": [
         {
             "name": "电视直播",
-            "url": "./lives/组播电视.txt",
+            "url": "../lives/组播电视.txt",
             "type": 0,
             "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
             "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-            "group": "redirect",
-            "channels": [
-                {
-                    "name": "live",
-                    "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
-                    "urls": [
-                        "proxy://do=live&type=txt&ext=aHR0cHM6Ly94aGR3Yy50ay90dmxpdmUudHh0"
-                    ]
-                }
-            ]
         }
     ],
   "wallpaper": "https://img.n13.club/",
