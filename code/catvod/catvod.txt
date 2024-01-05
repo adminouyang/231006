@@ -224,7 +224,7 @@
     },
     {
       "key": "一起看 ",
-      "name": "🎉一起┃App",
+      "name": "🎉一起看┃App",
       "type": 3,
       "api": "csp_YQKan",
       "searchable": 1,
@@ -291,7 +291,7 @@
     },
     {
       "key": "Xinsj",
-      "name": "👓视觉┃直连",
+      "name": "👓新视觉┃直连",
       "type": 3,
       "api": "csp_Xinsj",
       "searchable": 1,
@@ -301,7 +301,7 @@
     },
     {
       "key": "Cokemv",
-      "name": "📕可乐┃直连",
+      "name": "📕Cokemv┃直连",
       "type": 3,
       "api": "csp_Cokemv",
       "searchable": 1,
@@ -360,7 +360,7 @@
       }
     },
     {
-      "name": "公众号",
+      "name": "77",
       "type": 1,
       "url": "https://api.tyun77.cn/api.php/provide/parseDicturl?url=",
       "ext": {
@@ -387,7 +387,7 @@
       }
     },
     {
-      "name": "免费分享",
+      "name": "xmflv",
       "type": 0,
       "url": "https://jx.xmflv.com/?url=",
       "ext": {
@@ -419,8 +419,8 @@
   ],
  "lives": [
         {
-            "name": "影视",
-            "url": "https://xhdwc.tk/tvlive.txt",
+            "name": "电视直播",
+            "url": "./lives/组播电视.txt",
             "type": 0,
             "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
             "logo": "https://epg.112114.xyz/logo/{name}.png"
