@@ -9,8 +9,8 @@
 {"name":"live","type":0,"url":"./tv/live.jpg","playerType":1,"ua": "okhttp/3.12.13","epg":"http://epg.112114.xyz/?ch={name}&date={date}","logo": "https://epg.112114.xyz/logo/{name}.png"},],
 "sites": [
 
-{"key":"豆瓣1","name":"❤更新:1/15❤  w.nxog.top","type":3,"api":"csp_Douban","searchable":0},
-{"key":"豆瓣2","name":"📢欧歌榜单荐片","type":3,"api":"csp_Douban","searchable":0},
+{"key":"豆瓣1","name":"❤更新:1/21❤  w.nxog.top","type":3,"api":"csp_Douban","searchable":0},
+{"key": "drpy_js_直播大全","name": "电视 | 直播大全[js]","type": 3,"api": "./lib/live2cms.js","style": {"type": "oval"},"changeable": 0,"ext": "./lib/live2mv_data.json"},
 
     
 {"key": "csp_KungFu404","name": "📚|阿里设置","type": 3,"api": "csp_KungFu404","searchable": 1,"filterable": 0,"changeable": 0,"jar": "./alibaba.jar"},
