@@ -453,20 +453,7 @@
       "ext": "./lib/alist.json"
     }
   ],	
-  "lives": [
-    {
-      "name": "范明",
-      "type": 0,
-      "url": "./ 电视直播/live.txt",
-      "epg": "http://epg.112114.xyz/?ch={name}&date={date}"	    
-    },
-    {
-            "name": "live",
-            "type": 0,
-            "url": "./ 电视直播/231008.txt",
-            "epg": "http://epg.112114.xyz/?ch={name}&date={date}"
-    }	  
-  ],
+"lives":[{"name":"直播","type":0,"epg":"http://epg.51zmt.top:8000/api/diyp/","url":"./电视直播/live.txt"}],
   "rules": [
     {
       "host": "www.djuu.com",
