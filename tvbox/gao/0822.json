@@ -1,7 +1,7 @@
 //引用高天流云，极简配置，OK大佬的jar.
 {
 "spider":"./jar/ok.png",
-"lives":[{"name":"live","type":0,"url":"https://mirror.ghproxy.com/raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt","playerType":1,"epg":"http://epg.112114.xyz/?ch={name}&date={date}","logo": "https://epg.112114.xyz/logo/{name}.png"}],
+"lives":[{"name":"live","type":0,"url":"./gao0822.txt","playerType":1,"epg":"http://epg.112114.xyz/?ch={name}&date={date}","logo": "https://epg.112114.xyz/logo/{name}.png"}],
 "sites":[
 {"key":"豆瓣","name":"豆瓣","type":3,"api":"csp_Douban","searchable":0,"changeable":1},
 {"key":"996影院","name":"996影院","type":3,"api":"csp_Cs1369","searchable":1,"changeable":1,"timeout":30},
