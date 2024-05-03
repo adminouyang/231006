@@ -1,34 +1,37 @@
-name: 更新组播源ip
+name: 组播ip采集
+
 on:
-   #push:
-   schedule:
-    - cron: '0 0 12 * * ?'
-   workflow_dispatch:
- 
+  schedule:
+    - cron: '35 */14 * * *'        #这里更改自动运行的时间，没这两行的话只能手动运行
+  workflow_dispatch:
+    分支:
+      - main
+      
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Delete workflow runs
-        uses: Mattraks/delete-workflow-runs@v2
-        with:
-          token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          retain_days: 2
-          keep_minimum_runs: 6 
+    
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install selenium requests futures eventlet
       - name: Install dependencies
         run: pip install opencv-python requests 
-      - name: Run IP更新
-        run: python ${{ github.workspace }}/udp_iptv2.0.py
+      - name: Install dependencies
+        run: pip install Beautifulsoup4 requests 
+      
+      - name: Run iptv
+        run: python ${{ github.workspace }}/udp_iptv2.0.py      #这里更改要运行的py
       - name: 提交更改
         run: |
-          git config --local user.email "mlyuanlang@126.com"
+          git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang"
           git add .
           git commit *.txt -m "Add generated file"
