@@ -26,3 +26,12 @@ jobs:
         run: pip install opencv-python requests 
       - name: Run IP更新
         run: python ${{ github.workspace }}/udp_iptv2.0.py
+      - name: 提交更改
+        run: |
+          git config --local user.email "mlyuanlang@126.com"
+          git config --local user.name "adminouyang"
+          git add .
+          git commit *.txt -m "Add generated file"
+          #git commit *.m3u -m "Add generated file"
+          #git pull --rebase
+          git push -f
