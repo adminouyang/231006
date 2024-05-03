@@ -66,6 +66,7 @@ for province_isp in provinces_isps:
                 # 去重得到唯一的URL列表
             result_urls = set(urls_all)
             print(f"{current_time} result_urls:{result_urls}")
+            #在rtp文件夹添加[省份-运营商.txt]组播文件，然后在下面同格式添加一个对应的任一组播ip
             #对应省份的组播地址:重庆联通cctv1：225.0.4.74:7980，重庆电信cctv1:235.254.199.51:7980，广东电信广东卫视239.77.1.19:5146
             pro_isp = province + isp
             urls_udp = "/udp/239.77.1.19:5146"
@@ -77,6 +78,8 @@ for province_isp in provinces_isps:
                 urls_udp = "/udp/225.0.4.74:7980"
             elif pro_isp == "四川电信":
                 urls_udp = "/udp/239.93.0.58:5140"
+            elif pro_isp == "安徽电信":
+                urls_udp = "/rtp/238.1.78.166:7200"                
             else:
                 org = ""
 
@@ -109,7 +112,7 @@ for province_isp in provinces_isps:
                 rtp_filename = f'rtp/{province}_{isp}.txt'
                 with open(rtp_filename, 'r', encoding='utf-8') as file:
                     data = file.read()
-                txt_filename = f'iptv_{province}{isp}.txt'
+                txt_filename = f'{province}{isp}.txt'
                 with open(txt_filename, 'w') as new_file:
                     for ip in valid_ips:
                         new_data = data.replace("rtp://", f"http://{ip}/udp/")
