@@ -2,7 +2,7 @@ name: 更新组播源ip
 on:
    #push:
    schedule:
-    - cron: '30 */12 * * *'
+    - cron: '0 0 12 * * ?'
    workflow_dispatch:
  
 jobs:
