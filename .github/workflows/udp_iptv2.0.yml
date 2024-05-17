@@ -5,8 +5,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: 231006
-         run:|
+      - name: clong repository
+         run: |
 	   git clong https://github.com/adminouyang/231006/blob/main/udp_iptv2.0.py
 	   cd 231006
       - name: install udp_iptv2.0.py
