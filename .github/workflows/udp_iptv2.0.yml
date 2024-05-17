@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: repository
+      - name: 231006
          run:|
 	   git clong https://github.com/adminouyang/231006
 	   cd 231006
