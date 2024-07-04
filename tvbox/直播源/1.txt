@@ -1,1 +1,34 @@
-2323
+{
+    "wallpaper": "https://picsum.photos/1280/720/?blur=2",
+    "spider": "./jar/XYQ.jar",
+    "lives": [
+        {
+          "name": "Yoursmile7",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/IPTV.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "JUNDIE",
+          "type":"0",
+          "pass": true,
+          "url":"http://home.jundie.top:81/ray/tvlive.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "fanmingming",
+          "type":"0",
+          "pass": true,
+          "url": "https://fanmingming.com/txt?url=https://live.fanmingming.com/tv/m3u/ipv6.m3u",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "初秋语",
+          "type":"0",
+          "pass": true,
+          "url":"https://mirror.ghproxy.com/raw.githubusercontent.com/gaotianliuyun/gao/master/list.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        }
+    ],
