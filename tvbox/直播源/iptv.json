@@ -3,13 +3,6 @@
     "spider": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
         {
-          "name": "全国酒店源",
-          "type":"0",
-          "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/jiudian/全国.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
           "name": "好趣网抓取",
           "type":"0",
           "pass": true,
@@ -42,6 +35,13 @@
           "type":"0",
           "pass": true,
           "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/yuanzl77/IPTV/main/live.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "全国酒店源",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/jiudian/全国.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         }
