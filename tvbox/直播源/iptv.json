@@ -59,10 +59,17 @@
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
-          "name": "全国酒店源",
+          "name": "Fairy8o源",
           "type":"0",
           "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/jiudian/全国.txt",
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Fairy8o/IPTV/main/PDX-V4.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "Fairy8o源",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Fairy8o/IPTV/main/PDX-V4.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         }
