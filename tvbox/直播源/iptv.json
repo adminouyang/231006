@@ -86,6 +86,13 @@
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Fairy8o/IPTV/main/PDX-V4.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "全球直播源",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/iptv-js/iptv-js.github.io/main/txt/ew_all.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
         }
     ],
   "sites": [
