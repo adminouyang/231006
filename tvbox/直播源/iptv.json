@@ -24,14 +24,21 @@
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
-          "name": "frxz751113光迅源",
+          "name": "xxoo-txt源",
           "type":"0",
           "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/光迅源.txt",
+          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/xxoo-qx/IPTV/main/IPTV.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
-          "name": "frxz751113河南电信源",
+          "name": "xxoo-m3u源",
+          "type":"0",
+          "pass": true,
+          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/xxoo-qx/IPTV/main/IPTV.m3u",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "frxz751113河南组播源",
           "type":"0",
           "pass": true,
           "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/河南电信.txt",
@@ -63,6 +70,13 @@
           "type":"0",
           "pass": true,
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/code/lives/tv1.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },{
+          "name": "fanmingming-m3u源",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/index.m3u",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
