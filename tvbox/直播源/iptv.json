@@ -3,47 +3,19 @@
     "spider": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
         {
-          "name": "frxz751113网络搜集",
+          "name": "ipv6专享",
           "type":"0",
           "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/网络收集.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
-          "name": "frxz751113综合源",
-          "type":"0",
-          "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/综合源.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
-          "name": "frxz751113酒店优选源",
-          "type":"0",
-          "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/酒店优选.txt",
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/live.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
-        {
-          "name": "frxz751113组播优选源",
-          "type":"0",
-          "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/组播优选.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
+
         {
           "name": "frxz751113歌曲MV源",
           "type":"0",
           "pass": true,
           "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/歌曲MV.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
-          "name": "xxoo-m3u源",
-          "type":"0",
-          "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/xxoo-qx/IPTV/main/IPTV.m3u",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
@@ -65,20 +37,6 @@
           "type":"0",
           "pass": true,
           "url": "./live.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
-          "name": "fanmingming-m3u源",
-          "type":"0",
-          "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/index.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },{
-          "name": "Fairy8o源",
-          "type":"0",
-          "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Fairy8o/IPTV/main/PDX-V4.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },{
