@@ -272,12 +272,12 @@ results.sort(key=lambda x: (x[0], -float(x[2].split()[0])))
 results.sort(key=lambda x: channel_key(x[0]))
 
 # 将结果写入文件
-with open("iptv_results.txt", 'w', encoding='utf-8') as file:
+with open("./py/酒店源采集/iptv_results.txt", 'w', encoding='utf-8') as file:
     for result in results:
         channel_name, channel_url, speed = result
         file.write(f"{channel_name},{channel_url},{speed}\n")
 
-with open("iptv_speed.txt", 'w', encoding='utf-8') as file:
+with open("./py/酒店源采集/iptv_speed.txt", 'w', encoding='utf-8') as file:
     for result in results:
         channel_name, channel_url, speed = result
         file.write(f"{channel_name},{channel_url}\n")
@@ -285,7 +285,7 @@ with open("iptv_speed.txt", 'w', encoding='utf-8') as file:
 
 result_counter = 3  # 每个频道需要的个数
 
-with open("iptv.txt", 'w', encoding='utf-8') as file:
+with open("./py/酒店源采集/iptv.txt", 'w', encoding='utf-8') as file:
     channel_counters = {}
     file.write('央视频道,#genre#\n')
     for result in results:
@@ -329,7 +329,7 @@ with open("iptv.txt", 'w', encoding='utf-8') as file:
                 file.write(f"{channel_name},{channel_url}\n")
                 channel_counters[channel_name] = 1
 
-with open("iptv.m3u", 'w', encoding='utf-8') as file:
+with open("./py/酒店源采集/iptv.m3u", 'w', encoding='utf-8') as file:
     channel_counters = {}
     file.write('#EXTM3U\n')
     for result in results:
