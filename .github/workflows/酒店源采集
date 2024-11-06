@@ -1,0 +1,37 @@
+name: 酒店源采集
+
+on:
+  schedule:
+    - cron: '0 2,6,10,14,18,22 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install selenium requests futures eventlet
+
+      - name: Run itv
+        run: python ${{ github.workspace }}/py/酒店源采集/iptv.py
+     
+      - name: Run qita
+        run: python ${{ github.workspace }}/py/酒店源采集qita.py
+          
+      - name: 提交更改
+        run: |
+          git config --local user.email "2856364053@qq.com"
+          git config --local user.name "adminouyang"
+          git add .
+          git commit *.txt -m "Add generated file"
+          git commit *.m3u -m "Add generated file"
+          #git pull --rebase
+          git push -f
