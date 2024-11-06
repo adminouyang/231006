@@ -28,11 +28,13 @@ jobs:
         run: python ${{ github.workspace }}/py/酒店源采集/qita.py
           
       - name: 提交更改
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang"
           git add .
-          git commit *.txt -m "Add generated file"
-          git commit *.m3u -m "Add generated file"
-          #git pull --rebase
-          git push -f
+          git commit *.txt -m "Update files from GitHub Actions"
+          git commit *.m3u -m "Update files from GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git push origin HEAD:$(git branch --show-current)
