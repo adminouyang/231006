@@ -29,12 +29,22 @@ jobs:
     - name: Install dependencies
       run: |
         pip install selenium requests futures eventlet
+    - name: Run itv.py
+      run: |
+        python ./py/酒店源采集/itv.py 
+    - name: Run cctv.py
+      run: |
+        python ./py/酒店源采集/cctv.py 
+    - name: Run weishi.py
+      run: |
+        python ./py/酒店源采集/weishi.py  
+    - name: Run qita
+      run: |
+        python ./py/酒店源采集/qita.py        
     - name: Run iptv
       run: |
         python ./py/酒店源采集/iptv.py
-    - name: Run qita
-      run: |
-        python ./py/酒店源采集/qita.py
+
     - name: Commit and push changes
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
