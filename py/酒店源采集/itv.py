@@ -214,7 +214,7 @@ for url in urls:
 
 results = set(results)  # 去重得到唯一的URL列表
 results = sorted(results)
-with open("itv.txt", 'w', encoding='utf-8') as file:
+with open("./py/酒店源采集/itv.txt", 'w', encoding='utf-8') as file:
     for result in results:
         file.write(result + "\n")
         print(result)
