@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: '0 */72 * * *'  # 每72小时触发一次
   workflow_dispatch:
-
+  push:
+    branches:
+      - main
 permissions:
   contents: write  # 需要写权限才能推送更改
 
