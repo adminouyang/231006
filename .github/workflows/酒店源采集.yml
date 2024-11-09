@@ -54,5 +54,5 @@ jobs:
         git add .
         git commit -m "Update files from GitHub Actions"
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        #git pull --rebase origin main
-        git push --rebase origin HEAD:$(git branch --show-current)
+        git pull --rebase origin main
+        #git push --rebase origin HEAD:$(git branch --show-current)
