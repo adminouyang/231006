@@ -44,4 +44,4 @@ jobs:
           git commit *.txt -m "action: `date`"
           git commit *.m3u -m "action: `date`"
           #git pull --rebase
-          git push -f
+          git push origin main
