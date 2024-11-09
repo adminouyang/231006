@@ -4,9 +4,7 @@ on:
   schedule:
     - cron: '0 */72 * * *'  # 每72小时触发一次
   workflow_dispatch:
-  push:
-    branches:
-      - main
+
 permissions:
   contents: write  # 需要写权限才能推送更改
 
@@ -56,5 +54,5 @@ jobs:
         git add .
         git commit -m "Update files from GitHub Actions"
         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        git pull --rebase origin main
-        git push origin HEAD:$(git branch --show-current)
+        #git pull --rebase origin main
+        git push --rebase origin HEAD:$(git branch --show-current)
