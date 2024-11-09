@@ -24,17 +24,17 @@ jobs:
       - name: Run itv.py
         run: python ${{ github.workspace }}/py/酒店源采集/itv.py
      
-      - name: Run cctv.py
-        run: python ${{ github.workspace }}/py/酒店源采集/cctv.py
+      # - name: Run cctv.py
+      #   run: python ${{ github.workspace }}/py/酒店源采集/cctv.py
 
-      - name: Run weishi.py
-        run: python ${{ github.workspace }}/py/酒店源采集/weishi.py 
+      # - name: Run weishi.py
+      #   run: python ${{ github.workspace }}/py/酒店源采集/weishi.py 
 
-      - name: Run qita.py
-        run: python ${{ github.workspace }}/py/酒店源采集/qita.py    
+      # - name: Run qita.py
+      #   run: python ${{ github.workspace }}/py/酒店源采集/qita.py    
         
-      - name: Run iptv.py
-        run: python ${{ github.workspace }}/py/酒店源采集/iptv.py
+      # - name: Run iptv.py
+      #   run: python ${{ github.workspace }}/py/酒店源采集/iptv.py
         
       - name: 提交更改
         run: |
