@@ -2,57 +2,45 @@ name: 酒店源采集
 
 on:
   schedule:
-    - cron: '0 */72 * * *'  # 每72小时触发一次
-  workflow_dispatch:
-
-permissions:
-  contents: write  # 需要写权限才能推送更改
+    - cron: '0 2,6,10,14,18,22 * * *'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    env:
-      TZ: Asia/Shanghai
 
     steps:
-    - uses: actions/checkout@v3
-      with:
-        persist-credentials: false  # 使用GITHUB_TOKEN替代默认凭据
-        fetch-depth: 0  # 完整克隆历史
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.8"
+      - name: Install dependencies
+        run: pip install selenium requests futures eventlet
 
-    - name: Install dependencies
-      run: |
-        pip install selenium requests futures eventlet
-    - name: Run itv.py
-      run: |
-        python ./py/酒店源采集/itv.py 
-    - name: Run cctv.py
-      run: |
-        python ./py/酒店源采集/cctv.py 
-    - name: Run weishi.py
-      run: |
-        python ./py/酒店源采集/weishi.py  
-    - name: Run qita
-      run: |
-        python ./py/酒店源采集/qita.py        
-    - name: Run iptv
-      run: |
-        python ./py/酒店源采集/iptv.py
+      - name: Run itv.py
+        run: python ${{ github.workspace }}./py/酒店源采集/itv.py
+     
+      - name: Run cctv.py
+        run: python ${{ github.workspace }}./py/酒店源采集/cctv.py
 
-    - name: Commit and push changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git config --global user.name "adminouyang"
-        git config --global user.email "2856364053@qq.com"
-        git add .
-        git commit -m "Update files from GitHub Actions"
-        git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-        git pull --rebase origin main
-        #git push --rebase origin HEAD:$(git branch --show-current)
+      - name: Run weishi.py
+        run: python ${{ github.workspace }}./py/酒店源采集/weishi.py 
+
+      - name: Run qita.py
+        run: python ${{ github.workspace }}./py/酒店源采集/qita.py    
+        
+      - name: Run iptv.py
+        run: python ${{ github.workspace }}./py/酒店源采集/iptv.py
+        
+      - name: 提交更改
+        run: |
+          git config --local user.email "2856364053@qq.com"
+          git config --local user.name "adminouyang"
+          git add .
+          git commit *.txt -m "action: `date`"
+          git commit *.m3u -m "action: `date`"
+          git pull --rebase
+          git push -f
