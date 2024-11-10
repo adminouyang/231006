@@ -3,7 +3,7 @@
     "spider": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
         {
-          "name": "自用酒店源",
+          "name": "dszb酒店源",
           "type":"0",
           "pass": true,
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/TV/refs/heads/master/output/user_result.txt",
@@ -27,7 +27,7 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "自用影视源",
+          "name": "231006影视源",
           "type":"0",
           "pass": true,
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/%E7%9B%B4%E6%92%AD%E6%BA%90/%E5%BD%B1%E8%A7%86%E9%A2%91%E9%81%93",
@@ -43,7 +43,7 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "自用源",
+          "name": "231006自用源",
           "type":"0",
           "pass": true,
           "url": "./live.txt",
@@ -51,7 +51,7 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "全国组播源",
+          "name": "lalifeier全国组播源",
           "type":"0",
           "pass": true,
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/udpxy/全国.txt",
@@ -59,7 +59,7 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "全国酒店源",
+          "name": "lalifeier全国酒店源",
           "type":"0",
           "pass": true,
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/lalifeier/IPTV/main/txt/jiudian/全国.txt",
@@ -75,10 +75,10 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "自用网络收集",
+          "name": "dszb网络收集",
           "type":"0",
           "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/网络收集/live.m3u",
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/网络收集/live.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },            
