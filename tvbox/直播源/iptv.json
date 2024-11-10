@@ -10,7 +10,14 @@
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
-
+        {
+          "name": "py酒店源",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/酒店源/itvlist.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
         {
           "name": "frxz751113歌曲MV源",
           "type":"0",
