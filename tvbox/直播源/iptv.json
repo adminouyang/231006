@@ -11,10 +11,10 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "py酒店源",
+          "name": "py网络收集",
           "type":"0",
           "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/酒店源/itvlist.txt",
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/网络收集/live.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
@@ -38,7 +38,7 @@
           "name": "kimwang1978源",
           "type":"0",
           "pass": true,
-          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
+          "url":"https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
@@ -75,10 +75,10 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "dszb网络收集",
+          "name": "dszb_ipv4",
           "type":"0",
           "pass": true,
-          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/网络收集/live.txt",
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/live_ipv4.txtt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },            
