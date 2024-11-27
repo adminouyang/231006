@@ -73,7 +73,7 @@ def replace_ip_in_channels(ip, channels):
 unique_ip_ports = set()
 
 # 读取配置文件
-config_path = 'config.txt'
+config_path = './py/安徽组播/config.txt'
 configs = read_config(config_path)
 
 # 使用集合去除配置文件内重复的 IP 地址及端口
@@ -126,11 +126,11 @@ for ip in all_valid_ips:
 
 # 替换组播ID并写入文件
 # 读取湖南_电信.txt文件中的频道列表
-with open('安徽_电信.txt', 'r', encoding='utf-8') as f:
+with open('./py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
 # 将所有替换后的频道列表写入湖南_组播.txt文件中
-with open('安徽_组播.txt', 'w', encoding='utf-8') as f:
+with open('./py/安徽组播/安徽_组播.txt', 'w', encoding='utf-8') as f:
     for ip in all_valid_ips:
         replaced_channels = replace_ip_in_channels(ip, channels)
         for channel in replaced_channels:
@@ -149,7 +149,7 @@ speed_results = []
 
 # 读取iptv_list.txt文件中的所有频道，并将它们添加到队列中
 def load_channels_to_speed_test():
-    with open('安徽_组播.txt', 'r', encoding='utf-8') as file:
+    with open('./py/安徽组播/安徽_组播.txt', 'r', encoding='utf-8') as file:
         for line in file:
             channel_info = line.strip().split(',')
             if len(channel_info) >= 2:  # 假设至少有名称和URL
@@ -284,7 +284,7 @@ def group_and_sort_channels(channels):
     #  获取当前时间
     now = datetime.now()
     update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d %H:%M:%S')},url\n"
-    with open('iptv_list.txt', 'w', encoding='utf-8') as file:
+    with open('./py/安徽组播/iptv_list.txt', 'w', encoding='utf-8') as file:
         file.write(update_time_line)
         total_channels = 0  # 用于统计频道总数
         for group_name, channel_list in filtered_groups.items():
@@ -320,11 +320,11 @@ os.remove("speed.txt")
 #  获取远程直播源文件
 url = "http://aktv.top/live.txt"
 r = requests.get(url)
-open('AKTV.txt', 'wb').write(r.content)
+open('./py/安徽组播/AKTV.txt', 'wb').write(r.content)
 
 # 合并所有的txt文件
 file_contents = []
-file_paths = ["iptv_list.txt", "AKTV.txt"]  # 替换为实际的文件路径列表
+file_paths = ["./py/安徽组播/iptv_list.txt", "./py/安徽组播/AKTV.txt"]  # 替换为实际的文件路径列表
 for file_path in file_paths:
     with open(file_path, 'r', encoding="utf-8") as file:
         content = file.read()
