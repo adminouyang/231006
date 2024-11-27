@@ -25,19 +25,18 @@ jobs:
         run: |
           python -m pip install --upgrade pip
       - name: Install bs4
-        run: pip3 install bs4
+        run: pip install bs4
       - name: Install playwright
-        run: pip3 install playwright
+        run: pip install playwright
       - name: Install requests
-        run: pip3 install requests     
+        run: pip install requests     
       - name: Install playwright install
         run: playwright install
       - name: Install datetime
         run: pip install datetime
 
       - name: Run 安徽组播
-        run: |
-          python py/安徽组播/anhui_zubo.py
+        run: python ${{ github.workspace }}/py/安徽组播/anhui_zubo.py
 
       - name: 提交更改
         run: |
