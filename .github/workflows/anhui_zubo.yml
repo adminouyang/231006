@@ -1,0 +1,51 @@
+name: 安徽组播
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+      - name: Install bs4
+        run: pip3 install bs4
+      - name: Install playwright
+        run: pip3 install playwright
+      - name: Install requests
+        run: pip3 install requests     
+      - name: Install playwright install
+        run: playwright install
+      - name: Install datetime
+        run: pip install datetime
+
+      - name: Run ZB1
+        run: python ${{ github.workspace }}/anhui_zubo.py
+        
+      # - name: Run zb2
+      #   run: python ${{ github.workspace }}/zb2.py
+
+      - name: 提交更改
+        run: |
+          git config --local user.email "2856364053@qq.com"
+          git config --local user.name "adminouyang"
+          git add .
+          git commit *.txt -m "Add generated file"
+          # git commit *.m3u -m "Add generated file"
+          #git pull --rebase
+          git push -f
