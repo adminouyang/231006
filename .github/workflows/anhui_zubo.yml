@@ -25,11 +25,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
       - name: Install bs4
-        run: pip install bs4
+        run: pip3 install bs4
       - name: Install playwright
-        run: pip install playwright
+        run: pip3 install playwright
       - name: Install requests
-        run: pip install requests     
+        run: pip3 install requests     
       - name: Install playwright install
         run: playwright install
       - name: Install datetime
@@ -40,8 +40,8 @@ jobs:
 
       - name: 提交更改
         run: |
-          git config --local user.email "2856364053@qq.com"
-          git config --local user.name "adminouyang"
+          git config --global user.email "2856364053@qq.com"
+          git config --global user.name "adminouyang"
           git add .
           git commit *.txt -m "Add generated file"
           # git commit *.m3u -m "Add generated file"
