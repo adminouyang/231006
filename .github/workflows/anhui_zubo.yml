@@ -3,6 +3,7 @@ name: 安徽组播
 on:
   schedule:
     - cron: '0 10 * * *'
+  workflow_dispatch:
   push:
     branches:
       - main
