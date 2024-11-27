@@ -119,7 +119,7 @@ for ip_part, port, option in unique_configs:
     status_thread.join()
     all_valid_ips.extend(valid_ips)
 
-save_to_file('ip.txt', all_valid_ips)
+save_to_file('./py/安徽组播/ip.txt', all_valid_ips)
 
 for ip in all_valid_ips:
     print(ip)
@@ -130,7 +130,7 @@ with open('./py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
 # 将所有替换后的频道列表写入湖南_组播.txt文件中
-with open('./py/安徽组播/安徽_组播.txt', 'w', encoding='utf-8') as f:
+with open('安徽_组播.txt', 'w', encoding='utf-8') as f:
     for ip in all_valid_ips:
         replaced_channels = replace_ip_in_channels(ip, channels)
         for channel in replaced_channels:
@@ -149,7 +149,7 @@ speed_results = []
 
 # 读取iptv_list.txt文件中的所有频道，并将它们添加到队列中
 def load_channels_to_speed_test():
-    with open('./py/安徽组播/安徽_组播.txt', 'r', encoding='utf-8') as file:
+    with open('安徽_组播.txt', 'r', encoding='utf-8') as file:
         for line in file:
             channel_info = line.strip().split(',')
             if len(channel_info) >= 2:  # 假设至少有名称和URL
@@ -284,7 +284,7 @@ def group_and_sort_channels(channels):
     #  获取当前时间
     now = datetime.now()
     update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d %H:%M:%S')},url\n"
-    with open('./py/安徽组播/iptv_list.txt', 'w', encoding='utf-8') as file:
+    with open('iptv_list.txt', 'w', encoding='utf-8') as file:
         file.write(update_time_line)
         total_channels = 0  # 用于统计频道总数
         for group_name, channel_list in filtered_groups.items():
@@ -320,7 +320,7 @@ os.remove("speed.txt")
 #  获取远程直播源文件
 url = "http://aktv.top/live.txt"
 r = requests.get(url)
-open('./py/安徽组播/AKTV.txt', 'wb').write(r.content)
+open('AKTV.txt', 'wb').write(r.content)
 
 # 合并所有的txt文件
 file_contents = []
