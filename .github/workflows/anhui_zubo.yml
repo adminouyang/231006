@@ -36,7 +36,7 @@ jobs:
         run: pip install datetime
 
       - name: Run 安徽组播
-        run: python ${{ github.workspace }}/py/安徽组播/anhui_zubo.py
+        run: python ${{ github.workspace }}py/安徽组播/anhui_zubo.py
 
       - name: 提交更改
         run: |
