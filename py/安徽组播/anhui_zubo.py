@@ -137,7 +137,7 @@ with open('安徽_组播.txt', 'w', encoding='utf-8') as f:
             f.write(f"{channel}")
         f.write("\n")
 
-print(f"共扫描获取到有效IP {len(all_valid_ips)} 个，已全部匹配到湖南_组播.txt文件中。\n")
+print(f"共扫描获取到有效IP {len(all_valid_ips)} 个，已全部匹配到安徽_组播.txt文件中。\n")
 
 # 开始对组播源频道列表进行下载速度检测
 # 定义一个全局队列，用于存储需要测速的频道信息
