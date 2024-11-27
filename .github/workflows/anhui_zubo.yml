@@ -34,8 +34,8 @@ jobs:
       - name: Install datetime
         run: pip install datetime
 
-      - name: Run ZB1
-        run: python ${{ github.workspace }}/anhui_zubo.py
+      - name: Run 安徽组播
+        run: python ${{ github.workspace }}py/安徽组播/anhui_zubo.py
         
       # - name: Run zb2
       #   run: python ${{ github.workspace }}/zb2.py
