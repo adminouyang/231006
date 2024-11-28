@@ -119,17 +119,17 @@ for ip_part, port, option in unique_configs:
     status_thread.join()
     all_valid_ips.extend(valid_ips)
 
-save_to_file('./py/安徽组播/ip.txt', all_valid_ips)
+save_to_file('./py/安徽组播/ip.txt', all_valid_ips)   #save:节约保存
 
 for ip in all_valid_ips:
     print(ip)
 
 # 替换组播ID并写入文件
-# 读取湖南_电信.txt文件中的频道列表
+# 读取安徽_电信.txt文件中的频道列表
 with open('./py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
-# 将所有替换后的频道列表写入湖南_组播.txt文件中
+# 将所有替换后的频道列表写入安徽_组播.txt文件中
 with open('安徽_组播.txt', 'w', encoding='utf-8') as f:
     for ip in all_valid_ips:
         replaced_channels = replace_ip_in_channels(ip, channels)
@@ -204,8 +204,8 @@ speed_results.sort(reverse=True)
 with open("speed.txt", 'w', encoding='utf-8') as file:
     for result in speed_results:
         download_rate, channel_name, channel_url = result
-        if download_rate >= 0.3:  # 只写入下载速度大于或等于 0.01 MB/s 的频道
-         file.write(f"{channel_name},{channel_url},{download_rate}\n")
+        #if download_rate >= 0.3:  # 只写入下载速度大于或等于 0.01 MB/s 的频道
+        file.write(f"{channel_name},{channel_url},{download_rate}\n")
 
 # 对经过下载速度检测后的所有组播频道列表进行分组排序
 # 从测速后的文件中读取频道列表
