@@ -119,14 +119,14 @@ for ip_part, port, option in unique_configs:
     status_thread.join()
     all_valid_ips.extend(valid_ips)
 
-save_to_file('./py/安徽组播/ip.txt', all_valid_ips)   #save:节约保存
+save_to_file('ip.txt', all_valid_ips)   #save:节约保存
 
 for ip in all_valid_ips:
     print(ip)
 
 # 替换组播ID并写入文件
 # 读取安徽_电信.txt文件中的频道列表
-with open('./py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
+with open('安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
 # 将所有替换后的频道列表写入安徽_组播.txt文件中
