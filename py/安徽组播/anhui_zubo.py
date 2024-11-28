@@ -320,7 +320,7 @@ os.remove("speed.txt")
 #  获取远程直播源文件
 url = "http://aktv.top/live.txt"
 r = requests.get(url)
-open('AKTV.txt', 'wb').write(r.content)
+open('./py/安徽组播/AKTV.txt', 'wb').write(r.content)
 
 # 合并所有的txt文件
 file_contents = []
@@ -331,5 +331,5 @@ for file_path in file_paths:
         file_contents.append(content)
 
 # 写入合并后的txt文件
-with open("iptv_list.txt", "w", encoding="utf-8") as output:
+with open("./py/安徽组播/iptv_list.txt", "w", encoding="utf-8") as output:
     output.write('\n'.join(file_contents))
