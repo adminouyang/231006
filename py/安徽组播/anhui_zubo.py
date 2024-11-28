@@ -73,7 +73,7 @@ def replace_ip_in_channels(ip, channels):
 unique_ip_ports = set()
 
 # 读取配置文件
-config_path = './py/安徽组播/config.txt'
+config_path = 'py/安徽组播/config.txt'
 configs = read_config(config_path)
 
 # 使用集合去除配置文件内重复的 IP 地址及端口
@@ -126,7 +126,7 @@ for ip in all_valid_ips:
 
 # 替换组播ID并写入文件
 # 读取安徽_电信.txt文件中的频道列表
-with open('安徽_电信.txt', 'r', encoding='utf-8') as f:
+with open('py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
 # 将所有替换后的频道列表写入安徽_组播.txt文件中
