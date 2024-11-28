@@ -119,7 +119,7 @@ for ip_part, port, option in unique_configs:
     status_thread.join()
     all_valid_ips.extend(valid_ips)
 
-save_to_file('ip.txt', all_valid_ips)   #save:节约保存
+save_to_file('py/安徽组播/ip.txt', all_valid_ips)   #save:节约保存
 
 for ip in all_valid_ips:
     print(ip)
@@ -130,7 +130,7 @@ with open('py/安徽组播/安徽_电信.txt', 'r', encoding='utf-8') as f:
     channels = f.readlines()
 
 # 将所有替换后的频道列表写入安徽_组播.txt文件中
-with open('安徽_组播.txt', 'w', encoding='utf-8') as f:
+with open('py/安徽组播/安徽_组播.txt', 'w', encoding='utf-8') as f:
     for ip in all_valid_ips:
         replaced_channels = replace_ip_in_channels(ip, channels)
         for channel in replaced_channels:
@@ -149,7 +149,7 @@ speed_results = []
 
 # 读取iptv_list.txt文件中的所有频道，并将它们添加到队列中
 def load_channels_to_speed_test():
-    with open('安徽_组播.txt', 'r', encoding='utf-8') as file:
+    with open('py/安徽组播/安徽_组播.txt', 'r', encoding='utf-8') as file:
         for line in file:
             channel_info = line.strip().split(',')
             if len(channel_info) >= 2:  # 假设至少有名称和URL
@@ -201,7 +201,7 @@ start_speed_test_threads(10)  # 测试下载速度线程数
 speed_results.sort(reverse=True)
 
 # 写入分类排序后的频道信息
-with open("speed.txt", 'w', encoding='utf-8') as file:
+with open("py/安徽组播/speed.txt", 'w', encoding='utf-8') as file:
     for result in speed_results:
         download_rate, channel_name, channel_url = result
         #if download_rate >= 0.3:  # 只写入下载速度大于或等于 0.01 MB/s 的频道
@@ -209,7 +209,7 @@ with open("speed.txt", 'w', encoding='utf-8') as file:
 
 # 对经过下载速度检测后的所有组播频道列表进行分组排序
 # 从测速后的文件中读取频道列表
-with open('speed.txt', 'r', encoding='utf-8') as file:
+with open('py/安徽组播/speed.txt', 'r', encoding='utf-8') as file:
     channels = []
     for line in file:
         line = line.strip()
@@ -284,7 +284,7 @@ def group_and_sort_channels(channels):
     #  获取当前时间
     now = datetime.now()
     update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d %H:%M:%S')},url\n"
-    with open('iptv_list.txt', 'w', encoding='utf-8') as file:
+    with open('py/安徽组播/iptv_list.txt', 'w', encoding='utf-8') as file:
         file.write(update_time_line)
         total_channels = 0  # 用于统计频道总数
         for group_name, channel_list in filtered_groups.items():
@@ -313,23 +313,23 @@ def group_and_sort_channels(channels):
 
 # 对频道列表进行分组和排序
 grouped_channels = group_and_sort_channels(channels)
-os.remove("安徽_组播.txt")
-os.remove("speed.txt")
+os.remove("py/安徽组播/安徽_组播.txt")
+os.remove("py/安徽组播/speed.txt")
 # os.remove("ip.txt")
 
 #  获取远程直播源文件
 url = "http://aktv.top/live.txt"
 r = requests.get(url)
-open('AKTV.txt', 'wb').write(r.content)
+open('py/安徽组播/AKTV.txt', 'wb').write(r.content)
 
 # 合并所有的txt文件
 file_contents = []
-file_paths = ["./py/安徽组播/iptv_list.txt", "./py/安徽组播/AKTV.txt"]  # 替换为实际的文件路径列表
+file_paths = ["py/安徽组播/iptv_list.txt", "py/安徽组播/AKTV.txt"]  # 替换为实际的文件路径列表
 for file_path in file_paths:
     with open(file_path, 'r', encoding="utf-8") as file:
         content = file.read()
         file_contents.append(content)
 
 # 写入合并后的txt文件
-with open("iptv_list.txt", "w", encoding="utf-8") as output:
+with open("py/安徽组播/iptv_list.txt", "w", encoding="utf-8") as output:
     output.write('\n'.join(file_contents))
