@@ -3,6 +3,14 @@
     "spider": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
         {
+          "name": "安徽组播",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/安徽组播/iptv_list.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
           "name": "dszb酒店源",
           "type":"0",
           "pass": true,
