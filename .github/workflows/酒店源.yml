@@ -2,7 +2,7 @@ name: 酒店源
 
 on:
   schedule:
-    #- cron: '0 18 * * *'
+    - cron: '0 18 * * *'
   workflow_dispatch:    
 
 jobs:
@@ -21,20 +21,20 @@ jobs:
       - name: Install dependencies
         run: pip install selenium requests futures eventlet
 
-      - name: Run itv.py
-        run: python ${{ github.workspace }}/py/酒店源/itv.py
+      # - name: Run itv.py
+      #   run: python ${{ github.workspace }}/py/酒店源/itv.py
      
-      - name: Run cctv.py
-        run: python ${{ github.workspace }}/py/酒店源/cctv.py
+      # - name: Run cctv.py
+      #   run: python ${{ github.workspace }}/py/酒店源/cctv.py
 
-      - name: Run weishi.py
-        run: python ${{ github.workspace }}/py/酒店源/weishi.py 
+      # - name: Run weishi.py
+      #   run: python ${{ github.workspace }}/py/酒店源/weishi.py 
 
       - name: Run qita.py
-        run: python ${{ github.workspace }}/py/酒店源/qita.py    
+        run: python ${{ github.workspace }}/py/酒店源/iptv.py    
         
       - name: Run iptv.py
-        run: python ${{ github.workspace }}/py/酒店源/iptv.py
+        run: python ${{ github.workspace }}/py/酒店源/qita.py
         
       - name: 提交更改
         run: |
@@ -45,4 +45,4 @@ jobs:
           git commit *.m3u -m "action: `date`"
           git push -f
           #git pull --rebase
-          #git push origin main
+
