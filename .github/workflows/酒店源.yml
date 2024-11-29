@@ -30,10 +30,10 @@ jobs:
       # - name: Run weishi.py
       #   run: python ${{ github.workspace }}/py/酒店源/weishi.py 
 
-      - name: Run qita.py
+      - name: Run iptv
         run: python ${{ github.workspace }}/py/酒店源/iptv.py    
         
-      - name: Run iptv.py
+      - name: Run qita
         run: python ${{ github.workspace }}/py/酒店源/qita.py
         
       - name: 提交更改
