@@ -21,8 +21,8 @@ jobs:
       - name: Install dependencies
         run: pip install selenium requests futures eventlet
 
-      # - name: Run itv.py
-      #   run: python ${{ github.workspace }}/py/酒店源/itv.py
+      - name: Run itv.py
+        run: python ${{ github.workspace }}/py/酒店源/itv.py
      
       # - name: Run cctv.py
       #   run: python ${{ github.workspace }}/py/酒店源/cctv.py
@@ -30,11 +30,11 @@ jobs:
       # - name: Run weishi.py
       #   run: python ${{ github.workspace }}/py/酒店源/weishi.py 
 
-      - name: Run iptv
-        run: python ${{ github.workspace }}/py/酒店源/iptv.py    
+      # - name: Run iptv
+      #   run: python ${{ github.workspace }}/py/酒店源/iptv.py    
         
-      - name: Run qita
-        run: python ${{ github.workspace }}/py/酒店源/qita.py
+      # - name: Run qita
+      #   run: python ${{ github.workspace }}/py/酒店源/qita.py
         
       - name: 提交更改
         run: |
