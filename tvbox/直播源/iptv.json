@@ -83,10 +83,10 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "dszb_ipv4",
+          "name": "dszb_测绘采集",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/live_ipv4.txt",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },            
