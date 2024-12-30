@@ -89,7 +89,15 @@
           "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },            
+        }, 
+        {
+          "name": "dszb瘦身版",
+          "type":"0",
+          "pass": true,
+          "url": "https://mirror.ghproxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
         {
           "name": "freetv",
           "type":"0",
