@@ -99,6 +99,14 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
+          "name": "tv_yjc",
+          "type":"0",
+          "pass": true,
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/my_tv/live.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        },
+        {
           "name": "freetv",
           "type":"0",
           "pass": true,
