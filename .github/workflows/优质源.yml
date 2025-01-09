@@ -41,9 +41,9 @@ jobs:
 
           git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang" 
-          git add live.txt,live.m3u
+          git add .
           git commit *.txt -m "action: `date`"
           git commit *.m3u -m "action: `date`"
           git push -f
-          #git pull --rebase
+          git pull --rebase
 
