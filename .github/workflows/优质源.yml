@@ -45,5 +45,5 @@ jobs:
           git commit *.txt -m "action: `date`"
           git commit *.m3u -m "action: `date`"
           git push -f
-          git pull --rebase
+          #git pull --rebase
 
