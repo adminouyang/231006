@@ -41,10 +41,7 @@ jobs:
 
           git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang" 
-          git add searchConfig-frontend/
-
-          git commit -m  searchConfig-frontend
-          git add .
+          git add live.txt,live.m3u
           git commit *.txt -m "action: `date`"
           git commit *.m3u -m "action: `date`"
           git push -f
