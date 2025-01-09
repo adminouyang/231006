@@ -6,7 +6,7 @@ from datetime import datetime
 import config
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s',
-                    handlers=[logging.FileHandler("py/优质源/function.log.txt", "w", encoding="utf-8"), logging.StreamHandler()])
+                    handlers=[logging.FileHandler("py/优质源/function_log.txt", "w", encoding="utf-8"), logging.StreamHandler()])
 
 
 def parse_template(template_file):
