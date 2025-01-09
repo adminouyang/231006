@@ -38,9 +38,10 @@ jobs:
         
       - name: 提交更改
         run: |
+          git init
           git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang" 
-          git clean -fd
+          
           git add .
           git commit *.txt -m "action: `date`"
           git commit *.m3u -m "action: `date`"
