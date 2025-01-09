@@ -1,4 +1,4 @@
-name: 酒店源
+name: 优质源
 
 on:
   schedule:
@@ -22,7 +22,7 @@ jobs:
         run: pip install selenium requests futures eventlet
 
       - name: Run itv.py
-        run: python ${{ github.workspace }}/py/酒店源/itv.py
+        run: python ${{ github.workspace }}/py/优质源/main.py
      
       # - name: Run cctv.py
       #   run: python ${{ github.workspace }}/py/酒店源/cctv.py
