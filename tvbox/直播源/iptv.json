@@ -113,7 +113,15 @@
           "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/iptv源收集检测/assets/freetv/freetv_output.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
-        } 
+        },
+        {
+          "name": "freetv",
+          "type":"0",
+          "pass": true,
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/%E4%BC%98%E8%B4%A8%E6%BA%90/live.txt",
+          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          "logo": "https://epg.112114.xyz/logo/{name}.png"
+        }
     ],#全球直播源https://gh-proxy.com/https://raw.githubusercontent.com/iptv-js/iptv-js.github.io/main/txt/ew_all.txt
   "sites": [
         {"key":"csp_LocalFile","name":"💻本地视频","type":3,"api":"csp_LocalFile","searchable":0,"quickSearch":0,"filterable":0,"type_flag":0},
