@@ -70,6 +70,12 @@ url_blacklist = [
     "59.49.41.41",
     "eastscreen.tv",
     "li0580.top:35455",
+    "106.53.99.30"，
+“hulun.top:35455”,
+“8.138.47.46:35455”,
+“a21709.tv.netsite.cc”,
+“bf11e1.tv.netsite.cc”,
+“wab201.win:35455”,
 "dd.ddzb.fun",
 "kxrj.site:64325",
 "tvbox.nat.netsite.cc:8043",
@@ -102,6 +108,7 @@ url_blacklist = [
 "tv.pull.hebtv.com",
 "223.109.210.41",
 "1.94.31.214",
+"php.jdshipin.com",
   
 ]
 url_whitelist = [
