@@ -16,7 +16,7 @@ source_urls = [
     "https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u",
     "http://home.jundie.top:81/Cat/tv/live.txt",
-   # "https://ghp.ci/https://raw.githubusercontent.com/vbskycn/iptv/master/tv/hd.txt",
+   "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
     "https://cdn.jsdelivr.net/gh/YueChan/live@main/IPTV.m3u",
     "https://fm1077.serv00.net/SmartTV.m3u",
     "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt"
