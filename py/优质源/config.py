@@ -13,8 +13,8 @@ source_urls = [
    "http://ww.weidonglong.com/dsj.txt",
     "http://xhztv.top/zbc.txt",
 
-    #"https://ghp.ci/https://raw.githubusercontent.com/qingwen07/awesome-iptv/main/tvbox_live_all.txt",
-    #"https://ghp.ci/https://raw.githubusercontent.com/Guovin/TV/gd/output/result.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u",
     "http://home.jundie.top:81/Cat/tv/live.txt",
    # "https://ghp.ci/https://raw.githubusercontent.com/vbskycn/iptv/master/tv/hd.txt",
     "https://cdn.jsdelivr.net/gh/YueChan/live@main/IPTV.m3u",
