@@ -17,8 +17,8 @@ source_urls = [
     "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u",
     "http://home.jundie.top:81/Cat/tv/live.txt",
    "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
-    "https://cdn.jsdelivr.net/gh/YueChan/live@main/IPTV.m3u",
-    "https://fm1077.serv00.net/SmartTV.m3u",
+    "",
+    "",
     "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt"
 ]
 
@@ -63,7 +63,7 @@ url_blacklist = [
     "120.76.248.139",
     "117.161.12.116",
     "60.255.240.247:8090",
-    "php.jdshipin.com:8880",
+    "php.jdshipin.com",
     "2001:250",
     "111.20.40.171",
     "111.20.40.170",
@@ -73,7 +73,10 @@ url_blacklist = [
     "106.53.99.30",
     "p26.php?id",
     "153.99.64.96",
-"",
+"cdn5.1678520.xyz:80",
+    "ali.hlspull.yximgs.com",
+    "38.64.72.148:80",
+    "livetv.skycf.eu.org",
 "47.238.77.20:35455",
 "szdjd.us.kg:35455",
 "hulun.top:35455",
