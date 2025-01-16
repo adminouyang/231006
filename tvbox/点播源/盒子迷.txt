@@ -1,5 +1,5 @@
 {
-  "spider": "https://ghproxy.cc/https://raw.githubusercontent.com/yujiapin/tvbox/main/jar/盒子迷.css",
+  "spider": "./jar/盒子迷.css",
   "wallpaper": "https://api.likepoems.com/img/bing",
   "sites": [
       {
@@ -886,14 +886,14 @@
     {
       "name": "直播",
       "type": 0,
-      "url": "https://tv.iill.top/m3u/Gather",
+      "url": "",
       "playerType": 2
     },
     {
       "name": "直播2",
       "ua": "",
       "type": 0,
-      "url": "https://tv.iill.top/m3u/Live"
+      "url": ""
     }
   ],
   "lives": [
@@ -901,7 +901,7 @@
       "name": "live",
       "type": 0,
       "playerType": 1,
-      "url": "http://盒子迷.top/ZB",
+      "url": "",
       "epg": "http://epg.112114.xyz/?ch={name}&date={date}",
       "logo": "https://epg.112114.xyz/logo/{name}.png"
     }
