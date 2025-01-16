@@ -1,5 +1,5 @@
 {
-  "spider": "https://ghproxy.cc/https://raw.githubusercontent.com/yujiapin/tvbox/main/jar/肥猫.css",
+  "spider": "./jar/肥猫.css",
   "wallpaper": "http://ceshi.xn--z7x900a.com/ppic/feimao.php",
   "logo": "http://ceshi.xn--z7x900a.com/panda/0262.png",
   "sites": [
@@ -527,13 +527,13 @@
     }
   ],
   "lives": [
-    {
-      "name": "live",
-      "type": 0,
-      "playerType": 1,
-      "url": "",
-      "epg": "http://epg.112114.xyz/?ch={name}&date={date}",
-      "logo": "https://epg.112114.xyz/logo/{name}.png"
-    }
+    #{
+      #"name": "live",
+      #"type": 0,
+      #"playerType": 1,
+      #"url": "",
+      #"epg": "http://epg.112114.xyz/?ch={name}&date={date}",
+      #"logo": "https://epg.112114.xyz/logo/{name}.png"
+    #}
   ]
 }
