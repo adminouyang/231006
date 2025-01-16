@@ -1,5 +1,5 @@
 {
-  "spider": "https://ghproxy.cc/https://raw.githubusercontent.com/yujiapin/tvbox/main/jar/摸鱼.css",
+  "spider": "./jar/摸鱼.css",
   "wallpaper": "http://我不是.摸鱼儿.com/wallpaper/moyu.php",
   "logo": "https://s1.imagehub.cc/images/2024/06/11/80538bfb3835ffebf7c5fd0716280801.jpeg",
   "warningText": "摸鱼儿：资源来自网络，无盈利纯技术分享！[所有内容仅供学习使用，请勿用于违法及商业用途，请勿付费购买]",
@@ -1635,7 +1635,7 @@
     {
       "name": "IPV6",
       "type": 0,
-      "url": "https://live.fanmingming.com/tv/m3u/ipv6.m3u",
+      "url": "",
       "playerType": 1,
       "ua": "okhttp/3.15",
       "epg": "http://epg.112114.xyz/?ch={name}&date={date}",
