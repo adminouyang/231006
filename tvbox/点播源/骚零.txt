@@ -1,21 +1,15 @@
 {
     "wallpaper": "https://www.100km.top/api/img.php",
     "spider": "./jar/骚零.css",
-    "lives": [
-        {
-            "name": "IPV4",
-            "type": 0,
-            "url": "",
-            "playerType": 1,
-            "logo": "https://live.fanmingming.com/tv/{name}.png"
-        },
-        {
-            "name": "IPV6",
-            "type": 0,
-            "url": "",
-            "playerType": 1
-        }
-    ],
+    #"lives": [
+        #{
+           # "name": "IPV4",
+            #"type": 0,
+            #"url": "",
+            #"playerType": 1,
+            #"logo": "https://live.fanmingming.com/tv/{name}.png"
+        #}
+    #],
     "sites": [
         {
             "key": "豆瓣",
