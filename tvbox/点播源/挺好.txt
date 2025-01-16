@@ -1,5 +1,5 @@
 {
-  "spider": "https://ghproxy.cc/https://raw.githubusercontent.com/yujiapin/tvbox/main/jar/挺好.css",
+  "spider": "./jar/挺好.css",
   "warningText": "【挺好分享】接口免费，每次打开记得长按主页刷新！",
   "logo": "http://ztha.top/picture/lmtu1.jpg",
   "sites": [
@@ -720,14 +720,14 @@
     {
       "name": "IPV4",
       "type": 0,
-      "url": "http://ztha.top/TVBox/lib/multicast.txt",
+      "url": "",
       "playerType": 1,
       "logo": "https://ghgo.xyz/raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/{name}.png"
     },
     {
       "name": "IPV6①",
       "type": 0,
-      "url": "http://ztha.top/TVBox/lib/Gather.m3u",
+      "url": "",
       "playerType": 1
     }
   ]
