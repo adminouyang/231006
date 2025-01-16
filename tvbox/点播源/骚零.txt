@@ -1,18 +1,18 @@
 {
     "wallpaper": "https://www.100km.top/api/img.php",
-    "spider": "https://ghproxy.cc/https://raw.githubusercontent.com/yujiapin/tvbox/main/jar/骚零.css",
+    "spider": "./jar/骚零.css",
     "lives": [
         {
             "name": "IPV4",
             "type": 0,
-            "url": "https://ghp.ci/raw.githubusercontent.com/MemoryCollection/IPTV/refs/heads/main/itvlist.txt",
+            "url": "",
             "playerType": 1,
             "logo": "https://live.fanmingming.com/tv/{name}.png"
         },
         {
             "name": "IPV6",
             "type": 0,
-            "url": "https://ghp.ci/raw.githubusercontent.com/fanmingming/live/refs/heads/main/tv/m3u/ipv6.m3u",
+            "url": "",
             "playerType": 1
         }
     ],
