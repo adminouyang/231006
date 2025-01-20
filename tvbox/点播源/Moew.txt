@@ -61,10 +61,10 @@
     {"name": "MeowTV1" ,"type": 0,"url": "https://bd.jx.cn/?url="},
     {"name": "MeowTV2" ,"type": 0,"url": "https://jx.m3u8.tv/jiexi/?url="},
     {"name": "MeowTV3" ,"type": 0,"url": "https://player.mrgaocloud.com/player/?url="}],
-
+#http://meowtv.top/zb
   "lives": [
-    {"name": "直播","type": 0,"playerType": 1,
-    "url": "http://meowtv.top/zb",
+    {"name": "优质源","type": 0,"playerType": 1,
+    "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/%E4%BC%98%E8%B4%A8%E6%BA%90/live.txt",
     "ua": "okhttp/3.15",
     "epg": "http://epg.112114.xyz/?ch={name}&date={date}",
     "logo": "https://epg.112114.xyz/logo/{name}.png"}],
