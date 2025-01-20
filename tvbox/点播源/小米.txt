@@ -393,34 +393,13 @@
 				}
 			}
 		}
-	],
+	],#https://livetv.wqwqwq.sbs/tv.m3u
 	"lives": [{
-			"name": "央卫",
+			"name": "dszb瘦身版",
 			"type": 0,
-			"url": "https://livetv.wqwqwq.sbs/tv.m3u",
+			"url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/live_lite.txt",
 			"playerType": 1,
 			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},
-		{
-			"name": "4GTV",
-			"type": 0,
-			"url": "https://tvv.wqwqwq.sbs/iptv.m3u",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},
-		{
-			"name": "IPV6",
-			"type": 0,
-			"url": "https://live.fanmingming.com/tv/m3u/ipv6.m3u",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},
-		{
-			"name": "平台直播",
-			"type": 0,
-			"url": "https://tv.iill.top/m3u/Live",
-			"ua": "okhttp/3.15",
-			"playerType": 2
 		}
 	],
 	"rules": [{
