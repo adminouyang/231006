@@ -4,7 +4,7 @@ source_urls = [
     "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/%E7%BB%BC%E5%90%88%E6%BA%90.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/dengmeiqing/IPTV1/refs/heads/main/live.txt",
-   "",
+   "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",
    "",
    "",
     "https://live.zhoujie218.top/tv/iptv4.txt",
