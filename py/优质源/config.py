@@ -15,10 +15,12 @@ source_urls = [
     "http://home.jundie.top:81/Cat/tv/live.txt",
    "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
-    "http://www.clmy.cc:35455/tv.m3u",
-    "http://wab201.win:35455/tv.m3u",
-    "http://146.235.213.45:35455/tv.m3u",
-    "",
+    "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
+    "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
+    "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
+    "http://43.248.128.135:35455/yylunbo.m3u",#yy轮播
+    "http://wab201.win:35455/yylunbo.m3u",#yy轮播
+    "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
 ]
 
 url_blacklist = [
