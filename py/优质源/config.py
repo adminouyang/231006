@@ -15,6 +15,8 @@ source_urls = [
     "http://home.jundie.top:81/Cat/tv/live.txt",
    "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/djhui/IPTV/refs/heads/main/IPTV.m3u",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt",
     "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
     "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
     "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
@@ -185,6 +187,14 @@ url_blacklist = [
 "tianhewan.top",
 "203.205.220.174:80",
 "cdn.132.us.kg",
+"cdn3.132.us.kg",
+"148.135.93.213:81",
+"218.202.220.2:5000",
+"cctvtxyh5c.liveplay.myqcloud.com",
+"tv.iill.top",
+"223.105.252.8",
+"146.235.213.45:35455",
+"tv.kmhlzxs.top:35455",
   
 ]
 url_whitelist = [
