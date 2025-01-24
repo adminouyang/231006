@@ -200,10 +200,11 @@ url_blacklist = [
 ]
 url_whitelist = [
     "ottrrs.hl.chinamobile.com",
-    "39.134",
-    "39.135",
+    "39.134.65",
+    "39.135.133",
+    "39.135.135",
     "php.666230.xyz",
-    "hms",
+    "",
     "",
 ]
 
