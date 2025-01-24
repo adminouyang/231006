@@ -32,6 +32,7 @@ url_blacklist = [
     "p2p",
     "P2p",
     "p3p",
+    "epg.pw",
     "tsfile",
     "hls",
     "dbiptv.sn.chinamobile.com",
@@ -189,6 +190,7 @@ url_blacklist = [
 "223.105.252.8",
 "146.235.213.45:35455",
 "tv.kmhlzxs.top:35455",
+"47.93.13.98:35455",
   
 ]
 url_whitelist = [
