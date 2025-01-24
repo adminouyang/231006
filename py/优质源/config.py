@@ -27,8 +27,6 @@ source_urls = [
 ]
 
 url_blacklist = [
-"",
-    "",
     "p2p",
     "P2p",
     "p3p",
@@ -145,21 +143,16 @@ url_blacklist = [
 "39.134.66.110",
 "0472.org",
 "lunbo.freetv.top",
-
 "live.mastvnet.com",
-"",
 "222.71.90.218",
 "39.134.67.108",
 "8.138.90.107",
-"",
 "ali.hlspull.yximgs.com",
 "httpdvb.slave.shuliyun.com",
 "cg12.hunancatv.cn",
 "tvpull.dxhmt.cn",
-"",
 "live.hndachao.cn",
 "livehls1.appcoo.com",
-"",
 "tv.pull.hebtv.com",
 "223.109.210.41",
 "1.94.31.214",
@@ -202,8 +195,7 @@ url_whitelist = [
     "39.135.133",
     "39.135.135",
     "php.666230.xyz",
-    "",
-    "",
+
 ]
 
 announcements = [
