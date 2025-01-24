@@ -27,6 +27,8 @@ source_urls = [
 ]
 
 url_blacklist = [
+    "udp",
+    "rtp",
     "p2p",
     "P2p",
     "p3p",
@@ -195,6 +197,8 @@ url_whitelist = [
     "39.135.133",
     "39.135.135",
     "php.666230.xyz",
+    "mt2018.iask.in:55555",
+    "majian.ixiaobai.net:5540",
 
 ]
 
