@@ -191,6 +191,12 @@ url_blacklist = [
 "146.235.213.45:35455",
 "tv.kmhlzxs.top:35455",
 "47.93.13.98:35455",
+"feiyang.ak47s.top:35455",
+"home.dzlove.top:35455",
+"tvbox6.icu",
+"110.42.45.89:35455",
+"gslbserv.itv.cmvideo.cn:80",
+"zteres.sn.chinamobile.com:6060",
   
 ]
 url_whitelist = [
@@ -201,17 +207,7 @@ url_whitelist = [
     "php.666230.xyz",
     "mt2018.iask.in:55555",
     "majian.ixiaobai.net:5540",
-    "otttv.bj.chinamobile.com",
-"tvpull.careryun.com",
-"hwrr.jx.chinamobile.com:8080",
-"dsm.huarunguoji.top:35455",
-"110.42.45.89:35455",
-"hotelplay.net",
-"www.170217.xyz:35455",
-"ott.eonn.cn:35455",
-"home.wwang.pw:35455",
-"dl.wifi942.com:66",
-"138.2.110.209:35455",
+
 
 ]
 
