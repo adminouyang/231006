@@ -201,6 +201,17 @@ url_whitelist = [
     "php.666230.xyz",
     "mt2018.iask.in:55555",
     "majian.ixiaobai.net:5540",
+    "otttv.bj.chinamobile.com",
+"tvpull.careryun.com",
+"hwrr.jx.chinamobile.com:8080",
+"dsm.huarunguoji.top:35455",
+"110.42.45.89:35455",
+"hotelplay.net",
+"www.170217.xyz:35455",
+"ott.eonn.cn:35455",
+"home.wwang.pw:35455",
+"dl.wifi942.com:66",
+"138.2.110.209:35455",
 
 ]
 
