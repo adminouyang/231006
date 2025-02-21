@@ -267,6 +267,7 @@ url_blacklist = [
 "dsk.cc",
 "live.sjsrm.com",
 "2d026c.tv.netsite.cc",
+"bladecld.us.kg:50001,
   
 ]
 url_whitelist = [
