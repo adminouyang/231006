@@ -21,7 +21,7 @@ source_urls = [
     "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
     "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
     "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
-    "http://43.248.128.135:35455/yylunbo.m3u",#yy轮播
+    "",#yy轮播
     "http://wab201.win:35455/yylunbo.m3u",#yy轮播
     "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
 ]
