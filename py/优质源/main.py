@@ -230,8 +230,8 @@ def updateChannelUrlsM3U(channels, template_channels):
     # 遍历每一行，如果是新的就加入unique_lines 
     for line in lines:
         if line not in seen_lines:
-        unique_lines.append(line)
-        seen_lines.add(line)
+          unique_lines.append(line)
+          seen_lines.add(line)
     # 将唯一的行写入新的文档 
     with open('py/优质源/live.txt', 'w', encoding="utf-8") as file:
         file.writelines(unique_lines)
