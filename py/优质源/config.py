@@ -1,29 +1,30 @@
 ip_version_priority = "ipv4"
 
 source_urls = [
-    "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/dengmeiqing/IPTV1/refs/heads/main/live.txt",
-   "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",
-   "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/直播源/手动收集.txt",
-    "https://live.zhoujie218.top/tv/iptv4.txt",
-   "https://tv.youdu.fan:666/live/",
-   "http://ww.weidonglong.com/dsj.txt",
-    "http://xhztv.top/zbc.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u",
-    "http://home.jundie.top:81/Cat/tv/live.txt",
-   "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/djhui/IPTV/refs/heads/main/IPTV.m3u",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt",
-    "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
-    "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
-    "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
-    "",#yy轮播
-    "http://wab201.win:35455/yylunbo.m3u",#yy轮播
-    "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
+    "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TvSources/iptv.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/dengmeiqing/IPTV1/refs/heads/main/live.txt",
+   # "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",
+   # "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/直播源/手动收集.txt",
+   #  "https://live.zhoujie218.top/tv/iptv4.txt",
+   # "https://tv.youdu.fan:666/live/",
+   # "http://ww.weidonglong.com/dsj.txt",
+   #  "http://xhztv.top/zbc.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u",
+   #  "http://home.jundie.top:81/Cat/tv/live.txt",
+   # "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/djhui/IPTV/refs/heads/main/IPTV.m3u",
+   #  "https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt",
+   #  "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
+   #  "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
+   #  "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
+   #  "",#yy轮播
+   #  "http://wab201.win:35455/yylunbo.m3u",#yy轮播
+   #  "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
 ]
 
 url_blacklist = [
