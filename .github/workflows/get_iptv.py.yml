@@ -1,4 +1,4 @@
-name: 更新直播源
+name: 检测去重
 
 on:
   schedule:
@@ -33,7 +33,8 @@ jobs:
 
     - name: Start update
       run: |
-        python ./py/TvSources/update.py
+        #python ./py/TvSources/update.py
+        python ./py/TvSources/get_iptv.py
 
     - name: Commit and push changes
       env:
