@@ -63,11 +63,11 @@ def fetch_channels(url):
         response.raise_for_status()
         response.encoding = 'utf-8'
         if response.status_code == 200:
-        lines = response.text.split("\n")
-        current_category = None
-        is_m3u = any("#EXTINF" in line for line in lines[:15])
-        source_type = "m3u" if is_m3u else "txt"
-        logging.info(f"url: {url} 获取成功，判断为{source_type}格式")
+          lines = response.text.split("\n")
+          current_category = None
+          is_m3u = any("#EXTINF" in line for line in lines[:15])
+          source_type = "m3u" if is_m3u else "txt"
+          logging.info(f"url: {url} 获取成功，判断为{source_type}格式")
 
         if is_m3u:
             for line in lines:
