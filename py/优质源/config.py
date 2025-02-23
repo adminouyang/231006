@@ -1,7 +1,7 @@
 ip_version_priority = "ipv4"
 
 source_urls = [
-    "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TvSources/iptv.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TvSources/iptv.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",
