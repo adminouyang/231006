@@ -268,7 +268,15 @@ url_blacklist = [
 "live.sjsrm.com",
 "2d026c.tv.netsite.cc",
 "bladecld.us.kg:50001",
-  
+"cdn5.163189.xyz",
+"205.185.120.154:50001",
+"iptv77.iptv66.eu.org:35455",
+"54.200.240.27:35455",
+"global.cgtn.cicc.media.caton.cloud",
+"61.160.112.102:35455/itv",
+"ygbh.live",
+"www.yangshipin.cn",
+"lu.wqwqwq.sbs",  
 ]
 url_whitelist = [
     "ottrrs.hl.chinamobile.com",
