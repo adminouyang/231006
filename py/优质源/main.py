@@ -59,9 +59,10 @@ def fetch_channels(url):
     channels = OrderedDict()
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=6)  # 增加超时处理
         response.raise_for_status()
         response.encoding = 'utf-8'
+        if response.status_code == 200:
         lines = response.text.split("\n")
         current_category = None
         is_m3u = any("#EXTINF" in line for line in lines[:15])
