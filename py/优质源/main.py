@@ -153,7 +153,7 @@ def updateChannelUrlsM3U(channels, template_channels):
             f"""#EXTM3U x-tvg-url={",".join(f'"{epg_url}"' for epg_url in config.epg_urls)}\n"""
         )
 
-        with open("py/优质源/live1.txt", "w", encoding="utf-8") as f_txt:
+        with open("py/优质源/live.txt", "w", encoding="utf-8") as f_txt:
             for group in config.announcements:
                 f_txt.write(f"{group['channel']},#genre#\n")
                 for announcement in group["entries"]:
@@ -223,7 +223,7 @@ def updateChannelUrlsM3U(channels, template_channels):
             
             
     # 打开文档并读取所有行 
-    with open('py/优质源/live1.txt', 'r', encoding="utf-8") as file:
+    with open('py/优质源/live.txt', 'r', encoding="utf-8") as file:
       lines = file.readlines()
     # 使用列表来存储唯一的行的顺序 
       unique_lines = [] 
@@ -234,9 +234,9 @@ def updateChannelUrlsM3U(channels, template_channels):
           unique_lines.append(line)
           seen_lines.add(line)
     # 将唯一的行写入新的文档 
-    with open('py/优质源/live.txt', 'w', encoding="utf-8") as file:
+    with open('py/优质源/live1.txt', 'w', encoding="utf-8") as file:
         file.writelines(unique_lines)
-    os.remove("py/优质源/live1.txt")
+    #os.remove("py/优质源/live1.txt")
 
 
 if __name__ == "__main__":
