@@ -318,13 +318,13 @@ os.remove("py/安徽组播/speed.txt")
 # os.remove("ip.txt")
 
 #  获取远程直播源文件
-url = "http://aktv.top/live.txt"
+url = "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/安徽组播/anhui_gudingyuan.txt"
 r = requests.get(url)
-open('py/安徽组播/AKTV.txt', 'wb').write(r.content)
+open('py/安徽组播/anhui_gudingyuan.txt', 'wb').write(r.content)
 
 # 合并所有的txt文件
 file_contents = []
-file_paths = ["py/安徽组播/iptv_list.txt", "py/安徽组播/AKTV.txt"]  # 替换为实际的文件路径列表
+file_paths = ["py/安徽组播/iptv_list.txt", "py/安徽组播/anhui_gudingyuan.txt"]  # 替换为实际的文件路径列表
 for file_path in file_paths:
     with open(file_path, 'r', encoding="utf-8") as file:
         content = file.read()
