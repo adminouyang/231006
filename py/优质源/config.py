@@ -28,15 +28,10 @@ source_urls = [
 ]
 
 url_blacklist = [
-    "udp",
-    "rtp",
     "p2p",
     "P2p",
     "p3p",
     "epg.pw",
-    "tsfile",
-    "hls",
-    "dbiptv.sn.chinamobile.com",
     "211.101.234.24:866",
 "ldncctvwbndhwy.cntv.myhwcdn.cn",
 "61.160.112.102:35455",
