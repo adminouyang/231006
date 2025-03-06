@@ -291,8 +291,8 @@ def group_and_sort_channels(channels):
             file.write(f"{group_name}:\n")
             print(f"{group_name}:")  # 打印分组名称
             for name, url, speed in channel_list:
-                # if speed >= 0.3:  # 只写入下载速度大于或等于 0.3 MB/s 的频道
-                file.write(f"{name},{url}\n")
+                if float(speed) >= 0.3:  # 只写入下载速度大于或等于 0.3 MB/s 的频道
+                  file.write(f"{name},{url}\n")
                 print(f"  {name},{url}")  # 打印频道信息
                 total_channels += 1  # 统计频道总数
             file.write("\n")
