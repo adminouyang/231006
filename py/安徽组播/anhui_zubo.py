@@ -314,7 +314,7 @@ def group_and_sort_channels(channels):
 # 对频道列表进行分组和排序
 grouped_channels = group_and_sort_channels(channels)
 os.remove("py/安徽组播/安徽_组播.txt")
-os.remove("py/安徽组播/speed.txt")
+#os.remove("py/安徽组播/speed.txt")
 # os.remove("ip.txt")
 
 #  获取远程直播源文件
