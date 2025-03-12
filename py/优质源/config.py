@@ -28,6 +28,9 @@ source_urls = [
 ]
 
 url_blacklist = [
+    "rtp",
+    "udp",
+    "tsfile",
     "p2p",
     "P2p",
     "p3p",
