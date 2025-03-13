@@ -1,8 +1,8 @@
 ip_version_priority = "ipv4"
 
 source_urls = [
-    # "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/zby/组播检测/iptv_list.txt",
-    # "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/zby/优质源.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/iptv源收集检测/主频道/专享频道/♪酒店标清.txt",
     # "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",#酒店源为主、港澳、广东湖南的地方台
     "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
     # "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",#港台为主
@@ -14,10 +14,9 @@ source_urls = [
     #"http://xhztv.top/zbc.txt",
     #"https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
     "http://home.jundie.top:81/Cat/tv/live.txt",
-   "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/djhui/IPTV/refs/heads/main/IPTV.m3u",
-    "https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt",
+   # "https://gh-proxy.com/https://raw.githubusercontent.com/jiangyong9977/iptv/refs/heads/main/mytv.txt",
+    # "https://gh-proxy.com/https://raw.githubusercontent.com/kimwang1978/collect-tv-txt/main/merged_output.txt",
+    # "https://gh-proxy.com/https://raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.txt",
     # "http://www.clmy.cc:35455/tv.m3u",#肥羊IPTV聚合
     # "http://wab201.win:35455/tv.m3u",#肥羊IPTV聚合
     # "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
@@ -30,7 +29,7 @@ source_urls = [
 url_blacklist = [
     "rtp",
     "udp",
-    "tsfile",
+    #"tsfile",
     "p2p",
     "P2p",
     "p3p",
