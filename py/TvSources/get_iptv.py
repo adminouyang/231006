@@ -4,13 +4,13 @@ import re
 import os
 
 urls = [
-    "https://ghproxy.cc/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/iptv%E6%BA%90%E6%94%B6%E9%9B%86%E6%A3%80%E6%B5%8B/assets/freetv/freetv_output.txt",
+    #"https://ghproxy.cc/https://raw.githubusercontent.com/junge3333/yrys2026/refs/heads/main/2026yrys.txt",
     #"https://ghproxy.cc/https://raw.githubusercontent.com/HD1116/iptv-m3u8/refs/heads/master/tv/iptv4.txt",
    #      "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",
    #  "https://gh-proxy.com/https://raw.githubusercontent.com/dengmeiqing/IPTV1/refs/heads/main/live.txt",
-   # "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",
+   "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",
    # "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/直播源/手动收集.txt",
    #  "https://live.zhoujie218.top/tv/iptv4.txt",
    # "https://tv.youdu.fan:666/live/",
