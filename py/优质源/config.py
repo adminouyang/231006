@@ -10,6 +10,7 @@ source_urls = [
    "https://gh-proxy.com/https://raw.githubusercontent.com/fudong305/iptv/refs/heads/main/gl.m3u",#轮播
    "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/直播源/手动收集.txt",
     "https://live.zhoujie218.top/tv/iptv4.txt",
+    "https://gh-proxy.com/https://raw.githubusercontent.com/junge3333/yrys2026/refs/heads/main/2026yrys.txt",#港台、轮播为主
    #"https://tv.youdu.fan:666/live/",#酒店源居多
     #"http://xhztv.top/zbc.txt",
     #"https://gh-proxy.com/https://raw.githubusercontent.com/zht298/IPTVlist/refs/heads/main/bh.txt",
