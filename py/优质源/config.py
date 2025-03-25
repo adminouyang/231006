@@ -5,6 +5,7 @@ source_urls = [
     "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/iptv源收集检测/主频道/专享频道/♪酒店标清.txt",
     "https://raw.githubusercontent.com/0047ol/China-TV-Live-M3U8/refs/heads/main/tv.m3u",#全国31个省市地方的电视台官网实时最新抓取
     "https://raw.githubusercontent.com/q358162111/tvshow/refs/heads/main/tvlist.txt",#rtsp協議
+    "https://raw.githubusercontent.com/junge3333/yrys2026/refs/heads/main/2026yrys.txt",
     # "https://gh-proxy.com/https://raw.githubusercontent.com/250992941/iptv/refs/heads/main/st1.txt",#酒店源为主、港澳、广东湖南的地方台
     "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/综合源.txt",
     # "https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/refs/heads/main/网络收集.txt",#港台为主
