@@ -340,7 +340,7 @@ url_whitelist = [
     "39.135.133.167",
     "39.135.135.28",
     "rtsp",
-    "mt2018.iask.in:55555",
+    "gaoma",
     "majian.ixiaobai.net:5540",
 
 
