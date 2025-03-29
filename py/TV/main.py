@@ -129,13 +129,13 @@ async def main():
     try:
         # 初始化配置
         config = configparser.ConfigParser()
-        config_path = Path('config/config.ini')
+        config_path = Path('py/TV/config/config.ini')
         if not config_path.exists():
             raise FileNotFoundError(f"❌ 配置文件不存在: {config_path}")
         config.read(config_path, encoding='utf-8')
 
         # 获取 output_dir
-        output_dir = Path(config.get('MAIN', 'output_dir', fallback='outputs'))
+        output_dir = Path(config.get('MAIN', 'output_dir', fallback='py/TV/outputs'))
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # 读取 FETCHER 配置
@@ -153,7 +153,7 @@ async def main():
         enable_history = config.getboolean('EXPORTER', 'enable_history', fallback=False)
 
         # 读取 BLACKLIST 配置
-        blacklist_path = Path(config.get('BLACKLIST', 'blacklist_path', fallback='config/blacklist.txt'))
+        blacklist_path = Path(config.get('BLACKLIST', 'blacklist_path', fallback='py/TV/config/blacklist.txt'))
         if blacklist_path.exists():
             with open(blacklist_path, 'r', encoding='utf-8') as f:
                 blacklist = set(line.strip() for line in f if line.strip() and not line.startswith('#'))
@@ -161,8 +161,8 @@ async def main():
             blacklist = set()
 
         # 读取 PATHS 配置
-        urls_path = Path(config.get('PATHS', 'urls_path', fallback='config/urls.txt'))
-        templates_path = Path(config.get('PATHS', 'templates_path', fallback='config/templates.txt'))
+        urls_path = Path(config.get('PATHS', 'urls_path', fallback='py/TV/config/urls.txt'))
+        templates_path = Path(config.get('PATHS', 'templates_path', fallback='py/TV/config/templates.txt'))
 
         # 检查文件是否存在
         if not urls_path.exists():
@@ -251,10 +251,10 @@ async def main():
         classify_and_write_ips(unique_channels, config, output_dir, matcher)
 
         # 输出生成的文件路径
-        m3u_filename = config.get('EXPORTER', 'm3u_filename', fallback='all.m3u')
-        txt_filename = config.get('EXPORTER', 'txt_filename', fallback='all.txt')
-        ipv4_output_path = config.get('PATHS', 'ipv4_output_path', fallback='ipv4.txt')
-        ipv6_output_path = config.get('PATHS', 'ipv6_output_path', fallback='ipv6.txt')
+        m3u_filename = config.get('EXPORTER', 'm3u_filename', fallback='py/TV/outputs/all.m3u')
+        txt_filename = config.get('EXPORTER', 'txt_filename', fallback='py/TV/outputs/all.txt')
+        ipv4_output_path = config.get('PATHS', 'ipv4_output_path', fallback='py/TV/outputs/ipv4.txt')
+        ipv6_output_path = config.get('PATHS', 'ipv6_output_path', fallback='py/TV/outputs/ipv6.txt')
 
         logger.info(f"📄 生成的 M3U 文件: {(output_dir / m3u_filename).resolve()}")
         logger.info(f"📄 生成的 TXT 文件: {(output_dir / txt_filename).resolve()}")
