@@ -94,7 +94,7 @@ def classify_and_write_ips(channels: List['Channel'], config, output_dir: Path, 
             category_counts[channel.category] = category_counts.get(channel.category, 0) + 1
 
     # 写入 IPv4 地址
-    ipv4_output_path = Path(config.get('PATHS', 'ipv4_output_path', fallback='py/TV/outputs/ipv4.txt'))
+    ipv4_output_path = Path(config.get('PATHS', 'ipv4_output_path', fallback='ipv4.txt'))
     with open(output_dir / ipv4_output_path, 'w', encoding='utf-8') as f:
         current_category = None
         for channel in ipv4_channels:
@@ -109,7 +109,7 @@ def classify_and_write_ips(channels: List['Channel'], config, output_dir: Path, 
     logger.info(f"📝 IPv4 地址已写入: {output_dir / ipv4_output_path}")
 
     # 写入 IPv6 地址
-    ipv6_output_path = Path(config.get('PATHS', 'ipv6_output_path', fallback='py/TV/outputs/ipv6.txt'))
+    ipv6_output_path = Path(config.get('PATHS', 'ipv6_output_path', fallback='ipv6.txt'))
     with open(output_dir / ipv6_output_path, 'w', encoding='utf-8') as f:
         current_category = None
         for channel in ipv6_channels:
@@ -251,10 +251,10 @@ async def main():
         classify_and_write_ips(unique_channels, config, output_dir, matcher)
 
         # 输出生成的文件路径
-        m3u_filename = config.get('EXPORTER', 'm3u_filename', fallback='py/TV/outputs/all.m3u')
-        txt_filename = config.get('EXPORTER', 'txt_filename', fallback='py/TV/outputs/all.txt')
-        ipv4_output_path = config.get('PATHS', 'ipv4_output_path', fallback='py/TV/outputs/ipv4.txt')
-        ipv6_output_path = config.get('PATHS', 'ipv6_output_path', fallback='py/TV/outputs/ipv6.txt')
+        m3u_filename = config.get('EXPORTER', 'm3u_filename', fallback='all.m3u')
+        txt_filename = config.get('EXPORTER', 'txt_filename', fallback='all.txt')
+        ipv4_output_path = config.get('PATHS', 'ipv4_output_path', fallback='ipv4.txt')
+        ipv6_output_path = config.get('PATHS', 'ipv6_output_path', fallback='ipv6.txt')
 
         logger.info(f"📄 生成的 M3U 文件: {(output_dir / m3u_filename).resolve()}")
         logger.info(f"📄 生成的 TXT 文件: {(output_dir / txt_filename).resolve()}")
