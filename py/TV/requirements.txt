@@ -1,0 +1,5 @@
+aiohttp>=3.8.0
+asyncio>=3.4.3
+configparser>=5.0.0
+dataclasses>=0.6; python_version < '3.7'
+typing-extensions>=4.0.0; python_version < '3.8'
