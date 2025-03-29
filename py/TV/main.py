@@ -52,7 +52,7 @@ def write_failed_urls(failed_urls: Set[str], config):
     """将失败的 URL 写入文件"""
     try:
         # 从配置文件中获取失败 URL 的路径
-        failed_urls_path = Path(config.get('PATHS', 'failed_urls_path', fallback='config/failed_urls.txt'))
+        failed_urls_path = Path(config.get('PATHS', 'failed_urls_path', fallback='py/TV/config/failed_urls.txt'))
         
         # 确保目录存在
         failed_urls_path.parent.mkdir(parents=True, exist_ok=True)
