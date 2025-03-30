@@ -8,7 +8,7 @@ import ping3
 from urllib.parse import urlsplit
 
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(threadName)s - %(message)s', handlers=[logging.FileHandler("py/TV/config/error_urls_log", "w", encoding="utf-8"), logging.StreamHandler()])
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(threadName)s - %(message)s', handlers=[logging.FileHandler("error_urls_log", "w", encoding="utf-8"), logging.StreamHandler()])
 def ping_url(url: str):
     hostname = urlsplit(url).hostname
     pinger = ping3.ping(hostname)
@@ -55,6 +55,6 @@ if __name__ == "__main__":
             except Exception as e:
                 logging.info(f"url: {url} Processing took too long {e}")
 
-            with open("py/TV/config/error_urls_host_log", "w", encoding="utf-8") as error_urlsf:
+            with open("error_urls_host_log", "w", encoding="utf-8") as error_urlsf:
                 for invalid_host in invalid_hosts:
                     error_urlsf.write(f"{invalid_host}\n")
