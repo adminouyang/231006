@@ -22,13 +22,11 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install requests logging ping3
         python -m pip install --upgrade pip
         pip install -r py/TV/requirements.txt
 
     - name: Run Python Script
       run: |
-        python py/TV/config/invalid_urls_check.py
         python py/TV/main.py
 
     - name: Commit Results
