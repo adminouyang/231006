@@ -22,7 +22,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        pip install requests logging ping3 urllib3 future 
+        pip install requests logging ping3 urllib3 future parse
         python -m pip install --upgrade pip
 
     - name: Run Python Script
