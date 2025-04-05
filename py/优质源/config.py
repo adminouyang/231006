@@ -27,6 +27,7 @@ source_urls = [
     # "",#yy轮播
     # "http://wab201.win:35455/yylunbo.m3u",#yy轮播
     # "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
+    "https://gh-proxy.com/https://raw.githubusercontent.com/TontFeng/ip/refs/heads/main/live.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u"
 ]
 
