@@ -26,7 +26,7 @@ source_urls = [
     # "http://146.235.213.45:35455/tv.m3u",#肥羊IPTV聚合
     # "",#yy轮播
     # "http://wab201.win:35455/yylunbo.m3u",#yy轮播
-    # "http://www.clmy.cc:35455/yylunbo.m3u",#yy轮播
+    "https://gh-proxy.com/https://raw.githubusercontent.com/Desmond-Dong/IPTV/refs/heads/main/result.m3u",#yy轮播
     "https://gh-proxy.com/https://raw.githubusercontent.com/TontFeng/ip/refs/heads/main/live.txt",
     "https://gh-proxy.com/https://raw.githubusercontent.com/isw866/iptv/refs/heads/main/iptv4.m3u"
 ]
