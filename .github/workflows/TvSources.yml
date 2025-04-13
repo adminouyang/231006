@@ -1,0 +1,36 @@
+name: TvSources更新
+
+on:
+  schedule:
+    - cron: '0 ,06,18, * * *'
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+    
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip
+      
+      - name: Run TvSources
+        run: python ${{ github.workspace }}/py/TvSources/main.py
+
+                               
+      - name: 提交更改
+        run: |
+          git config --global user.name "adminouyang"
+          git config --global user.email "2856364053@qq.com"
+          git add .
+          git commit *.txt -m "Add generated file"
+          git push -f
