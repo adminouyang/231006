@@ -138,7 +138,7 @@ def clear_txt_files(directory):
 # 主函数
 def main():
     # 读取 URLs
-    urls_file_path = os.path.join(os.getcwd(), 'config/urls.txt')
+    urls_file_path = os.path.join(os.getcwd(), 'py/TvSources/config/urls.txt')
     urls = read_txt_to_array(urls_file_path)
 
     # 处理过滤和替换频道名称
@@ -156,7 +156,7 @@ def main():
     unique_channels_str = [f"{name},{url}" for name, url in unique_channels]
 
     # 写入 iptv.txt 文件
-    iptv_file_path = os.path.join(os.getcwd(), 'iptv.txt')
+    iptv_file_path = os.path.join(os.getcwd(), 'py/TvSources/iptv.txt')
     with open(iptv_file_path, 'w', encoding='utf-8') as f:
         for line in unique_channels_str:
             f.write(line + '\n')
