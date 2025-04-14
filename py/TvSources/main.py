@@ -274,7 +274,7 @@ def main():
                 file.write(f"{channel_name},{channel_url}\n")
 
     # 写入结果到文件
-    iptv_speed_file_path = os.path.join(os.getcwd(), 'iptv_speed.txt')
+    iptv_speed_file_path = os.path.join(os.getcwd(), 'py/TvSources/iptv_speed.txt')
     write_list(iptv_speed_file_path, results)
 
     # 打印结果
@@ -283,7 +283,7 @@ def main():
         print(f"检测成功  {channel_name},{channel_url}  响应时间 ：{elapsed_time:.0f} 毫秒")
 
     # 创建地方频道文件夹
-    local_channels_directory = os.path.join(os.getcwd(), '地方频道')
+    local_channels_directory = os.path.join(os.getcwd(), 'py/TvSources/地方频道')
     if not os.path.exists(local_channels_directory):
         os.makedirs(local_channels_directory)
         print(f"目录 '{local_channels_directory}' 已创建。")
@@ -292,7 +292,7 @@ def main():
         clear_txt_files(local_channels_directory)
 
     # 遍历频道模板目录下的所有文件
-    template_directory = os.path.join(os.getcwd(), '频道模板')
+    template_directory = os.path.join(os.getcwd(), 'py/TvSources/频道模板')
     if not os.path.exists(template_directory):
         os.makedirs(template_directory)
         print(f"目录 '{template_directory}' 已创建。")
