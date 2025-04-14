@@ -386,7 +386,7 @@ def main():
 
         # 删除临时文件 iptv.txt 和 iptv_speed.txt
         try:
-            os.remove('iptv.txt')
+            #os.remove('iptv.txt')
             #os.remove('iptv_speed.txt')
             print(f"临时文件 iptv.txt 和 iptv_speed.txt 已删除。")
         except OSError as e:
