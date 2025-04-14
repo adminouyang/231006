@@ -322,7 +322,7 @@ def main():
         matched_channels.sort(key=lambda x: channel_key(x[0]))
 
         # 写入对应地区命名的 _iptv.txt 文件中，保存在地方频道文件夹中
-        output_file_path = os.path.join(local_channels_directory, f"py/TvSources/{template_name}_iptv.txt")
+        output_file_path = os.path.join(local_channels_directory, f"{template_name}_iptv.txt")
         with open(output_file_path, 'w', encoding='utf-8') as f:
             # 写入标题行
             f.write(f"{template_name},#genre#\n")
