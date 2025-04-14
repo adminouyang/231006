@@ -156,7 +156,7 @@ def main():
     unique_channels_str = [f"{name},{url}" for name, url in unique_channels]
 
     # 写入 iptv.txt 文件
-    iptv_file_path = os.path.join(os.getcwd(), 'iptv.txt')
+    iptv_file_path = os.path.join(os.getcwd(), 'py/TvSources/iptv.txt')
     with open(iptv_file_path, 'w', encoding='utf-8') as f:
         for line in unique_channels_str:
             f.write(line + '\n')
@@ -274,7 +274,7 @@ def main():
                 file.write(f"{channel_name},{channel_url}\n")
 
     # 写入结果到文件
-    iptv_speed_file_path = os.path.join(os.getcwd(), 'iptv_speed.txt')
+    iptv_speed_file_path = os.path.join(os.getcwd(), 'py/TvSources/iptv_speed.txt')
     write_list(iptv_speed_file_path, results)
 
     # 打印结果
@@ -322,7 +322,7 @@ def main():
         matched_channels.sort(key=lambda x: channel_key(x[0]))
 
         # 写入对应地区命名的 _iptv.txt 文件中，保存在地方频道文件夹中
-        output_file_path = os.path.join(local_channels_directory, f"{template_name}_iptv.txt")
+        output_file_path = os.path.join(local_channels_directory, f"py/TvSources/{template_name}_iptv.txt")
         with open(output_file_path, 'w', encoding='utf-8') as f:
             # 写入标题行
             f.write(f"{template_name},#genre#\n")
