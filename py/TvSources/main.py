@@ -138,7 +138,7 @@ def clear_txt_files(directory):
 # 主函数
 def main():
     # 读取 URLs
-    urls_file_path = os.path.join(os.getcwd(), 'config/urls.txt')
+    urls_file_path = os.path.join(os.getcwd(), 'py/TvSources/config/urls.txt')
     urls = read_txt_to_array(urls_file_path)
 
     # 处理过滤和替换频道名称
@@ -283,7 +283,7 @@ def main():
         print(f"检测成功  {channel_name},{channel_url}  响应时间 ：{elapsed_time:.0f} 毫秒")
 
     # 创建地方频道文件夹
-    local_channels_directory = os.path.join(os.getcwd(), '地方频道')
+    local_channels_directory = os.path.join(os.getcwd(), 'py/TvSources/地方频道')
     if not os.path.exists(local_channels_directory):
         os.makedirs(local_channels_directory)
         print(f"目录 '{local_channels_directory}' 已创建。")
@@ -292,7 +292,7 @@ def main():
         clear_txt_files(local_channels_directory)
 
     # 遍历频道模板目录下的所有文件
-    template_directory = os.path.join(os.getcwd(), '频道模板')
+    template_directory = os.path.join(os.getcwd(), 'py/TvSources/频道模板')
     if not os.path.exists(template_directory):
         os.makedirs(template_directory)
         print(f"目录 '{template_directory}' 已创建。")
@@ -361,7 +361,7 @@ def main():
         update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d')},url\n{now.strftime('%H:%M:%S')},url\n"
 
         # 将合并后的内容写入 iptv_list.txt 文件
-        iptv_list_file_path = "iptv_list.txt"
+        iptv_list_file_path = "py/TvSources/iptv_list.txt"
         with open(iptv_list_file_path, "w", encoding="utf-8") as iptv_list_file:
             iptv_list_file.write(update_time_line)
             # 对每个频道名称的频道列表进行分组
@@ -387,7 +387,7 @@ def main():
         # 删除临时文件 iptv.txt 和 iptv_speed.txt
         try:
             os.remove('iptv.txt')
-            os.remove('iptv_speed.txt')
+            #os.remove('iptv_speed.txt')
             print(f"临时文件 iptv.txt 和 iptv_speed.txt 已删除。")
         except OSError as e:
             print(f"删除临时文件时发生错误: {e}")
