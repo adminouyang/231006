@@ -34,5 +34,5 @@ jobs:
           git config --global user.name "adminouyang"
           git config --global user.email "2856364053@qq.com"
           git add .
-          git commit *.txt -m "Add generated file"
+          git commit -m "Add generated file"
           git push -f
