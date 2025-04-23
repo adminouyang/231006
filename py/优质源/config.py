@@ -121,7 +121,6 @@ url_blacklist = [
     "fmbox.cc",
     "1732e975z9.zicp.fun:8082",
     "kkk.jjjj.jiduo.me",
-    "stream1.freetv.fun",
     "api.livednow.org",
     "www.douzhicloud.site:35455",
     "jxcbn.ws-cdn.gitv.tv",
