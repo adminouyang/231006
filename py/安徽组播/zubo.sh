@@ -3,7 +3,7 @@ if [ $# -eq 0 ]; then
   echo "开始测试······"
   echo "在5秒内输入1 可选择城市"
   echo "1.安徽电信"
-  # echo "2.江苏电信"
+  echo "2.安徽联通"
   # echo "3.天津联通"
   # echo "4.湖北电信"
   # echo "5.河南电信"
@@ -17,17 +17,23 @@ if [ $# -eq 0 ]; then
 else
   city_choice=$1
 fi
-# 设置城市和相应的stream
+# 设置城市和相应的stream   https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkFuaHVpIiAmJiBvcmc9IkNISU5BIFVOSUNPTSBDaGluYTE2OSBCYWNrYm9uZSIgJiYgcHJvdG9jb2w9Imh0dHAi
 case $city_choice in
     1)
         city="安徽电信"
         stream="rtp/238.1.79.27:4328"
         channel_key="安徽电信"
-        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D"
+        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D&page=1&page_size=20"
         ;;
+     2)
+        city="安徽联通"
+        stream="rtp/238.1.79.27:4328"
+        channel_key="安徽联通"
+        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkFuaHVpIiAmJiBvcmc9IkNISU5BIFVOSUNPTSBDaGluYTE2OSBCYWNrYm9uZSIgJiYgcHJvdG9jb2w9Imh0dHAi&page=1&page_size=20"
+        ;;       
     0)
         # 逐个处理{ }内每个选项
-        for option in {1}; do
+        for option in {1..2}; do
           bash "$0" $option  # 假定fofa.sh是当前脚本的文件名，$option将递归调用
         done
         exit 0
