@@ -18,10 +18,18 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
-
-      - name: Install dependencies
-        run: pip install bs4 requests playwright datetime
-
+        
+      - name: Install Dependencies
+        run: |
+          pip install bs4 requests playwright datetime
+          sudo apt-get update
+          sudo apt-get install -y yt-dlp sed nmap     
+      - name: 检测组播源
+        run: |
+          cd $GITHUB_WORKSPACE
+          bash py/安徽组播/zubo.sh
+          cat py/安徽组播/txt/安徽电信.txt
+          
       - name: Run anhui_zubo.py
         run: python ${{ github.workspace }}/py/安徽组播/anhui_zubo.py
         
