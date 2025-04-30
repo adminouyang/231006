@@ -38,7 +38,7 @@ jobs:
           git config --local user.email "2856364053@qq.com"
           git config --local user.name "adminouyang"
           git add .
-          git commit *.txt -m "action: `date`"
+          git commit -m "安徽组播更新: `date`"
           #git commit *.m3u -m "action: `date`"
           git push -f
           #git pull --rebase
