@@ -10,13 +10,13 @@ import threading
 from collections import OrderedDict
 
 # 配置参数
-CONFIG_DIR = 'config'
+CONFIG_DIR = 'py/优质源/config'
 SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
 DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
 LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
 BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
 
-OUTPUT_DIR = 'output'
+OUTPUT_DIR = 'py/优质源/output'
 IPV4_DIR = os.path.join(OUTPUT_DIR, 'ipv4')
 IPV6_DIR = os.path.join(OUTPUT_DIR, 'ipv6')
 SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
