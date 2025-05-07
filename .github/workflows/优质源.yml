@@ -26,17 +26,6 @@ jobs:
       - name: Run main.py
         run: python ${{ github.workspace }}/py/优质源/main.py
      
-      # - name: Run cctv.py
-      #   run: python ${{ github.workspace }}/py/酒店源/cctv.py
-
-      # - name: Run weishi.py
-      #   run: python ${{ github.workspace }}/py/酒店源/weishi.py 
-
-      # - name: Run iptv
-      #   run: python ${{ github.workspace }}/py/酒店源/iptv.py    
-        
-      # - name: Run qita
-      #   run: python ${{ github.workspace }}/py/酒店源/qita.py
         
       - name: 提交更改
         run: |
@@ -45,7 +34,7 @@ jobs:
           git config --local user.name "adminouyang" 
           git add .
           git commit -m "action: `date`"
-          #git commit *.m3u -m "action: `date`"
+          git commit -m "action: `date`"
           git push -f
           #git pull --rebase
 
