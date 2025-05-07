@@ -34,7 +34,7 @@ jobs:
           git config --local user.name "adminouyang" 
           git add .
           git commit -m "action: `date`"
-          git commit -m "action: `date`"
+          #git commit -m "action: `date`"
           git push -f
           #git pull --rebase
 
