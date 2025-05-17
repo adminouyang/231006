@@ -26,11 +26,11 @@ from functools import lru_cache
 
 # 配置参数
 CONFIG_DIR = 'py/TV/config'
-SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
-DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
-LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
-BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
-RESOLUTION_BLACKLIST = os.path.join(CONFIG_DIR, 'resolution_blacklist.txt')
+SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/subscribe.txt')
+DEMO_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/demo.txt')
+LOCAL_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/local.txt')
+BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/blacklist.txt')
+RESOLUTION_BLACKLIST = os.path.join(CONFIG_DIR, 'py/TV/config/resolution_blacklist.txt')
 
 PROXY_PREFIXES = {
     'https': 'https://ghproxy.cc/',
@@ -38,10 +38,10 @@ PROXY_PREFIXES = {
 }
 
 OUTPUT_DIR = 'py/TV/output'
-IPV4_DIR = os.path.join(OUTPUT_DIR, 'ipv4')
-IPV6_DIR = os.path.join(OUTPUT_DIR, 'ipv6')
-SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
-SD_SOURCES_FILE = "标清源.txt"
+IPV4_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv4')
+IPV6_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv6')
+SPEED_LOG = os.path.join(OUTPUT_DIR, 'py/TV/output/sort.log')
+SD_SOURCES_FILE = "py/TV/output/ipv4/标清源.txt"
 
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 4
@@ -153,7 +153,7 @@ def safe_print(color, prefix, message):
         print(f"{colors[color]}[{prefix}]{colors['end']} {message}")
 
 def get_resolution(url):
-    safe_print('blue', '分辨率检测', f"开始检测: {url[:50]}...")
+    safe_print('blue', '分辨率检测', f"开始检测: {url}")
     for attempt in range(2):
         try:
             cmd = [
@@ -192,7 +192,7 @@ def get_resolution(url):
         except Exception as e:
             write_log(f"分辨率检测异常: {url} | {str(e)}")
         # 添加检测失败提示
-        safe_print('red', '分辨率失败', f"无法获取分辨率: {url[:50]}...")
+        safe_print('red', '分辨率失败', f"无法获取分辨率: {url}")
         return 0
 
 def parse_demo_file():
@@ -283,12 +283,12 @@ def test_speed(url):
                        f"速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB")
             write_log(log_msg)
             safe_print('green', '测速成功',
-                       f"{url[:30]:<30} 速度: {speed:.2f}KB/s 数据量: {total_bytes / 1024:.1f}KB")
+                       f"{url} 速度: {speed:.2f}KB/s 数据量: {total_bytes / 1024:.1f}KB")
             return speed
 
     except Exception as e:
         # 添加测速失败提示
-        safe_print('red', '测速失败', f"{url[:50]}... | 错误: {str(e)}")
+        safe_print('red', '测速失败', f"{url} | 错误: {str(e)}")
         write_log(f"测速失败: {url} | {str(e)}")
         return 0
 
@@ -308,7 +308,7 @@ def _speed_test(sources, alias_map):
 
         # 新增频道处理提示
         safe_print('blue', '处理频道',
-                   f"{name[:15]:<15} ({url[:30]:<30}) 开始检测...")
+                   f"{name[:15]:<15} ({url}) 开始检测...")
 
         speed = 0
         height = 0
@@ -323,7 +323,7 @@ def _speed_test(sources, alias_map):
                 update_blacklist(domain, from_subscribe)
                 # 新增速度不合格提示
                 safe_print('red', '速度淘汰',
-                           f"{url[:50]}... 速度不合格: {speed:.2f}KB/s")
+                           f"{url}速度不合格: {speed:.2f}KB/s")
         except Exception as e:
             write_log(f"处理异常: {url} | {str(e)}")
 
@@ -332,27 +332,27 @@ def _speed_test(sources, alias_map):
         if speed > 0 and height >= MIN_RESOLUTION:
             if height >= 1080 and speed < SPEED_THRESHOLD_1080P:
                 result_msg = (f"1080p源速度不足: {speed:.2f}KB/s < {SPEED_THRESHOLD_1080P}KB/s")
-                safe_print('yellow', '速度淘汰', f"{url[:50]}... {result_msg}")
+                safe_print('yellow', '速度淘汰', f"{url} {result_msg}")
             else:
                 if domain:
                     with domain_lock:
                         success_domains.add(domain)
                 result_msg = (f"✓ 合格 | 速度: {speed:.2f}KB/s | 分辨率: {height}p")
                 safe_print('green', '通过检测',
-                           f"{name[:15]:<15} ({url[:30]:<30}) {result_msg}")
+                           f"{name[:15]:<15} ({url}) {result_msg}")
                 return (name, url, speed, ip_type, False)
         else:
             if speed > 0 and 0 < height < MIN_RESOLUTION:
                 result_msg = (f"分辨率不足: {height}p < {MIN_RESOLUTION}p")
                 safe_print('yellow', '分辨率淘汰',
-                           f"{name[:15]:<15} ({url[:30]:<30}) {result_msg}")
+                           f"{name[:15]:<15} ({url}) {result_msg}")
                 std_name = alias_map.get(name, name)
                 with domain_lock:
                     low_res_sources[ip_type][std_name].append((url, speed))
             else:
                 result_msg = "基本检测失败"
                 safe_print('red', '完全淘汰',
-                           f"{name[:15]:<15} ({url[:30]:<30}) {result_msg}")
+                           f"{name[:15]:<15} ({url}) {result_msg}")
             update_blacklist(domain, from_subscribe)
             if height <= 0:
                 update_resolution_blacklist(domain, from_subscribe)
@@ -459,7 +459,7 @@ def finalize_output(organized, group_order, channel_order):
                 sources = organized[ip_type][group][channel]
                 for url in [u[0] for u in sources['local'] + sources['remote']]:
                     txt_lines.append(f"{channel},{url}")
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}",{channel}')
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png", {channel}')
                     m3u_lines.append(url)
 
         other_group = '其他'
@@ -470,7 +470,7 @@ def finalize_output(organized, group_order, channel_order):
                 sources = organized[ip_type][other_group][channel]
                 for url in [u[0] for u in sources['local'] + sources['remote']]:
                     txt_lines.append(f"{channel},{url}")
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}",{channel}')
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png", {channel}')
                     m3u_lines.append(url)
 
         dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
