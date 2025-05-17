@@ -26,11 +26,11 @@ from functools import lru_cache
 
 # 配置参数
 CONFIG_DIR = 'py/TV/config'
-SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/subscribe.txt')
-DEMO_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/demo.txt')
-LOCAL_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/local.txt')
-BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'py/TV/config/blacklist.txt')
-RESOLUTION_BLACKLIST = os.path.join(CONFIG_DIR, 'py/TV/config/resolution_blacklist.txt')
+SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
+DEMO_FILE = os.path.join(CONFIG_DIR, 'config/demo.txt')
+LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
+BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
+RESOLUTION_BLACKLIST = os.path.join(CONFIG_DIR, 'resolution_blacklist.txt')
 
 PROXY_PREFIXES = {
     'https': 'https://ghproxy.cc/',
@@ -38,9 +38,9 @@ PROXY_PREFIXES = {
 }
 
 OUTPUT_DIR = 'py/TV/output'
-IPV4_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv4')
-IPV6_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv6')
-SPEED_LOG = os.path.join(OUTPUT_DIR, 'py/TV/output/sort.log')
+IPV4_DIR = os.path.join(OUTPUT_DIR, 'output/ipv4')
+IPV6_DIR = os.path.join(OUTPUT_DIR, 'output/ipv6')
+SPEED_LOG = os.path.join(OUTPUT_DIR, 'output/sort.log')
 SD_SOURCES_FILE = "标清源.txt"
 
 SPEED_TEST_DURATION = 5
