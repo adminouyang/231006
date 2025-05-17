@@ -22,6 +22,7 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        pip install requests urllib3
         python -m pip install --upgrade pip
         # pip install -r py/TV/requirements.txt
 
