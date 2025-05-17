@@ -41,7 +41,7 @@ OUTPUT_DIR = 'py/TV/output'
 IPV4_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv4')
 IPV6_DIR = os.path.join(OUTPUT_DIR, 'py/TV/output/ipv6')
 SPEED_LOG = os.path.join(OUTPUT_DIR, 'py/TV/output/sort.log')
-SD_SOURCES_FILE = "py/TV/output/ipv4/标清源.txt"
+SD_SOURCES_FILE = "标清源.txt"
 
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 4
