@@ -2,7 +2,7 @@
 import sys
 import ctypes
 import json
-# import requests
+import requests
 from urllib3.exceptions import InsecureRequestWarning
 from urllib.parse import urlparse, quote
 
