@@ -27,7 +27,7 @@ from functools import lru_cache
 # 配置参数
 CONFIG_DIR = 'py/TV/config'
 SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
-DEMO_FILE = os.path.join(CONFIG_DIR, 'config/demo.txt')
+DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
 LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
 BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
 RESOLUTION_BLACKLIST = os.path.join(CONFIG_DIR, 'resolution_blacklist.txt')
@@ -38,15 +38,16 @@ PROXY_PREFIXES = {
 }
 
 OUTPUT_DIR = 'py/TV/output'
-IPV4_DIR = os.path.join(OUTPUT_DIR, 'output/ipv4')
-IPV6_DIR = os.path.join(OUTPUT_DIR, 'output/ipv6')
-SPEED_LOG = os.path.join(OUTPUT_DIR, 'output/sort.log')
+IPV4_DIR = os.path.join(OUTPUT_DIR, 'ipv4')
+IPV6_DIR = os.path.join(OUTPUT_DIR, 'ipv6')
+SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
 SD_SOURCES_FILE = "标清源.txt"
 
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 4
 MIN_RESOLUTION = 720
 SPEED_THRESHOLD_1080P = 500  # 1080p速度阈值
+TEST_DURATION = 4.5       # 延长测试时长至4.5秒
 
 os.makedirs(IPV4_DIR, exist_ok=True)
 os.makedirs(IPV6_DIR, exist_ok=True)
@@ -257,41 +258,68 @@ def process_local_sources(local_sources, alias_map):
 
 def test_speed(url):
     try:
-        # 添加测速开始提示
-        safe_print('yellow', '测速开始', f"测试: {url}")   #[:50]
-        start_time = time.time()
-        with requests.Session() as session:
-            response = session.get(url,
-                                   stream=True,
-                                   timeout=(3.05, 5),
-                                   allow_redirects=True,
-                                   verify=False,
-                                   headers={'User-Agent': 'Mozilla/5.0'})
-
-            total_bytes = 0
-            data_start = time.time()
-            for chunk in response.iter_content(chunk_size=1024 * 1024):
-                if chunk:
-                    total_bytes += len(chunk)
-                if (time.time() - data_start) >= SPEED_TEST_DURATION:
+        safe_print('yellow', '测速开始', f"测试: {url}")
+        
+        # 精确计时工具
+        start_timer = time.perf_counter()
+        total_bytes = 0
+        established_time = None
+        chunk_size = 8192  # 增大数据块减少循环次数
+        
+        with requests.get(url, stream=True, 
+                         timeout=(3.05, 6.05),  # 连接/读取超时分离
+                         headers={'Connection': 'close'}) as response:
+            response.raise_for_status()
+            
+            # 数据流分析策略
+            for chunk in response.iter_content(chunk_size=chunk_size):
+                if not established_time:  # 首个数据包到达开始计时
+                    established_time = time.perf_counter()
+                    safe_print('blue', '连接建立', f"开始接收: {url}")
+                
+                total_bytes += len(chunk)
+                
+                # 动态结束检测：有效传输需满足最低时长
+                elapsed = time.perf_counter() - established_time
+                if elapsed >= max(TEST_DURATION, 2.5):  # 保证最低2.5秒有效数据
                     break
 
-            duration = max(time.time() - data_start, 0.001)
-            speed = (total_bytes / 1024) / duration
+        # 有效性校验
+        if not established_time:
+            safe_print('red', '无数据', f"{url} 未接收到任何数据")
+            return 0
+            
+        # 精确时间计算（毫秒级）
+        duration = max(time.perf_counter() - established_time, 0.001)
+        
+        # 数据补偿机制（针对快速传输场景）
+        if duration < 0.5 and total_bytes > 51200:  # 50KB内短时爆发
+            duration = 0.5  # 最低按500ms计算
+        
+        # 带宽计算优化
+        speed_kb = (total_bytes / duration) / 1024  # 精确浮点运算
+        speed_mb = speed_kb / 1024
+        
+        # 智能单位切换
+        if speed_mb >= 0.5:
+            display_speed = f"{speed_mb:.2f}MB/s"
+        else:
+            display_speed = f"{speed_kb:.2f}KB/s"
 
-            log_msg = (f"测速成功: {url}\n"
-                       f"速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB")
-            write_log(log_msg)
-            safe_print('green', '测速成功',
-                       f"{url} 速度: {speed:.2f}KB/s 数据量: {total_bytes / 1024:.1f}KB")
-            return speed
+        # 详细数据输出
+        safe_print('green', '测速成功', 
+                 f"{url} {display_speed.ljust(10)} "
+                 f"[数据量: {total_bytes/1024:.1f}KB 时间: {duration:.2f}s]")
+        
+        return speed_kb  # 保持KB/s单位用于阈值判断
 
-    except Exception as e:
-        # 添加测速失败提示
-        safe_print('red', '测速失败', f"{url} | 错误: {str(e)}")
-        write_log(f"测速失败: {url} | {str(e)}")
+    except requests.Timeout:
+        safe_print('red', '超时终止', f"{url} 超过6秒无响应")
         return 0
-
+    except Exception as e:
+        safe_print('red', '测速异常', f"{url} {str(e)[:50]}")
+        write_log(f"测速异常: {url} | {type(e).__name__} - {str(e)}")
+        return 0
 
 def _speed_test(sources, alias_map):
     total = len(sources)
