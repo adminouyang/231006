@@ -162,7 +162,7 @@ def download_speed_test():
     while not speed_test_queue.empty():
         channel = speed_test_queue.get()
         name, url = channel
-        download_time = 5  # 设置下载时间为 5 秒
+        download_time = 15  # 设置下载时间为 5 秒
         chunk_size = 1024  # 设置下载数据块大小为 1024 字节
 
         try:
