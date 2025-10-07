@@ -140,9 +140,9 @@ http://115.230.59.120:4022/udp/233.50.201.115:5140
 #EXTINF:-1 tvg-name="湖北卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北卫视.png" group-title="卫视频道",湖北卫视
 http://115.230.59.120:4022/udp/233.50.201.114:5140
 #EXTINF:-1 tvg-name="湖北卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北卫视.png" group-title="卫视频道",湖北卫视
-http://125.42.150.65:9901/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0
-#EXTINF:-1 tvg-name="湖北卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北卫视.png" group-title="卫视频道",湖北卫视
 http://125.42.150.134:9901/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 tvg-name="湖北卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/湖北卫视.png" group-title="卫视频道",湖北卫视
+http://125.42.150.65:9901/tsfile/live/0138_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-name="江西卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/江西卫视.png" group-title="卫视频道",江西卫视
 http://115.230.59.120:4022/udp/233.50.201.145:5140
 #EXTINF:-1 tvg-name="江西卫视"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/江西卫视.png" group-title="卫视频道",江西卫视
@@ -209,6 +209,8 @@ http://115.230.59.120:4022/udp/233.50.200.125:5140
 http://115.230.59.120:4022/udp/233.50.201.190:5140
 #EXTINF:-1 tvg-name="上海金色学堂" group-title="☘️上海市",上海金色学堂
 http://115.230.59.120:4022/udp/233.50.201.186:5140
+#EXTINF:-1 tvg-name="重庆汽摩"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/重庆汽摩.png" group-title="☘️重庆市",重庆汽摩
+http://183.230.184.51:65500/tntv1.m3u8?zzhongqd
 #EXTINF:-1 tvg-name="垫江综合"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/垫江综合.png" group-title="☘️重庆市",垫江综合
 http://123.146.162.24:8013/tslslive/noEX9SG/hls/live_sd.m3u8?zzhongqd
 #EXTINF:-1 tvg-name="万州三峡移民"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/万州三峡移民.png" group-title="☘️重庆市",万州三峡移民
@@ -287,10 +289,6 @@ http://115.230.59.120:4022/udp/233.50.200.192:5140
 http://61.221.215.25:8800/hls/43/index.m3u8
 #EXTINF:-1 group-title="其他",其他
 #genre#
-#EXTINF:-1 tvg-name="CHC电影" group-title="其他",CHC电影
-http://120.198.95.220:9901/tsfile/live/1038_1.m3u8?key=txiptv
-#EXTINF:-1 tvg-name="JJ斗地主" group-title="其他",JJ斗地主
-http://211.101.246.236:35455/huya/14079954
 #EXTINF:-1 tvg-name="上海乐游纪实" group-title="其他",上海乐游纪实
 http://115.230.59.120:4022/udp/233.50.201.185:5140
 #EXTINF:-1 tvg-name="上海欢笑剧场" group-title="其他",上海欢笑剧场
