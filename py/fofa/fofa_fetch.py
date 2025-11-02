@@ -16,10 +16,10 @@ HEADERS = {
 }
 
 COUNTER_FILE = "计数.txt"
-IP_DIR = "ip"
-RTP_DIR = "rtp"
+IP_DIR = "py/fofa/ip"
+RTP_DIR = "py/fofa/rtp"
 ZUBO_FILE = "zubo.txt"
-IPTV_FILE = "IPTV.txt"
+IPTV_FILE = "py/fofa/IPTV.txt"
 
 # ===============================
 # 分类与映射配置
