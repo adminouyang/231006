@@ -18,8 +18,8 @@ HEADERS = {
 COUNTER_FILE = "计数.txt"
 IP_DIR = "ip"
 RTP_DIR = "rtp"
-ZUBO_FILE = "py/fofa/zubo.txt"
-IPTV_FILE = "py/fofa/IPTV.txt"
+ZUBO_FILE = "zubo.txt"
+IPTV_FILE = "IPTV.txt"
 
 # ===============================
 # 分类与映射配置
