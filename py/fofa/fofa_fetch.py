@@ -18,7 +18,7 @@ HEADERS = {
 COUNTER_FILE = "py/fofa/计数.txt"
 IP_DIR = "py/fofa/ip"
 RTP_DIR = "py/fofa/rtp"
-ZUBO_FILE = "zubo.txt"
+ZUBO_FILE = "py/fofa/zubo.txt"
 IPTV_FILE = "py/fofa/IPTV.txt"
 
 # ===============================
