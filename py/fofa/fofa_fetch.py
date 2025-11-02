@@ -15,11 +15,11 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 }
 
-COUNTER_FILE = "计数.txt"
-IP_DIR = "ip"
-RTP_DIR = "rtp"
+COUNTER_FILE = "py/fofa/计数.txt"
+IP_DIR = "py/fofa/ip"
+RTP_DIR = "py/fofa/rtp"
 ZUBO_FILE = "zubo.txt"
-IPTV_FILE = "IPTV.txt"
+IPTV_FILE = "py/fofa/IPTV.txt"
 
 # ===============================
 # 分类与映射配置
