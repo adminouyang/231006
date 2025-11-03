@@ -12,7 +12,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 def check_ip(ip, port):
     try:
         url = f"http://{ip}:{port}/status"
-        response = requests.get(url, timeout=1)  # 设置超时为1秒
+        response = requests.get(url, timeout=5)  # 设置超时为1秒
         if response.status_code == 200 and 'udpxy status' in response.text:
             print(f"扫描到有效ip: {ip}:{port}")
             return f"{ip}:{port}"
