@@ -204,7 +204,7 @@ speed_results.sort(reverse=True)
 with open("py/安徽组播/speed.txt", 'w', encoding='utf-8') as file:
     for result in speed_results:
         download_rate, channel_name, channel_url = result
-        if download_rate >= 0.03:  # 只写入下载速度大于或等于 0.01 MB/s 的频道
+        if download_rate >= 0.01:  # 只写入下载速度大于或等于 0.01 MB/s 的频道
             file.write(f"{channel_name},{channel_url},{download_rate}\n")
 
 # 对经过下载速度检测后的所有组播频道列表进行分组排序
