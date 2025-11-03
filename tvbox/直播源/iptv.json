@@ -34,30 +34,6 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "frxz751113歌曲MV源",
-          "type":"0",
-          "pass": true,
-          "url":"https://gh-proxy.com/https://raw.githubusercontent.com/frxz751113/IPTVzb1/main/歌曲MV.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "231006影视源",
-          "type":"0",
-          "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/tvbox/%E7%9B%B4%E6%92%AD%E6%BA%90/%E5%BD%B1%E8%A7%86%E9%A2%91%E9%81%93",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "kimwang1978源",
-          "type":"0",
-          "pass": true,
-          "url":"https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
           "name": "231006自用源",
           "type":"0",
           "pass": true,
@@ -78,14 +54,6 @@
           "type":"0",
           "pass": true,
           "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV/refs/heads/master/output/ipv4/result.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "网络短剧",
-          "type":"0",
-          "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/0987363/iptv-chengdu/refs/heads/master/home/dj.m3u",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
@@ -124,6 +92,58 @@
     ],
   "sites": [
         {"key":"csp_LocalFile","name":"💻本地视频","type":3,"api":"csp_LocalFile","searchable":0,"quickSearch":0,"filterable":0,"type_flag":0},
+            {
+      "key": "天天",
+      "name": "🧿┃天天┃秒播",
+      "type": 3,
+      "api": "csp_TTian",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "jar":"https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",    
+      "ext": "7lj763gg0939791h1l3888jig44gi291li"
+    },
+    {
+      "key": "柠檬",
+      "name": "🍋‍🟩┃柠檬┃秒播",
+      "type": 3,
+      "api": "csp_Nmvod",
+      "playerType": 2,
+      "jar": "https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",
+      "ext": "7lj763gg402i7942503g839jg74h8h88highi40799jh6i6k454419l0l5184k0g549h0kg2i01i838i2h42g891lgg1"
+    },
+    {
+      "key": "热播",
+      "name": "🐠┃热播┃秒播",
+      "type": 3,
+      "api": "csp_TianTian",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": "http://v.rbotv.cn"
+    },
+    {
+      "key": "多多影音",
+      "name": "👲┃多多┃影音",
+      "type": 3,
+      "api": "csp_Ddyy",
+      "searchable": 1,
+      "quickSearch": 1,
+      "changeable": 1,
+      "timeout": 30,
+      "ext": {
+        "site": "https://tv.yydsys.top,https://tv.yydsys.cc,https://tv.214521.xyz"
+      }
+    },
+    {
+      "key": "nangua",
+      "name": "🎃┃南瓜┃秒播",
+      "type": 3,
+      "api": "csp_NanGua",
+      "playerType": 2,
+      "jar": "https://ncstatic.clewm.net/rsrc/2025/0725/20/318ccef14687421637f5aa0ba1021e33.png;md5;939FFBC2941A28CA533F2653FA4B449E",
+      "ext": "7lj763gg0939795i017ii486k512jkihhilg9g0h96j865740113"
+    },
         {"key":"drpy_js_豆瓣","name":"豆瓣[js]","type":3,"api":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/libs/drpy2.min.js","ext":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/js/drpy.js"},
         {"key":"drpy_js_奇珍异兽","name":"奇珍异兽[js]","type":3,"api":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/libs/drpy2.min.js","ext":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/js/奇珍异兽.js"},
         {"key":"drpy_js_优酷","name":"优酷[js]","type":3,"api":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/libs/drpy2.min.js","ext":"https://gh-proxy.com/https://raw.githubusercontent.com/hjdhnx/dr_py/main/js/优酷.js"},
