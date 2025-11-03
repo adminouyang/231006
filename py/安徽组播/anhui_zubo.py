@@ -73,7 +73,7 @@ def replace_ip_in_channels(ip, channels):
 unique_ip_ports = set()
 
 # 读取配置文件
-config_path = 'py/安徽组播/config.txt'
+config_path = 'py/fofa/ip/安徽电信.txt'
 configs = read_config(config_path)
 
 # 使用集合去除配置文件内重复的 IP 地址及端口
