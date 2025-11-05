@@ -1,0 +1,37 @@
+name: zubo更新3
+
+on:
+  schedule:
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0   
+      
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y yt-dlp sed nmap
+        
+      - name: 检测组播源
+        run: |
+          cd $GITHUB_WORKSPACE
+          # cat zubo.txt > zubo_备份.txt
+          bash py/安徽组播/zubo.sh
+          cat py/安徽组播/txt/安徽电信.txt  >> py/安徽组播/zubo.txt
+          
+      - name: 提交更改
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "更新直播源"
+          # git commit *.m3u -m "Add generated file"
+          git push --force origin main
