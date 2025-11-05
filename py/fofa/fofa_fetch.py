@@ -7,9 +7,9 @@ import subprocess
 from datetime import datetime, timezone, timedelta
 
 # ===============================
-# 配置区
+# 配置区https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D
 FOFA_URLS = {
-    "https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D&page=1&page_size=5": "ip.txt",
+    "https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249ImFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D": "ip.txt",
 }
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
