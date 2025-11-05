@@ -25,7 +25,7 @@ jobs:
           cd $GITHUB_WORKSPACE
           # cat zubo.txt > zubo_备份.txt
           bash py/安徽组播/zubo.sh
-          cat py/安徽组播/txt/安徽电信.txt  >> py/安徽组播/zubo.txt
+          cat py/安徽组播/txt/安徽电信.txt py/安徽组播/txt/江苏电信.txt py/安徽组播/txt/四川电信.txt >> py/安徽组播/zubo.txt
           
       - name: 提交更改
         run: |
