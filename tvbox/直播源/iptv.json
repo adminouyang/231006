@@ -25,22 +25,7 @@
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
-        {
-          "name": "py网络收集",
-          "type":"0",
-          "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/网络收集/live.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "231006自用源",
-          "type":"0",
-          "pass": true,
-          "url": "./live.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
+
         {
           "name": "q1017673817组播源",
           "type":"0",
@@ -58,34 +43,19 @@
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
-          "name": "dszb源检测",
+          "name": "TvSources",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/merged_output.txt",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TvSources/iptv_list.txt",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         }, 
+
         {
-          "name": "dszb瘦身版",
+          "name": "优质源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/live_lite.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "tv_yjc",
-          "type":"0",
-          "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/my_tv/live.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
-        },
-        {
-          "name": "酒店高清源",
-          "type":"0",
-          "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/iptv.txt",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/优质源/output/ipv4/result.m3u",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         }
