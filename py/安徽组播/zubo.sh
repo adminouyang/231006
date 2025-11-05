@@ -19,12 +19,17 @@ case $city_choice in
     1)
         city="安徽电信"
         stream="rtp/238.1.79.27:4328"
-        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249ImFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D&page=1&page_size=20"
+        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249ImFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D&page=1&page_size=10"
         ;;
     2)
-        city="江苏电信"
+        city="江苏电信"udp/239.93.0.169:5140
         stream="udp/239.49.8.19:9614"
         url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249Iuaxn%2BiLjyIgJiYgb3JnPSJDaGluYW5ldCIgJiYgcHJvdG9jb2w9Imh0dHAi&page=1&page_size=10"
+        ;;
+    3)
+        city="四川电信"
+        stream="udp/239.93.0.169:5140"
+        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D&page=1&page_size=10"
         ;;
 
     0)
