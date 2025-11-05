@@ -38,7 +38,7 @@ esac
 
 # 使用城市名作为默认文件名，格式为 CityName.ip
 time=$(date +%m%d%H%M)
-ipfile=py/安徽组播/ip/${city}_ip.txt
+ipfile=py/fofa/ip/${city}.txt
 good_ip=py/安徽组播/ip/good_${city}_ip.txt
 result_ip=py/安徽组播/ip/result_${city}_ip.txt
 echo "======== 开始检索 ${city} ========"
