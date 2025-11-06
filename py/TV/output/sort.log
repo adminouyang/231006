@@ -815,3 +815,873 @@
 [2025-11-06 12:27:34] 记录失败域名: 8.138.7.223
 [2025-11-06 12:27:34] 记录失败域名: 8.138.7.223
 [2025-11-06 12:27:44] 记录失败域名: 8.138.7.223
+[2025-11-06 13:10:03] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:10:03] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:10:06] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv1&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv1&token=ffmking
+[2025-11-06 13:10:06] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:06] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:06] 新增分辨率黑名单: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:06] 测速异常: http://m.061899.xyz/mg/cctv1 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv1
+[2025-11-06 13:10:06] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:06] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:06] 新增分辨率黑名单: m.061899.xyz
+[2025-11-06 13:10:07] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv2&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv2&token=ffmking
+[2025-11-06 13:10:07] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:07] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:07] 测速异常: http://m.061899.xyz/mg/cctv2 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv2
+[2025-11-06 13:10:07] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:07] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:09] 测速异常: http://m.061899.xyz/mg/cctv3 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv3
+[2025-11-06 13:10:09] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:09] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:10] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv3&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv3&token=ffmking
+[2025-11-06 13:10:10] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:10] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:14] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=Cctv4&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=Cctv4&token=ffmking
+[2025-11-06 13:10:14] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:14] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:14] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv4&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv4&token=ffmking
+[2025-11-06 13:10:14] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:14] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:21] 测速异常: http://m.061899.xyz/mg/cctv4 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv4
+[2025-11-06 13:10:21] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:21] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:22] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv2 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv2']' timed out after 15 seconds
+[2025-11-06 13:10:22] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:10:22] 新增分辨率黑名单: xtvantsc.xyz
+[2025-11-06 13:10:22] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv5&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv5&token=ffmking
+[2025-11-06 13:10:22] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:22] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:23] 测速异常: http://m.061899.xyz/mg/cctv5 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv5
+[2025-11-06 13:10:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:23] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv5plus&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv5plus&token=ffmking
+[2025-11-06 13:10:23] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:23] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:23] 测速异常: http://m.061899.xyz/mg/cctv5p | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv5p
+[2025-11-06 13:10:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:29] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv6&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv6&token=ffmking
+[2025-11-06 13:10:29] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:29] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:38] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv5&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv5&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:10:38] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:10:38] 新增分辨率黑名单: smart.dxjc.pp.ua
+[2025-11-06 13:10:39] 测速异常: http://m.061899.xyz/mg/cctv6 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv6
+[2025-11-06 13:10:39] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:39] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:39] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv5plus&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv5plus&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:10:39] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:10:41] 测速异常: http://m.061899.xyz/mg/cctv7 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv7
+[2025-11-06 13:10:41] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:41] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:42] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv6 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv6']' timed out after 15 seconds
+[2025-11-06 13:10:42] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:10:42] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv7&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv7&token=ffmking
+[2025-11-06 13:10:42] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:42] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:42] 测速异常: http://m.061899.xyz/mg/cctv8 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv8
+[2025-11-06 13:10:42] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:42] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:43] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv8hd&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv8hd&token=ffmking
+[2025-11-06 13:10:43] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:43] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:43] 测速异常: http://m.061899.xyz/mg/cctv9 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv9
+[2025-11-06 13:10:43] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:43] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:43] 测速异常: http://m.061899.xyz/mg/cctv10 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv10
+[2025-11-06 13:10:43] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:43] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:44] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv10hd&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv10hd&token=ffmking
+[2025-11-06 13:10:44] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:44] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:45] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv6&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv6&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:10:45] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:10:48] 测速异常: http://m.061899.xyz/mg/cctv11 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv11
+[2025-11-06 13:10:48] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:48] 记录失败域名: m.061899.xyz
+[2025-11-06 13:10:55] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv7&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv7&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:10:55] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:10:59] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv8hd&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv8hd&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:10:59] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:10:59] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv11&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv11&token=ffmking
+[2025-11-06 13:10:59] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:10:59] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:00] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv10hd&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv10hd&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:00] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:04] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv11&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv11&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:04] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:05] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv12&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv12&token=ffmking
+[2025-11-06 13:11:05] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:05] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:05] 测速异常: http://m.061899.xyz/mg/cctv12 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv12
+[2025-11-06 13:11:05] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:05] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:11] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv11 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv11']' timed out after 15 seconds
+[2025-11-06 13:11:11] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:11:11] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv13&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv13&token=ffmking
+[2025-11-06 13:11:11] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:11] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:11] 测速异常: http://m.061899.xyz/mg/cctv13 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv13
+[2025-11-06 13:11:11] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:11] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:16] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv12&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv12&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:16] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:17] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv12 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv12']' timed out after 15 seconds
+[2025-11-06 13:11:17] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:11:18] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv14&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv14&token=ffmking
+[2025-11-06 13:11:18] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:18] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:18] 测速异常: http://m.061899.xyz/mg/cctv14 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv14
+[2025-11-06 13:11:18] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:18] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:21] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv15&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv15&token=ffmking
+[2025-11-06 13:11:21] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:21] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:23] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv13&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv13&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:23] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:23] 测速异常: http://m.061899.xyz/mg/cctv15 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv15
+[2025-11-06 13:11:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:23] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:28] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv14 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv14']' timed out after 15 seconds
+[2025-11-06 13:11:28] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:11:32] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv16&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv16&token=ffmking
+[2025-11-06 13:11:32] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:32] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:32] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv14&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv14&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:32] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:32] 测速异常: http://m.061899.xyz/mg/cctv16 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv16
+[2025-11-06 13:11:32] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:32] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:35] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv17&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=cctv17&token=ffmking
+[2025-11-06 13:11:35] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:35] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:36] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv15&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv15&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:36] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:36] 测速异常: http://m.061899.xyz/mg/cctv17 | HTTPError - 403 Client Error: Forbidden for url: http://m.061899.xyz/mg/cctv17
+[2025-11-06 13:11:36] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:36] 记录失败域名: m.061899.xyz
+[2025-11-06 13:11:36] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:11:39] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv15 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv15']' timed out after 15 seconds
+[2025-11-06 13:11:39] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:11:39] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hunan_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hunan_twn&token=ffmking
+[2025-11-06 13:11:39] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:39] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:48] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv16&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv16&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:48] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:51] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=cctv17&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=cctv17&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:11:51] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:11:54] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=zhejiang_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=zhejiang_twn&token=ffmking
+[2025-11-06 13:11:54] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:11:54] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:07] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=zhejiang_twn&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=zhejiang_twn&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:12:07] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:12:07] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=jiangsu_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=jiangsu_twn&token=ffmking
+[2025-11-06 13:12:07] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:07] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:09] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhejiang_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhejiang_twn']' timed out after 15 seconds
+[2025-11-06 13:12:09] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:12:13] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=dongfangweishi_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=dongfangweishi_twn&token=ffmking
+[2025-11-06 13:12:13] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:13] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:19] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=shenzhen&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=shenzhen&token=ffmking
+[2025-11-06 13:12:19] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:19] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:27] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=dongfangweishi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=dongfangweishi_twn']' timed out after 15 seconds
+[2025-11-06 13:12:27] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:12:29] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=dongfangweishi_twn&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=dongfangweishi_twn&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:12:29] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:12:30] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=beijing&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=beijing&token=ffmking
+[2025-11-06 13:12:30] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:30] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:32] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=shenzhen | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=shenzhen']' timed out after 15 seconds
+[2025-11-06 13:12:32] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:12:35] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=shenzhen&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=shenzhen&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:12:35] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:12:45] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=beijing | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=beijing']' timed out after 15 seconds
+[2025-11-06 13:12:45] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:12:46] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=guangdongweishi_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=guangdongweishi_twn&token=ffmking
+[2025-11-06 13:12:46] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:46] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:47] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=beijing&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=beijing&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:12:47] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:12:49] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=guangxi&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=guangxi&token=ffmking
+[2025-11-06 13:12:49] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:49] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:54] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=guangdongweishi_twn&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=guangdongweishi_twn&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:12:54] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:12:55] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=guangdongweishi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=guangdongweishi_twn']' timed out after 15 seconds
+[2025-11-06 13:12:55] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:12:57] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=fujian&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=fujian&token=ffmking
+[2025-11-06 13:12:57] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:12:57] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:02] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=guangxi | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=guangxi']' timed out after 15 seconds
+[2025-11-06 13:13:02] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:13:05] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=guangxi&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=guangxi&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:13:05] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:13:06] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hubei&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hubei&token=ffmking
+[2025-11-06 13:13:06] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:06] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:11] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=fujian&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=fujian&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:13:11] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:13:12] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=sichuan_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=sichuan_twn&token=ffmking
+[2025-11-06 13:13:12] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:12] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:20] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=hubei | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=hubei']' timed out after 15 seconds
+[2025-11-06 13:13:20] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:13:21] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=hubei&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=hubei&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:13:21] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:13:26] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=sichuan_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=sichuan_twn']' timed out after 15 seconds
+[2025-11-06 13:13:26] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:13:29] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=sichuan_twn&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=sichuan_twn&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:13:29] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:13:33] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:34] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:34] 新增分辨率黑名单: shyd.695847.xyz
+[2025-11-06 13:13:37] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:37] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:39] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:13:40] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:41] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:13:42] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=phoenixtv_hd&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=phoenixtv_hd&token=ffmking
+[2025-11-06 13:13:42] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:42] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:47] 记录失败域名: 39.107.120.164
+[2025-11-06 13:13:47] 记录失败域名: 39.107.120.164
+[2025-11-06 13:13:47] 新增分辨率黑名单: 39.107.120.164
+[2025-11-06 13:13:47] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=phoenixinfo_hd&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=phoenixinfo_hd&token=ffmking
+[2025-11-06 13:13:47] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:47] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:47] 记录失败域名: 39.107.120.164
+[2025-11-06 13:13:48] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hkphoenix_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=hkphoenix_twn&token=ffmking
+[2025-11-06 13:13:48] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:48] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:13:58] 分辨率检测异常: https://smart.dxjc.pp.ua/smart.php?id=phoenixtv_hd&token=tmxk | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://smart.dxjc.pp.ua/smart.php?id=phoenixtv_hd&token=tmxk']' timed out after 15 seconds
+[2025-11-06 13:13:58] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-06 13:14:04] 记录失败域名: 39.107.120.164
+[2025-11-06 13:14:11] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:14:13] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ttv_taiwan&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ttv_taiwan&token=ffmking
+[2025-11-06 13:14:13] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:13] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:13] 记录失败域名: shyd.695847.xyz
+[2025-11-06 13:14:15] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:16] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv040/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv040/index.m3u8
+[2025-11-06 13:14:16] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:16] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:16] 新增分辨率黑名单: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:18] 测速异常: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:14:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:18] 新增分辨率黑名单: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:22] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv040/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv040/index.m3u8
+[2025-11-06 13:14:22] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:22] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:24] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:14:24] 新增分辨率黑名单: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:14:26] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=zhongshihd_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=zhongshihd_twn&token=ffmking
+[2025-11-06 13:14:26] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:26] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:28] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:31] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:31] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv041/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv041/index.m3u8
+[2025-11-06 13:14:31] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:31] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:31] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Iav6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Iav6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:14:31] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:31] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:33] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:14:33] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv041/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv041/index.m3u8
+[2025-11-06 13:14:33] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:33] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:41] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhongshihd_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhongshihd_twn']' timed out after 15 seconds
+[2025-11-06 13:14:41] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:43] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhongshi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhongshi_twn']' timed out after 15 seconds
+[2025-11-06 13:14:43] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:44] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:14:44] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ctshd_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ctshd_twn&token=ffmking
+[2025-11-06 13:14:44] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:44] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:44] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:14:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:45] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:46] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:46] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ftvhd_taiwan&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=ftvhd_taiwan&token=ffmking
+[2025-11-06 13:14:46] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:46] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:14:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:48] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUwxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUwxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:14:48] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:48] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:53] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:14:59] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:14:59] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUaeyvumHhaWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUaeyvumHhaWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:14:59] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:59] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:14:59] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctshd_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctshd_twn']' timed out after 15 seconds
+[2025-11-06 13:14:59] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:00] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ftvhd_taiwan | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ftvhd_taiwan']' timed out after 15 seconds
+[2025-11-06 13:15:00] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:01] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv067/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv067/index.m3u8
+[2025-11-06 13:15:01] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:01] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:03] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=tvbs | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=tvbs']' timed out after 15 seconds
+[2025-11-06 13:15:03] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:08] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:10] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUaatoeaoguWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUaatoeaoguWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:10] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:10] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:10] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv068/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv068/index.m3u8
+[2025-11-06 13:15:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:11] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUaaWsOiBngxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUaaWsOiBngxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:11] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:11] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:11] 测速异常: https://usiptv.esnad.dpdns.org/?id=tvbsnews | HTTPError - 403 Client Error: Forbidden for url: https://usiptv.esnad.dpdns.org/?id=tvbsnews
+[2025-11-06 13:15:11] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:15:11] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:15:11] 新增分辨率黑名单: usiptv.esnad.dpdns.org
+[2025-11-06 13:15:15] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:17] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:18] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-live088/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-live088/index.m3u8
+[2025-11-06 13:15:18] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:18] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:18] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUaWPsOWKhaWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUaWPsOWKhaWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:18] 测速异常: https://mao.ffmking888.dpdns.org/?id=VFZCUae2nOiXneWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=VFZCUae2nOiXneWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:18] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:18] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-live087/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-live087/index.m3u8
+[2025-11-06 13:15:18] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:18] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:19] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:19] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:19] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:19] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:19] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:20] 测速异常: https://usiptv.esnad.dpdns.org/?id=mstw | HTTPError - 403 Client Error: Forbidden for url: https://usiptv.esnad.dpdns.org/?id=mstw
+[2025-11-06 13:15:20] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:15:20] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:15:23] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:29] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:29] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5Yaw54Gj5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5Yaw54Gj5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:29] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:29] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:31] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:33] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:33] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW56ys5LiA5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW56ys5LiA5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:33] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:33] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:34] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:34] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ftvnew_taiwan | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ftvnew_taiwan']' timed out after 15 seconds
+[2025-11-06 13:15:34] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:39] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5peF6YGK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5peF6YGK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:39] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:39] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:40] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:40] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW57ac6Jed5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW57ac6Jed5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:40] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:40] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:41] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:41] 测速异常: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5b2x5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5rCR6KaW5b2x5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:41] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:41] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:42] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:43] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:44] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:45] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=toptv_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=toptv_twn&token=ffmking
+[2025-11-06 13:15:45] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:15:45] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:15:45] 测速异常: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW6IaB6YeH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW6IaB6YeH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:45] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:45] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:47] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:50] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv064/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv064/index.m3u8
+[2025-11-06 13:15:50] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:50] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:53] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:53] 测速异常: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW57aT5YW45Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5Lit6KaW57aT5YW45Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:15:53] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:53] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:15:54] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:54] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv080/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv080/index.m3u8
+[2025-11-06 13:15:54] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:54] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:58] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=toptv_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=toptv_twn']' timed out after 15 seconds
+[2025-11-06 13:15:58] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:58] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:15:58] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv074/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv074/index.m3u8
+[2025-11-06 13:15:58] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:58] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:59] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv074/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv074/index.m3u8
+[2025-11-06 13:15:59] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:15:59] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:04] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:05] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:11] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:11] 测速异常: http://tw-ty-line-11-1-5.sudatech.store:20319/of-4gtv-4gtv009/index.m3u?proxy=true | HTTPError - 404 Client Error:  for url: http://tw-ty-line-11-1-5.sudatech.store:20319/of-4gtv-4gtv009/index.m3u?proxy=true
+[2025-11-06 13:16:11] 记录失败域名: tw-ty-line-11-1-5.sudatech.store
+[2025-11-06 13:16:11] 记录失败域名: tw-ty-line-11-1-5.sudatech.store
+[2025-11-06 13:16:11] 新增分辨率黑名单: tw-ty-line-11-1-5.sudatech.store
+[2025-11-06 13:16:11] 测速异常: https://mao.ffmking888.dpdns.org/?id=5Lit5aSp5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5Lit5aSp5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:16:11] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:11] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:12] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv009/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv009/index.m3u8
+[2025-11-06 13:16:12] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:12] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:12] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv009/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv009/index.m3u8
+[2025-11-06 13:16:12] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:12] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:16] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:23] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctiasia_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctiasia_twn']' timed out after 15 seconds
+[2025-11-06 13:16:23] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:24] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:24] 测速异常: https://mao.ffmking888.dpdns.org/?id=5p2x5qOu5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5p2x5qOu5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:16:24] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:24] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:25] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:26] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:26] 测速异常: https://mao.ffmking888.dpdns.org/?id=5p2x5qOu6LKh57aT5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5p2x5qOu6LKh57aT5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:16:26] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:26] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:27] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:16:27] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:27] 测速异常: https://usiptv.esnad.dpdns.org/?id=dszg | HTTPError - 403 Client Error: Forbidden for url: https://usiptv.esnad.dpdns.org/?id=dszg
+[2025-11-06 13:16:27] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:16:27] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:16:28] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Yah6Zu76KaW5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Yah6Zu76KaW5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:16:28] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:28] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:31] 记录失败域名: 220.134.196.147
+[2025-11-06 13:16:31] 记录失败域名: 220.134.196.147
+[2025-11-06 13:16:31] 新增分辨率黑名单: 220.134.196.147
+[2025-11-06 13:16:31] 测速异常: https://4gtv.dxjc.pp.ua/li-4gtv-4gtv075/index.m3u8 | HTTPError - 400 Client Error: Bad Request for url: https://4gtv.dxjc.pp.ua/li-4gtv-4gtv075/index.m3u8
+[2025-11-06 13:16:31] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:31] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:32] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv075/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv075/index.m3u8
+[2025-11-06 13:16:32] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:32] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:38] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:38] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:39] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctinews | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctinews']' timed out after 15 seconds
+[2025-11-06 13:16:39] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:39] 测速异常: https://usiptv.esnad.dpdns.org/?id=tsnews | HTTPError - 403 Client Error: Forbidden for url: https://usiptv.esnad.dpdns.org/?id=tsnews
+[2025-11-06 13:16:39] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:16:39] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:16:40] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ettvnews | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ettvnews']' timed out after 15 seconds
+[2025-11-06 13:16:40] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:48] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv051/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv051/index.m3u8
+[2025-11-06 13:16:48] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:48] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:50] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:52] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:52] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:16:53] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv052/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv052/index.m3u8
+[2025-11-06 13:16:53] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:53] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:16:53] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=feifannews_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=feifannews_twn']' timed out after 15 seconds
+[2025-11-06 13:16:53] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:16:56] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Iav6KaW5paw6IGe&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Iav6KaW5paw6IGe&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:16:56] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:16:56] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:01] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:02] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv052/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv052/index.m3u8
+[2025-11-06 13:17:02] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:02] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:02] 测速异常: https://mao.ffmking888.dpdns.org/?id=5LiJ56uL57ac5ZCI5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5LiJ56uL57ac5ZCI5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:02] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:02] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:03] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:03] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ttvnews_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ttvnews_twn']' timed out after 15 seconds
+[2025-11-06 13:17:03] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:07] 测速异常: https://mao.ffmking888.dpdns.org/?id=5aaw5a6H5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5aaw5a6H5paw6IGe5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:07] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:07] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:08] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:17:09] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:14] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:17:15] 测速异常: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv156/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-4gtv-4gtv156/index.m3u8
+[2025-11-06 13:17:15] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:15] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:23] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv156/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv156/index.m3u8
+[2025-11-06 13:17:23] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:23] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:23] 测速异常: https://mao.ffmking888.dpdns.org/?id=5aaw5a6H5paw6IGe5Yaw54Gj5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5aaw5a6H5paw6IGe5Yaw54Gj5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:23] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:23] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:24] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=huanyuxinwen_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=huanyuxinwen_twn']' timed out after 15 seconds
+[2025-11-06 13:17:24] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:26] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:27] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:17:27] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:29] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:38] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:38] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv104/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv104/index.m3u8
+[2025-11-06 13:17:38] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:38] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:38] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:17:40] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:41] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:41] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp57ac5ZCI5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp57ac5ZCI5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:41] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:41] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:43] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:44] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:44] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6LOH6KiK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6LOH6KiK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:45] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:17:45] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:45] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6IKy5qiC5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6IKy5qiC5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:45] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:45] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:46] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:46] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:46] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:46] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:48] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:48] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5pig55Wr&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5pig55Wr&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:48] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:48] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:49] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv055/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv055/index.m3u8
+[2025-11-06 13:17:49] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:49] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:51] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:51] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5pel5pys5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5pel5pys5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:51] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:51] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:51] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5oiy5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5oiy5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:51] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:51] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:52] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5Y2h6YCa5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5aSp5Y2h6YCa5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:52] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:52] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:53] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:54] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:54] 测速异常: https://mao.ffmking888.dpdns.org/?id=6Z2W5rSL5oiy5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6Z2W5rSL5oiy5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:17:54] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:54] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:17:54] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:56] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:56] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:17:57] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:57] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:17:59] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:00] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:03] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:05] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:06] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:09] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:11] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:13] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:14] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:15] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:20] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:20] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:23] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:25] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:26] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:31] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=lunghuajingdian_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=lunghuajingdian_twn']' timed out after 15 seconds
+[2025-11-06 13:18:31] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:32] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:18:32] 测速异常: https://mao.ffmking888.dpdns.org/?id=5b2x6La35pW45L2N6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5b2x6La35pW45L2N6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:18:32] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:32] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:32] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv011/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv011/index.m3u8
+[2025-11-06 13:18:32] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:32] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:34] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:35] 测速异常: https://4gtv.dxjc.pp.ua/litv-ftv15/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/litv-ftv15/index.m3u8
+[2025-11-06 13:18:35] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:35] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:38] 测速异常: https://mao.ffmking888.dpdns.org/?id=5b2x6La35pW45L2N57SA5aam5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5b2x6La35pW45L2N57SA5aam5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:18:38] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:38] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:39] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:40] 测速异常: https://mao.ffmking888.dpdns.org/?id=YW1j6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=YW1j6Zu75b2x5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:18:40] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:40] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:40] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:43] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:43] 测速异常: https://mao.ffmking888.dpdns.org/?id=5YWr5aSn57Ka5b2p5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5YWr5aSn57Ka5b2p5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:18:43] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:43] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:45] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv034/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv034/index.m3u8
+[2025-11-06 13:18:45] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:45] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:52] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:52] 测速异常: https://iptv.vip-tptv.xyz/litv.php?id=4gtv-4gtv034 | HTTPError - 404 Client Error: Not Found for url: https://iptv.vip-tptv.xyz/litv.php?id=4gtv-4gtv034
+[2025-11-06 13:18:52] 记录失败域名: iptv.vip-tptv.xyz
+[2025-11-06 13:18:52] 记录失败域名: iptv.vip-tptv.xyz
+[2025-11-06 13:18:52] 新增分辨率黑名单: iptv.vip-tptv.xyz
+[2025-11-06 13:18:53] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:18:53] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv039/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv039/index.m3u8
+[2025-11-06 13:18:53] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:53] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:18:53] 记录失败域名: udinlaw.sytes.net
+[2025-11-06 13:18:53] 新增分辨率黑名单: udinlaw.sytes.net
+[2025-11-06 13:18:53] 测速异常: https://mao.ffmking888.dpdns.org/?id=5YWr5aSn57ac6Jed5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5YWr5aSn57ac6Jed5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:18:53] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:53] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:18:58] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=starmoviesgold_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=starmoviesgold_twn']' timed out after 15 seconds
+[2025-11-06 13:18:58] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:01] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:02] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:03] 测速异常: https://mao.ffmking888.dpdns.org/?id=5YWs6KaW5oiy5YqH&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5YWs6KaW5oiy5YqH&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:03] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:03] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:05] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:05] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:10] 测速异常: https://4gtv.dxjc.pp.ua/litv-longturn22/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/litv-longturn22/index.m3u8
+[2025-11-06 13:19:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:10] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:11] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:13] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:13] 测速异常: https://mao.ffmking888.dpdns.org/?id=6YeH5piM5b2x5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6YeH5piM5b2x5YqH5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:13] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:13] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:14] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:14] 测速异常: https://mao.ffmking888.dpdns.org/?id=5oSb54ia6YGU5aib5qiC5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5oSb54ia6YGU5aib5qiC5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:14] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:14] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:15] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-live120/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-live120/index.m3u8
+[2025-11-06 13:19:15] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:15] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:18] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:20] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:19:20] 测速异常: https://4gtv.dxjc.pp.ua/of-litv-longturn20/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/of-litv-longturn20/index.m3u8
+[2025-11-06 13:19:20] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:20] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:23] 测速异常: https://4gtv.dxjc.pp.ua/litv-longturn20/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/litv-longturn20/index.m3u8
+[2025-11-06 13:19:23] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:23] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:23] 测速异常: https://mao.ffmking888.dpdns.org/?id=RUxUVueUnaa0uaiLseiqnuWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=RUxUVueUnaa0uaiLseiqnuWPsAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:23] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:23] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:24] 测速异常: https://mao.ffmking888.dpdns.org/?id=5Lqe5rSy5peF6YGK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5Lqe5rSy5peF6YGK5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:24] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:24] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:26] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:26] 测速异常: https://mao.ffmking888.dpdns.org/?id=6YGU5paH6KWz6aC76YGT&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6YGU5paH6KWz6aC76YGT&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:26] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:26] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:28] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:28] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:19:28] 测速异常: https://4gtv.dxjc.pp.ua/litv-longturn19/index.m3u8 | HTTPError - 502 Server Error: Bad Gateway for url: https://4gtv.dxjc.pp.ua/litv-longturn19/index.m3u8
+[2025-11-06 13:19:28] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:28] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:29] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:33] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:19:33] 测速异常: https://usiptv.esnad.dpdns.org/?id=zwds | HTTPError - 403 Client Error: Forbidden for url: https://usiptv.esnad.dpdns.org/?id=zwds
+[2025-11-06 13:19:33] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:19:33] 记录失败域名: usiptv.esnad.dpdns.org
+[2025-11-06 13:19:36] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:36] 测速异常: https://mao.ffmking888.dpdns.org/?id=6LGs5ZOl5Lqu5q2M5buz56eA&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=6LGs5ZOl5Lqu5q2M5buz56eA&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:36] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:36] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:38] 记录失败域名: pxuchylhjchl.us-east-1.clawcloudrun.com
+[2025-11-06 13:19:41] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:42] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:44] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:44] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:44] 测速异常: https://mao.ffmking888.dpdns.org/?id=5pmC5bCa6YGL5YuVWAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5pmC5bCa6YGL5YuVWAxx&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:44] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:46] 测速异常: https://4gtv.dxjc.pp.ua/4gtv-4gtv014/index.m3u8 | HTTPError - 500 Server Error: Internal Error for url: https://4gtv.dxjc.pp.ua/4gtv-4gtv014/index.m3u8
+[2025-11-06 13:19:46] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:46] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:47] 测速异常: https://mao.ffmking888.dpdns.org/?id=5pm65p6X6auU6IKy5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89 | HTTPError - 429 Client Error: Too Many Requests for url: https://mao.ffmking888.dpdns.org/?id=5pm65p6X6auU6IKy5Yaw&auth=30234cedf871581989d3c91a3daec1e9f50e024aafcfa2247e7d44d91bb8d02fbc3f571b2d67f9d82642cc1d0f133d89
+[2025-11-06 13:19:47] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:47] 记录失败域名: mao.ffmking888.dpdns.org
+[2025-11-06 13:19:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:48] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:49] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=bosigolf1_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=bosigolf1_twn&token=ffmking
+[2025-11-06 13:19:49] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:19:49] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:19:53] 测速异常: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=bosigolf2_twn&token=ffmking | HTTPError - 503 Server Error: Service Unavailable for url: http://jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com/smart.php?id=bosigolf2_twn&token=ffmking
+[2025-11-06 13:19:53] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:19:53] 记录失败域名: jlyzzgfhyeao.ap-northeast-1.clawcloudrun.com
+[2025-11-06 13:19:53] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:54] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:56] 记录失败域名: 4gtv.dxjc.pp.ua
+[2025-11-06 13:19:56] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:58] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:19:58] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:19:58] 记录失败域名: xtvantsc.xyz
+[2025-11-06 13:20:06] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:06] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:06] 新增分辨率黑名单: live.ottiptv.cc
+[2025-11-06 13:20:11] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:11] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:27] 测速异常: https://live.ottiptv.cc/douyu/508118 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/508118
+[2025-11-06 13:20:27] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:27] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:28] 测速异常: https://live.ottiptv.cc/douyu/7356023 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/7356023
+[2025-11-06 13:20:28] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:28] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:30] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:44] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:45] 测速异常: https://live.ottiptv.cc/douyu/299854 | HTTPError - 403 Client Error: Forbidden for url: https://tc-tct.douyucdn2.cn/dyliveflv3/299854rxpgyJYhWa.flv?wsAuth=120070ce548aadc1e616efd11d151bcc&token=web-h5-0-299854-100a4ecb25ce9eda75abf5464c7a2734cb9947b7cfa700ca&logo=0&expire=0&did=10000000000000000000000000001501&pt=2&st=0&sid=416268499&mcid2=0&origin=tct&fcdn=tct&fo=1&mix=0&isp=
+[2025-11-06 13:20:45] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:45] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:52] 测速异常: https://live.ottiptv.cc/douyu/6911044 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/6911044
+[2025-11-06 13:20:52] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:52] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:55] 测速异常: https://live.ottiptv.cc/douyu/4105989 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/4105989
+[2025-11-06 13:20:55] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:55] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:55] 测速异常: https://live.ottiptv.cc/douyu/6478650 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/6478650
+[2025-11-06 13:20:55] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:55] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:56] 测速异常: https://live.ottiptv.cc/douyu/7812810 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/7812810
+[2025-11-06 13:20:56] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:56] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:56] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 测速异常: https://live.ottiptv.cc/douyu/7642724 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/7642724
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 测速异常: https://live.ottiptv.cc/douyu/508118 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/508118
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 测速异常: https://live.ottiptv.cc/douyu/747764 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/747764
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 测速异常: https://live.ottiptv.cc/douyu/6906628 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/6906628
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:20:57] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:10] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:12] 测速异常: https://live.ottiptv.cc/huya/29807256 | HTTPError - 403 Client Error: Forbidden for url: https://al.flv.huya.com/src/1199607078181-1199607078181-5631572272545267712-2399214279818-10057-A-0-1.flv?wsSecret=933e9929919ea73ef23725a0bada06db&wsTime=690df247&u=1470365846024&seqid=17624352712580143&txyp=&fs=bgct&sphdcdn=&sphdDC=&sphd=&exsphd=&ratio=0
+[2025-11-06 13:21:12] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:12] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:12] 测速异常: https://live.ottiptv.cc/huya/29835225 | HTTPError - 403 Client Error: Forbidden for url: https://al.flv.huya.com/src/1199641626934-1199641626934-5779958036797849600-2399283377324-10057-A-0-1.flv?wsSecret=13000478e5087aa2062ae63b1ee6e313&wsTime=690df239&u=1470360118398&seqid=17624352575678300&txyp=&fs=bgct&sphdcdn=&sphdDC=&sphd=&exsphd=&ratio=0
+[2025-11-06 13:21:12] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:12] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:15] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:15] 记录失败域名: yylunbo.ottiptv.cc
+[2025-11-06 13:21:17] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:21] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:21:30] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:30] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:30] 记录失败域名: yylunbo.ottiptv.cc
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226895/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226895/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429190>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226893/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226893/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543e0940>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226471/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226471/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544294f0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226335/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226335/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543f0a90>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226469/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226469/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543da040>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226894/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226894/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d0820>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226468/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226468/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226946/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226946/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554489160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226485/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226485/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85564ca730>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226944/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226944/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d0a90>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226937/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226937/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f855441f940>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226334/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226334/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554449070>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226942/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226942/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543e03a0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226316/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226316/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429ee0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226947/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226947/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8556678a60>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226333/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226333/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544453d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227002/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227002/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d0a60>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226318/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226318/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543f63d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226900/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EcYPi33WFyhvd6SjmqUKhJg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226900/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~cYPi33WFyhvd6SjmqUKhJg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85564ca820>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226898/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0uh4lyjjBCCN7TCq21vSIQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226898/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0uh4lyjjBCCN7TCq21vSIQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85564cadf0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226899/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ETYfTgTra_pUx2cPrgZ_BDw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226899/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~TYfTgTra_pUx2cPrgZ_BDw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414a60>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226897/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0BmO6uHF7WFoTed__Xr3NQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226897/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0BmO6uHF7WFoTed__Xr3NQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554424280>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226961/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E2MGyx659D_aaDPP0qt3NgA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226961/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~2MGyx659D_aaDPP0qt3NgA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543eaf10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226509/1.m3u8?zoneoffset=480&servicetype=1&icpid=&limitflux=-1&limitdur=-1&tenantId=8601&accountinfo=%7E%7EV2.0%7EIGb_ib7rnBX9_sANRKq9sg%7EpK8OKM5JoJWWbLRyLfPcUMkwWZ90MzSI9S9PDltJsYzd0ZGcS3Tkh7syciNKJa-w60mDOdwtDyoNwCx9aRgzHNH9AUREV_qvNJtXHRPzYw0%7EExtInfo9bj61dxzlMXrsixrqcFYPg%3D%3D%3A20221022013542%2C915973%2C119.123.71.209%2C20221022013542%2C10000100000000050000000003873458%2C915973%2C-1%2C0%2C1%2C%2C%2C2%2C%2C%2C%2C2%2C%2C10000100000000060000000007253514_0%2CEND&GuardEncType=2 | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226509/1.m3u8?zoneoffset=480&servicetype=1&icpid=&limitflux=-1&limitdur=-1&tenantId=8601&accountinfo=~~V2.0~IGb_ib7rnBX9_sANRKq9sg~pK8OKM5JoJWWbLRyLfPcUMkwWZ90MzSI9S9PDltJsYzd0ZGcS3Tkh7syciNKJa-w60mDOdwtDyoNwCx9aRgzHNH9AUREV_qvNJtXHRPzYw0~ExtInfo9bj61dxzlMXrsixrqcFYPg%3D%3D%3A20221022013542%2C915973%2C119.123.71.209%2C20221022013542%2C10000100000000050000000003873458%2C915973%2C-1%2C0%2C1%2C%2C%2C2%2C%2C%2C%2C2%2C%2C10000100000000060000000007253514_0%2CEND&GuardEncType=2 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544495e0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226959/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EGrVNEZREjuNVKiTJo2mtwg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226959/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~GrVNEZREjuNVKiTJo2mtwg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429610>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226995/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EBQiz3wrGrpG0CUSRIJ-7Jg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226995/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~BQiz3wrGrpG0CUSRIJ-7Jg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543e0610>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226954/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Eaf3wyULP1h575eM_4ByMDg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226954/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~af3wyULP1h575eM_4ByMDg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543da4c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226966/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E6qJH8Fd-zgCGx3P-Ce86cA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226966/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~6qJH8Fd-zgCGx3P-Ce86cA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554424160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226965/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E7UiKL56-L86ihmTWaZ6csw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226965/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~7UiKL56-L86ihmTWaZ6csw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414dc0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227015/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EW5-3AVdwD5KlUpuA4mz7Cg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227015/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~W5-3AVdwD5KlUpuA4mz7Cg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544893a0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227029/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EEuBMjt2kLMD8fAO7QYER7Q%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227029/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~EuBMjt2kLMD8fAO7QYER7Q~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429ca0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227010/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EkAhb-89sxdm9fz6-heXCuw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227010/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~kAhb-89sxdm9fz6-heXCuw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543f6040>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227014/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ErSGjhI3DMaaAASPrbQJYTg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227014/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rSGjhI3DMaaAASPrbQJYTg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414730>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226957/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EjW26v5VaHGy1jQuIA-4EbA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226957/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~jW26v5VaHGy1jQuIA-4EbA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d0bb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227016/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ESb5Qr3NTpE2ZugIroKoyTw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227016/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Sb5Qr3NTpE2ZugIroKoyTw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543ea730>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226952/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EREB40lnZnCEwjRy7LZuhIQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226952/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~REB40lnZnCEwjRy7LZuhIQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543fa040>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226956/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Ei6ZIpVizXlewg-YfGvH8dA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226956/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~i6ZIpVizXlewg-YfGvH8dA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543f0ca0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226963/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EjTXsJprEx2nE38tdvu5lhA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226963/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~jTXsJprEx2nE38tdvu5lhA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543eadf0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226991/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EQ6F5Mjgs0tJyEArWFL3vQA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226991/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Q6F5Mjgs0tJyEArWFL3vQA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d0cd0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226999/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EsGLKaSqf0wDZMbAjeQtfyw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226999/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~sGLKaSqf0wDZMbAjeQtfyw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414940>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227017/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EacviHy_ucMT27Ymf2iLtZA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227017/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~acviHy_ucMT27Ymf2iLtZA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543faf10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226943/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0QmKQ_slRCwvVVUUfxPVbw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226943/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0QmKQ_slRCwvVVUUfxPVbw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429a60>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227028/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EGfQPqRNVeBjTMsZ48qu0SA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227028/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~GfQPqRNVeBjTMsZ48qu0SA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554429820>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227012/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EnqBF03rFwPucF8ODtWxLQQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227012/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~nqBF03rFwPucF8ODtWxLQQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543faca0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227003/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ESco1zinvdUYzleEkXYhIvA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227003/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Sco1zinvdUYzleEkXYhIvA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544142b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227020/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Err-CLugPnTcUinEM8JeySg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227020/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rr-CLugPnTcUinEM8JeySg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543d03a0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227018/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ErN_hoRDwApMKnJqiNHvn9w%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227018/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rN_hoRDwApMKnJqiNHvn9w~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85544004f0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227011/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ExAUu61iVvo_xYbANWJhgXw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227011/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~xAUu61iVvo_xYbANWJhgXw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554449bb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227033/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EdeTB7OZ9G_VNJk5C3t96fQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227033/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~deTB7OZ9G_VNJk5C3t96fQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554449ca0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227045/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Eq0D3NdTUN7FuRzr8eJsbQA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227045/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~q0D3NdTUN7FuRzr8eJsbQA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f855440f160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227027/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EkHMvBpWz4rccMxNvSRekpQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227027/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~kHMvBpWz4rccMxNvSRekpQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554414160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226494/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226494/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554489a60>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226537/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E7AxXs4eTU2oiWrhopr9sHw%7E_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNNxsM0Bor098BJglrhfEQTl%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226537/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~7AxXs4eTU2oiWrhopr9sHw~_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNNxsM0Bor098BJglrhfEQTl%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543f6f10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226577/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EhE2Z89HKgsQOlN9opVn1iw%7E_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNN03yUnk4zBVk1bynPPL3hZ%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226577/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~hE2Z89HKgsQOlN9opVn1iw~_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNN03yUnk4zBVk1bynPPL3hZ%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f85543e02b0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:44] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226997/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EAw_OvjRgJVjtlaOa0dcgzg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226997/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Aw_OvjRgJVjtlaOa0dcgzg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8554489cd0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-06 13:21:45] 测速异常: https://live.ottiptv.cc/douyu/3811559 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/3811559
+[2025-11-06 13:21:45] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:45] 记录失败域名: live.ottiptv.cc
+[2025-11-06 13:21:49] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:21:54] 记录失败域名: 8.138.7.223
+[2025-11-06 13:22:02] 记录失败域名: 8.138.7.223
+[2025-11-06 13:22:05] 分辨率检测异常: http://play.kankanlive.com/live/1661761962676984.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://play.kankanlive.com/live/1661761962676984.m3u8']' timed out after 15 seconds
+[2025-11-06 13:22:05] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:22:10] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-06 13:22:14] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:22:25] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-06 13:22:28] 记录失败域名: 8.138.7.223
+[2025-11-06 13:22:30] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:22:30] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:22:30] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:22:32] 记录失败域名: epg.pw
+[2025-11-06 13:22:41] 记录失败域名: 61.221.215.25
+[2025-11-06 13:22:45] 记录失败域名: jsmov2.a.yximgs.com
+[2025-11-06 13:22:53] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:22:53] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:22:55] 记录失败域名: jsmov2.a.yximgs.com
+[2025-11-06 13:22:55] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:23:07] 分辨率检测异常: http://cfss.cc/cdn/hy/11342412.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://cfss.cc/cdn/hy/11342412.m3u8']' timed out after 15 seconds
+[2025-11-06 13:23:07] 记录失败域名: cfss.cc
+[2025-11-06 13:23:07] 新增分辨率黑名单: cfss.cc
+[2025-11-06 13:23:11] 分辨率检测异常: https://epg.pw/stream/7b470f9fc5c305db0c8622117b7b25ca00eb35ba3e93e865cf0ff9df5c736681.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://epg.pw/stream/7b470f9fc5c305db0c8622117b7b25ca00eb35ba3e93e865cf0ff9df5c736681.m3u8']' timed out after 15 seconds
+[2025-11-06 13:23:11] 记录失败域名: epg.pw
+[2025-11-06 13:23:15] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:23:25] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:23:52] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:24:18] 分辨率检测异常: https://play.kankanlive.com/live/1702454377323961.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1702454377323961.m3u8']' timed out after 15 seconds
+[2025-11-06 13:24:18] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:24:28] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:24:36] 分辨率检测异常: https://play.kankanlive.com/live/1624439143745981.m3u8?zgand | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1624439143745981.m3u8?zgand']' timed out after 15 seconds
+[2025-11-06 13:24:36] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:24:40] 记录失败域名: l.cztvcloud.com
+[2025-11-06 13:24:42] 分辨率检测异常: https://play.kankanlive.com/live/1693539781636986.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1693539781636986.m3u8']' timed out after 15 seconds
+[2025-11-06 13:24:42] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:24:52] 记录失败域名: jwcdnqx.hebyun.com.cn
+[2025-11-06 13:25:23] 分辨率检测异常: https://play.kankanlive.com/live/1659926941626981.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1659926941626981.m3u8']' timed out after 15 seconds
+[2025-11-06 13:25:23] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:26:05] 分辨率检测异常: https://play.kankanlive.com/live/1725005047185027.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1725005047185027.m3u8']' timed out after 15 seconds
+[2025-11-06 13:26:05] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:26:09] 测速异常: @http://p2.weizan.cn/978354/131995006225520039/live.m3u8 | InvalidSchema - No connection adapters were found for '@http://p2.weizan.cn/978354/131995006225520039/live.m3u8'
+[2025-11-06 13:26:20] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:20] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:24] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:24] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:24] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:24] 分辨率检测异常: http://play.kankanlive.com/live/1692005762394912.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://play.kankanlive.com/live/1692005762394912.m3u8']' timed out after 15 seconds
+[2025-11-06 13:26:24] 记录失败域名: play.kankanlive.com
+[2025-11-06 13:26:44] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-06 13:26:50] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-06 13:26:50] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-06 13:26:51] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-06 13:29:07] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
