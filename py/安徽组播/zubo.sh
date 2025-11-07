@@ -44,18 +44,18 @@ esac
 
 # 使用城市名作为默认文件名，格式为 CityName.ip
 time=$(date +%m%d%H%M)
-ipfile=py/安徽组播/ip/${city}_ip.txt             #py/fofa/ip/${city}.txt
+ipfile=py/fofa/ip/${city}.txt            #py/fofa/ip/${city}.txt
 good_ip=py/安徽组播/ip/good_${city}_ip.txt
 result_ip=py/安徽组播/ip/result_${city}_ip.txt
 echo "======== 开始检索 ${city} ========"
 echo "从 fofa 获取ip+端口"
-curl -o test.html $url_fofa
-grep -E '^\s*[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' test.html | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+' > tmp_ipfile
-awk '/M|k/{print $2}' $result_ip >> tmp_ipfile
-#echo "从 '${ipfile}' 读取ip并添加到检测列表"
+#curl -o test.html $url_fofa
+#grep -E '^\s*[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' test.html | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+' > tmp_ipfile
+#awk '/M|k/{print $2}' $result_ip >> tmp_ipfile
+echo "从 '${ipfile}' 读取ip并添加到检测列表"
 #cat $ipfile >> tmp_ipfile
-sort tmp_ipfile | uniq | sed '/^\s*$/d' > $ipfile  #py/安徽组播/ip/${city}_config.txt
-rm -f tmp_ipfile test.html                         #rm -f tmp_ipfile
+sort tmp_ipfile | uniq | sed '/^\s*$/d' > $py/安徽组播/ip/${city}_config.txt
+rm -f tmp_ipfile                       #rm -f tmp_ipfile
 
 while IFS= read -r ip; do
     # 尝试连接 IP 地址和端口号，并将输出保存到变量中
