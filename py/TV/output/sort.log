@@ -2674,3 +2674,326 @@
 [2025-11-07 01:30:18] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
 [2025-11-07 01:30:19] 记录失败域名: alimov2.a.kwimgs.com
 [2025-11-07 01:31:47] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:20:10] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:20:10] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:20:12] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:13] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:13] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:13] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:17] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:17] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:19] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:19] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:21] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:23] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:23] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:23] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:24] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:26] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:27] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:29] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:30] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:30] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:30] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:20:32] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:33] 记录失败域名: smart.dxjc.pp.ua
+[2025-11-07 04:20:38] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=cctv12 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=cctv12']' timed out after 15 seconds
+[2025-11-07 04:20:38] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:47] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=hunan_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=hunan_twn']' timed out after 15 seconds
+[2025-11-07 04:20:47] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:20:49] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhejiang_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhejiang_twn']' timed out after 15 seconds
+[2025-11-07 04:20:49] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:03] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=dongfangweishi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=dongfangweishi_twn']' timed out after 15 seconds
+[2025-11-07 04:21:03] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:05] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=shenzhen | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=shenzhen']' timed out after 15 seconds
+[2025-11-07 04:21:05] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:10] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=beijing | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=beijing']' timed out after 15 seconds
+[2025-11-07 04:21:10] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:14] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=guangdongweishi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=guangdongweishi_twn']' timed out after 15 seconds
+[2025-11-07 04:21:14] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:18] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:21:21] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=guangxi | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=guangxi']' timed out after 15 seconds
+[2025-11-07 04:21:21] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:23] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:21:28] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:30] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=hubei | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=hubei']' timed out after 15 seconds
+[2025-11-07 04:21:30] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:30] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=sichuan_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=sichuan_twn']' timed out after 15 seconds
+[2025-11-07 04:21:30] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:31] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:32] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:39] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ttv_taiwan | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ttv_taiwan']' timed out after 15 seconds
+[2025-11-07 04:21:39] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:43] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:45] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhongshi_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhongshi_twn']' timed out after 15 seconds
+[2025-11-07 04:21:45] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:46] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhongshihd_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhongshihd_twn']' timed out after 15 seconds
+[2025-11-07 04:21:46] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:46] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:48] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctshd_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctshd_twn']' timed out after 15 seconds
+[2025-11-07 04:21:48] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:50] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:50] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:52] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:52] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:54] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:55] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:57] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:21:59] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:01] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:02] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:03] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ftvhd_taiwan | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ftvhd_taiwan']' timed out after 15 seconds
+[2025-11-07 04:22:03] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:03] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=tvbs | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=tvbs']' timed out after 15 seconds
+[2025-11-07 04:22:03] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:05] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:07] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:07] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ftvnew_taiwan | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ftvnew_taiwan']' timed out after 15 seconds
+[2025-11-07 04:22:07] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:11] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:13] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:18] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=toptv_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=toptv_twn']' timed out after 15 seconds
+[2025-11-07 04:22:18] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:20] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:24] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=zhongshinews_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=zhongshinews_twn']' timed out after 15 seconds
+[2025-11-07 04:22:24] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:24] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctiasia_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctiasia_twn']' timed out after 15 seconds
+[2025-11-07 04:22:24] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:26] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:28] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:29] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ctinews | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ctinews']' timed out after 15 seconds
+[2025-11-07 04:22:29] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:30] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:31] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:33] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:35] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ettvnews | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ettvnews']' timed out after 15 seconds
+[2025-11-07 04:22:35] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:37] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:40] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=ettvcaijing_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=ettvcaijing_twn']' timed out after 15 seconds
+[2025-11-07 04:22:40] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:41] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:45] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=feifannews_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=feifannews_twn']' timed out after 15 seconds
+[2025-11-07 04:22:45] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:47] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:48] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:48] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:50] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:50] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:51] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:52] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:52] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=sanlizhonghe | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=sanlizhonghe']' timed out after 15 seconds
+[2025-11-07 04:22:52] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:53] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:54] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:54] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:55] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:55] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:56] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:56] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:57] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=huanyuxinwen_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=huanyuxinwen_twn']' timed out after 15 seconds
+[2025-11-07 04:22:57] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:57] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:58] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:59] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:59] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:22:59] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:00] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:00] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:01] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:01] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:07] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:07] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:07] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:09] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:09] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:10] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:11] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:12] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:13] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:14] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:14] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:15] 分辨率检测异常: http://xtvantsc.xyz/Smart.php?id=lunghuajingdian_twn | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://xtvantsc.xyz/Smart.php?id=lunghuajingdian_twn']' timed out after 15 seconds
+[2025-11-07 04:23:15] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:16] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:16] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:17] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:17] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:18] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:19] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:19] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:20] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:20] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:23:21] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:22] 记录失败域名: xtvantsc.xyz
+[2025-11-07 04:23:34] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:34] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:38] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:39] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:40] 测速异常: https://live.ottiptv.cc/douyu/310926 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/310926
+[2025-11-07 04:23:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:40] 测速异常: https://live.ottiptv.cc/douyu/2793084 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/2793084
+[2025-11-07 04:23:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:58] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:23:58] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:13] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:13] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:18] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:31] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:34] 测速异常: https://live.ottiptv.cc/huya/29807256 | HTTPError - 403 Client Error: Forbidden for url: https://al.flv.huya.com/src/1199607078181-1199607078181-5631572272545267712-2399214279818-10057-A-0-1.flv?wsSecret=b121842c083f6ccbf94d94d3f5ee43e3&wsTime=690ec600&u=1470367923386&seqid=17624894725932959&txyp=&fs=bgct&sphdcdn=&sphdDC=&sphd=&exsphd=&ratio=0
+[2025-11-07 04:24:34] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:34] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:36] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:37] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:40] 测速异常: https://live.ottiptv.cc/huya/29835225 | HTTPError - 403 Client Error: Forbidden for url: https://al.flv.huya.com/src/1199641626934-1199641626934-5779958036797849600-2399283377324-10057-A-0-1.flv?wsSecret=c8b723a74717777c2375a2da967b98bd&wsTime=690ec606&u=1470379819169&seqid=17624894791160703&txyp=&fs=bgct&sphdcdn=&sphdDC=&sphd=&exsphd=&ratio=0
+[2025-11-07 04:24:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:40] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:42] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:43] 测速异常: https://live.ottiptv.cc/huya/25256065 | HTTPError - 403 Client Error: Forbidden for url: https://aldirect.flv.huya.com/huyalive/1199582264598-1199582264598-5524998745063686144-2399164652652-10057-A-0-1.flv?wsSecret=b7a39f71eb79bc7ef80672632b3d6b77&wsTime=690ec605&u=1470377819259&seqid=17624894772338070&txyp=&fs=bgct&sphdcdn=&sphdDC=&sphd=&exsphd=&ratio=0
+[2025-11-07 04:24:43] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:43] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:45] 记录失败域名: yylunbo.ottiptv.cc
+[2025-11-07 04:24:49] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:24:50] 记录失败域名: yylunbo.ottiptv.cc
+[2025-11-07 04:24:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:54] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:57] 测速异常: https://live.ottiptv.cc/douyu/601514 | HTTPError - 502 Server Error: Bad Gateway for url: https://live.ottiptv.cc/douyu/601514
+[2025-11-07 04:24:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:24:57] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:25:01] 测速异常: https://live.ottiptv.cc/douyu/3811559 | HTTPError - 404 Client Error: Not Found for url: https://tc-tct.douyucdn2.cn/dyliveflv3a/3811559rikG9MtpJ.flv?wsAuth=2a245c68f88fc68ab60a1ae10e292654&token=web-h5-0-3811559-84d40b4477b0da48d055c032fae48d21a15a23b1cf134604&logo=0&expire=0&did=10000000000000000000000000001501&pt=2&st=0&sid=417779190&mcid2=0&origin=tct&fcdn=tct&fo=1&mix=0&isp=
+[2025-11-07 04:25:01] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:25:01] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226895/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226895/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb944fd0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226893/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226893/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874bca0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226471/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226471/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb81b1c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226335/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226335/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb810550>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226469/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226469/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb871a1c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226894/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226894/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb81b550>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226468/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226468/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874bfa0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226946/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226946/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb7f6880>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226485/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226485/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87b9ac0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226944/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226944/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8c2670>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226937/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226937/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8c2c10>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226334/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226334/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb944cd0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226942/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226942/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb9cdb50>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226316/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226316/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874bee0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226947/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226947/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87a9be0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226333/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226333/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87ae790>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227002/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227002/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87ae1f0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226318/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226318/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb81bbe0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226900/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EcYPi33WFyhvd6SjmqUKhJg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226900/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~cYPi33WFyhvd6SjmqUKhJg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb815310>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226898/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0uh4lyjjBCCN7TCq21vSIQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226898/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0uh4lyjjBCCN7TCq21vSIQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb944f40>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226899/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ETYfTgTra_pUx2cPrgZ_BDw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226899/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~TYfTgTra_pUx2cPrgZ_BDw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8d0bb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226897/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0BmO6uHF7WFoTed__Xr3NQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226897/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0BmO6uHF7WFoTed__Xr3NQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8dd760>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226961/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E2MGyx659D_aaDPP0qt3NgA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226961/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~2MGyx659D_aaDPP0qt3NgA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb80a9a0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226509/1.m3u8?zoneoffset=480&servicetype=1&icpid=&limitflux=-1&limitdur=-1&tenantId=8601&accountinfo=%7E%7EV2.0%7EIGb_ib7rnBX9_sANRKq9sg%7EpK8OKM5JoJWWbLRyLfPcUMkwWZ90MzSI9S9PDltJsYzd0ZGcS3Tkh7syciNKJa-w60mDOdwtDyoNwCx9aRgzHNH9AUREV_qvNJtXHRPzYw0%7EExtInfo9bj61dxzlMXrsixrqcFYPg%3D%3D%3A20221022013542%2C915973%2C119.123.71.209%2C20221022013542%2C10000100000000050000000003873458%2C915973%2C-1%2C0%2C1%2C%2C%2C2%2C%2C%2C%2C2%2C%2C10000100000000060000000007253514_0%2CEND&GuardEncType=2 | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226509/1.m3u8?zoneoffset=480&servicetype=1&icpid=&limitflux=-1&limitdur=-1&tenantId=8601&accountinfo=~~V2.0~IGb_ib7rnBX9_sANRKq9sg~pK8OKM5JoJWWbLRyLfPcUMkwWZ90MzSI9S9PDltJsYzd0ZGcS3Tkh7syciNKJa-w60mDOdwtDyoNwCx9aRgzHNH9AUREV_qvNJtXHRPzYw0~ExtInfo9bj61dxzlMXrsixrqcFYPg%3D%3D%3A20221022013542%2C915973%2C119.123.71.209%2C20221022013542%2C10000100000000050000000003873458%2C915973%2C-1%2C0%2C1%2C%2C%2C2%2C%2C%2C%2C2%2C%2C10000100000000060000000007253514_0%2CEND&GuardEncType=2 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb9448e0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226959/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EGrVNEZREjuNVKiTJo2mtwg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226959/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~GrVNEZREjuNVKiTJo2mtwg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb879d670>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226995/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EBQiz3wrGrpG0CUSRIJ-7Jg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226995/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~BQiz3wrGrpG0CUSRIJ-7Jg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874ba30>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226954/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Eaf3wyULP1h575eM_4ByMDg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226954/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~af3wyULP1h575eM_4ByMDg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87c3af0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226966/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E6qJH8Fd-zgCGx3P-Ce86cA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226966/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~6qJH8Fd-zgCGx3P-Ce86cA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb810520>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226965/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E7UiKL56-L86ihmTWaZ6csw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226965/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~7UiKL56-L86ihmTWaZ6csw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87bee20>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227015/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EW5-3AVdwD5KlUpuA4mz7Cg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227015/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~W5-3AVdwD5KlUpuA4mz7Cg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8151c0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227029/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EEuBMjt2kLMD8fAO7QYER7Q%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227029/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~EuBMjt2kLMD8fAO7QYER7Q~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb9cd160>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227010/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EkAhb-89sxdm9fz6-heXCuw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227010/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~kAhb-89sxdm9fz6-heXCuw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb80a670>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227014/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ErSGjhI3DMaaAASPrbQJYTg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227014/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rSGjhI3DMaaAASPrbQJYTg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb879df40>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226957/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EjW26v5VaHGy1jQuIA-4EbA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226957/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~jW26v5VaHGy1jQuIA-4EbA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb879d430>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227016/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ESb5Qr3NTpE2ZugIroKoyTw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227016/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Sb5Qr3NTpE2ZugIroKoyTw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb80ad30>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226952/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EREB40lnZnCEwjRy7LZuhIQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226952/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~REB40lnZnCEwjRy7LZuhIQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb9cd970>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226956/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Ei6ZIpVizXlewg-YfGvH8dA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226956/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~i6ZIpVizXlewg-YfGvH8dA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb815d00>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226963/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EjTXsJprEx2nE38tdvu5lhA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226963/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~jTXsJprEx2nE38tdvu5lhA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87bed00>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226991/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EQ6F5Mjgs0tJyEArWFL3vQA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226991/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Q6F5Mjgs0tJyEArWFL3vQA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87c9400>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226999/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EsGLKaSqf0wDZMbAjeQtfyw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226999/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~sGLKaSqf0wDZMbAjeQtfyw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87c30d0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227017/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EacviHy_ucMT27Ymf2iLtZA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227017/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~acviHy_ucMT27Ymf2iLtZA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874bb20>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226943/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E0QmKQ_slRCwvVVUUfxPVbw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226943/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~0QmKQ_slRCwvVVUUfxPVbw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8d0850>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227028/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EGfQPqRNVeBjTMsZ48qu0SA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227028/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~GfQPqRNVeBjTMsZ48qu0SA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb80af70>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227012/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EnqBF03rFwPucF8ODtWxLQQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227012/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~nqBF03rFwPucF8ODtWxLQQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87a92e0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227003/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ESco1zinvdUYzleEkXYhIvA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227003/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Sco1zinvdUYzleEkXYhIvA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb7f6ac0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227020/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Err-CLugPnTcUinEM8JeySg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227020/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rr-CLugPnTcUinEM8JeySg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87a91f0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227018/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ErN_hoRDwApMKnJqiNHvn9w%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227018/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~rN_hoRDwApMKnJqiNHvn9w~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb800d30>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227011/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7ExAUu61iVvo_xYbANWJhgXw%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227011/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~xAUu61iVvo_xYbANWJhgXw~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8d0280>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227033/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EdeTB7OZ9G_VNJk5C3t96fQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227033/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~deTB7OZ9G_VNJk5C3t96fQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874beb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227045/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7Eq0D3NdTUN7FuRzr8eJsbQA%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227045/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~q0D3NdTUN7FuRzr8eJsbQA~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87ce0a0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221227027/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EkHMvBpWz4rccMxNvSRekpQ%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221227027/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~kHMvBpWz4rccMxNvSRekpQ~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb81bac0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226494/1.m3u8? | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226494/1.m3u8 (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb874beb0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226537/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7E7AxXs4eTU2oiWrhopr9sHw%7E_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNNxsM0Bor098BJglrhfEQTl%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226537/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~7AxXs4eTU2oiWrhopr9sHw~_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNNxsM0Bor098BJglrhfEQTl%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb8d0880>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226577/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EhE2Z89HKgsQOlN9opVn1iw%7E_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNN03yUnk4zBVk1bynPPL3hZ%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226577/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~hE2Z89HKgsQOlN9opVn1iw~_eNUbgU9sJGUcVVduOMKhafLvQUgE_zlz_7pvDimJNN03yUnk4zBVk1bynPPL3hZ%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfbb800880>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:08] 测速异常: http://[2409:8087:8:21::18]:6610/otttv.bj.chinamobile.com/PLTV/88888888/224/3221226997/1.m3u8?GuardEncType=2&accountinfo=%7E%7EV2.0%7EAw_OvjRgJVjtlaOa0dcgzg%7EtP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND | ConnectionError - HTTPConnectionPool(host='2409:8087:8:21::18', port=6610): Max retries exceeded with url: /otttv.bj.chinamobile.com/PLTV/88888888/224/3221226997/1.m3u8?GuardEncType=2&accountinfo=~~V2.0~Aw_OvjRgJVjtlaOa0dcgzg~tP4-l0lmSfjwLWEfK_el1vH_mv-s1zo4AQJwdedaVwG9xkuFTDg8J26cwOrNJzn20BErrHdLhuZ9EzLUCD3PMW-OMx4MGteHV2vLeW6BqoY%2CEND (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fcfb87ceac0>: Failed to establish a new connection: [Errno 101] Network is unreachable'))
+[2025-11-07 04:25:16] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:25:21] 记录失败域名: 8.138.7.223
+[2025-11-07 04:25:21] 记录失败域名: live.ottiptv.cc
+[2025-11-07 04:25:29] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-07 04:25:33] 分辨率检测异常: http://play.kankanlive.com/live/1661761962676984.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://play.kankanlive.com/live/1661761962676984.m3u8']' timed out after 15 seconds
+[2025-11-07 04:25:33] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:25:36] 分辨率检测异常: http://8.138.7.223/【公众号：榴芒电视】/cctv7.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://8.138.7.223/【公众号：榴芒电视】/cctv7.m3u8']' timed out after 15 seconds
+[2025-11-07 04:25:36] 记录失败域名: 8.138.7.223
+[2025-11-07 04:25:40] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:25:48] 分辨率检测异常: https://epg.pw/stream/ac8062ec9484078061d3bef507c15a423ac57ae4144e3fcc4b0a198dd420f911.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://epg.pw/stream/ac8062ec9484078061d3bef507c15a423ac57ae4144e3fcc4b0a198dd420f911.m3u8']' timed out after 15 seconds
+[2025-11-07 04:25:48] 记录失败域名: epg.pw
+[2025-11-07 04:25:52] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-07 04:25:53] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:25:55] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:25:55] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:25:56] 记录失败域名: 8.138.7.223
+[2025-11-07 04:25:57] 记录失败域名: epg.pw
+[2025-11-07 04:26:02] 记录失败域名: jsmov2.a.yximgs.com
+[2025-11-07 04:26:13] 记录失败域名: jsmov2.a.yximgs.com
+[2025-11-07 04:26:13] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:26:13] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:26:14] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:26:15] 记录失败域名: cfss.cc
+[2025-11-07 04:26:15] 记录失败域名: cfss.cc
+[2025-11-07 04:26:28] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:26:34] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:26:57] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:26:58] 记录失败域名: p2.vzan.com
+[2025-11-07 04:27:24] 分辨率检测异常: https://play.kankanlive.com/live/1702454377323961.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1702454377323961.m3u8']' timed out after 15 seconds
+[2025-11-07 04:27:24] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:27:31] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:27:40] 测速异常: http://jwplay.hebyun.com.cn/live/hbnmtv/1500k/tzwj_video.m3u8 | HTTPError - 550 Server Error: Mid Origin Return Unknown Error for url: http://jwplay.hebyun.com.cn/live/hbnmtv/1500k/tzwj_video.m3u8
+[2025-11-07 04:27:40] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-07 04:27:40] 记录失败域名: jwplay.hebyun.com.cn
+[2025-11-07 04:27:41] 分辨率检测异常: https://play.kankanlive.com/live/1624439143745981.m3u8?zgand | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1624439143745981.m3u8?zgand']' timed out after 15 seconds
+[2025-11-07 04:27:41] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:27:43] 记录失败域名: l.cztvcloud.com
+[2025-11-07 04:27:44] 分辨率检测异常: https://play.kankanlive.com/live/1693539781636986.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1693539781636986.m3u8']' timed out after 15 seconds
+[2025-11-07 04:27:44] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:28:58] 分辨率检测异常: https://play.kankanlive.com/live/1725005047185027.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'https://play.kankanlive.com/live/1725005047185027.m3u8']' timed out after 15 seconds
+[2025-11-07 04:28:58] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:29:02] 测速异常: @http://p2.weizan.cn/978354/131995006225520039/live.m3u8 | InvalidSchema - No connection adapters were found for '@http://p2.weizan.cn/978354/131995006225520039/live.m3u8'
+[2025-11-07 04:29:12] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:12] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:14] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:14] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:14] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:17] 分辨率检测异常: http://play.kankanlive.com/live/1692005762394912.m3u8 | Command '['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=height', '-of', 'json', '-timeout', '10000000', '-user_agent', 'Mozilla/5.0', '-i', 'http://play.kankanlive.com/live/1692005762394912.m3u8']' timed out after 15 seconds
+[2025-11-07 04:29:17] 记录失败域名: play.kankanlive.com
+[2025-11-07 04:29:36] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-07 04:29:39] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-07 04:29:39] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
+[2025-11-07 04:29:41] 记录失败域名: alimov2.a.kwimgs.com
+[2025-11-07 04:31:32] 测速异常: genre | MissingSchema - Invalid URL 'genre': No scheme supplied. Perhaps you meant https://genre?
