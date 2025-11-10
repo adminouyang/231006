@@ -359,7 +359,7 @@ class IPSpeedTester:
 def main():
     # 配置参数
     config = {
-        'ip_folder': 'py/f0fa/ip',
+        'ip_folder': 'py/fofa/ip',
         'template_folder': 'py/测试/template',
         'output_folder': 'py/测试/IPTV',
         'test_timeout': 8,  # 增加超时时间
