@@ -9,7 +9,7 @@ import re
 
 class IPSpeedTester:
     def __init__(self, ip_folder="ip", template_folder="template", output_folder="IPTV",
-                 test_timeout=8, download_size=1024 * 100):  # 100KB测试数据
+                 test_timeout=8, download_size=1024 * 1000):  # 1000KB测试数据
         self.ip_folder = ip_folder
         self.template_folder = template_folder
         self.output_folder = output_folder
@@ -359,9 +359,9 @@ class IPSpeedTester:
 def main():
     # 配置参数
     config = {
-        'ip_folder': 'ip',
-        'template_folder': 'template',
-        'output_folder': 'IPTV',
+        'ip_folder': 'py/f0fa/ip',
+        'template_folder': 'py/测试/template',
+        'output_folder': 'py/测试/IPTV',
         'test_timeout': 8,  # 增加超时时间
         'max_workers': 6  # 减少并发数，避免带宽竞争
     }
