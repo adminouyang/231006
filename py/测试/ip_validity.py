@@ -8,11 +8,12 @@ import re
 
 
 class IPSpeedTester:
-    def __init__(self, ip_folder="ip", template_folder="template", output_folder="IPTV",
+    def __init__(self, ip_folder="ip", template_folder="template", output_folder="IPTV", detected_folder="Detected",
                  test_timeout=8, download_size=1024 * 1000):  # 1000KB测试数据
         self.ip_folder = ip_folder
         self.template_folder = template_folder
         self.output_folder = output_folder
+        self.detected_folder = detected_folder             
         self.test_timeout = test_timeout
         self.download_size = download_size
 
@@ -33,6 +34,7 @@ class IPSpeedTester:
 
         # 确保输出文件夹存在
         os.makedirs(self.output_folder, exist_ok=True)
+        os.makedirs(self.detected_folder, exist_ok=True)             
 
     def test_connection_speed(self, url, ip_port):
         """
@@ -225,7 +227,7 @@ class IPSpeedTester:
         valid_results.sort(key=lambda x: (x['speed'], -x['connect_time']), reverse=True)  # 速度优先，连接时间其次
 
         # 保存详细结果到文件
-        output_file = os.path.join(self.ip_folder, f"{city_name}_ip.txt")
+        output_file = os.path.join(self.detected_folder, f"{city_name}_ip.txt")
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(f"# {city_name} IP速度测试结果 - 有效IP {len(valid_results)}/{len(ip_list)}\n")
             f.write(f"# 测试时间: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
@@ -249,8 +251,8 @@ class IPSpeedTester:
 
     def generate_final_files(self):
         """生成最终的频道文件"""
-        if not os.path.exists(self.ip_folder) or not os.path.exists(self.template_folder):
-            print("IP文件夹或RTP文件夹不存在")
+        if not os.path.exists(self.detected_folder) or not os.path.exists(self.template_folder):
+            print("Detected文件夹或template文件夹不存在")
             return
 
         # 获取所有城市文件
@@ -258,8 +260,8 @@ class IPSpeedTester:
         cities = [os.path.splitext(f)[0] for f in city_files]
 
         for city in cities:
-            # 读取最快的3个IP
-            ip_result_file = os.path.join(self.ip_folder, f"{city}_ip.txt")
+            # 读取最快的3个IP（从Detected文件夹）
+            ip_result_file = os.path.join(self.detected_folder, f"{city}_ip.txt")
             if not os.path.exists(ip_result_file):
                 print(f"未找到 {city} 的IP测试结果文件")
                 continue
@@ -362,6 +364,7 @@ def main():
         'ip_folder': 'py/fofa/ip',
         'template_folder': 'py/测试/template',
         'output_folder': 'py/测试/IPTV',
+        'detected_folder': 'py/测试/Detected',
         'test_timeout': 8,  # 增加超时时间
         'max_workers': 6  # 减少并发数，避免带宽竞争
     }
@@ -371,6 +374,7 @@ def main():
         ip_folder=config['ip_folder'],
         template_folder=config['template_folder'],
         output_folder=config['output_folder'],
+        detected_folder=config['detected_folder'],
         test_timeout=config['test_timeout']
     )
 
