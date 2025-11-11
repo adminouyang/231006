@@ -3,15 +3,12 @@ import re
 import requests
 import time
 import concurrent.futures
-import subprocess
-from datetime import datetime, timezone, timedelta
+from datetime import datetime
 
 # ===============================
 # 配置区
 FOFA_URLS = {
     "https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D": "ip.txt",
-    #"https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D": "安徽ip.txt",
-    #"https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249IkJlaWppbmciICYmIG9yZz0iQ0hJTkEgVU5JQ09NIENoaW5hMTY5IEJhY2tib25lIiAmJiBwcm90b2NvbD0iaHR0cCI%3D": "北京ip.txt"
 }
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
@@ -23,7 +20,7 @@ IP_DIR = "py/测试/ip"
 if not os.path.exists(IP_DIR):
     os.makedirs(IP_DIR)
 
-# IP 运营商判断（改进版）
+# IP 运营商判断
 def get_isp(ip):
     # 更准确的IP段匹配
     telecom_pattern = r"^(1\.|14\.|27\.|36\.|39\.|42\.|49\.|58\.|60\.|101\.|106\.|110\.|111\.|112\.|113\.|114\.|115\.|116\.|117\.|118\.|119\.|120\.|121\.|122\.|123\.|124\.|125\.|126\.|171\.|175\.|182\.|183\.|202\.|203\.|210\.|211\.|218\.|219\.|220\.|221\.|222\.)"
@@ -63,6 +60,21 @@ def get_ip_info(ip_port):
         pass
     return None, None, ip_port
 
+# 读取现有文件内容并去重
+def read_existing_ips(filepath):
+    existing_ips = set()
+    if os.path.exists(filepath):
+        try:
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    ip = line.strip()
+                    if ip:  # 确保不是空行
+                        existing_ips.add(ip)
+            print(f"📖 从 {os.path.basename(filepath)} 读取到 {len(existing_ips)} 个现有IP")
+        except Exception as e:
+            print(f"❌ 读取文件 {filepath} 失败: {e}")
+    return existing_ips
+
 # 第一阶段：爬取和分类
 def first_stage():
     all_ips = set()
@@ -78,7 +90,7 @@ def first_stage():
                 u = u.strip()
                 if re.match(r'\d+\.\d+\.\d+\.\d+:\d+', u):
                     all_ips.add(u)
-            print(f"✅ 从 {filename} 获取到 {len(urls_all)} 个IP")
+            print(f"✅ 从 {filename} 获取到 {len(urls_all)} 个IP，其中 {len(all_ips)} 个有效")
         except Exception as e:
             print(f"❌ 爬取失败：{e}")
         time.sleep(3)
@@ -96,23 +108,28 @@ def first_stage():
                 fname = f"{province}{isp}.txt"
                 province_isp_dict.setdefault(fname, set()).add(ip_port)
     
-    # 保存到文件
-    for fname, ip_set in province_isp_dict.items():
+    # 保存到文件（追加模式，不去重）
+    for fname, new_ips in province_isp_dict.items():
         filepath = os.path.join(IP_DIR, fname)
+        
+        # 读取现有IP
+        existing_ips = read_existing_ips(filepath)
+        
+        # 合并新旧IP并去重
+        all_ips_for_file = existing_ips.union(new_ips)
+        
+        # 写入文件
         with open(filepath, 'w', encoding='utf-8') as f:
-            for ip in ip_set:
+            for ip in all_ips_for_file:
                 f.write(ip + '\n')
-        print(f"💾 已保存 {len(ip_set)} 个IP到 {fname}")
+        
+        added_count = len(all_ips_for_file) - len(existing_ips)
+        print(f"💾 已更新 {fname}，新增 {added_count} 个IP，总计 {len(all_ips_for_file)} 个IP")
     
-    # 保存所有IP到总文件
-    all_ip_file = os.path.join(IP_DIR, "all_ips.txt")
-    with open(all_ip_file, 'w', encoding='utf-8') as f:
-        for ip in all_ips:
-            f.write(ip + '\n')
-    print(f"💾 所有IP已保存到 {all_ip_file}")
+    print(f"✅ 任务完成！共处理 {len(province_isp_dict)} 个分类文件")
 
 # 主函数
 if __name__ == "__main__":
     print("🚀 开始IP爬取和分类...")
+    print(f"📁 结果将保存到 {IP_DIR} 目录")
     first_stage()
-    print("✅ 任务完成！")
