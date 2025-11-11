@@ -2,7 +2,7 @@ name: ip_validity_检测
 
 on:
   schedule:
-    - cron: "0 4 * * *"
+    - cron: "0 */2 * * *"
   workflow_dispatch:          # 手动触发
 
 jobs:
