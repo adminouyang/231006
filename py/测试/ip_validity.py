@@ -361,7 +361,7 @@ class IPSpeedTester:
 def main():
     # 配置参数
     config = {
-        'ip_folder': 'py/fofa/ip',
+        'ip_folder': 'py/测试/ip',
         'template_folder': 'py/测试/template',
         'output_folder': 'py/测试/IPTV',
         'detected_folder': 'py/测试/Detected',
