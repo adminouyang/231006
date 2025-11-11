@@ -87,7 +87,7 @@ def first_stage():
             urls_all = re.findall(r'<a href="http://(.*?)"', r.text)
             # 过滤出有效的IP:端口格式
             all_ips.update(u.strip() for u in urls_all)
-                all_ips.add(u)
+            all_ips.add(u)
             print(f"✅ 从 {filename} 获取到 {len(urls_all)} 个IP，其中 {len(all_ips)} 个有效")
         except Exception as e:
             print(f"❌ 爬取失败：{e}")
