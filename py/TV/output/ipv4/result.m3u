@@ -6,9 +6,9 @@ http://8.138.7.223/tv/cctv7.m3u8
 #EXTINF:-1 tvg-name="CCTV第一剧场",CCTV第一剧场
 https://epg.pw/stream/6d7bf281e3d739806a73f5373acaa6e01988ec9739f5ac1355ce54b47a928472.m3u8
 #EXTINF:-1 tvg-name="CCTV央视台球",CCTV央视台球
-https://epg.pw/stream/25677ac2e8c1f7c3dd6359c43eb5f0f54efb3f5c11f9dda18d01b3e0308ed017.m3u8
-#EXTINF:-1 tvg-name="CCTV央视台球",CCTV央视台球
 https://epg.pw/stream/ca9c1cd4b97fb824cedd7fedfd0c7a950afdd7f00751cfbb7c2d89831d7746a5.m3u8
+#EXTINF:-1 tvg-name="CCTV央视台球",CCTV央视台球
+https://epg.pw/stream/25677ac2e8c1f7c3dd6359c43eb5f0f54efb3f5c11f9dda18d01b3e0308ed017.m3u8
 
 #EXTINF:-1 group-title="卫视频道",卫视频道
 #EXTINF:-1 tvg-name="东南卫视",东南卫视
@@ -59,6 +59,8 @@ https://jwplay.hebyun.com.cn/live/xttv/1500k/tzwj_video.m3u8?zhebd
 https://jwplay.hebyun.com.cn/live/xttv/1500k/tzwj_video.m3u8
 #EXTINF:-1 tvg-name="邢台综合",邢台综合
 https://jwplay.hebyun.com.cn/live/xttv/1500k/tzwj_video.m3u8?zhebd
+#EXTINF:-1 tvg-name="滦平新闻",滦平新闻
+http://jwplay.hebyun.com.cn/live/LPTV001/1500k/tzwj_video.m3u8
 #EXTINF:-1 tvg-name="昌黎综合",昌黎综合
 https://jwcdnqx.hebyun.com.cn/live/clzhpd/1500k/tzwj_video.m3u8
 #EXTINF:-1 tvg-name="任丘综合",任丘综合
@@ -95,32 +97,26 @@ https://live-auth.51kandianshi.com/szgd/csztv5.m3u8
 #EXTINF:-1 group-title="☘️浙江省",☘️浙江省
 #EXTINF:-1 tvg-name="浙江经济生活",浙江经济生活
 http://l.cztvcloud.com/channels/lantian/SXxiaoshan2/720p.m3u8
-#EXTINF:-1 tvg-name="浙江新闻",浙江新闻
-http://101.66.199.251:9901/tsfile/live/1005_1.m3u8?key=txiptv&playlive=0&authid=0
 #EXTINF:-1 tvg-name="嘉兴新闻综合",嘉兴新闻综合
 http://live.zohi.tv/video/s10001-fztv-1/index.m3u8
-#EXTINF:-1 tvg-name="嘉兴公共",嘉兴公共
-http://play-sh13.quklive.com/live/1675149601192103.m3u8?auth_key=2028730429-9ab7f7f0267946e880ec46ce3d57ec9e-0-eb04d7f7e549054293604b04150cefa1
-#EXTINF:-1 tvg-name="嘉兴文化影视",嘉兴文化影视
-http://play-sh13.quklive.com/live/1675149625220101.m3u8?auth_key=2028730374-3a60eb8e324f416aa3b26dda7679d920-0-22dc7efa8452d0b0665c15eeed83609d
-#EXTINF:-1 tvg-name="湖州新闻综合",湖州新闻综合
-http://hzcm-live.media.hugd.com/3f5fa7d64c7c46a38c6bd8ad35e836cc/65128273761b4731ae53729ea6dcf932.m3u8?auth_key=2277598215-9d21c15111244bea8d298c361d31a72e-0-d031198f58d44b0e91ba2e3f3b188865&amp;fbl=
 #EXTINF:-1 tvg-name="湖州新闻综合",湖州新闻综合
 http://hzcm-live.media.hugd.com/3f5fa7d64c7c46a38c6bd8ad35e836cc/65128273761b4731ae53729ea6dcf932.m3u8?auth_key=2277598215-9d21c15111244bea8d298c361d31a72e-0-d031198f58d44b0e91ba2e3f3b188865
 #EXTINF:-1 tvg-name="湖州新闻综合",湖州新闻综合
 http://hzcm-live.media.hugd.com/3f5fa7d64c7c46a38c6bd8ad35e836cc/65128273761b4731ae53729ea6dcf932.m3u8?auth_key=2277598215-9d21c15111244bea8d298c361d31a72e-0-d031198f58d44b0e91ba2e3f3b188865&fbl=
 #EXTINF:-1 tvg-name="湖州新闻综合",湖州新闻综合
 https://hzcm-live.media.hugd.com/3f5fa7d64c7c46a38c6bd8ad35e836cc/65128273761b4731ae53729ea6dcf932.m3u8?auth_key=2277598215-9d21c15111244bea8d298c361d31a72e-0-d031198f58d44b0e91ba2e3f3b188865
-#EXTINF:-1 tvg-name="湖州文化娱乐",湖州文化娱乐
-http://hzcm-live.media.hugd.com/613c47f0ab0d4eaa98b21378d0db6ded/0051d31c9dd543a7825eea4e49675b2a.m3u8?auth_key=2277598059-0a5ebfa1c0dc4671b42a60810fc37039-0-fa625b7d1feab612062453c12e3c8887
+#EXTINF:-1 tvg-name="湖州新闻综合",湖州新闻综合
+http://hzcm-live.media.hugd.com/3f5fa7d64c7c46a38c6bd8ad35e836cc/65128273761b4731ae53729ea6dcf932.m3u8?auth_key=2277598215-9d21c15111244bea8d298c361d31a72e-0-d031198f58d44b0e91ba2e3f3b188865&amp;fbl=
 #EXTINF:-1 tvg-name="湖州文化娱乐",湖州文化娱乐
 http://hzcm-live.media.hugd.com/613c47f0ab0d4eaa98b21378d0db6ded/0051d31c9dd543a7825eea4e49675b2a.m3u8?auth_key=2277598059-0a5ebfa1c0dc4671b42a60810fc37039-0-fa625b7d1feab612062453c12e3c8887&fbl=
 #EXTINF:-1 tvg-name="湖州文化娱乐",湖州文化娱乐
+http://hzcm-live.media.hugd.com/613c47f0ab0d4eaa98b21378d0db6ded/0051d31c9dd543a7825eea4e49675b2a.m3u8?auth_key=2277598059-0a5ebfa1c0dc4671b42a60810fc37039-0-fa625b7d1feab612062453c12e3c8887
+#EXTINF:-1 tvg-name="湖州文化娱乐",湖州文化娱乐
 https://hzcm-live.media.hugd.com/613c47f0ab0d4eaa98b21378d0db6ded/0051d31c9dd543a7825eea4e49675b2a.m3u8?auth_key=2277598059-0a5ebfa1c0dc4671b42a60810fc37039-0-fa625b7d1feab612062453c12e3c8887
 #EXTINF:-1 tvg-name="龙游生活娱乐",龙游生活娱乐
-http://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8
-#EXTINF:-1 tvg-name="龙游生活娱乐",龙游生活娱乐
 https://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8
+#EXTINF:-1 tvg-name="龙游生活娱乐",龙游生活娱乐
+http://l.cztvcloud.com/channels/lantian/SXlongyou2/720p.m3u8
 #EXTINF:-1 tvg-name="龙游新闻综合",龙游新闻综合
 http://l.cztvcloud.com/channels/lantian/SXlongyou1/720p.m3u8?zzhed
 #EXTINF:-1 tvg-name="龙游新闻综合",龙游新闻综合
@@ -154,9 +150,9 @@ https://p2hs.vzan.com/slowlive/317913155078575177/live.m3u8
 #EXTINF:-1 tvg-name="海宁新闻综合",海宁新闻综合
 https://p2hs.vzan.com/slowlive/317913155078575177/live.m3u8?zbid=293304&tpid=1708007815
 #EXTINF:-1 tvg-name="普陀电视台",普陀电视台
-https://l.cztvcloud.com/channels/lantian/SXputuo1/720p.m3u8
-#EXTINF:-1 tvg-name="普陀电视台",普陀电视台
 http://l.cztvcloud.com/channels/lantian/SXputuo1/720p.m3u8?zzhed
+#EXTINF:-1 tvg-name="普陀电视台",普陀电视台
+https://l.cztvcloud.com/channels/lantian/SXputuo1/720p.m3u8
 #EXTINF:-1 tvg-name="普陀电视台",普陀电视台
 http://l.cztvcloud.com/channels/lantian/SXputuo1/720p.m3u8
 #EXTINF:-1 tvg-name="普陀新闻综合",普陀新闻综合
@@ -218,9 +214,9 @@ http://live.iwcmt.cn:90/live/zhxw.m3u8?zsicd
 
 #EXTINF:-1 group-title="☘️山西省",☘️山西省
 #EXTINF:-1 tvg-name="太谷新闻综合",太谷新闻综合
-https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&tpid=1516989100&type=0
-#EXTINF:-1 tvg-name="太谷新闻综合",太谷新闻综合
 https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&amp;tpid=1516989100&amp;type=0
+#EXTINF:-1 tvg-name="太谷新闻综合",太谷新闻综合
+https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&tpid=1516989100&type=0
 #EXTINF:-1 tvg-name="太谷新闻综合",太谷新闻综合
 https://p2.vzan.com/slowlive/596867413819827251/live.m3u8?zbid=1725814272&amp;amp;tpid=1516989100&amp;amp;type=0
 
@@ -263,18 +259,16 @@ https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTl
 https://alimov2.a.kwimgs.com/upic/2023/01/06/16/BMjAyMzAxMDYxNjMxMTNfNDAzMDAxOTlfOTI4OTY2ODAzNjlfMF8z_b_Bdee65c77f9e7b2120a185c919dad81d2.mp4
 #EXTINF:-1 tvg-name="2018年春晚", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2018年春晚.png", 2018年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/06/16/BMjAyMzAxMDYxNjMxMTRfNDAzMDAxOTlfOTI4OTY2ODE2MTBfMF8z_b_B11a778e34390a21de42d407e94f45b91.mp4
-#EXTINF:-1 tvg-name="2025-11-13 00:26:25", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2025-11-13 00:26:25.png", 2025-11-13 00:26:25
+#EXTINF:-1 tvg-name="2025-11-13 06:22:15", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2025-11-13 06:22:15.png", 2025-11-13 06:22:15
 https://vd3.bdstatic.com/mda-rja3mfxaxgr3uugw/1080p/cae_h264/1760187146239916730/mda-rja3mfxaxgr3uugw.mp4
-#EXTINF:-1 tvg-name="baby丶贝贝431460", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/baby丶贝贝431460.png", baby丶贝贝431460
-https://live.ottiptv.cc/douyu/431460
 #EXTINF:-1 tvg-name="CF穿越火线", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CF穿越火线.png", CF穿越火线
 https://live.ottiptv.cc/douyu/5388537
 #EXTINF:-1 tvg-name="CGTN", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
 https://0472.org/hls/cgtn.m3u8
 #EXTINF:-1 tvg-name="CGTN", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
-http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-#EXTINF:-1 tvg-name="CGTN", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
 https://0472.org/hls/cgtn.m3u8
+#EXTINF:-1 tvg-name="CGTN", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
+http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
 #EXTINF:-1 tvg-name="CGTN俄语", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN俄语.png", CGTN俄语
 http://russian-livews.cgtn.com/hls/LSvexABhNipibK5KRuUkvHZ7220802LSTeze9o8tdFXMHsb1VosgoT220802cd.m3u8
 #EXTINF:-1 tvg-name="CGTN俄语", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN俄语.png", CGTN俄语
@@ -291,16 +285,16 @@ https://0472.org/hls/cgtnd.m3u8
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
 #EXTINF:-1 tvg-name="cs go", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/cs go.png", cs go
 https://live.ottiptv.cc/douyu/601514
-#EXTINF:-1 tvg-name="Poison丶冰冰74374", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/Poison丶冰冰74374.png", Poison丶冰冰74374
-https://live.ottiptv.cc/douyu/74374
+#EXTINF:-1 tvg-name="Only丶邵氏4246519", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/Only丶邵氏4246519.png", Only丶邵氏4246519
+https://live.ottiptv.cc/douyu/4246519
 #EXTINF:-1 tvg-name="www.izbds.com", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/www.izbds.com.png", www.izbds.com
 https://vd3.bdstatic.com/mda-rja3mfxaxgr3uugw/1080p/cae_h264/1760187146239916730/mda-rja3mfxaxgr3uugw.mp4
 #EXTINF:-1 tvg-name="【周星驰】搞笑电影", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/【周星驰】搞笑电影.png", 【周星驰】搞笑电影
 https://yylunbo.ottiptv.cc/yy/38670875
+#EXTINF:-1 tvg-name="【林正英经典】玄幻电影", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/【林正英经典】玄幻电影.png", 【林正英经典】玄幻电影
+https://yylunbo.ottiptv.cc/yy/1462895099
 #EXTINF:-1 tvg-name="一把钢刀镇斗虞7356023", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/一把钢刀镇斗虞7356023.png", 一把钢刀镇斗虞7356023
 https://live.ottiptv.cc/douyu/7356023
-#EXTINF:-1 tvg-name="万事通熊猫7812810", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/万事通熊猫7812810.png", 万事通熊猫7812810
-https://live.ottiptv.cc/douyu/7812810
 #EXTINF:-1 tvg-name="中央电视塔南", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/中央电视塔南.png", 中央电视塔南
 https://gcalic.v.myalicdn.com/gc/ztn_1/index.m3u8
 #EXTINF:-1 tvg-name="丽江古城大水车", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/丽江古城大水车.png", 丽江古城大水车
@@ -321,18 +315,14 @@ https://gcalic.v.myalicdn.com/gc/ylxs12_1/index.m3u8
 https://gcalic.v.myalicdn.com/gc/dlst03_1/index.m3u8
 #EXTINF:-1 tvg-name="云南大理崇圣寺三塔远景", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/云南大理崇圣寺三塔远景.png", 云南大理崇圣寺三塔远景
 https://gcalic.v.myalicdn.com/gc/dlst01_1/index.m3u8
-#EXTINF:-1 tvg-name="伊太刀刀747764", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/伊太刀刀747764.png", 伊太刀刀747764
-https://live.ottiptv.cc/douyu/747764
+#EXTINF:-1 tvg-name="云顶之弈", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/云顶之弈.png", 云顶之弈
+https://live.ottiptv.cc/douyu/522423
 #EXTINF:-1 tvg-name="倩女幽魂妖魔道", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/倩女幽魂妖魔道.png", 倩女幽魂妖魔道
 http://jsmov2.a.yximgs.com/bs3/video-hls/5232901391302199073_hlsb.m3u8
 #EXTINF:-1 tvg-name="倩女幽魂道道道", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/倩女幽魂道道道.png", 倩女幽魂道道道
 http://jsmov2.a.yximgs.com/bs3/video-hls/5216294367991385255_hlsb.m3u8
 #EXTINF:-1 tvg-name="六盘山红军长征景区", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/六盘山红军长征景区.png", 六盘山红军长征景区
 https://gcalic.v.myalicdn.com/gc/lpsgmjng01_1/index.m3u8
-#EXTINF:-1 tvg-name="单纯的顺才少爷10084875", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/单纯的顺才少爷10084875.png", 单纯的顺才少爷10084875
-https://live.ottiptv.cc/douyu/10084875
-#EXTINF:-1 tvg-name="南京玄武湖公园", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/南京玄武湖公园.png", 南京玄武湖公园
-https://gcalic.v.myalicdn.com/gc/xwh01_1/index.m3u8
 #EXTINF:-1 tvg-name="四川峨眉山云海日出", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/四川峨眉山云海日出.png", 四川峨眉山云海日出
 https://gcalic.v.myalicdn.com/gc/emsarm_1/index.m3u8
 #EXTINF:-1 tvg-name="四川峨眉山远眺万佛顶", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/四川峨眉山远眺万佛顶.png", 四川峨眉山远眺万佛顶
@@ -345,20 +335,14 @@ https://gcalic.v.myalicdn.com/gc/tyhjtys_1/index.m3u8
 https://live.ottiptv.cc/douyu/8009547
 #EXTINF:-1 tvg-name="奇光主播e11849873", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/奇光主播e11849873.png", 奇光主播e11849873
 https://live.ottiptv.cc/douyu/11849873
-#EXTINF:-1 tvg-name="奇光主播q12560807", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/奇光主播q12560807.png", 奇光主播q12560807
-https://live.ottiptv.cc/douyu/12560807
 #EXTINF:-1 tvg-name="安徽池州九华山风景区九华山", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽池州九华山风景区九华山.png", 安徽池州九华山风景区九华山
 https://gcalic.v.myalicdn.com/gc/jhs05_1/index.m3u8
 #EXTINF:-1 tvg-name="安徽黟县芦村远眺", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽黟县芦村远眺.png", 安徽黟县芦村远眺
 https://gcalic.v.myalicdn.com/gc/yxlcyt_1/index.m3u8
 #EXTINF:-1 tvg-name="安徽黟县西递牌坊", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽黟县西递牌坊.png", 安徽黟县西递牌坊
 https://gcalic.v.myalicdn.com/gc/yxxdpf_1/index.m3u8
-#EXTINF:-1 tvg-name="小毅主播e11851549", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/小毅主播e11851549.png", 小毅主播e11851549
-https://live.ottiptv.cc/douyu/11851549
 #EXTINF:-1 tvg-name="小毅主播q6906628", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/小毅主播q6906628.png", 小毅主播q6906628
 https://live.ottiptv.cc/douyu/6906628
-#EXTINF:-1 tvg-name="师落6911044", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/师落6911044.png", 师落6911044
-https://live.ottiptv.cc/douyu/6911044
 #EXTINF:-1 tvg-name="广西桂林漓江景区", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/广西桂林漓江景区.png", 广西桂林漓江景区
 https://gcalic.v.myalicdn.com/gc/gllj01_1/index.m3u8
 #EXTINF:-1 tvg-name="张掖七彩丹霞", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/张掖七彩丹霞.png", 张掖七彩丹霞
@@ -367,8 +351,8 @@ https://gcalic.v.myalicdn.com/gc/zyqcdx01_1/index.m3u8
 https://live.ottiptv.cc/douyu/6027991
 #EXTINF:-1 tvg-name="怡宝妹妹丶434971", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/怡宝妹妹丶434971.png", 怡宝妹妹丶434971
 https://live.ottiptv.cc/douyu/434971
-#EXTINF:-1 tvg-name="懒猫是只喵260322", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/懒猫是只喵260322.png", 懒猫是只喵260322
-https://live.ottiptv.cc/douyu/260322
+#EXTINF:-1 tvg-name="恐怖电影", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/恐怖电影.png", 恐怖电影
+https://yylunbo.ottiptv.cc/yy/24066336
 #EXTINF:-1 tvg-name="我砸晕了牛顿奥1218414", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/我砸晕了牛顿奥1218414.png", 我砸晕了牛顿奥1218414
 https://live.ottiptv.cc/douyu/1218414
 #EXTINF:-1 tvg-name="支持作者", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/支持作者.png", 支持作者
@@ -397,6 +381,8 @@ https://gcalic.v.myalicdn.com/gc/hkts02_1/index.m3u8
 https://gcalic.v.myalicdn.com/gc/hkts03_1/index.m3u8
 #EXTINF:-1 tvg-name="浙江舟山东极岛", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/浙江舟山东极岛.png", 浙江舟山东极岛
 https://gcalic.v.myalicdn.com/gc/djd01_1/index.m3u8
+#EXTINF:-1 tvg-name="涂涂观影团", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/涂涂观影团.png", 涂涂观影团
+https://live.ottiptv.cc/huya/30513350
 #EXTINF:-1 tvg-name="港片 喜剧 动作", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/港片 喜剧 动作.png", 港片 喜剧 动作
 https://yylunbo.ottiptv.cc/yy/1355480591
 #EXTINF:-1 tvg-name="湖南张家界宝峰湖", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/湖南张家界宝峰湖.png", 湖南张家界宝峰湖
@@ -407,16 +393,20 @@ https://gcalic.v.myalicdn.com/gc/zjjybf_1/index.m3u8
 https://live.ottiptv.cc/douyu/2758565
 #EXTINF:-1 tvg-name="狮子山鸟瞰丽江古城", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/狮子山鸟瞰丽江古城.png", 狮子山鸟瞰丽江古城
 https://gcalic.v.myalicdn.com/gc/ljgcszsnkgc_1/index.m3u8
+#EXTINF:-1 tvg-name="王者荣耀", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/王者荣耀.png", 王者荣耀
+https://live.ottiptv.cc/douyu/1863767
 #EXTINF:-1 tvg-name="直播中国", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/直播中国.png", 直播中国
 https://gcalic.v.myalicdn.com/gc/wgw05_1/index.m3u8?contentid=2820180516001
+#EXTINF:-1 tvg-name="相识不可缓也", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/相识不可缓也.png", 相识不可缓也
+https://live.ottiptv.cc/huya/30984527
 #EXTINF:-1 tvg-name="福建武夷山玉女峰", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/福建武夷山玉女峰.png", 福建武夷山玉女峰
 https://gcalic.v.myalicdn.com/gc/wysynf_1/index.m3u8
-#EXTINF:-1 tvg-name="竹叶的熊猫3870925", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/竹叶的熊猫3870925.png", 竹叶的熊猫3870925
-https://live.ottiptv.cc/douyu/3870925
 #EXTINF:-1 tvg-name="粤语电影丶1226741", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/粤语电影丶1226741.png", 粤语电影丶1226741
 https://live.ottiptv.cc/douyu/1226741
-#EXTINF:-1 tvg-name="网神影厅508118", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/网神影厅508118.png", 网神影厅508118
-https://live.ottiptv.cc/douyu/508118
+#EXTINF:-1 tvg-name="经典电影重温", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/经典电影重温.png", 经典电影重温
+https://yylunbo.ottiptv.cc/yy/1382793140
+#EXTINF:-1 tvg-name="绝地求生", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/绝地求生.png", 绝地求生
+https://live.ottiptv.cc/douyu/100
 #EXTINF:-1 tvg-name="苹果Zei妖2793084", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/苹果Zei妖2793084.png", 苹果Zei妖2793084
 https://live.ottiptv.cc/douyu/2793084
 #EXTINF:-1 tvg-name="萧山新闻综合", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/萧山新闻综合.png", 萧山新闻综合
@@ -429,6 +419,8 @@ https://gcalic.v.myalicdn.com/gc/xywfl_1/index.m3u8
 https://live.ottiptv.cc/douyu/299854
 #EXTINF:-1 tvg-name="跑跑卡丁车", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/跑跑卡丁车.png", 跑跑卡丁车
 https://live.ottiptv.cc/douyu/7722576
+#EXTINF:-1 tvg-name="跑跑卡丁车手游", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/跑跑卡丁车手游.png", 跑跑卡丁车手游
+https://live.ottiptv.cc/douyu/6672862
 #EXTINF:-1 tvg-name="过往1908 8721095", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/过往1908 8721095.png", 过往1908 8721095
 https://live.ottiptv.cc/douyu/8721095
 #EXTINF:-1 tvg-name="邢台生活", tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/邢台生活.png", 邢台生活
@@ -463,26 +455,20 @@ https://gcalic.v.myalicdn.com/gc/wgw01_1/index.m3u8
 https://live.ottiptv.cc/douyu/1487654
 
 #EXTINF:-1 group-title="其他",其他
-#EXTINF:-1 tvg-name="baby丶贝贝431460",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/baby丶贝贝431460.png", baby丶贝贝431460
-https://live.ottiptv.cc/douyu/431460
-#EXTINF:-1 tvg-name="Poison丶冰冰74374",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/Poison丶冰冰74374.png", Poison丶冰冰74374
-https://live.ottiptv.cc/douyu/74374
-#EXTINF:-1 tvg-name="橙記Orange丶4549169",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/橙記Orange丶4549169.png", 橙記Orange丶4549169
-https://live.ottiptv.cc/douyu/4549169
 #EXTINF:-1 tvg-name="怡宝妹妹丶434971",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/怡宝妹妹丶434971.png", 怡宝妹妹丶434971
 https://live.ottiptv.cc/douyu/434971
-#EXTINF:-1 tvg-name="竹叶的熊猫3870925",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/竹叶的熊猫3870925.png", 竹叶的熊猫3870925
-https://live.ottiptv.cc/douyu/3870925
-#EXTINF:-1 tvg-name="苹果Zei妖2793084",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/苹果Zei妖2793084.png", 苹果Zei妖2793084
-https://live.ottiptv.cc/douyu/2793084
+#EXTINF:-1 tvg-name="橙記Orange丶4549169",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/橙記Orange丶4549169.png", 橙記Orange丶4549169
+https://live.ottiptv.cc/douyu/4549169
 #EXTINF:-1 tvg-name="龍組队长天昊1487654",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/龍組队长天昊1487654.png", 龍組队长天昊1487654
 https://live.ottiptv.cc/douyu/1487654
-#EXTINF:-1 tvg-name="过往1908 8721095",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/过往1908 8721095.png", 过往1908 8721095
-https://live.ottiptv.cc/douyu/8721095
-#EXTINF:-1 tvg-name="网神影厅508118",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/网神影厅508118.png", 网神影厅508118
-https://live.ottiptv.cc/douyu/508118
+#EXTINF:-1 tvg-name="苹果Zei妖2793084",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/苹果Zei妖2793084.png", 苹果Zei妖2793084
+https://live.ottiptv.cc/douyu/2793084
+#EXTINF:-1 tvg-name="Only丶邵氏4246519",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/Only丶邵氏4246519.png", Only丶邵氏4246519
+https://live.ottiptv.cc/douyu/4246519
 #EXTINF:-1 tvg-name="一把钢刀镇斗虞7356023",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/一把钢刀镇斗虞7356023.png", 一把钢刀镇斗虞7356023
 https://live.ottiptv.cc/douyu/7356023
+#EXTINF:-1 tvg-name="过往1908 8721095",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/过往1908 8721095.png", 过往1908 8721095
+https://live.ottiptv.cc/douyu/8721095
 #EXTINF:-1 tvg-name="我砸晕了牛顿奥1218414",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/我砸晕了牛顿奥1218414.png", 我砸晕了牛顿奥1218414
 https://live.ottiptv.cc/douyu/1218414
 #EXTINF:-1 tvg-name="粤语电影丶1226741",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/粤语电影丶1226741.png", 粤语电影丶1226741
@@ -493,54 +479,58 @@ https://live.ottiptv.cc/douyu/6027991
 https://live.ottiptv.cc/douyu/299854
 #EXTINF:-1 tvg-name="智仗心5635000",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/智仗心5635000.png", 智仗心5635000
 https://live.ottiptv.cc/douyu/5635000
-#EXTINF:-1 tvg-name="懒猫是只喵260322",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/懒猫是只喵260322.png", 懒猫是只喵260322
-https://live.ottiptv.cc/douyu/260322
-#EXTINF:-1 tvg-name="师落6911044",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/师落6911044.png", 师落6911044
-https://live.ottiptv.cc/douyu/6911044
-#EXTINF:-1 tvg-name="单纯的顺才少爷10084875",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/单纯的顺才少爷10084875.png", 单纯的顺才少爷10084875
-https://live.ottiptv.cc/douyu/10084875
-#EXTINF:-1 tvg-name="万事通熊猫7812810",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/万事通熊猫7812810.png", 万事通熊猫7812810
-https://live.ottiptv.cc/douyu/7812810
-#EXTINF:-1 tvg-name="伊太刀刀747764",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/伊太刀刀747764.png", 伊太刀刀747764
-https://live.ottiptv.cc/douyu/747764
-#EXTINF:-1 tvg-name="小毅主播e11851549",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/小毅主播e11851549.png", 小毅主播e11851549
-https://live.ottiptv.cc/douyu/11851549
 #EXTINF:-1 tvg-name="小毅主播q6906628",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/小毅主播q6906628.png", 小毅主播q6906628
 https://live.ottiptv.cc/douyu/6906628
 #EXTINF:-1 tvg-name="奇光主播8009547",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/奇光主播8009547.png", 奇光主播8009547
 https://live.ottiptv.cc/douyu/8009547
 #EXTINF:-1 tvg-name="奇光主播e11849873",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/奇光主播e11849873.png", 奇光主播e11849873
 https://live.ottiptv.cc/douyu/11849873
+#EXTINF:-1 tvg-name="涂涂观影团",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/涂涂观影团.png", 涂涂观影团
+https://live.ottiptv.cc/huya/30513350
+#EXTINF:-1 tvg-name="相识不可缓也",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/相识不可缓也.png", 相识不可缓也
+https://live.ottiptv.cc/huya/30984527
 #EXTINF:-1 tvg-name="牛叔说电影2758565",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/牛叔说电影2758565.png", 牛叔说电影2758565
 https://live.ottiptv.cc/douyu/2758565
-#EXTINF:-1 tvg-name="奇光主播q12560807",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/奇光主播q12560807.png", 奇光主播q12560807
-https://live.ottiptv.cc/douyu/12560807
 #EXTINF:-1 tvg-name="港片 喜剧 动作",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/港片 喜剧 动作.png", 港片 喜剧 动作
 https://yylunbo.ottiptv.cc/yy/1355480591
 #EXTINF:-1 tvg-name="【周星驰】搞笑电影",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/【周星驰】搞笑电影.png", 【周星驰】搞笑电影
 https://yylunbo.ottiptv.cc/yy/38670875
+#EXTINF:-1 tvg-name="恐怖电影",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/恐怖电影.png", 恐怖电影
+https://yylunbo.ottiptv.cc/yy/24066336
 #EXTINF:-1 tvg-name="林正英经典",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/林正英经典.png", 林正英经典
 https://yylunbo.ottiptv.cc/yy/1351505899
+#EXTINF:-1 tvg-name="经典电影重温",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/经典电影重温.png", 经典电影重温
+https://yylunbo.ottiptv.cc/yy/1382793140
+#EXTINF:-1 tvg-name="【林正英经典】玄幻电影",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/【林正英经典】玄幻电影.png", 【林正英经典】玄幻电影
+https://yylunbo.ottiptv.cc/yy/1462895099
 #EXTINF:-1 tvg-name="鬼片喜剧动作港剧",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/鬼片喜剧动作港剧.png", 鬼片喜剧动作港剧
 https://yylunbo.ottiptv.cc/yy/1355269576
+#EXTINF:-1 tvg-name="绝地求生",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/绝地求生.png", 绝地求生
+https://live.ottiptv.cc/douyu/100
 #EXTINF:-1 tvg-name="CF穿越火线",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CF穿越火线.png", CF穿越火线
 https://live.ottiptv.cc/douyu/5388537
+#EXTINF:-1 tvg-name="云顶之弈",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/云顶之弈.png", 云顶之弈
+https://live.ottiptv.cc/douyu/522423
 #EXTINF:-1 tvg-name="cs go",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/cs go.png", cs go
 https://live.ottiptv.cc/douyu/601514
+#EXTINF:-1 tvg-name="王者荣耀",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/王者荣耀.png", 王者荣耀
+https://live.ottiptv.cc/douyu/1863767
+#EXTINF:-1 tvg-name="CGTN",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
+https://0472.org/hls/cgtn.m3u8
 #EXTINF:-1 tvg-name="CGTN",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
 https://0472.org/hls/cgtn.m3u8
 #EXTINF:-1 tvg-name="CGTN",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
 http://english-livetx.cgtn.com/hls/yypdyyctzb_hd.m3u8
-#EXTINF:-1 tvg-name="CGTN",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN.png", CGTN
-https://0472.org/hls/cgtn.m3u8
+#EXTINF:-1 tvg-name="跑跑卡丁车",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/跑跑卡丁车.png", 跑跑卡丁车
+https://live.ottiptv.cc/douyu/7722576
 #EXTINF:-1 tvg-name="CGTN纪录",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN纪录.png", CGTN纪录
 https://0472.org/hls/cgtnd.m3u8
 #EXTINF:-1 tvg-name="CGTN纪录",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN纪录.png", CGTN纪录
 https://0472.org/hls/cgtnd.m3u8
 #EXTINF:-1 tvg-name="CGTN纪录",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN纪录.png", CGTN纪录
 https://english-livetx.cgtn.com/hls/yypdjlctzb_hd.m3u8
-#EXTINF:-1 tvg-name="跑跑卡丁车",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/跑跑卡丁车.png", 跑跑卡丁车
-https://live.ottiptv.cc/douyu/7722576
+#EXTINF:-1 tvg-name="跑跑卡丁车手游",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/跑跑卡丁车手游.png", 跑跑卡丁车手游
+https://live.ottiptv.cc/douyu/6672862
 #EXTINF:-1 tvg-name="CGTN俄语",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN俄语.png", CGTN俄语
 http://russian-livews.cgtn.com/hls/LSvexABhNipibK5KRuUkvHZ7220802LSTeze9o8tdFXMHsb1VosgoT220802cd.m3u8
 #EXTINF:-1 tvg-name="CGTN俄语",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/CGTN俄语.png", CGTN俄语
@@ -573,18 +563,18 @@ https://jwcdnqx.hebyun.com.cn/live/hdgg/1500k/tzwj_video.m3u8
 https://jwcdnqx.hebyun.com.cn/live/luquaner/1500k/tzwj_video.m3u8
 #EXTINF:-1 tvg-name="1993年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/1993年春晚.png", 1993年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/13/22/BMjAyMzAxMTMyMjEwMDNfNDAzMDAxOTlfOTM1MTIzMzYwODJfMF8z_b_B647d10e431b4cc5e48e6c77347d69021.mp4
+#EXTINF:-1 tvg-name="1995年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/1995年春晚.png", 1995年春晚
+https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTlfOTM0OTkwNDQwNzVfMF8z_b_B811c0dec6b9a3d3074a18522c185010a.mp4
 #EXTINF:-1 tvg-name="1994年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/1994年春晚.png", 1994年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/13/22/BMjAyMzAxMTMyMjEwMDNfNDAzMDAxOTlfOTM1MTIzMzYxMjNfMF8z_b_B3dde97f36273f04403d4dc5eec611a35.mp4
 #EXTINF:-1 tvg-name="1996年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/1996年春晚.png", 1996年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/13/22/BMjAyMzAxMTMyMjEwMDNfNDAzMDAxOTlfOTM1MTIzMzYxNTJfMF8z_b_Bd841eae10ab1c9955ef55fbedfae6c45.mp4
-#EXTINF:-1 tvg-name="1995年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/1995年春晚.png", 1995年春晚
-https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTlfOTM0OTkwNDQwNzVfMF8z_b_B811c0dec6b9a3d3074a18522c185010a.mp4
+#EXTINF:-1 tvg-name="2002年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2002年春晚.png", 2002年春晚
+https://alimov2.a.kwimgs.com/upic/2023/01/13/21/BMjAyMzAxMTMyMTE4MzRfNDAzMDAxOTlfOTM1MDY4ODIxNDdfMF8z_b_Ba6271d10b7e6cfae83759033a091f257.mp4
 #EXTINF:-1 tvg-name="2000年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2000年春晚.png", 2000年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/13/21/BMjAyMzAxMTMyMTE4MzRfNDAzMDAxOTlfOTM1MDY4ODIxMTNfMF8z_b_Bdddf4e7ef0ff6cfd477857bb40e78419.mp4
 #EXTINF:-1 tvg-name="2001年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2001年春晚.png", 2001年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTlfOTM0OTkwNDQyMDFfMF8z_b_B70592cb7c4054e9cabb675e849bbf4bd.mp4
-#EXTINF:-1 tvg-name="2002年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2002年春晚.png", 2002年春晚
-https://alimov2.a.kwimgs.com/upic/2023/01/13/21/BMjAyMzAxMTMyMTE4MzRfNDAzMDAxOTlfOTM1MDY4ODIxNDdfMF8z_b_Ba6271d10b7e6cfae83759033a091f257.mp4
 #EXTINF:-1 tvg-name="2003年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2003年春晚.png", 2003年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/14/23/BMjAyMzAxMTQyMzQxNDdfNDAzMDAxOTlfOTM2MTU0MTk1NDFfMF8z_b_B182749d2cd2ea9323639254af385f24b.mp4
 #EXTINF:-1 tvg-name="2005年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2005年春晚.png", 2005年春晚
@@ -597,10 +587,10 @@ https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTl
 https://alimov2.a.kwimgs.com/upic/2023/01/13/20/BMjAyMzAxMTMyMDA5MjJfNDAzMDAxOTlfOTM0OTkwNDQ0MjlfMF8z_b_B8818807a00eed329a69fb494f405bd43.mp4
 #EXTINF:-1 tvg-name="2014年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2014年春晚.png", 2014年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/06/16/BMjAyMzAxMDYxNjMxMTNfNDAzMDAxOTlfOTI4OTY2ODAzNjlfMF8z_b_Bdee65c77f9e7b2120a185c919dad81d2.mp4
-#EXTINF:-1 tvg-name="中央电视塔南",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/中央电视塔南.png", 中央电视塔南
-https://gcalic.v.myalicdn.com/gc/ztn_1/index.m3u8
 #EXTINF:-1 tvg-name="2018年春晚",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2018年春晚.png", 2018年春晚
 https://alimov2.a.kwimgs.com/upic/2023/01/06/16/BMjAyMzAxMDYxNjMxMTRfNDAzMDAxOTlfOTI4OTY2ODE2MTBfMF8z_b_B11a778e34390a21de42d407e94f45b91.mp4
+#EXTINF:-1 tvg-name="中央电视塔南",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/中央电视塔南.png", 中央电视塔南
+https://gcalic.v.myalicdn.com/gc/ztn_1/index.m3u8
 #EXTINF:-1 tvg-name="丽江古城大水车",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/丽江古城大水车.png", 丽江古城大水车
 https://gcalic.v.myalicdn.com/gc/ljgcdsc_1/index.m3u8
 #EXTINF:-1 tvg-name="乌镇蓝印花布",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/乌镇蓝印花布.png", 乌镇蓝印花布
@@ -621,26 +611,24 @@ https://gcalic.v.myalicdn.com/gc/dlst03_1/index.m3u8
 https://gcalic.v.myalicdn.com/gc/dlst01_1/index.m3u8
 #EXTINF:-1 tvg-name="六盘山红军长征景区",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/六盘山红军长征景区.png", 六盘山红军长征景区
 https://gcalic.v.myalicdn.com/gc/lpsgmjng01_1/index.m3u8
-#EXTINF:-1 tvg-name="南京玄武湖公园",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/南京玄武湖公园.png", 南京玄武湖公园
-https://gcalic.v.myalicdn.com/gc/xwh01_1/index.m3u8
 #EXTINF:-1 tvg-name="四川峨眉山云海日出",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/四川峨眉山云海日出.png", 四川峨眉山云海日出
 https://gcalic.v.myalicdn.com/gc/emsarm_1/index.m3u8
 #EXTINF:-1 tvg-name="四川峨眉山远眺万佛顶",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/四川峨眉山远眺万佛顶.png", 四川峨眉山远眺万佛顶
 https://gcalic.v.myalicdn.com/gc/emswfs_1/index.m3u8
 #EXTINF:-1 tvg-name="四川峨眉山远眺贡嘎雪山",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/四川峨眉山远眺贡嘎雪山.png", 四川峨眉山远眺贡嘎雪山
 https://gcalic.v.myalicdn.com/gc/emsyh_1/index.m3u8
+#EXTINF:-1 tvg-name="安徽黟县芦村远眺",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽黟县芦村远眺.png", 安徽黟县芦村远眺
+https://gcalic.v.myalicdn.com/gc/yxlcyt_1/index.m3u8
 #EXTINF:-1 tvg-name="天涯石",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/天涯石.png", 天涯石
 https://gcalic.v.myalicdn.com/gc/tyhjtys_1/index.m3u8
 #EXTINF:-1 tvg-name="安徽池州九华山风景区九华山",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽池州九华山风景区九华山.png", 安徽池州九华山风景区九华山
 https://gcalic.v.myalicdn.com/gc/jhs05_1/index.m3u8
-#EXTINF:-1 tvg-name="安徽黟县芦村远眺",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽黟县芦村远眺.png", 安徽黟县芦村远眺
-https://gcalic.v.myalicdn.com/gc/yxlcyt_1/index.m3u8
 #EXTINF:-1 tvg-name="安徽黟县西递牌坊",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/安徽黟县西递牌坊.png", 安徽黟县西递牌坊
 https://gcalic.v.myalicdn.com/gc/yxxdpf_1/index.m3u8
-#EXTINF:-1 tvg-name="广西桂林漓江景区",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/广西桂林漓江景区.png", 广西桂林漓江景区
-https://gcalic.v.myalicdn.com/gc/gllj01_1/index.m3u8
 #EXTINF:-1 tvg-name="张掖七彩丹霞",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/张掖七彩丹霞.png", 张掖七彩丹霞
 https://gcalic.v.myalicdn.com/gc/zyqcdx01_1/index.m3u8
+#EXTINF:-1 tvg-name="广西桂林漓江景区",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/广西桂林漓江景区.png", 广西桂林漓江景区
+https://gcalic.v.myalicdn.com/gc/gllj01_1/index.m3u8
 #EXTINF:-1 tvg-name="望乡台",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/望乡台.png", 望乡台
 https://gcalic.v.myalicdn.com/gc/hlwxt_1/index.m3u8
 #EXTINF:-1 tvg-name="江苏南京牛首山",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/江苏南京牛首山.png", 江苏南京牛首山
@@ -685,7 +673,7 @@ https://gcalic.v.myalicdn.com/gc/hsyg_1/index.m3u8
 https://gcalic.v.myalicdn.com/gc/hspyt_1/index.m3u8
 #EXTINF:-1 tvg-name="黄花城水长城01",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/黄花城水长城01.png", 黄花城水长城01
 https://gcalic.v.myalicdn.com/gc/wgw01_1/index.m3u8
-#EXTINF:-1 tvg-name="2025-11-13 00:26:25",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2025-11-13 00:26:25.png", 2025-11-13 00:26:25
+#EXTINF:-1 tvg-name="2025-11-13 06:22:15",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/2025-11-13 06:22:15.png", 2025-11-13 06:22:15
 https://vd3.bdstatic.com/mda-rja3mfxaxgr3uugw/1080p/cae_h264/1760187146239916730/mda-rja3mfxaxgr3uugw.mp4
 #EXTINF:-1 tvg-name="www.izbds.com",tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/www.izbds.com.png", www.izbds.com
 https://vd3.bdstatic.com/mda-rja3mfxaxgr3uugw/1080p/cae_h264/1760187146239916730/mda-rja3mfxaxgr3uugw.mp4
