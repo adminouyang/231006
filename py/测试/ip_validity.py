@@ -10,7 +10,7 @@ import urllib.parse
 
 class IPSpeedTester:
     def __init__(self, ip_folder="ip", template_folder="template", output_folder="IPTV", detected_folder="Detected",
-                 test_timeout=8, download_size=1024 * 100):  # 100KB测试数据
+                 test_timeout=8, download_size=1024 * 1000):  # 1000KB测试数据
         self.ip_folder = ip_folder
         self.template_folder = template_folder
         self.output_folder = output_folder
