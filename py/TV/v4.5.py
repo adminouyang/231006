@@ -16,7 +16,7 @@ SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
 DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
 LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
 BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
-RUN_COUNTER_FILE = os.path.join(CONFIG_DIR, 'run_counter.txt')
+RUN_COUNTER_FILE = os.path.join(CONFIG_DIR, 'run_counter.json')
 
 OUTPUT_DIR = 'py/tv/output'
 IPV4_DIR = os.path.join(OUTPUT_DIR, 'ipv4')
