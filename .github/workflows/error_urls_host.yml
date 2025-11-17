@@ -31,8 +31,8 @@ jobs:
 
     - name: Commit Results
       run: |
-        git config --global user.name 'github-actions'
-        git config --global user.email 'actions@users.noreply.github.com'
+        git config --global user.name 'ggBond-Action'
+        git config --global user.email 'ggBond-Action@users.noreply.github.com'
         git add .
         git commit -m "Update results from workflow run"
         git push

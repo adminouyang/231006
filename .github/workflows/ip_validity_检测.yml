@@ -31,7 +31,7 @@ jobs:
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.name "ggBond-Action"
           git add .
           git commit -m "更新ip检测"
           # git commit *.m3u -m "Add generated file"

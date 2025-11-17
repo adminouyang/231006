@@ -30,8 +30,8 @@ jobs:
       - name: 提交更改
         run: |
 
-          git config --local user.email "2856364053@qq.com"
-          git config --local user.name "adminouyang" 
+          git config --local user.email "sh17611310186@mail.com"
+          git config --local user.name "ggBond" 
           git add .
           git commit -m "action: `date`"
           #git commit -m "action: `date`"

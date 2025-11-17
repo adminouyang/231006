@@ -34,8 +34,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@users.noreply.github.com"
+          git config --global user.name "ggBond-Action"
+          git config --global user.email "ggBond-Action@users.noreply.github.com"
           git add py/fofa/计数.txt
           git add py/fofa/ip/*.txt || true
           git add py/fofa/IPTV.txt || true
