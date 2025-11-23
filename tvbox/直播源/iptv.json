@@ -3,10 +3,10 @@
     "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
                 {
-          "name": "综合源",
+          "name": "测试组播源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/dszby/refs/heads/main/py/测绘站采集/综合源.txt"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/测试/IPTV/all_channels.m3u"
 
         },
         {
@@ -27,10 +27,10 @@
         },
 
         {
-          "name": "q1017673817组播源",
+          "name": "TV",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/q1017673817/iptvz/refs/heads/main/zubo.txt",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/output/ipv4/result.m3u",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
