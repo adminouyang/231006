@@ -407,10 +407,10 @@ def finalize_output(organized, group_order, channel_order):
                 # if selected:
                 #     txt_lines.append(f"{channel},{'#'.join(selected)}")
                     # 修改这里：每个URL单独一行
-                    for url in selected:
-                        txt_lines.append(f"{channel},{url}")
-                    for url in selected:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}\n{url}')
+                for url in selected:
+                    txt_lines.append(f"{channel},{url}")
+                for url in selected:
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}\n{url}')
 
             # 处理额外频道
             extra = sorted(
@@ -423,10 +423,10 @@ def finalize_output(organized, group_order, channel_order):
                 # if selected:
                 #     txt_lines.append(f"{channel},{'#'.join(selected)}")
                 # 修改这里：每个URL单独一行
-                    for url in selected:
-                        txt_lines.append(f"{channel},{url}")
-                    for url in selected:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}\n{url}')
+                for url in selected:
+                    txt_lines.append(f"{channel},{url}")
+                for url in selected:
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}\n{url}')
 
         # 处理其他分组
         if '其他' in organized[ip_type]:
