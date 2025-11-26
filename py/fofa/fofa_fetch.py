@@ -444,7 +444,7 @@ def third_stage():
 
     # 写 IPTV.txt（包含更新时间与分类）
     beijing_now = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S")
-    disclaimer_url = "https://kakaxi-1.asia/LOGO/Disclaimer.mp4"
+    disclaimer_url = "https://live.ottiptv.cc/douyu/9067836"
 
     try:
         with open(IPTV_FILE, "w", encoding="utf-8") as f:
