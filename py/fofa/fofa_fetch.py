@@ -494,7 +494,7 @@ def push_all_files():
 
 # ===============================
 # 主执行逻辑
-if __name__ == "__main__"
+if __name__ == "__main__":
     # 确保目录存在
     osmakedirs(IP_DIR, exist_ok=True)
     osmakedirs(RTP_DIR, exist_ok=True)
