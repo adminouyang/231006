@@ -480,10 +480,10 @@ def third_stage():
 # 文件推送
 def push_all_files():
     print("🚀 推送所有更新文件到 GitHub")
-    try
+    try:
         ossystem('git config --global username "github-actions"')
         ossystem('git config --global useremail "github-actions@usersnoreplygithubcom"')
-    except Exception
+    except Exception:
         pass
 
     ossystem("git add py/fofa/计数txt")
