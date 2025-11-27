@@ -501,7 +501,7 @@ if __name__ == "__main__":
 
     run_count = first_stage()
 
-    if run_count %  == 
+    if run_count %  == 0:
         second_stage()
         third_stage()
     else
