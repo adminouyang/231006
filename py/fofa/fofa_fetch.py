@@ -504,7 +504,7 @@ if __name__ == "__main__":
     if run_count % 10 == 0:
         second_stage()
         third_stage()
-    else
+    else:
         print("ℹ️ 本次不是  的倍数，跳过第二、三阶段")
 
     push_all_files()
