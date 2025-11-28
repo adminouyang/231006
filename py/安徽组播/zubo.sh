@@ -39,13 +39,14 @@ case $city_choice in
         ;;
 esac
 
-# 新增IP段扫描函数
-scan_ip_segments() {
+# 新增IP段扫描函数 - 优化版，扫描所有可用IP
+scan_all_available_ips() {
     local ip_file=$1
     local city=$2
     local temp_file=$(mktemp)
     
-    echo "开始对 ${city} 的IP进行分段扫描..."
+    echo "开始对 ${city} 的IP进行全量扫描..."
+    echo "扫描策略: 先快速扫描D段，再全面扫描C段所有IP"
     
     if [ ! -f "$ip_file" ]; then
         echo "错误: IP文件 $ip_file 不存在"
@@ -55,67 +56,97 @@ scan_ip_segments() {
     # 读取原始IP并去重
     grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' "$ip_file" | sort -u > "$temp_file"
     
-    declare -A c_segments
-    declare -A scanned_c_segments
+    # 统计IP总数
+    local total_ips=$(wc -l < "$temp_file")
+    echo "发现 $total_ips 个待测试IP"
     
-    # 分析C段
+    # 清空扫描结果文件
+    > "${ip_file}.scanned"
+    
+    # 按C段分组处理
+    declare -A c_segments
+    declare -A c_segment_ips
+    
+    # 按C段分组IP
     while IFS= read -r line; do
         ip=$(echo "$line" | cut -d: -f1)
         IFS='.' read -r a b c d <<< "$ip"
         c_key="$a.$b.$c"
         c_segments["$c_key"]=1
+        c_segment_ips["$c_key"]="${c_segment_ips[$c_key]} $line"
     done < "$temp_file"
     
     echo "发现 ${#c_segments[@]} 个C段网络"
     
     # 对每个C段进行扫描
+    local processed=0
     for c_segment in "${!c_segments[@]}"; do
         echo "扫描C段: $c_segment.0/24"
-        local segment_found=0
         
-        # 首先扫描D段
+        # 获取该C段的所有IP
+        local segment_ips=(${c_segment_ips["$c_segment"]})
+        local segment_count=${#segment_ips[@]}
+        local found_in_segment=0
+        
+        echo "  本C段有 $segment_count 个IP待测试"
+        
+        # 先扫描D段（1-254）
         for d in $(seq 1 254); do
             test_ip="$c_segment.$d"
             
-            # 检查这个IP是否在原始列表中
-            if grep -q "^$test_ip:" "$temp_file"; then
-                port=$(grep "^$test_ip:" "$temp_file" | head -1 | cut -d: -f2)
+            # 检查这个IP是否在当前C段的IP列表中
+            for ip_port in "${segment_ips[@]}"; do
+                if [[ "$ip_port" == "$test_ip:"* ]]; then
+                    port=$(echo "$ip_port" | cut -d: -f2)
+                    processed=$((processed + 1))
+                    
+                    # 测试连接，使用更可靠的测试方法
+                    if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
+                        echo "$test_ip:$port" >> "${ip_file}.scanned"
+                        echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
+                        found_in_segment=$((found_in_segment + 1))
+                    else
+                        echo "  × [$processed/$total_ips] IP不可用: $test_ip:$port"
+                    fi
+                    break
+                fi
+            done
+        done
+        
+        # 扫描C段中可能遗漏的其他IP（非标准D段）
+        for ip_port in "${segment_ips[@]}"; do
+            # 检查是否已经处理过这个IP
+            if ! grep -q "^$ip_port$" "${ip_file}.scanned" 2>/dev/null && 
+               ! grep -q "^${ip_port%:*}\." "${ip_file}.scanned" 2>/dev/null; then
+                test_ip=$(echo "$ip_port" | cut -d: -f1)
+                port=$(echo "$ip_port" | cut -d: -f2)
                 
-                # 测试连接
-                if timeout 1 bash -c "echo >/dev/tcp/$test_ip/$port" 2>/dev/null; then
-                    echo "$test_ip:$port" >> "${ip_file}.scanned"
-                    echo "  ✓ D段IP可用: $test_ip:$port"
-                    segment_found=1
+                # 检查IP是否属于当前C段
+                if [[ "$test_ip" == "$c_segment."* ]]; then
+                    processed=$((processed + 1))
+                    
+                    if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
+                        echo "$test_ip:$port" >> "${ip_file}.scanned"
+                        echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
+                        found_in_segment=$((found_in_segment + 1))
+                    else
+                        echo "  × [$processed/$total_ips] IP不可用: $test_ip:$port"
+                    fi
                 fi
             fi
         done
         
-        # 如果D段没有找到可用IP，扫描C段的其他IP
-        if [ "$segment_found" -eq 0 ]; then
-            echo "D段无可用IP，扫描C段其他IP: $c_segment.0/24"
-            
-            # 扫描该C段中所有在原始列表中的IP
-            grep "^$c_segment\." "$temp_file" | while read -r ip_port; do
-                test_ip=$(echo "$ip_port" | cut -d: -f1)
-                port=$(echo "$ip_port" | cut -d: -f2)
-                
-                if timeout 1 bash -c "echo >/dev/tcp/$test_ip/$port" 2>/dev/null; then
-                    echo "$test_ip:$port" >> "${ip_file}.scanned"
-                    echo "  ✓ C段IP可用: $test_ip:$port"
-                    segment_found=1
-                fi
-            done
-        fi
-        
-        scanned_c_segments["$c_segment"]=1
+        echo "  C段 $c_segment.0/24 扫描完成，发现 $found_in_segment 个可用IP"
     done
     
-    # 如果扫描文件存在且有内容，则使用扫描结果
-    if [ -f "${ip_file}.scanned" ] && [ -s "${ip_file}.scanned" ]; then
-        local scanned_count=$(wc -l < "${ip_file}.scanned")
-        echo "分段扫描完成，发现 $scanned_count 个可用IP"
-        # 扫描结果保存在 ${ip_file}.scanned 中，后续代码会使用
-    else
+    # 最终统计
+    local scanned_count=$(wc -l < "${ip_file}.scanned" 2>/dev/null || echo 0)
+    echo "=== 扫描完成 ==="
+    echo "总计测试: $processed/$total_ips 个IP"
+    echo "发现可用IP: $scanned_count 个"
+    
+    # 如果没有找到可用IP，使用原始文件
+    if [ "$scanned_count" -eq 0 ]; then
         echo "警告: 未发现可用IP，使用原始IP文件"
         cp "$temp_file" "${ip_file}.scanned"
     fi
@@ -130,8 +161,8 @@ echo "======== 开始检索 ${city} ========"
 echo "从 fofa 获取ip+端口"
 echo "从 '${ipfile}' 读取ip并添加到检测列表"
 
-# 新增：在读取IP文件后立即进行分段扫描
-scan_ip_segments "$ipfile" "$city"
+# 新增：在读取IP文件后立即进行全量扫描
+scan_all_available_ips "$ipfile" "$city"
 
 # 修改：使用扫描后的IP文件
 scanned_ipfile="${ipfile}.scanned"
