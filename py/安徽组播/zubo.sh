@@ -44,14 +44,22 @@ scan_all_available_ips() {
     local ip_file=$1
     local city=$2
     local temp_file=$(mktemp)
+    local result_file="py/安徽组播/ip/${city}result_ip.txt"
+    
+    # 确保目录存在
+    mkdir -p "py/安徽组播/ip/"
     
     echo "开始对 ${city} 的IP进行全量扫描..."
     echo "扫描策略: 先快速扫描D段，再全面扫描C段所有IP"
+    echo "可用IP将保存到: $result_file"
     
     if [ ! -f "$ip_file" ]; then
         echo "错误: IP文件 $ip_file 不存在"
         return 1
     fi
+    
+    # 清空结果文件
+    > "$result_file"
     
     # 读取原始IP并去重
     grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' "$ip_file" | sort -u > "$temp_file"
@@ -103,6 +111,7 @@ scan_all_available_ips() {
                     # 测试连接，使用更可靠的测试方法
                     if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
                         echo "$test_ip:$port" >> "${ip_file}.scanned"
+                        echo "$test_ip:$port" >> "$result_file"  # 保存到结果文件
                         echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
                         found_in_segment=$((found_in_segment + 1))
                     else
@@ -127,6 +136,7 @@ scan_all_available_ips() {
                     
                     if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
                         echo "$test_ip:$port" >> "${ip_file}.scanned"
+                        echo "$test_ip:$port" >> "$result_file"  # 保存到结果文件
                         echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
                         found_in_segment=$((found_in_segment + 1))
                     else
@@ -141,14 +151,19 @@ scan_all_available_ips() {
     
     # 最终统计
     local scanned_count=$(wc -l < "${ip_file}.scanned" 2>/dev/null || echo 0)
+    local result_count=$(wc -l < "$result_file" 2>/dev/null || echo 0)
+    
     echo "=== 扫描完成 ==="
     echo "总计测试: $processed/$total_ips 个IP"
     echo "发现可用IP: $scanned_count 个"
+    echo "可用IP已保存到: $result_file ($result_count 个)"
     
     # 如果没有找到可用IP，使用原始文件
     if [ "$scanned_count" -eq 0 ]; then
         echo "警告: 未发现可用IP，使用原始IP文件"
         cp "$temp_file" "${ip_file}.scanned"
+        # 清空结果文件，因为没有可用IP
+        > "$result_file"
     fi
     
     rm -f "$temp_file"
