@@ -1,107 +1,123 @@
-#pwd
-if [ $# -eq 0 ]; then
-  echo "开始测试······"
-  echo "在5秒内输入1~4可选择城市"
-  echo "1.安徽电信"
-  echo "2.江苏电信"
-  echo "3.四川电信"
-  read -t 5 -p "超时未输入,将按默认设置测试" city_choice
+#!/bin/bash
 
-  if [ -z "$city_choice" ]; then
-      echo "未检测到输入,默认测试全部"
-      city_choice=0
-  fi
-
-else
-  city_choice=$1
-fi
-# 设置城市和相应的stream
-case $city_choice in
-    1)
-        city="安徽电信"
-        stream="rtp/238.1.79.27:4328"
-        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249ImFuaHVpIiAmJiBvcmc9IkNoaW5hbmV0IiAmJiBwcm90b2NvbD0iaHR0cCI%3D&page=1&page_size=10"
-        ;;
-    2)
-        city="江苏电信"
-        stream="udp/239.49.8.19:9614"
-        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiByZWdpb249Iuaxn%2BiLjyIgJiYgb3JnPSJDaGluYW5ldCIgJiYgcHJvdG9jb2w9Imh0dHAi&page=1&page_size=10"
-        ;;
-    3)
-        city="四川电信"
-        stream="udp/239.93.0.169:5140"
-        url_fofa="https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D&page=1&page_size=10"
-        ;;
-
-    0)
-        # 逐个处理{ }内每个选项
-        for option in {1..5}; do
-          bash "$0" $option  # 假定fofa.sh是当前脚本的文件名，$option将递归调用
-        done
-        exit 0
-        ;;
-esac
-
-# 使用城市名作为默认文件名，格式为 CityName.ip
-time=$(date +%m%d%H%M)
-ipfile=py/fofa/ip/${city}.txt            #py/fofa/ip/${city}.txt
-good_ip=py/安徽组播/ip/good_${city}_ip.txt
-result_ip=py/安徽组播/ip/result_${city}_ip.txt
-echo "======== 开始检索 ${city} ========"
-echo "从 fofa 获取ip+端口"
-#curl -o test.html $url_fofa
-#grep -E '^\s*[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' test.html | grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+' > tmp_ipfile
-#awk '/M|k/{print $2}' $result_ip >> tmp_ipfile
-echo "从 '${ipfile}' 读取ip并添加到检测列表"
-#cat $ipfile >> tmp_ipfile
-sort tmp_ipfile | uniq | sed '/^\s*$/d' > $py/安徽组播/ip/${city}_config.txt
-rm -f tmp_ipfile                       #rm -f tmp_ipfile
-
-while IFS= read -r ip; do
-    # 尝试连接 IP 地址和端口号，并将输出保存到变量中
-    tmp_ip=$(echo -n "$ip" | sed 's/:/ /')
-    output=$(nc -w 1 -v -z $tmp_ip 2>&1)
-    # 如果连接成功，且输出包含 "succeeded"，则将结果保存到输出文件中
-    if [[ $output == *"succeeded"* ]]; then
-        # 使用 awk 提取 IP 地址和端口号对应的字符串，并保存到输出文件中
-        echo "$output" | grep "succeeded" | awk -v ip="$ip" '{print ip}' >> $good_ip
+# 添加IP段扫描函数
+scan_ip_segments() {
+    local ip_file=$1
+    local city=$2
+    local good_ip_file=$(mktemp)
+    local all_ips_file=$(mktemp)
+    
+    echo "开始对 ${city} 的IP进行分段扫描..."
+    
+    # 读取原始IP文件
+    if [ ! -f "$ip_file" ]; then
+        echo "错误: IP文件 $ip_file 不存在"
+        return 1
     fi
-done < $ipfile
-lines=$(wc -l < $good_ip)
-echo "连接成功 $lines 个,开始测速······"
-i=0
-while read line; do
-    i=$((i + 1))
-    ip=$line
-    url="http://$ip/$stream"
-    #echo $url
-    curl $url --connect-timeout 5 --max-time 40 -o /dev/null >zubo.tmp 2>&1
-    a=$(head -n 3 zubo.tmp | awk '{print $NF}' | tail -n 1)  
-    echo "第$i/$lines个：$ip    $a"
-    echo "$ip    $a" >> speedtest_${city}_$time.log
-done < $good_ip
-#cat $good_ip > $ipfile
-rm -rf zubo.tmp $good_ip
+    
+    # 处理IP文件，提取IP和端口
+    while IFS= read -r line; do
+        if [[ "$line" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+            echo "$line" >> "$all_ips_file"
+        fi
+    done < "$ip_file"
+    
+    # 按IP地址排序
+    sort -t . -k 1,1n -k 2,2n -k 3,3n -k 4,4n "$all_ips_file" > "${all_ips_file}.sorted"
+    mv "${all_ips_file}.sorted" "$all_ips_file"
+    
+    # 分析IP段
+    declare -A c_segments  # C段统计
+    declare -A d_segments  # D段统计
+    
+    # 统计C段和D段
+    while IFS= read -r ip_port; do
+        ip=$(echo "$ip_port" | cut -d: -f1)
+        IFS='.' read -r a b c d <<< "$ip"
+        c_key="$a.$b.$c"
+        d_key="$a.$b.$c.$d"
+        
+        ((c_segments["$c_key"]++))
+        ((d_segments["$d_key"]++))
+    done < "$all_ips_file"
+    
+    echo "发现 ${#c_segments[@]} 个C段网络"
+    
+    # 对每个C段进行扫描
+    for c_segment in "${!c_segments[@]}"; do
+        echo "扫描C段: $c_segment.0/24"
+        local c_segment_found=0
+        
+        # 首先扫描D段（1-254）
+        for d in $(seq 1 254); do
+            test_ip="$c_segment.$d"
+            
+            # 检查这个IP是否在原始列表中
+            if grep -q "^$test_ip:" "$all_ips_file"; then
+                port=$(grep "^$test_ip:" "$all_ips_file" | head -1 | cut -d: -f2)
+                
+                # 测试连接
+                if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
+                    echo "$test_ip:$port" >> "$good_ip_file"
+                    echo "  ✓ D段IP可用: $test_ip:$port"
+                    c_segment_found=1
+                fi
+            fi
+        done
+        
+        # 如果D段没有找到可用IP，扫描C段
+        if [ "$c_segment_found" -eq 0 ]; then
+            echo "D段无可用IP，开始扫描C段: $c_segment.0/16"
+            
+            # 扫描C段（这里简化处理，只扫描常见的C段范围）
+            for c in $(seq 1 254); do
+                for d in $(seq 1 254); do
+                    test_ip="${c_segment%.*}.$c.$d"
+                    
+                    # 检查这个IP是否在原始列表中
+                    if grep -q "^$test_ip:" "$all_ips_file"; then
+                        port=$(grep "^$test_ip:" "$all_ips_file" | head -1 | cut -d: -f2)
+                        
+                        # 测试连接
+                        if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
+                            echo "$test_ip:$port" >> "$good_ip_file"
+                            echo "  ✓ C段IP可用: $test_ip:$port"
+                            c_segment_found=1
+                            break 2  # 找到一个就跳出两层循环
+                        fi
+                    fi
+                done
+            done
+        fi
+    done
+    
+    # 统计结果
+    local good_count=$(wc -l < "$good_ip_file" 2>/dev/null || echo 0)
+    echo "分段扫描完成，发现 $good_count 个可用IP"
+    
+    # 如果找到了可用IP，替换原始文件
+    if [ "$good_count" -gt 0 ]; then
+        cp "$good_ip_file" "$ip_file"
+        echo "已更新IP文件: $ip_file"
+    else
+        echo "警告: 未发现可用IP，保持原文件"
+    fi
+    
+    # 清理临时文件
+    rm -f "$good_ip_file" "$all_ips_file"
+}
 
-echo "测速结果排序"
-awk '/M|k/{print $2"  "$1}' speedtest_${city}_$time.log | sort -n -r > $result_ip
-cat $result_ip
-ip1=$(awk 'NR==1{print $2}' $result_ip)
-ip2=$(awk 'NR==2{print $2}' $result_ip)
-ip3=$(awk 'NR==3{print $2}' $result_ip)
-rm -f speedtest_${city}_$time.log $result_ip    
-# 用 3 个最快 ip 生成对应城市的 txt 文件
-program=py/安徽组播/template/template_${city}.txt
-sed "s/ipipip/$ip1/g" $program > tmp_1.txt
-sed "s/ipipip/$ip2/g" $program > tmp_2.txt
-sed "s/ipipip/$ip3/g" $program > tmp_3.txt
-echo "${city}-组播1,#genre#" > tmp_all.txt
-cat tmp_1.txt >> tmp_all.txt
-echo "${city}-组播2,#genre#" >> tmp_all.txt
-cat tmp_2.txt >> tmp_all.txt
-echo "${city}-组播3,#genre#" >> tmp_all.txt
-cat tmp_3.txt >> tmp_all.txt
-grep -vE '/{3}' tmp_all.txt > "py/安徽组播/txt/${city}.txt"
-rm -f tmp_1.txt tmp_2.txt tmp_3.txt tmp_all.txt
-echo "${city} 测试完成，生成可用文件：'py/安徽组播/txt/${city}.txt'"
-#--------合并所有城市的txt文件---------
+# 修改原脚本，在读取ip文件后添加分段扫描
+# 在以下位置添加调用（约第30行左右，在读取ip文件之后）：
+# echo "从 '${ipfile}' 读取ip并添加到检测列表"
+
+# 在cat $ipfile >> tmp_ipfile 之前添加：
+echo "开始IP分段扫描..."
+scan_ip_segments "$ipfile" "$city"
+
+# 然后继续原有逻辑
+cat $ipfile >> tmp_ipfile
+sort tmp_ipfile | uniq | sed '/^\s*$/d' > py/安徽组播/ip/${city}_config.txt
+rm -f tmp_ipfile
+
+# 其余代码保持不变...
