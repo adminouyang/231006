@@ -39,27 +39,33 @@ case $city_choice in
         ;;
 esac
 
+# 使用城市名作为默认文件名，格式为 CityName.ip
+time=$(date +%m%d%H%M)
+ipfile=py/fofa/ip/${city}.txt
+echo "======== 开始检索 ${city} ========"
+echo "从 fofa 获取ip+端口"
+echo "从 '${ipfile}' 读取ip并添加到检测列表"
+
+# 创建结果文件路径
+result_file="py/安徽组播/ip/${city}result_ip.txt"
+# 确保目录存在
+mkdir -p "py/安徽组播/ip/"
+# 清空结果文件
+> "$result_file"
+
 # 新增IP段扫描函数 - 优化版，扫描所有可用IP
 scan_all_available_ips() {
     local ip_file=$1
     local city=$2
     local temp_file=$(mktemp)
-    local result_file="py/安徽组播/ip/${city}result_ip.txt"
-    
-    # 确保目录存在
-    mkdir -p "py/安徽组播/ip/"
     
     echo "开始对 ${city} 的IP进行全量扫描..."
     echo "扫描策略: 先快速扫描D段，再全面扫描C段所有IP"
-    echo "可用IP将保存到: $result_file"
     
     if [ ! -f "$ip_file" ]; then
         echo "错误: IP文件 $ip_file 不存在"
         return 1
     fi
-    
-    # 清空结果文件
-    > "$result_file"
     
     # 读取原始IP并去重
     grep -E '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$' "$ip_file" | sort -u > "$temp_file"
@@ -111,7 +117,6 @@ scan_all_available_ips() {
                     # 测试连接，使用更可靠的测试方法
                     if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
                         echo "$test_ip:$port" >> "${ip_file}.scanned"
-                        echo "$test_ip:$port" >> "$result_file"  # 保存到结果文件
                         echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
                         found_in_segment=$((found_in_segment + 1))
                     else
@@ -136,7 +141,6 @@ scan_all_available_ips() {
                     
                     if nc -w 1 -v -z $test_ip $port 2>&1 | grep -q "succeeded"; then
                         echo "$test_ip:$port" >> "${ip_file}.scanned"
-                        echo "$test_ip:$port" >> "$result_file"  # 保存到结果文件
                         echo "  ✓ [$processed/$total_ips] IP可用: $test_ip:$port"
                         found_in_segment=$((found_in_segment + 1))
                     else
@@ -151,30 +155,18 @@ scan_all_available_ips() {
     
     # 最终统计
     local scanned_count=$(wc -l < "${ip_file}.scanned" 2>/dev/null || echo 0)
-    local result_count=$(wc -l < "$result_file" 2>/dev/null || echo 0)
-    
     echo "=== 扫描完成 ==="
     echo "总计测试: $processed/$total_ips 个IP"
-    echo "发现可用IP: $scanned_count 个"
-    echo "可用IP已保存到: $result_file ($result_count 个)"
+    echo "初步发现可用IP: $scanned_count 个"
     
     # 如果没有找到可用IP，使用原始文件
     if [ "$scanned_count" -eq 0 ]; then
         echo "警告: 未发现可用IP，使用原始IP文件"
         cp "$temp_file" "${ip_file}.scanned"
-        # 清空结果文件，因为没有可用IP
-        > "$result_file"
     fi
     
     rm -f "$temp_file"
 }
-
-# 使用城市名作为默认文件名，格式为 CityName.ip
-time=$(date +%m%d%H%M)
-ipfile=py/fofa/ip/${city}.txt
-echo "======== 开始检索 ${city} ========"
-echo "从 fofa 获取ip+端口"
-echo "从 '${ipfile}' 读取ip并添加到检测列表"
 
 # 新增：在读取IP文件后立即进行全量扫描
 scan_all_available_ips "$ipfile" "$city"
@@ -194,6 +186,7 @@ rm -f tmp_ipfile
 good_ip="py/安徽组播/ip/good_ip.txt"
 > "$good_ip"  # 清空文件
 
+echo "开始最终连接测试..."
 while IFS= read -r ip; do
     # 尝试连接 IP 地址和端口号，并将输出保存到变量中
     tmp_ip=$(echo -n "$ip" | sed 's/:/ /')
@@ -202,6 +195,9 @@ while IFS= read -r ip; do
     if [[ $output == *"succeeded"* ]]; then
         # 使用 awk 提取 IP 地址和端口号对应的字符串，并保存到输出文件中
         echo "$output" | grep "succeeded" | awk -v ip="$ip" '{print ip}' >> $good_ip
+        echo "  ✓ 连接测试通过: $ip"
+    else
+        echo "  × 连接测试失败: $ip"
     fi
 done < "$scanned_ipfile"
 
@@ -209,7 +205,8 @@ done < "$scanned_ipfile"
 rm -f "$scanned_ipfile"
 
 lines=$(wc -l < $good_ip)
-echo "连接成功 $lines 个,开始测速······"
+echo "最终连接成功 $lines 个IP,开始测速······"
+
 i=0
 while read line; do
     i=$((i + 1))
@@ -226,18 +223,55 @@ done < $good_ip
 result_ip="py/安徽组播/ip/result_ip.txt"
 py="py"
 
-#cat $good_ip > $ipfile
-rm -rf zubo.tmp $good_ip
+# 新增：筛选速度大于100KB/s的IP并保存到结果文件
+echo "筛选速度大于100KB/s的IP..."
+> "$result_file"  # 清空结果文件
+fast_ip_count=0
 
+# 解析测速结果，筛选速度大于100KB/s的IP
+while IFS= read -r line; do
+    ip=$(echo "$line" | awk '{print $1}')
+    speed_str=$(echo "$line" | awk '{print $2}')
+    
+    # 提取速度数值和单位
+    speed_value=$(echo "$speed_str" | grep -oE '[0-9.]+')
+    speed_unit=$(echo "$speed_str" | grep -oE '[KMGT]?B')
+    
+    # 转换为KB/s
+    speed_kb=0
+    if [[ "$speed_unit" == *"M"* ]]; then
+        # MB/s 转换为 KB/s
+        speed_kb=$(echo "$speed_value * 1024" | bc 2>/dev/null || echo "$speed_value * 1024" | awk '{print $1 * 1024}')
+    elif [[ "$speed_unit" == *"K"* ]] || [[ "$speed_unit" == *"B"* ]]; then
+        # KB/s 或 B/s
+        speed_kb=$speed_value
+        if [[ "$speed_unit" == *"B"* ]] && [[ "$speed_unit" != *"K"* ]]; then
+            # 如果是B/s，转换为KB/s
+            speed_kb=$(echo "$speed_value / 1024" | bc 2>/dev/null || echo "$speed_value / 1024" | awk '{print $1 / 1024}')
+        fi
+    fi
+    
+    # 检查速度是否大于100KB/s
+    if (( $(echo "$speed_kb > 100" | bc -l 2>/dev/null || echo "$speed_kb 100" | awk '{if ($1 > $2) print 1; else print 0}') )); then
+        echo "$ip" >> "$result_file"
+        fast_ip_count=$((fast_ip_count + 1))
+        echo "  ✓ 速度合格: $ip - $speed_str (约 ${speed_kb%.*}KB/s)"
+    else
+        echo "  × 速度不足: $ip - $speed_str (约 ${speed_kb%.*}KB/s)"
+    fi
+done < speedtest_${city}_$time.log
+
+echo "速度大于100KB/s的IP有 $fast_ip_count 个，已保存到: $result_file"
+
+# 用最快的3个IP生成对应城市的txt文件
 echo "测速结果排序"
 awk '/M|k/{print $2"  "$1}' speedtest_${city}_$time.log | sort -n -r > $result_ip
 cat $result_ip
 ip1=$(awk 'NR==1{print $2}' $result_ip)
 ip2=$(awk 'NR==2{print $2}' $result_ip)
 ip3=$(awk 'NR==3{print $2}' $result_ip)
-rm -f speedtest_${city}_$time.log $result_ip    
 
-# 用 3 个最快 ip 生成对应城市的 txt 文件
+# 用最快的3个IP生成对应城市的txt文件
 program=py/安徽组播/template/template_${city}.txt
 sed "s/ipipip/$ip1/g" $program > tmp_1.txt
 sed "s/ipipip/$ip2/g" $program > tmp_2.txt
@@ -247,5 +281,14 @@ cat tmp_1.txt >> tmp_all.txt
 echo "${city}-组播2,#genre#" >> tmp_all.txt
 cat tmp_3.txt >> tmp_all.txt
 grep -vE '/{3}' tmp_all.txt > "py/安徽组播/txt/${city}.txt"
-rm -f tmp_1.txt tmp_2.txt tmp_3.txt tmp_all.txt
+
 echo "${city} 测试完成，生成可用文件：'py/安徽组播/txt/${city}.txt'"
+
+# 新增：清理所有测试过程中产生的临时文件
+echo "清理临时文件..."
+rm -rf zubo.tmp $good_ip speedtest_${city}_$time.log $result_ip tmp_1.txt tmp_2.txt tmp_3.txt tmp_all.txt
+# 清理可能存在的其他临时文件
+rm -f tmp_ipfile py/安徽组播/ip/${city}_config.txt
+
+echo "所有测试数据已清理完成"
+echo "最终结果已保存到: $result_file"
