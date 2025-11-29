@@ -233,32 +233,47 @@ while IFS= read -r line; do
     ip=$(echo "$line" | awk '{print $1}')
     speed_str=$(echo "$line" | awk '{print $2}')
     
+    # 调试信息：显示原始速度字符串
+    echo "调试: IP=$ip, 原始速度=$speed_str"
+    
     # 提取速度数值和单位
     speed_value=$(echo "$speed_str" | grep -oE '[0-9.]+')
-    speed_unit=$(echo "$speed_str" | grep -oE '[KMGT]?B')
+    speed_unit=$(echo "$speed_str" | grep -oE '[kKmMgG]' | head -1)
+    
+    # 调试信息：显示解析后的数值和单位
+    echo "调试: 数值=$speed_value, 单位=$speed_unit"
     
     # 转换为KB/s
     speed_kb=0
-    if [[ "$speed_unit" == *"MB/S"* ]]; then
-        # MB/s 转换为 KB/s
+    if [[ "$speed_unit" =~ [mM] ]]; then
+        # M 转换为 KB/s (1M = 1024K)
         speed_kb=$(echo "$speed_value * 1024" | bc 2>/dev/null || echo "$speed_value * 1024" | awk '{print $1 * 1024}')
-    elif [[ "$speed_unit" == *"KB/S"* ]] || [[ "$speed_unit" == *"B/S"* ]]; then
-        # KB/s 或 B/s
+        echo "调试: MB转换, $speed_value M = $speed_kb KB/s"
+    elif [[ "$speed_unit" =~ [kK] ]]; then
+        # k 就是 KB/s
         speed_kb=$speed_value
-        if [[ "$speed_unit" == *"B"* ]] && [[ "$speed_unit" != *"K"* ]]; then
-            # 如果是B/s，转换为KB/s
-            speed_kb=$(echo "$speed_value / 1024" | bc 2>/dev/null || echo "$speed_value / 1024" | awk '{print $1 / 1024}')
-        fi
+        echo "调试: KB直接使用, $speed_value k = $speed_kb KB/s"
+    else
+        # 如果没有单位，假设是KB/s
+        speed_kb=$speed_value
+        echo "调试: 无单位, 假设为KB/s: $speed_value = $speed_kb KB/s"
+    fi
+    
+    # 确保speed_kb是数字
+    if ! [[ "$speed_kb" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+        echo "调试: 速度值不是数字: $speed_kb"
+        speed_kb=0
     fi
     
     # 检查速度是否大于100KB/s
-    if (( $(echo "$speed_kb > 100" | bc -l 2>/dev/null || echo "$speed_kb 100" | awk '{if ($1 > $2) print 1; else print 0}') )); then
+    if (( $(echo "$speed_kb > 100" | bc -l 2>/dev/null) )); then
         echo "$ip" >> "$result_file"
         fast_ip_count=$((fast_ip_count + 1))
         echo "  ✓ 速度合格: $ip - $speed_str (约 ${speed_kb%.*}KB/s)"
     else
         echo "  × 速度不足: $ip - $speed_str (约 ${speed_kb%.*}KB/s)"
     fi
+    echo "---"  # 分隔线，便于查看每个IP的解析过程
 done < speedtest_${city}_$time.log
 
 echo "速度大于100KB/s的IP有 $fast_ip_count 个，已保存到: $result_file"
