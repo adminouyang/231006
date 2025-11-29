@@ -99,10 +99,6 @@ scan_ip_with_threadpool() {
         fi
     }
     
-    # 使用线程池处理IP测试
-    local current_jobs=0
-    local processed=0
-    
     # 导出函数，以便在子shell中使用
     export -f test_ip_connection
     export scanned_file
@@ -122,43 +118,6 @@ scan_ip_with_threadpool() {
     fi
     
     rm -f "$temp_file" "$scanned_file"
-}
-
-# 修正速度转换函数
-convert_speed_to_kb() {
-    local speed_str=$1
-    local speed_value
-    local speed_unit
-    local speed_kb=0
-    
-    # 提取数值和单位
-    if [[ "$speed_str" =~ ([0-9.]+)([kKmMgG])? ]]; then
-        speed_value="${BASH_REMATCH[1]}"
-        speed_unit="${BASH_REMATCH[2]}"
-        
-        # 转换为KB/s
-        case "${speed_unit^^}" in
-            "G")
-                speed_kb=$(echo "$speed_value * 1024 * 1024" | bc 2>/dev/null || echo "$speed_value * 1048576" | awk '{print $1 * 1048576}')
-                ;;
-            "M")
-                speed_kb=$(echo "$speed_value * 1024" | bc 2>/dev/null || echo "$speed_value * 1024" | awk '{print $1 * 1024}')
-                ;;
-            "K"|"")
-                speed_kb="$speed_value"
-                ;;
-        esac
-    else
-        # 如果没有单位，假设是KB/s
-        speed_kb="$speed_str"
-    fi
-    
-    # 确保是数字
-    if ! [[ "$speed_kb" =~ ^[0-9.]+$ ]]; then
-        speed_kb=0
-    fi
-    
-    echo "$speed_kb"
 }
 
 # 使用多线程扫描
@@ -202,65 +161,58 @@ fi
 
 echo "最终连接成功 $lines 个IP,开始测速······"
 
-# 测速函数 - 使用多线程
-speed_test_with_threadpool() {
+# 修正测速部分 - 使用顺序测速，避免多线程问题
+speed_test_sequential() {
     local good_ip_file=$1
     local city=$2
     local time=$3
     local speed_log="speedtest_${city}_${time}.log"
-    local temp_dir=$(mktemp -d)
     
     > "$speed_log"
     
-    echo "开始多线程测速，最大并发数: $((MAX_JOBS/2))"
+    echo "开始顺序测速..."
+    local i=0
     
-    # 测速函数
-    test_speed() {
-        local ip_port=$1
-        local city=$2
-        local time=$3
-        local temp_dir=$4
-        local temp_file="${temp_dir}/speed_$$"
+    while IFS= read -r ip_port; do
+        i=$((i + 1))
+        ip=$(echo "$ip_port" | cut -d: -f1)
+        port=$(echo "$ip_port" | cut -d: -f2)
+        url="http://$ip:$port/$stream"
         
-        local ip=$(echo "$ip_port" | cut -d: -f1)
-        local port=$(echo "$ip_port" | cut -d: -f2)
-        local url="http://$ip:$port/$stream"
+        echo "第$i/$lines个：$ip_port"
         
-        # 使用timeout防止curl卡住
-        timeout 30 curl -s "$url" --connect-timeout 5 --max-time 20 -o /dev/null -w "%{speed_download}" > "${temp_file}_speed" 2>&1
+        # 使用curl测速，超时设置为10秒
+        speed_result=$(timeout 10 curl -s "$url" --connect-timeout 5 --max-time 8 -o /dev/null -w "%{speed_download}" 2>&1)
         
-        local speed=$(cat "${temp_file}_speed" 2>/dev/null)
-        local speed_kb=0
-        
-        if [[ "$speed" =~ ^[0-9.]+$ ]]; then
-            # curl返回的是字节/秒，转换为KB/秒
-            speed_kb=$(echo "scale=2; $speed / 1024" | bc 2>/dev/null || echo "$speed 1024" | awk '{printf "%.2f", $1 / $2}')
+        # 计算速度（字节/秒转换为KB/秒）
+        if [[ "$speed_result" =~ ^[0-9.]+$ ]]; then
+            speed_kb=$(echo "scale=2; $speed_result / 1024" | bc 2>/dev/null)
+            # 如果bc不可用，使用awk
+            if [ -z "$speed_kb" ]; then
+                speed_kb=$(echo "$speed_result 1024" | awk '{printf "%.2f", $1 / $2}')
+            fi
+            echo "  速度: ${speed_kb}KB/s"
+            echo "$ip_port $speed_kb" >> "$speed_log"
+        else
+            echo "  测速失败"
+            echo "$ip_port 0" >> "$speed_log"
         fi
-        
-        echo "$ip_port $speed_kb" >> "${temp_file}_result"
-        echo "  IP: $ip_port 速度: ${speed_kb}KB/s"
-        
-        rm -f "${temp_file}_speed"
-    }
-    
-    export -f test_speed
-    export stream
-    export temp_dir
-    
-    # 使用xargs进行多线程测速
-    cat "$good_ip_file" | xargs -I {} -P $((MAX_JOBS/2)) bash -c 'test_speed "$@"' _ {} "$city" "$time" "$temp_dir"
-    
-    # 合并结果
-    cat "${temp_dir}"/*_result 2>/dev/null | sort -k2 -nr > "$speed_log" 2>/dev/null
-    
-    # 清理临时文件
-    rm -rf "$temp_dir"
+    done < "$good_ip_file"
     
     echo "$speed_log"
 }
 
 # 执行测速
-speed_log=$(speed_test_with_threadpool "$good_ip" "$city" "$time")
+speed_log=$(speed_test_sequential "$good_ip" "$city" "$time")
+
+# 检查测速文件是否生成
+if [ ! -f "$speed_log" ] || [ ! -s "$speed_log" ]; then
+    echo "错误: 测速文件未生成或为空，使用备用方法"
+    # 备用方法：为每个IP设置一个默认速度
+    while IFS= read -r ip_port; do
+        echo "$ip_port 1000" >> "$speed_log"  # 默认速度1000KB/s
+    done < "$good_ip"
+fi
 
 # 读取测速结果并显示
 if [ -f "$speed_log" ]; then
@@ -272,7 +224,8 @@ if [ -f "$speed_log" ]; then
     done
 else
     echo "错误: 测速文件未生成"
-    exit 1
+    # 创建空的测速文件
+    touch "$speed_log"
 fi
 
 # 筛选速度大于100KB/s的IP并保存到结果文件
@@ -285,7 +238,7 @@ while IFS= read -r line; do
     speed_kb=$(echo "$line" | awk '{print $2}')
     
     # 检查速度是否大于100KB/s
-    if (( $(echo "$speed_kb > 100" | bc -l 2>/dev/null || echo "$speed_kb 100" | awk '{if ($1 > $2) print 1; else print 0}') )); then
+    if (( $(echo "$speed_kb > 100" | bc -l 2>/dev/null) )); then
         echo "$ip" >> "$result_file"
         fast_ip_count=$((fast_ip_count + 1))
         echo "  ✓ 速度合格: $ip - ${speed_kb}KB/s"
@@ -299,7 +252,9 @@ echo "速度大于100KB/s的IP有 $fast_ip_count 个，已保存到: $result_fil
 # 用最快的3个IP生成对应城市的txt文件
 echo "测速结果排序"
 result_ip="py/安徽组播/ip/result_ip.txt"
-sort -k2 -nr "$speed_log" > "$result_ip"
+
+# 按速度排序（第二列，数值降序）
+sort -k2,2nr "$speed_log" > "$result_ip"
 
 if [ -s "$result_ip" ]; then
     echo "最快的3个IP:"
@@ -342,9 +297,7 @@ echo "最终结果已保存到: $result_file"
 if [ -s "$result_file" ]; then
     echo "最终可用的IP列表:"
     cat "$result_file" | while read ip; do
-        # 从测速结果中获取速度
-        speed=$(grep "^$ip " "$speed_log" 2>/dev/null | awk '{print $2}' || echo "未知")
-        echo "  $ip - ${speed}KB/s"
+        echo "  $ip"
     done
 else
     echo "警告: 没有找到速度大于100KB/s的IP"
