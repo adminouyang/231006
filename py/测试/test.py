@@ -40,10 +40,10 @@ def get_isp(ip):
 def get_ip_info(ip_port):
     try:
         ip = ip_port.split(":")[0]
-        # 添加重试机制
+        # 添加重试机制requests.get(f"http://ip-api.com/json/{ip}?lang=zh-CN"
         for attempt in range(3):
             try:
-                res = requests.get(f"http://ip-api.com/json/{ip}?lang=zh-CN", 
+                res = requests.get(f"http://{ip}:{port}/iptv/live/1000.json?lang=zh-CN", 
                                   timeout=10, headers=HEADERS)
                 if res.status_code == 200:
                     data = res.json()
