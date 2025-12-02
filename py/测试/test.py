@@ -6,9 +6,9 @@ import concurrent.futures
 from datetime import datetime
 
 # ===============================
-# 配置区
+# 配置区https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D
 FOFA_URLS = {
-    "https://fofa.info/result?qbase64=InVkcHh5IiAmJiBjb3VudHJ5PSJDTiI%3D": "ip.txt",
+    "https://fofa.info/result?qbase64=ImlwdHYvbGl2ZS96aF9jbi5qcyIgJiYgY291bnRyeT0iQ04iICAmJiBwb3J0PSI5OTAxIg%3D%3D": "ip.txt",
 }
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
