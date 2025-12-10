@@ -1,0 +1,40 @@
+name: Hotel
+
+on:
+  schedule:
+    - cron: "0 1,17 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-hotel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install aiohttp requests
+
+      - name: Run hotel.py
+        run: |
+          echo "=== Starting hotel.py ==="
+          python py/Hotel/hotel.py
+          echo "=== Finished hotel.py ==="
+
+      - name: Commit and push results
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add hotel.txt
+          git commit -m "Update hotelt.txt [skip ci]" || echo "No changes"
+          git push --force
