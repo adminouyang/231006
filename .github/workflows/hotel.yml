@@ -36,5 +36,5 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add py/Hotel/hotel.txt
-          git commit -m "Update hotelt.txt [skip ci]" || echo "No changes"
-          git push --force
+          git commit -m "更新 hotelt.txt" || echo "No changes"
+          git push origin main
