@@ -306,7 +306,7 @@ async def main():
                 for item in ch_items:
                     f.write(f"{item[0]},{item[1]}\n")
 
-    print("🎉 itvlist.txt 已生成完成！")
+    print("🎉 hotel.txt 已生成完成！")
 
 if __name__ == "__main__":
     asyncio.run(main())
