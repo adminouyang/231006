@@ -6,7 +6,7 @@ import requests
 import os
 from urllib.parse import urljoin
 
-URL_FILE = "https://raw.githubusercontent.com/kakaxi-1/zubo/main/ip_urls.txt"
+URL_FILE = "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel_ip.txt"
 
 CHANNEL_CATEGORIES = {
     "央视频道": [
@@ -266,10 +266,10 @@ async def main():
         datetime.timezone(datetime.timedelta(hours=8))
     ).strftime("%Y-%m-%d %H:%M:%S")
 
-    disclaimer_url = "https://kakaxi-1.asia/LOGO/Disclaimer.mp4"
+    disclaimer_url = "url"
 
-    with open("itvlist.txt", 'w', encoding='utf-8') as f:
-        f.write(f"更新时间: {beijing_now}（北京时间）\n\n")
+    with open("py/Hotel/hotel.txt", 'w', encoding='utf-8') as f:
+
         f.write("更新时间,#genre#\n")
         f.write(f"{beijing_now},{disclaimer_url}\n\n")
 
