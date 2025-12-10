@@ -219,7 +219,7 @@ async def check_url(session, url, semaphore):
             return None
 
 async def main():
-    print("🚀 开始运行 ITVlist 脚本")
+    print("🚀 开始运行 hotel 脚本")
     semaphore = asyncio.Semaphore(150)#                              设置并发数量
 
     urls = load_urls()
