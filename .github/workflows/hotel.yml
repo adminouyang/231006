@@ -36,5 +36,10 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add py/Hotel/hotel.txt
-          git commit -m "更新 hotelt.txt" || echo "No changes"
+          git commit -m "更新 hotel.txt" || echo "没有更改，跳过提交"
+          
+          # 先拉取最新的代码
+          git pull origin main
+          
+          # 再推送
           git push origin main
