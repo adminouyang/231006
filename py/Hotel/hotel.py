@@ -7,8 +7,10 @@ import re
 from urllib.parse import urljoin, urlparse
 import time
 import os
+import random
 from typing import List, Tuple, Dict, Set
 import socket
+import statistics
 
 URL_FILE = "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel_ip.txt"
 
@@ -148,7 +150,9 @@ CHANNEL_MAPPING = {
 
 RESULTS_PER_CHANNEL = 20
 SPEED_THRESHOLD = 200  # KB/s
-TEST_DOWNLOAD_SIZE = 10240  # 10KB for speed test
+TEST_DOWNLOAD_SIZE = 102400  # 增加到100KB，获得更准确的速度
+TEST_TIMEOUT = 10  # 单个测速任务超时时间
+SPEED_TEST_CONCURRENCY = 20  # 测速并发数
 
 def load_urls():
     """从 GitHub 下载 IPTV IP 段列表"""
@@ -191,7 +195,7 @@ async def fetch_json(session, url, semaphore):
     """获取JSON数据并解析频道信息"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=2) as resp:
+            async with session.get(url, timeout=3) as resp:
                 if resp.status != 200:
                     return []
                 data = await resp.json()
@@ -212,44 +216,127 @@ async def fetch_json(session, url, semaphore):
 
                     results.append((name, urlx))
                 return results
-        except:
+        except Exception as e:
             return []
 
 async def check_url(session, url, semaphore):
     """检查URL是否可用"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=2) as resp:
+            async with session.get(url, timeout=3) as resp:
                 if resp.status == 200:
                     return url
         except:
             return None
 
-async def test_stream_speed(session, url, semaphore):
-    """测试流媒体速度，返回KB/s"""
+async def test_stream_speed_optimized(session, url, semaphore, test_id=0):
+    """优化的速度测试函数，下载100KB数据计算平均速度"""
     async with semaphore:
         try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Accept': '*/*',
+                'Accept-Language': 'en-US,en;q=0.5',
+                'Accept-Encoding': 'gzip, deflate',
+                'Connection': 'keep-alive',
+                'Range': f'bytes=0-{TEST_DOWNLOAD_SIZE-1}'
+            }
+            
             start_time = time.time()
-            async with session.get(url, timeout=5) as resp:
-                if resp.status != 200:
+            
+            async with session.get(url, headers=headers, timeout=TEST_TIMEOUT) as resp:
+                if resp.status not in (200, 206):  # 支持206部分内容
+                    print(f"  ❌ 测速{test_id}: {url[:50]}... 状态码: {resp.status}")
                     return 0
                 
-                # 读取前10KB数据来计算速度
-                downloaded = 0
-                chunk_size = 4096
-                while downloaded < TEST_DOWNLOAD_SIZE:
-                    chunk = await resp.content.read(chunk_size)
-                    if not chunk:
-                        break
-                    downloaded += len(chunk)
+                # 记录下载数据
+                total_downloaded = 0
+                chunk_size = 8192
                 
-                elapsed = time.time() - start_time
+                # 设置读取超时
+                read_timeout = TEST_TIMEOUT
+                read_start = time.time()
+                
+                while total_downloaded < TEST_DOWNLOAD_SIZE:
+                    try:
+                        chunk = await asyncio.wait_for(
+                            resp.content.read(chunk_size), 
+                            timeout=read_timeout
+                        )
+                        if not chunk:
+                            break
+                        total_downloaded += len(chunk)
+                        
+                        # 更新剩余超时时间
+                        elapsed = time.time() - read_start
+                        read_timeout = TEST_TIMEOUT - elapsed
+                        if read_timeout <= 0:
+                            break
+                            
+                    except asyncio.TimeoutError:
+                        break
+                    except Exception as e:
+                        break
+                
+                end_time = time.time()
+                elapsed_time = end_time - start_time
+                
+                if elapsed_time <= 0 or total_downloaded == 0:
+                    print(f"  ⚠️ 测速{test_id}: {url[:50]}... 下载失败或时间为0")
+                    return 0
+                
+                # 计算速度 (KB/s)
+                speed_kbs = (total_downloaded / 1024) / elapsed_time
+                
+                # 打印详细的测速结果
+                speed_status = "✅" if speed_kbs >= SPEED_THRESHOLD else "❌"
+                print(f"  {speed_status} 测速{test_id}: 速度={speed_kbs:.2f} KB/s, "
+                      f"下载={total_downloaded/1024:.1f}KB, 时间={elapsed_time:.2f}s, "
+                      f"URL={url[:60]}...")
+                
+                return speed_kbs
+                
+        except asyncio.TimeoutError:
+            print(f"  ⏱️ 测速{test_id}: {url[:50]}... 超时")
+            return 0
+        except Exception as e:
+            print(f"  ❌ 测速{test_id}: {url[:50]}... 错误: {str(e)[:50]}")
+            return 0
+
+async def test_stream_speed_simple(session, url, semaphore, test_id=0):
+    """简化的速度测试，只测试连接和初始数据"""
+    async with semaphore:
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                'Range': 'bytes=0-32767'  # 只请求前32KB
+            }
+            
+            start_time = time.time()
+            
+            async with session.get(url, headers=headers, timeout=5) as resp:
+                if resp.status not in (200, 206):
+                    return 0
+                
+                # 只读取前32KB
+                data = await resp.content.read(32768)
+                end_time = time.time()
+                
+                elapsed = end_time - start_time
                 if elapsed <= 0:
                     return 0
                 
-                speed_kbs = (downloaded / 1024) / elapsed
+                speed_kbs = (len(data) / 1024) / elapsed
+                
+                # 打印结果
+                speed_status = "✅" if speed_kbs >= SPEED_THRESHOLD else "❌"
+                print(f"  {speed_status} 测速{test_id}: 速度={speed_kbs:.2f} KB/s, "
+                      f"大小={len(data)/1024:.1f}KB, 时间={elapsed:.2f}s")
+                
                 return speed_kbs
+                
         except Exception as e:
+            print(f"  ❌ 测速{test_id}: 错误: {str(e)[:30]}")
             return 0
 
 def extract_ip_port(url):
@@ -257,14 +344,19 @@ def extract_ip_port(url):
     try:
         parsed = urlparse(url)
         hostname = parsed.hostname
-        port = parsed.port
         
-        if hostname and port:
-            return f"{hostname}:{port}"
-        elif hostname:
-            # 如果没有指定端口，使用默认端口
-            default_port = 80 if parsed.scheme == 'http' else 443
-            return f"{hostname}:{default_port}"
+        if not hostname:
+            return None
+            
+        # 解析端口
+        if parsed.port:
+            port = parsed.port
+        elif parsed.scheme == 'https':
+            port = 443
+        else:
+            port = 80
+            
+        return f"{hostname}:{port}"
     except:
         return None
 
@@ -277,11 +369,20 @@ def is_valid_stream(url):
     if url.startswith("http://16.") or url.startswith("http://10.") or url.startswith("http://192.168."):
         return False
     
+    # 检查是否包含流媒体扩展名
     valid_ext = (".m3u8", ".ts", ".flv", ".mp4", ".mkv")
-    return url.startswith("http") and any(ext in url for ext in valid_ext)
+    if any(ext in url.lower() for ext in valid_ext):
+        return True
+        
+    # 或者检查是否包含流媒体路径关键字
+    stream_keywords = ("/live/", "/stream/", "/hls/", "/live-stream/", "m3u8", "ts")
+    if any(keyword in url.lower() for keyword in stream_keywords):
+        return True
+        
+    return False
 
 async def main():
-    print("🚀 开始运行 hotel 脚本 - 增强版（带测速功能）")
+    print("🚀 开始运行 hotel 脚本 - 优化测速版")
     
     # 加载基础URL
     urls = load_urls()
@@ -290,7 +391,7 @@ async def main():
     async with aiohttp.ClientSession() as session:
         # 设置信号量控制并发
         scan_semaphore = asyncio.Semaphore(150)
-        speed_semaphore = asyncio.Semaphore(50)  # 测速并发数较低，避免网络拥塞
+        speed_semaphore = asyncio.Semaphore(SPEED_TEST_CONCURRENCY)
         
         # 生成所有待扫描URL
         all_urls = []
@@ -350,57 +451,77 @@ async def main():
         # 特别处理CCTV1 - 测速
         cctv1_urls = channel_groups.get("CCTV1", [])
         cctv1_with_speed = []
+        qualified_ips = set()
         
         if cctv1_urls:
-            print(f"🚀 开始对 CCTV1 进行测速，共 {len(cctv1_urls)} 个源")
+            print(f"\n🚀 开始对 CCTV1 进行测速，共 {len(cctv1_urls)} 个源")
+            print("=" * 80)
             
             # 对CCTV1的所有源进行测速
-            speed_tasks = [test_stream_speed(session, url, speed_semaphore) for url in cctv1_urls]
+            speed_tasks = []
+            for i, url in enumerate(cctv1_urls[:50]):  # 限制最多测速50个，避免太多
+                task = test_stream_speed_simple(session, url, speed_semaphore, i+1)
+                speed_tasks.append(task)
+            
             speeds = await asyncio.gather(*speed_tasks)
             
             # 组合URL和速度
-            for url, speed in zip(cctv1_urls, speeds):
+            for i, (url, speed) in enumerate(zip(cctv1_urls[:50], speeds)):
                 if speed > 0:  # 只保留测速成功的
                     cctv1_with_speed.append((url, speed))
+                    
+                    # 检查是否合格
+                    if speed >= SPEED_THRESHOLD:
+                        ip_port = extract_ip_port(url)
+                        if ip_port:
+                            qualified_ips.add(ip_port)
+                            print(f"  🎯 合格IP: {ip_port} (速度: {speed:.2f} KB/s)")
             
             # 按速度降序排序
             cctv1_with_speed.sort(key=lambda x: x[1], reverse=True)
             
-            print(f"📈 CCTV1 测速完成，有效源: {len(cctv1_with_speed)} 个")
+            print("=" * 80)
+            print(f"📈 CCTV1 测速完成统计:")
+            print(f"   总测试数: {len(cctv1_urls[:50])}")
+            print(f"   有效源数: {len(cctv1_with_speed)}")
+            print(f"   合格源数(≥{SPEED_THRESHOLD}KB/s): {len(qualified_ips)}")
             
-            # 保存测速合格的IP和端口
-            qualified_ips = set()
-            for url, speed in cctv1_with_speed:
-                if speed >= SPEED_THRESHOLD:
-                    ip_port = extract_ip_port(url)
-                    if ip_port:
-                        qualified_ips.add(ip_port)
-            
-            # 将合格的IP保存到文件
-            if qualified_ips:
-                with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
-                    for ip_port in sorted(qualified_ips):
-                        f.write(f"{ip_port}\n")
-                print(f"💾 已保存 {len(qualified_ips)} 个测速合格的IP到 已检测ip.txt")
-            else:
-                print("⚠️ 没有找到速度大于200KB/s的CCTV1源")
+            if cctv1_with_speed:
+                print(f"\n📊 速度排名前10:")
+                for i, (url, speed) in enumerate(cctv1_with_speed[:10], 1):
+                    ip_port = extract_ip_port(url) or "N/A"
+                    print(f"  {i:2}. {speed:7.2f} KB/s - {ip_port}")
+        
+        # 将合格的IP保存到文件
+        if qualified_ips:
+            with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
+                for ip_port in sorted(qualified_ips):
+                    f.write(f"{ip_port}\n")
+            print(f"\n💾 已保存 {len(qualified_ips)} 个测速合格的IP到 已检测ip.txt")
+        else:
+            print(f"\n⚠️ 没有找到速度大于{SPEED_THRESHOLD}KB/s的CCTV1源")
+            # 创建空文件或包含提示
+            with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
+                f.write(f"# 没有找到速度大于{SPEED_THRESHOLD}KB/s的CCTV1源\n")
+                f.write(f"# 生成时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
         
         # 构建最终结果
         final_results = []
         
-        # 添加CCTV1（使用测速结果）
-        for url, speed in cctv1_with_speed[:RESULTS_PER_CHANNEL]:  # 只取前N个
+        # 添加CCTV1（使用测速结果，最多取RESULTS_PER_CHANNEL个）
+        for url, speed in cctv1_with_speed[:RESULTS_PER_CHANNEL]:
             final_results.append(("CCTV1", url, speed))
         
-        # 添加其他频道（每个频道取第一个URL，速度标记为0）
+        # 添加其他频道（每个频道取前3个URL，速度标记为0）
         for name, urls in channel_groups.items():
             if name == "CCTV1":
                 continue  # CCTV1已处理
             
-            if urls:  # 取第一个URL
-                final_results.append((name, urls[0], 0))
+            # 每个非CCTV1频道最多取3个URL
+            for url in urls[:3]:
+                final_results.append((name, url, 0))
         
-        print(f"🎯 最终频道列表: {len(final_results)} 条")
+        print(f"\n🎯 最终频道列表: {len(final_results)} 条")
         
         # 分类整理
         itv_dict = {cat: [] for cat in CHANNEL_CATEGORIES}
@@ -422,8 +543,9 @@ async def main():
                 itv_dict["其它频道"].append((name, url, speed))
         
         # 打印分类统计
+        print("\n📦 分类统计:")
         for cat in CHANNEL_CATEGORIES:
-            print(f"📦 分类《{cat}》找到 {len(itv_dict[cat])} 条频道")
+            print(f"  {cat}: {len(itv_dict[cat])} 条")
         
         # 生成最终文件
         beijing_now = datetime.datetime.now(
@@ -465,13 +587,13 @@ async def main():
                         for item in ch_items:
                             f.write(f"{item[0]},{item[1]}\n")
         
-        print("🎉 hotel.txt 已生成完成！")
+        print("\n🎉 hotel.txt 已生成完成！")
         
         # 打印未分类的频道信息
         other_channels = sorted(set([name for name, _, _ in itv_dict["其它频道"]]))
         if other_channels:
             print(f"\n📊 未分类频道 ({len(other_channels)} 个):")
-            for i, channel in enumerate(other_channels[:20], 1):  # 只显示前20个
+            for i, channel in enumerate(other_channels[:20], 1):
                 print(f"  {i:3}. {channel}")
             if len(other_channels) > 20:
                 print(f"  ... 还有 {len(other_channels) - 20} 个未显示")
