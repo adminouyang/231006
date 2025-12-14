@@ -150,9 +150,9 @@ CHANNEL_MAPPING = {
 
 RESULTS_PER_CHANNEL = 20
 SPEED_THRESHOLD = 200  # KB/s
-TEST_DOWNLOAD_SIZE = 102400  # 增加到100KB，获得更准确的速度
-TEST_TIMEOUT = 10  # 单个测速任务超时时间
-SPEED_TEST_CONCURRENCY = 20  # 测速并发数
+TEST_DOWNLOAD_SIZE = 51200  # 50KB for speed test
+TEST_TIMEOUT = 8  # 单个测速任务超时时间
+SPEED_TEST_CONCURRENCY = 30  # 测速并发数
 
 def load_urls():
     """从 GitHub 下载 IPTV IP 段列表"""
@@ -229,8 +229,8 @@ async def check_url(session, url, semaphore):
         except:
             return None
 
-async def test_stream_speed_optimized(session, url, semaphore, test_id=0):
-    """优化的速度测试函数，下载100KB数据计算平均速度"""
+async def test_stream_speed_accurate(session, url, semaphore, test_id=0):
+    """准确的速度测试函数，使用分段下载计算平均速度"""
     async with semaphore:
         try:
             headers = {
@@ -243,100 +243,80 @@ async def test_stream_speed_optimized(session, url, semaphore, test_id=0):
             }
             
             start_time = time.time()
+            total_downloaded = 0
             
-            async with session.get(url, headers=headers, timeout=TEST_TIMEOUT) as resp:
-                if resp.status not in (200, 206):  # 支持206部分内容
-                    print(f"  ❌ 测速{test_id}: {url[:50]}... 状态码: {resp.status}")
-                    return 0
-                
-                # 记录下载数据
-                total_downloaded = 0
-                chunk_size = 8192
-                
-                # 设置读取超时
-                read_timeout = TEST_TIMEOUT
-                read_start = time.time()
-                
-                while total_downloaded < TEST_DOWNLOAD_SIZE:
-                    try:
-                        chunk = await asyncio.wait_for(
-                            resp.content.read(chunk_size), 
-                            timeout=read_timeout
-                        )
-                        if not chunk:
-                            break
-                        total_downloaded += len(chunk)
-                        
-                        # 更新剩余超时时间
-                        elapsed = time.time() - read_start
-                        read_timeout = TEST_TIMEOUT - elapsed
-                        if read_timeout <= 0:
-                            break
+            try:
+                async with session.get(url, headers=headers, timeout=TEST_TIMEOUT) as resp:
+                    if resp.status not in (200, 206):
+                        print(f"  ❌ 测速{test_id}: 状态码 {resp.status}")
+                        return 0
+                    
+                    # 分段下载，每段记录时间
+                    chunk_size = 8192
+                    download_times = []
+                    chunk_start = time.time()
+                    
+                    while total_downloaded < TEST_DOWNLOAD_SIZE:
+                        try:
+                            # 设置读取超时
+                            chunk = await asyncio.wait_for(
+                                resp.content.read(chunk_size),
+                                timeout=2.0
+                            )
+                            if not chunk:
+                                break
                             
-                    except asyncio.TimeoutError:
-                        break
-                    except Exception as e:
-                        break
-                
-                end_time = time.time()
-                elapsed_time = end_time - start_time
-                
-                if elapsed_time <= 0 or total_downloaded == 0:
-                    print(f"  ⚠️ 测速{test_id}: {url[:50]}... 下载失败或时间为0")
-                    return 0
-                
-                # 计算速度 (KB/s)
-                speed_kbs = (total_downloaded / 1024) / elapsed_time
-                
-                # 打印详细的测速结果
-                speed_status = "✅" if speed_kbs >= SPEED_THRESHOLD else "❌"
-                print(f"  {speed_status} 测速{test_id}: 速度={speed_kbs:.2f} KB/s, "
-                      f"下载={total_downloaded/1024:.1f}KB, 时间={elapsed_time:.2f}s, "
-                      f"URL={url[:60]}...")
-                
-                return speed_kbs
-                
-        except asyncio.TimeoutError:
-            print(f"  ⏱️ 测速{test_id}: {url[:50]}... 超时")
-            return 0
-        except Exception as e:
-            print(f"  ❌ 测速{test_id}: {url[:50]}... 错误: {str(e)[:50]}")
-            return 0
-
-async def test_stream_speed_simple(session, url, semaphore, test_id=0):
-    """简化的速度测试，只测试连接和初始数据"""
-    async with semaphore:
-        try:
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-                'Range': 'bytes=0-32767'  # 只请求前32KB
-            }
-            
-            start_time = time.time()
-            
-            async with session.get(url, headers=headers, timeout=5) as resp:
-                if resp.status not in (200, 206):
-                    return 0
-                
-                # 只读取前32KB
-                data = await resp.content.read(32768)
-                end_time = time.time()
-                
-                elapsed = end_time - start_time
-                if elapsed <= 0:
-                    return 0
-                
-                speed_kbs = (len(data) / 1024) / elapsed
-                
-                # 打印结果
-                speed_status = "✅" if speed_kbs >= SPEED_THRESHOLD else "❌"
-                print(f"  {speed_status} 测速{test_id}: 速度={speed_kbs:.2f} KB/s, "
-                      f"大小={len(data)/1024:.1f}KB, 时间={elapsed:.2f}s")
-                
-                return speed_kbs
+                            chunk_size_actual = len(chunk)
+                            total_downloaded += chunk_size_actual
+                            
+                            chunk_end = time.time()
+                            chunk_time = chunk_end - chunk_start
+                            download_times.append((chunk_size_actual, chunk_time))
+                            chunk_start = chunk_end
+                            
+                        except asyncio.TimeoutError:
+                            break
+                        except Exception as e:
+                            break
+                    
+                    end_time = time.time()
+                    total_time = end_time - start_time
+                    
+                    if total_time <= 0 or total_downloaded == 0:
+                        print(f"  ⚠️ 测速{test_id}: 下载失败或时间为0")
+                        return 0
+                    
+                    # 计算平均速度 (KB/s)
+                    speed_kbs = (total_downloaded / 1024) / total_time
+                    
+                    # 计算最后一段的速度（更准确）
+                    if len(download_times) >= 2:
+                        # 取最后3个块的平均速度
+                        last_chunks = download_times[-3:] if len(download_times) >= 3 else download_times
+                        last_speeds = []
+                        for size, t in last_chunks:
+                            if t > 0:
+                                last_speeds.append((size / 1024) / t)
+                        if last_speeds:
+                            # 使用最后几段的平均速度，更稳定
+                            speed_kbs = sum(last_speeds) / len(last_speeds)
+                    
+                    # 打印详细的测速结果
+                    speed_status = "✅" if speed_kbs >= SPEED_THRESHOLD else "❌"
+                    ip_port = extract_ip_port(url) or "Unknown"
+                    print(f"  {speed_status} 测速{test_id}: {speed_kbs:7.2f} KB/s | 大小: {total_downloaded/1024:.1f}KB | 时间: {total_time:.2f}s | {ip_port}")
+                    
+                    return speed_kbs
+                    
+            except asyncio.TimeoutError:
+                print(f"  ⏱️ 测速{test_id}: 超时")
+                return 0
+            except Exception as e:
+                print(f"  ❌ 测速{test_id}: 错误 {str(e)[:30]}")
+                return 0
                 
         except Exception as e:
-            print(f"  ❌ 测速{test_id}: 错误: {str(e)[:30]}")
+            print(f"  ❌ 测速{test_id}: 异常 {str(e)[:30]}")
             return 0
 
 def extract_ip_port(url):
@@ -456,17 +436,19 @@ async def main():
         if cctv1_urls:
             print(f"\n🚀 开始对 CCTV1 进行测速，共 {len(cctv1_urls)} 个源")
             print("=" * 80)
+            print("测速结果 (≥200KB/s为合格):")
+            print("-" * 80)
             
             # 对CCTV1的所有源进行测速
             speed_tasks = []
-            for i, url in enumerate(cctv1_urls[:50]):  # 限制最多测速50个，避免太多
-                task = test_stream_speed_simple(session, url, speed_semaphore, i+1)
+            for i, url in enumerate(cctv1_urls[:100]):  # 限制最多测速100个，避免太多
+                task = test_stream_speed_accurate(session, url, speed_semaphore, i+1)
                 speed_tasks.append(task)
             
             speeds = await asyncio.gather(*speed_tasks)
             
             # 组合URL和速度
-            for i, (url, speed) in enumerate(zip(cctv1_urls[:50], speeds)):
+            for i, (url, speed) in enumerate(zip(cctv1_urls[:100], speeds)):
                 if speed > 0:  # 只保留测速成功的
                     cctv1_with_speed.append((url, speed))
                     
@@ -475,19 +457,18 @@ async def main():
                         ip_port = extract_ip_port(url)
                         if ip_port:
                             qualified_ips.add(ip_port)
-                            print(f"  🎯 合格IP: {ip_port} (速度: {speed:.2f} KB/s)")
             
             # 按速度降序排序
             cctv1_with_speed.sort(key=lambda x: x[1], reverse=True)
             
-            print("=" * 80)
+            print("-" * 80)
             print(f"📈 CCTV1 测速完成统计:")
-            print(f"   总测试数: {len(cctv1_urls[:50])}")
+            print(f"   总测试数: {len(cctv1_urls[:100])}")
             print(f"   有效源数: {len(cctv1_with_speed)}")
             print(f"   合格源数(≥{SPEED_THRESHOLD}KB/s): {len(qualified_ips)}")
             
             if cctv1_with_speed:
-                print(f"\n📊 速度排名前10:")
+                print(f"\n🏆 速度排名前10:")
                 for i, (url, speed) in enumerate(cctv1_with_speed[:10], 1):
                     ip_port = extract_ip_port(url) or "N/A"
                     print(f"  {i:2}. {speed:7.2f} KB/s - {ip_port}")
@@ -495,12 +476,16 @@ async def main():
         # 将合格的IP保存到文件
         if qualified_ips:
             with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
+                f.write(f"# CCTV1 测速合格IP列表 (≥{SPEED_THRESHOLD}KB/s)\n")
+                f.write(f"# 生成时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write(f"# 合格IP数量: {len(qualified_ips)}\n")
+                f.write("#" * 50 + "\n")
                 for ip_port in sorted(qualified_ips):
                     f.write(f"{ip_port}\n")
-            print(f"\n💾 已保存 {len(qualified_ips)} 个测速合格的IP到 已检测ip.txt")
+            print(f"\n💾 已保存 {len(qualified_ips)} 个测速合格的IP到 py/Hotel/已检测ip.txt")
         else:
             print(f"\n⚠️ 没有找到速度大于{SPEED_THRESHOLD}KB/s的CCTV1源")
-            # 创建空文件或包含提示
+            # 创建空文件
             with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
                 f.write(f"# 没有找到速度大于{SPEED_THRESHOLD}KB/s的CCTV1源\n")
                 f.write(f"# 生成时间: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
@@ -552,11 +537,9 @@ async def main():
             datetime.timezone(datetime.timedelta(hours=8))
         ).strftime("%Y-%m-%d %H:%M:%S")
         
-        disclaimer_url = "url"
-        
         with open("py/Hotel/hotel.txt", 'w', encoding='utf-8') as f:
             f.write("更新时间,#genre#\n")
-            f.write(f"{beijing_now},{disclaimer_url}\n\n")
+            f.write(f"{beijing_now},#\n\n")
             
             for cat in CHANNEL_CATEGORIES:
                 f.write(f"{cat},#genre#\n")
