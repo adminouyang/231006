@@ -1,15 +1,14 @@
 import asyncio
 import aiohttp
-import re
 import datetime
 import requests
-import os
-import socket
-import struct
-from urllib.parse import urljoin
 import json
-from collections import defaultdict
+import re
+from urllib.parse import urljoin, urlparse
 import time
+import os
+from typing import List, Tuple, Dict, Set
+import socket
 
 URL_FILE = "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel_ip.txt"
 
@@ -47,11 +46,11 @@ CHANNEL_CATEGORIES = {
     "新疆频道": [
         "新疆卫视-3","新疆卫视-5"
     ],
-    "其它频道": [],
+    "其它频道": [
+    ],
 }
 
 CHANNEL_MAPPING = {
-    "高清": [""],
     "CCTV1": ["CCTV-1", "CCTV1-综合", "CCTV-1 综合", "CCTV-1综合", "CCTV1HD", "CCTV-1高清", "CCTV-1HD", "cctv-1HD", "CCTV1综合高清", "cctv1"],
     "CCTV2": ["CCTV-2", "CCTV2-财经", "CCTV-2 财经", "CCTV-2财经", "CCTV2HD", "CCTV-2高清", "CCTV-2HD", "cctv-2HD", "CCTV2财经高清", "cctv2"],
     "CCTV3": ["CCTV-3", "CCTV3-综艺", "CCTV-3 综艺", "CCTV-3综艺", "CCTV3HD", "CCTV-3高清", "CCTV-3HD", "cctv-3HD", "CCTV3综艺高清", "cctv3"],
@@ -147,107 +146,9 @@ CHANNEL_MAPPING = {
     "经典电影": ["IPTV经典电影"],
 }
 
-# 卫视节目到省份的映射
-PROVINCE_CHANNELS = {
-    "北京": ["北京卫视"],
-    "上海": ["东方卫视"],
-    "天津": ["天津卫视"],
-    "重庆": ["重庆卫视"],
-    "河北": ["河北卫视"],
-    "山西": ["山西卫视"],
-    "内蒙古": ["内蒙古卫视"],
-    "辽宁": ["辽宁卫视"],
-    "吉林": ["吉林卫视"],
-    "黑龙江": ["黑龙江卫视"],
-    "江苏": ["江苏卫视"],
-    "浙江": ["浙江卫视"],
-    "安徽": ["安徽卫视"],
-    "福建": ["东南卫视"],
-    "江西": ["江西卫视"],
-    "山东": ["山东卫视"],
-    "河南": ["河南卫视"],
-    "湖北": ["湖北卫视"],
-    "湖南": ["湖南卫视"],
-    "广东": ["广东卫视", "深圳卫视"],
-    "广西": ["广西卫视"],
-    "海南": ["海南卫视"],
-    "四川": ["四川卫视"],
-    "贵州": ["贵州卫视"],
-    "云南": ["云南卫视"],
-    "西藏": ["西藏卫视"],
-    "陕西": ["陕西卫视"],
-    "甘肃": ["甘肃卫视"],
-    "青海": ["青海卫视"],
-    "宁夏": ["宁夏卫视"],
-    "新疆": ["新疆卫视"],
-    "三沙": ["三沙卫视"],
-    "兵团": ["兵团卫视"],
-    "延边": ["延边卫视"],
-    "安多": ["安多卫视"],
-    "康巴": ["康巴卫视"],
-    "农林": ["农林卫视"],
-    "山东教育": ["山东教育卫视"],
-    "中国教育1台": ["中国教育1台"],
-    "中国教育2台": ["中国教育2台"],
-    "中国教育3台": ["中国教育3台"],
-    "中国教育4台": ["中国教育4台"],
-    "早期教育": ["早期教育"],
-}
-
 RESULTS_PER_CHANNEL = 20
-
-# IP地址到省份的映射
-IP_PREFIX_TO_PROVINCE = {
-    "1.0.0.0": "北京",
-    "14.0.0.0": "广东",
-    "27.0.0.0": "北京",
-    "36.0.0.0": "福建",
-    "39.0.0.0": "北京",
-    "42.0.0.0": "辽宁",
-    "49.0.0.0": "江苏",
-    "58.0.0.0": "北京",
-    "59.0.0.0": "广东",
-    "60.0.0.0": "北京",
-    "61.0.0.0": "广东",
-    "101.0.0.0": "北京",
-    "103.0.0.0": "北京",
-    "106.0.0.0": "北京",
-    "110.0.0.0": "北京",
-    "111.0.0.0": "北京",
-    "112.0.0.0": "北京",
-    "113.0.0.0": "广东",
-    "114.0.0.0": "北京",
-    "115.0.0.0": "北京",
-    "116.0.0.0": "北京",
-    "117.0.0.0": "北京",
-    "118.0.0.0": "北京",
-    "119.0.0.0": "四川",
-    "120.0.0.0": "北京",
-    "121.0.0.0": "上海",
-    "122.0.0.0": "江苏",
-    "123.0.0.0": "辽宁",
-    "124.0.0.0": "黑龙江",
-    "125.0.0.0": "吉林",
-    "139.0.0.0": "四川",
-    "140.0.0.0": "台湾",
-    "150.0.0.0": "台湾",
-    "163.0.0.0": "上海",
-    "175.0.0.0": "台湾",
-    "180.0.0.0": "北京",
-    "182.0.0.0": "北京",
-    "183.0.0.0": "广东",
-    "192.0.0.0": "美国",
-    "202.0.0.0": "北京",
-    "203.0.0.0": "香港",
-    "210.0.0.0": "台湾",
-    "211.0.0.0": "北京",
-    "218.0.0.0": "北京",
-    "219.0.0.0": "辽宁",
-    "220.0.0.0": "北京",
-    "221.0.0.0": "山东",
-    "222.0.0.0": "北京",
-    "223.0.0.0": "北京",
-}
+SPEED_THRESHOLD = 200  # KB/s
+TEST_DOWNLOAD_SIZE = 10240  # 10KB for speed test
 
 def load_urls():
     """从 GitHub 下载 IPTV IP 段列表"""
@@ -262,7 +163,7 @@ def load_urls():
         exit()
 
 async def generate_urls(url):
-    """生成要扫描的URL列表"""
+    """生成待扫描的URL列表"""
     modified_urls = []
 
     ip_start = url.find("//") + 2
@@ -287,10 +188,12 @@ async def generate_urls(url):
     return modified_urls
 
 async def fetch_json(session, url, semaphore):
-    """获取JSON数据并解析频道"""
+    """获取JSON数据并解析频道信息"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=3) as resp:
+            async with session.get(url, timeout=2) as resp:
+                if resp.status != 200:
+                    return []
                 data = await resp.json()
                 results = []
                 for item in data.get('data', []):
@@ -307,125 +210,13 @@ async def fetch_json(session, url, semaphore):
                             name = std_name
                             break
 
-                    # 提取IP地址
-                    ip = extract_ip_from_url(urlx)
-                    results.append((name, urlx, ip, url))
+                    results.append((name, urlx))
                 return results
-        except Exception as e:
+        except:
             return []
 
-def extract_ip_from_url(url):
-    """从URL中提取IP地址"""
-    match = re.search(r'http://(\d+\.\d+\.\d+\.\d+)', url)
-    if match:
-        return match.group(1)
-    return None
-
-def get_province_by_ip(ip):
-    """根据IP地址获取省份"""
-    if not ip:
-        return None
-    
-    try:
-        parts = ip.split('.')
-        if len(parts) != 4:
-            return None
-        
-        # 将IP转换为整数以便比较
-        ip_int = struct.unpack("!I", socket.inet_aton(ip))[0]
-        
-        # 简化版：使用IP前缀判断
-        ip_prefix = '.'.join(parts[:2]) + ".0.0"
-        if ip_prefix in IP_PREFIX_TO_PROVINCE:
-            return IP_PREFIX_TO_PROVINCE[ip_prefix]
-        
-        # 更精确的匹配：使用IP范围
-        for prefix, province in IP_PREFIX_TO_PROVINCE.items():
-            prefix_parts = prefix.split('.')
-            if len(prefix_parts) == 4:
-                prefix_int = struct.unpack("!I", socket.inet_aton(prefix))[0]
-                # 检查是否在同一/8网络
-                if (ip_int >> 24) == (prefix_int >> 24):
-                    return province
-        
-        return None
-    except:
-        return None
-
-async def test_channel_speed(session, name, url, timeout=3, retry_count=2):
-    """改进的测速函数，使用多种方法尝试，增加重试机制"""
-    data_sizes = [10240, 20480, 51200]  # 尝试不同的数据大小：10KB, 20KB, 50KB
-    
-    for attempt in range(retry_count):
-        for data_size in data_sizes:
-            # 方法1: 使用Range请求
-            try:
-                headers = {'Range': f'bytes=0-{data_size-1}', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-                start_time = asyncio.get_event_loop().time()
-                
-                async with session.get(url, headers=headers, timeout=timeout) as response:
-                    if response.status in [200, 206]:
-                        # 读取数据
-                        content = await response.read()
-                        end_time = asyncio.get_event_loop().time()
-                        
-                        if content and end_time > start_time:
-                            duration = end_time - start_time
-                            if duration > 0:
-                                speed = len(content) / 1024 / duration  # KB/s
-                                if speed > 0:
-                                    return speed
-            except asyncio.TimeoutError:
-                continue
-            except Exception:
-                continue
-            
-            # 方法2: 不使用Range，尝试读取部分数据
-            try:
-                start_time = asyncio.get_event_loop().time()
-                async with session.get(url, timeout=timeout) as response:
-                    if response.status == 200:
-                        # 尝试读取部分数据
-                        content = b''
-                        remaining = data_size
-                        
-                        async for chunk in response.content.iter_chunked(8192):
-                            content += chunk
-                            remaining -= len(chunk)
-                            if remaining <= 0:
-                                break
-                        
-                        end_time = asyncio.get_event_loop().time()
-                        
-                        if content and end_time > start_time:
-                            duration = end_time - start_time
-                            if duration > 0:
-                                speed = len(content) / 1024 / duration
-                                if speed > 0:
-                                    return speed
-            except asyncio.TimeoutError:
-                continue
-            except Exception:
-                continue
-    
-    return 0  # 所有尝试都失败
-
-async def check_url_availability(session, url, semaphore, timeout=2):
-    """检查URL是否可用，返回响应时间"""
-    async with semaphore:
-        try:
-            start_time = asyncio.get_event_loop().time()
-            async with session.head(url, timeout=timeout) as resp:
-                if resp.status in [200, 206, 302, 301]:
-                    end_time = asyncio.get_event_loop().time()
-                    response_time = (end_time - start_time) * 1000  # 转换为毫秒
-                    return response_time
-        except:
-            pass
-        return None
-
-async def check_json_url(session, url, semaphore):
-    """检查JSON API是否可用"""
+async def check_url(session, url, semaphore):
+    """检查URL是否可用"""
     async with semaphore:
         try:
             async with session.get(url, timeout=2) as resp:
@@ -434,66 +225,51 @@ async def check_json_url(session, url, semaphore):
         except:
             return None
 
-async def process_channel(session, name, url, ip, source_url, semaphore, 
-                         test_speed=True, min_speed=100, 
-                         max_channels_per_province=5):
-    """处理单个频道：检查、测速、过滤"""
-    
-    # 检查URL格式是否有效
-    if not is_valid_stream(url):
+async def test_stream_speed(session, url, semaphore):
+    """测试流媒体速度，返回KB/s"""
+    async with semaphore:
+        try:
+            start_time = time.time()
+            async with session.get(url, timeout=5) as resp:
+                if resp.status != 200:
+                    return 0
+                
+                # 读取前10KB数据来计算速度
+                downloaded = 0
+                chunk_size = 4096
+                while downloaded < TEST_DOWNLOAD_SIZE:
+                    chunk = await resp.content.read(chunk_size)
+                    if not chunk:
+                        break
+                    downloaded += len(chunk)
+                
+                elapsed = time.time() - start_time
+                if elapsed <= 0:
+                    return 0
+                
+                speed_kbs = (downloaded / 1024) / elapsed
+                return speed_kbs
+        except Exception as e:
+            return 0
+
+def extract_ip_port(url):
+    """从URL中提取IP和端口"""
+    try:
+        parsed = urlparse(url)
+        hostname = parsed.hostname
+        port = parsed.port
+        
+        if hostname and port:
+            return f"{hostname}:{port}"
+        elif hostname:
+            # 如果没有指定端口，使用默认端口
+            default_port = 80 if parsed.scheme == 'http' else 443
+            return f"{hostname}:{default_port}"
+    except:
         return None
-    
-    # 获取IP对应的省份
-    province = get_province_by_ip(ip) if ip else None
-    
-    # 默认速度
-    speed = 0
-    need_speed_test = False
-    skip_channel = False
-    
-    # 判断是否需要测速
-    if test_speed and province and province in PROVINCE_CHANNELS:
-        province_channels = PROVINCE_CHANNELS[province]
-        if name in province_channels:
-            need_speed_test = True
-    
-    # 如果需要测速，进行测速
-    if need_speed_test:
-        # 先检查URL基本可用性
-        response_time = await check_url_availability(session, url, semaphore)
-        if response_time is None:
-            print(f"  ❌ {name} ({province}) - 无法访问")
-            return None
-        
-        # 进行测速
-        speed = await test_channel_speed(session, name, url)
-        
-        if speed > 0:
-            print(f"  📡 {name} ({province}) - 速度: {speed:.2f} KB/s, 响应: {response_time:.0f}ms")
-            
-            # 如果速度小于最小要求，不保存
-            if speed < min_speed:
-                print(f"    ❌ 速度不足 {min_speed} KB/s，跳过")
-                return None
-        else:
-            print(f"  ⚠️  {name} ({province}) - 测速失败，响应: {response_time:.0f}ms")
-            # 测速失败但URL可访问，可以保存，但标记速度未知
-            speed = -1
-    else:
-        # 不需要测速的频道，只检查可用性
-        response_time = await check_url_availability(session, url, semaphore)
-        if response_time is None:
-            return None
-        
-        if province:
-            print(f"  ✓ {name} ({province}) - 非卫视频道，不测速，响应: {response_time:.0f}ms")
-        else:
-            print(f"  ✓ {name} - 省份未知，不测速，响应: {response_time:.0f}ms")
-    
-    return (name, url, speed, province)
 
 def is_valid_stream(url):
-    """检查是否为有效的流媒体URL"""
+    """检查是否为有效流"""
     if url.startswith("rtp://") or url.startswith("udp://") or url.startswith("rtsp://"):
         return False
     if "239." in url:
@@ -505,16 +281,18 @@ def is_valid_stream(url):
     return url.startswith("http") and any(ext in url for ext in valid_ext)
 
 async def main():
-    print("🚀 开始运行 hotel 脚本")
-    
-    # 设置并发数
-    semaphore = asyncio.Semaphore(80)  # 稍微降低并发数以提高稳定性
+    print("🚀 开始运行 hotel 脚本 - 增强版（带测速功能）")
     
     # 加载基础URL
     urls = load_urls()
     
+    # 创建会话
     async with aiohttp.ClientSession() as session:
-        # 生成所有要扫描的URL
+        # 设置信号量控制并发
+        scan_semaphore = asyncio.Semaphore(150)
+        speed_semaphore = asyncio.Semaphore(50)  # 测速并发数较低，避免网络拥塞
+        
+        # 生成所有待扫描URL
         all_urls = []
         for url in urls:
             modified_urls = await generate_urls(url)
@@ -522,172 +300,181 @@ async def main():
         
         print(f"🔍 生成待扫描 URL 共: {len(all_urls)} 个")
         
-        # 检测可用的JSON API
+        # 检测可用JSON API
         print("⏳ 开始检测可用 JSON API...")
-        tasks = [check_json_url(session, u, semaphore) for u in all_urls]
+        tasks = [check_url(session, u, scan_semaphore) for u in all_urls]
         valid_urls = [r for r in await asyncio.gather(*tasks) if r]
         
         print(f"✅ 可用 JSON 地址: {len(valid_urls)} 个")
-        for u in valid_urls[:5]:  # 只显示前5个
-            print(f"  - {u}")
-        if len(valid_urls) > 5:
-            print(f"  ... 和 {len(valid_urls) - 5} 个更多")
         
         # 抓取节目单JSON
         print("📥 开始抓取节目单 JSON...")
-        tasks = [fetch_json(session, u, semaphore) for u in valid_urls]
+        tasks = [fetch_json(session, u, scan_semaphore) for u in valid_urls]
         fetched = await asyncio.gather(*tasks)
         
         # 合并结果
-        all_channels = []
+        all_results = []
         for sublist in fetched:
-            all_channels.extend(sublist)
+            all_results.extend(sublist)
         
-        print(f"📺 抓到原始频道总数: {len(all_channels)} 条")
+        print(f"📺 抓到原始频道总数: {len(all_results)} 条")
         
-        # 去重：基于频道名称和URL
-        unique_channels = {}
-        for name, url, ip, source_url in all_channels:
-            key = (name, url)
-            if key not in unique_channels:
-                unique_channels[key] = (name, url, ip, source_url)
+        # 去重
+        unique_results = []
+        seen_channels_urls = set()
+        for name, url in all_results:
+            key = f"{name}::{url}"
+            if key not in seen_channels_urls:
+                seen_channels_urls.add(key)
+                unique_results.append((name, url))
         
-        print(f"🔍 去重后频道总数: {len(unique_channels)} 条")
+        print(f"🔍 去重后频道总数: {len(unique_results)} 条")
         
-        # 处理每个频道：检查、测速、过滤
-        print("⏳ 开始处理频道（检查、测速、过滤）...")
-        tasks = []
-        for name, url, ip, source_url in unique_channels.values():
-            task = process_channel(session, name, url, ip, source_url, semaphore, 
-                                 test_speed=True, min_speed=100)
-            tasks.append(task)
+        # 过滤无效流
+        valid_results = []
+        for name, url in unique_results:
+            if is_valid_stream(url):
+                valid_results.append((name, url))
         
-        processed_results = await asyncio.gather(*tasks)
+        print(f"✅ 有效流总数: {len(valid_results)} 条")
         
-        # 过滤掉None结果
-        final_results = [r for r in processed_results if r is not None]
+        # 按频道分组
+        channel_groups = {}
+        for name, url in valid_results:
+            if name not in channel_groups:
+                channel_groups[name] = []
+            channel_groups[name].append(url)
         
-        print(f"✅ 最终有效频道: {len(final_results)} 条")
+        print(f"📊 频道分组数: {len(channel_groups)} 个")
         
-        # 按频道名称分组，统计速度
-        channel_stats = defaultdict(list)
-        for name, url, speed, province in final_results:
-            channel_stats[name].append((url, speed, province))
+        # 特别处理CCTV1 - 测速
+        cctv1_urls = channel_groups.get("CCTV1", [])
+        cctv1_with_speed = []
         
-        # 分类频道
-        categorized_channels = {cat: [] for cat in CHANNEL_CATEGORIES}
-        
-        for name in channel_stats:
-            # 获取该频道的所有URL，按速度排序
-            urls_for_channel = channel_stats[name]
-            # 按速度降序排序（速度-1表示测速失败但可访问）
-            urls_for_channel.sort(key=lambda x: x[1] if x[1] != -1 else 0, reverse=True)
+        if cctv1_urls:
+            print(f"🚀 开始对 CCTV1 进行测速，共 {len(cctv1_urls)} 个源")
             
-            # 每个频道最多保存RESULTS_PER_CHANNEL个最快的URL
-            for url, speed, province in urls_for_channel[:RESULTS_PER_CHANNEL]:
-                # 分类
-                categorized = False
-                for cat, channels in CHANNEL_CATEGORIES.items():
-                    if cat != "其它频道" and name in channels:
-                        categorized_channels[cat].append((name, url, speed, province))
-                        categorized = True
-                        break
-                
-                # 如果未分类，放入"其它频道"
-                if not categorized:
-                    categorized_channels["其它频道"].append((name, url, speed, province))
+            # 对CCTV1的所有源进行测速
+            speed_tasks = [test_stream_speed(session, url, speed_semaphore) for url in cctv1_urls]
+            speeds = await asyncio.gather(*speed_tasks)
+            
+            # 组合URL和速度
+            for url, speed in zip(cctv1_urls, speeds):
+                if speed > 0:  # 只保留测速成功的
+                    cctv1_with_speed.append((url, speed))
+            
+            # 按速度降序排序
+            cctv1_with_speed.sort(key=lambda x: x[1], reverse=True)
+            
+            print(f"📈 CCTV1 测速完成，有效源: {len(cctv1_with_speed)} 个")
+            
+            # 保存测速合格的IP和端口
+            qualified_ips = set()
+            for url, speed in cctv1_with_speed:
+                if speed >= SPEED_THRESHOLD:
+                    ip_port = extract_ip_port(url)
+                    if ip_port:
+                        qualified_ips.add(ip_port)
+            
+            # 将合格的IP保存到文件
+            if qualified_ips:
+                with open("py/Hotel/已检测ip.txt", 'w', encoding='utf-8') as f:
+                    for ip_port in sorted(qualified_ips):
+                        f.write(f"{ip_port}\n")
+                print(f"💾 已保存 {len(qualified_ips)} 个测速合格的IP到 已检测ip.txt")
+            else:
+                print("⚠️ 没有找到速度大于200KB/s的CCTV1源")
         
-        # 统计信息
+        # 构建最终结果
+        final_results = []
+        
+        # 添加CCTV1（使用测速结果）
+        for url, speed in cctv1_with_speed[:RESULTS_PER_CHANNEL]:  # 只取前N个
+            final_results.append(("CCTV1", url, speed))
+        
+        # 添加其他频道（每个频道取第一个URL，速度标记为0）
+        for name, urls in channel_groups.items():
+            if name == "CCTV1":
+                continue  # CCTV1已处理
+            
+            if urls:  # 取第一个URL
+                final_results.append((name, urls[0], 0))
+        
+        print(f"🎯 最终频道列表: {len(final_results)} 条")
+        
+        # 分类整理
+        itv_dict = {cat: [] for cat in CHANNEL_CATEGORIES}
+        categorized_channels = set()
+        
+        # 首先处理已定义的频道
+        for name, url, speed in final_results:
+            categorized = False
+            for cat, channels in CHANNEL_CATEGORIES.items():
+                if name in channels:
+                    itv_dict[cat].append((name, url, speed))
+                    categorized_channels.add(name)
+                    categorized = True
+                    break
+        
+        # 然后将未分类的频道放入"其它频道"
+        for name, url, speed in final_results:
+            if name not in categorized_channels:
+                itv_dict["其它频道"].append((name, url, speed))
+        
+        # 打印分类统计
         for cat in CHANNEL_CATEGORIES:
-            count = len(categorized_channels[cat])
-            print(f"📦 分类《{cat}》找到 {count} 条频道")
+            print(f"📦 分类《{cat}》找到 {len(itv_dict[cat])} 条频道")
         
-        # 生成输出文件
+        # 生成最终文件
         beijing_now = datetime.datetime.now(
             datetime.timezone(datetime.timedelta(hours=8))
         ).strftime("%Y-%m-%d %H:%M:%S")
         
-        # 确保输出目录存在
-        os.makedirs("py/Hotel", exist_ok=True)
+        disclaimer_url = "url"
         
         with open("py/Hotel/hotel.txt", 'w', encoding='utf-8') as f:
             f.write("更新时间,#genre#\n")
-            f.write(f"{beijing_now},\n\n")
+            f.write(f"{beijing_now},{disclaimer_url}\n\n")
             
             for cat in CHANNEL_CATEGORIES:
-                channels_in_cat = categorized_channels[cat]
-                if channels_in_cat:
-                    f.write(f"{cat},#genre#\n")
-                    
-                    # 对频道按名称排序
-                    channels_by_name = defaultdict(list)
-                    for name, url, speed, province in channels_in_cat:
-                        channels_by_name[name].append((url, speed, province))
+                f.write(f"{cat},#genre#\n")
+                
+                if cat == "其它频道":
+                    # 对"其它频道"按照频道名称排序
+                    channels_in_category = {}
+                    for name, url, speed in itv_dict[cat]:
+                        if name not in channels_in_category:
+                            channels_in_category[name] = []
+                        channels_in_category[name].append((name, url, speed))
                     
                     # 对频道名称排序
-                    sorted_names = sorted(channels_by_name.keys())
+                    sorted_channel_names = sorted(channels_in_category.keys())
                     
-                    for name in sorted_names:
-                        urls_for_channel = channels_by_name[name]
-                        # 每个频道最多输出RESULTS_PER_CHANNEL个URL
-                        for url, speed, province in urls_for_channel[:RESULTS_PER_CHANNEL]:
-                            f.write(f"{name},{url}\n")
-                    f.write("\n")
+                    for channel_name in sorted_channel_names:
+                        ch_items = channels_in_category[channel_name]
+                        ch_items = ch_items[:RESULTS_PER_CHANNEL]
+                        
+                        for item in ch_items:
+                            f.write(f"{item[0]},{item[1]}\n")
+                else:
+                    # 原逻辑：只写入在CHANNEL_CATEGORIES[cat]中定义的频道
+                    for ch in CHANNEL_CATEGORIES[cat]:
+                        ch_items = [x for x in itv_dict[cat] if x[0] == ch]
+                        ch_items = ch_items[:RESULTS_PER_CHANNEL]
+                        
+                        for item in ch_items:
+                            f.write(f"{item[0]},{item[1]}\n")
         
         print("🎉 hotel.txt 已生成完成！")
         
-        # 生成详细的统计信息
-        with open("py/Hotel/hotel_stats.txt", 'w', encoding='utf-8') as f:
-            f.write(f"Hotel IPTV 扫描统计\n")
-            f.write(f"更新时间: {beijing_now}\n")
-            f.write(f"="*50 + "\n\n")
-            
-            f.write(f"📊 总体统计:\n")
-            f.write(f"  - 原始频道数: {len(all_channels)}\n")
-            f.write(f"  - 去重后频道数: {len(unique_channels)}\n")
-            f.write(f"  - 最终有效频道数: {len(final_results)}\n")
-            f.write(f"  - 可用JSON源: {len(valid_urls)}\n\n")
-            
-            f.write(f"📈 分类统计:\n")
-            for cat in CHANNEL_CATEGORIES:
-                count = len(categorized_channels[cat])
-                f.write(f"  - {cat}: {count} 个频道\n")
-            
-            f.write(f"\n📡 各省份卫视测速统计:\n")
-            province_stats = defaultdict(list)
-            for name, url, speed, province in final_results:
-                if province and province in PROVINCE_CHANNELS and name in PROVINCE_CHANNELS[province]:
-                    province_stats[province].append(speed)
-            
-            for province, speeds in sorted(province_stats.items()):
-                avg_speed = sum(speeds) / len(speeds) if speeds else 0
-                f.write(f"  - {province}: {len(speeds)} 个卫视频道，平均速度: {avg_speed:.2f} KB/s\n")
-            
-            f.write(f"\n⚡ 测速结果统计:\n")
-            speed_stats = {
-                "大于1000 KB/s": 0,
-                "500-1000 KB/s": 0,
-                "100-500 KB/s": 0,
-                "小于100 KB/s": 0,
-                "测速失败但可访问": 0
-            }
-            
-            for name, url, speed, province in final_results:
-                if speed == -1:
-                    speed_stats["测速失败但可访问"] += 1
-                elif speed > 1000:
-                    speed_stats["大于1000 KB/s"] += 1
-                elif speed > 500:
-                    speed_stats["500-1000 KB/s"] += 1
-                elif speed > 100:
-                    speed_stats["100-500 KB/s"] += 1
-                else:
-                    speed_stats["小于100 KB/s"] += 1
-            
-            for category, count in speed_stats.items():
-                f.write(f"  - {category}: {count} 个频道\n")
-        
-        print("📊 详细统计已保存到 hotel_stats.txt")
+        # 打印未分类的频道信息
+        other_channels = sorted(set([name for name, _, _ in itv_dict["其它频道"]]))
+        if other_channels:
+            print(f"\n📊 未分类频道 ({len(other_channels)} 个):")
+            for i, channel in enumerate(other_channels[:20], 1):  # 只显示前20个
+                print(f"  {i:3}. {channel}")
+            if len(other_channels) > 20:
+                print(f"  ... 还有 {len(other_channels) - 20} 个未显示")
 
 if __name__ == "__main__":
     asyncio.run(main())
