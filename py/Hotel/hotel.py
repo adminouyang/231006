@@ -4,7 +4,12 @@ import re
 import datetime
 import requests
 import os
+import socket
+import struct
 from urllib.parse import urljoin
+from concurrent.futures import ThreadPoolExecutor
+import json
+from collections import defaultdict
 
 URL_FILE = "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel_ip.txt"
 
@@ -42,8 +47,7 @@ CHANNEL_CATEGORIES = {
     "新疆频道": [
         "新疆卫视-3","新疆卫视-5"
     ],
-    "其它频道": [  # 初始为空，用于存放未匹配的频道
-    ],
+    "其它频道": [],
 }
 
 CHANNEL_MAPPING = {
@@ -143,11 +147,111 @@ CHANNEL_MAPPING = {
     "经典电影": ["IPTV经典电影"],
 }
 
+# 卫视节目到省份的映射
+PROVINCE_CHANNELS = {
+    "北京": ["北京卫视"],
+    "上海": ["东方卫视"],
+    "天津": ["天津卫视"],
+    "重庆": ["重庆卫视"],
+    "河北": ["河北卫视"],
+    "山西": ["山西卫视"],
+    "内蒙古": ["内蒙古卫视"],
+    "辽宁": ["辽宁卫视"],
+    "吉林": ["吉林卫视"],
+    "黑龙江": ["黑龙江卫视"],
+    "江苏": ["江苏卫视"],
+    "浙江": ["浙江卫视"],
+    "安徽": ["安徽卫视"],
+    "福建": ["东南卫视"],
+    "江西": ["江西卫视"],
+    "山东": ["山东卫视"],
+    "河南": ["河南卫视"],
+    "湖北": ["湖北卫视"],
+    "湖南": ["湖南卫视"],
+    "广东": ["广东卫视", "深圳卫视"],
+    "广西": ["广西卫视"],
+    "海南": ["海南卫视"],
+    "四川": ["四川卫视"],
+    "贵州": ["贵州卫视"],
+    "云南": ["云南卫视"],
+    "西藏": ["西藏卫视"],
+    "陕西": ["陕西卫视"],
+    "甘肃": ["甘肃卫视"],
+    "青海": ["青海卫视"],
+    "宁夏": ["宁夏卫视"],
+    "新疆": ["新疆卫视"],
+    "三沙": ["三沙卫视"],
+    "兵团": ["兵团卫视"],
+    "延边": ["延边卫视"],
+    "安多": ["安多卫视"],
+    "康巴": ["康巴卫视"],
+    "农林": ["农林卫视"],
+    "山东教育": ["山东教育卫视"],
+    "中国教育1台": ["中国教育1台"],
+    "中国教育2台": ["中国教育2台"],
+    "中国教育3台": ["中国教育3台"],
+    "中国教育4台": ["中国教育4台"],
+    "早期教育": ["早期教育"],
+}
+
 RESULTS_PER_CHANNEL = 20
+
+# IP地址到省份的简单映射（基于IP地址库，这里简化处理）
+# 实际应用中可以使用更准确的IP地址库
+IP_PREFIX_TO_PROVINCE = {
+    "1.0.0.0": "北京",
+    "14.0.0.0": "广东",
+    "27.0.0.0": "北京",
+    "36.0.0.0": "福建",
+    "39.0.0.0": "北京",
+    "42.0.0.0": "辽宁",
+    "49.0.0.0": "江苏",
+    "58.0.0.0": "北京",
+    "59.0.0.0": "广东",
+    "60.0.0.0": "北京",
+    "61.0.0.0": "广东",
+    "101.0.0.0": "北京",
+    "103.0.0.0": "北京",
+    "106.0.0.0": "北京",
+    "110.0.0.0": "北京",
+    "111.0.0.0": "北京",
+    "112.0.0.0": "北京",
+    "113.0.0.0": "广东",
+    "114.0.0.0": "北京",
+    "115.0.0.0": "北京",
+    "116.0.0.0": "北京",
+    "117.0.0.0": "北京",
+    "118.0.0.0": "北京",
+    "119.0.0.0": "四川",
+    "120.0.0.0": "北京",
+    "121.0.0.0": "上海",
+    "122.0.0.0": "江苏",
+    "123.0.0.0": "辽宁",
+    "124.0.0.0": "黑龙江",
+    "125.0.0.0": "吉林",
+    "139.0.0.0": "四川",
+    "140.0.0.0": "台湾",
+    "150.0.0.0": "台湾",
+    "163.0.0.0": "上海",
+    "175.0.0.0": "台湾",
+    "180.0.0.0": "北京",
+    "182.0.0.0": "北京",
+    "183.0.0.0": "广东",
+    "192.0.0.0": "美国",
+    "202.0.0.0": "北京",
+    "203.0.0.0": "香港",
+    "210.0.0.0": "台湾",
+    "211.0.0.0": "北京",
+    "218.0.0.0": "北京",
+    "219.0.0.0": "辽宁",
+    "220.0.0.0": "北京",
+    "221.0.0.0": "山东",
+    "222.0.0.0": "北京",
+    "223.0.0.0": "北京",
+}
 
 def load_urls():
     """从 GitHub 下载 IPTV IP 段列表"""
-    import requests
     try:
         resp = requests.get(URL_FILE, timeout=5)
         resp.raise_for_status()
@@ -159,6 +263,7 @@ def load_urls():
         exit()
 
 async def generate_urls(url):
+    """生成要扫描的URL列表"""
     modified_urls = []
 
     ip_start = url.find("//") + 2
@@ -169,11 +274,11 @@ async def generate_urls(url):
     port = url[ip_end:]
 
     json_paths = [
-    "/iptv/live/1000.json?key=txiptv",
-    "/iptv/live/1001.json?key=txiptv",
-    "/iptv/live/2000.json?key=txiptv",
-    "/iptv/live/2001.json?key=txiptv"
-]
+        "/iptv/live/1000.json?key=txiptv",
+        "/iptv/live/1001.json?key=txiptv",
+        "/iptv/live/2000.json?key=txiptv",
+        "/iptv/live/2001.json?key=txiptv"
+    ]
 
     for i in range(1, 256):
         ip = f"{base}{ip_prefix}.{i}{port}"
@@ -183,9 +288,10 @@ async def generate_urls(url):
     return modified_urls
 
 async def fetch_json(session, url, semaphore):
+    """获取JSON数据并解析频道"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=1) as resp:
+            async with session.get(url, timeout=3) as resp:
                 data = await resp.json()
                 results = []
                 for item in data.get('data', []):
@@ -202,157 +308,287 @@ async def fetch_json(session, url, semaphore):
                             name = std_name
                             break
 
-                    results.append((name, urlx))
+                    # 提取IP地址
+                    ip = extract_ip_from_url(urlx)
+                    results.append((name, urlx, ip, url))
                 return results
-        except:
+        except Exception as e:
             return []
 
+def extract_ip_from_url(url):
+    """从URL中提取IP地址"""
+    match = re.search(r'http://(\d+\.\d+\.\d+\.\d+)', url)
+    if match:
+        return match.group(1)
+    return None
+
+def get_province_by_ip(ip):
+    """根据IP地址获取省份"""
+    if not ip:
+        return None
+    
+    # 检查IP地址格式
+    try:
+        parts = ip.split('.')
+        if len(parts) != 4:
+            return None
+        
+        # 将IP转换为整数以便比较
+        ip_int = struct.unpack("!I", socket.inet_aton(ip))[0]
+        
+        # 简化版：使用IP前缀判断
+        ip_prefix = '.'.join(parts[:2]) + ".0.0"
+        if ip_prefix in IP_PREFIX_TO_PROVINCE:
+            return IP_PREFIX_TO_PROVINCE[ip_prefix]
+        
+        # 更精确的匹配：使用IP范围
+        for prefix, province in IP_PREFIX_TO_PROVINCE.items():
+            prefix_parts = prefix.split('.')
+            if len(prefix_parts) == 4:
+                prefix_int = struct.unpack("!I", socket.inet_aton(prefix))[0]
+                # 检查是否在同一/8网络
+                if (ip_int >> 24) == (prefix_int >> 24):
+                    return province
+        
+        return None
+    except:
+        return None
+
+async def test_channel_speed(session, name, url, timeout=2):
+    """测试频道速度，返回速度(KB/s)"""
+    try:
+        # 只测试视频流的头部，避免下载整个文件
+        headers = {'Range': 'bytes=0-10240'}  # 只请求前10KB
+        
+        start_time = asyncio.get_event_loop().time()
+        async with session.get(url, headers=headers, timeout=timeout) as response:
+            if response.status in [200, 206]:
+                content = await response.read()
+                end_time = asyncio.get_event_loop().time()
+                
+                if content and end_time > start_time:
+                    duration = end_time - start_time
+                    speed = len(content) / 1024 / duration  # KB/s
+                    return speed
+    except Exception as e:
+        pass
+    
+    return 0
+
 async def check_url(session, url, semaphore):
+    """检查URL是否可用"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=1) as resp:#           设置等待响应用时
+            async with session.get(url, timeout=2) as resp:
                 if resp.status == 200:
                     return url
         except:
             return None
 
+async def process_channel(session, name, url, ip, source_url, semaphore, test_speed=True, min_speed=100):
+    """处理单个频道：检查、测速、过滤"""
+    # 首先检查URL是否有效
+    if not await check_url(session, url, semaphore):
+        return None
+    
+    # 获取IP对应的省份
+    province = get_province_by_ip(ip) if ip else None
+    
+    # 默认速度
+    speed = 0
+    
+    # 如果需要测速，且这个频道是该省份的卫视节目
+    if test_speed and province and province in PROVINCE_CHANNELS:
+        province_channels = PROVINCE_CHANNELS[province]
+        if name in province_channels:
+            speed = await test_channel_speed(session, name, url)
+            print(f"📍 {name} ({province}) - 速度: {speed:.2f} KB/s")
+            
+            # 如果速度小于最小要求，不保存
+            if speed < min_speed:
+                print(f"  ❌ 速度不足 {min_speed} KB/s，跳过")
+                return None
+        else:
+            # 非该省份的卫视频道，不测速直接保存
+            pass
+    elif not province:
+        # 无法确定省份的频道，不测速直接保存
+        pass
+    else:
+        # 非卫视频道，不测速直接保存
+        pass
+    
+    return (name, url, speed, province)
+
+def is_valid_stream(url):
+    """检查是否为有效的流媒体URL"""
+    if url.startswith("rtp://") or url.startswith("udp://") or url.startswith("rtsp://"):
+        return False
+    if "239." in url:
+        return False
+    if url.startswith("http://16.") or url.startswith("http://10.") or url.startswith("http://192.168."):
+        return False
+    
+    valid_ext = (".m3u8", ".ts", ".flv", ".mp4", ".mkv")
+    return url.startswith("http") and any(ext in url for ext in valid_ext)
+
 async def main():
     print("🚀 开始运行 hotel 脚本")
-    semaphore = asyncio.Semaphore(150)#                              设置并发数量
-
+    
+    # 设置并发数
+    semaphore = asyncio.Semaphore(100)
+    
+    # 加载基础URL
     urls = load_urls()
     
     async with aiohttp.ClientSession() as session:
-
+        # 生成所有要扫描的URL
         all_urls = []
         for url in urls:
             modified_urls = await generate_urls(url)
             all_urls.extend(modified_urls)
-
+        
         print(f"🔍 生成待扫描 URL 共: {len(all_urls)} 个")
-
+        
+        # 检测可用的JSON API
         print("⏳ 开始检测可用 JSON API...")
         tasks = [check_url(session, u, semaphore) for u in all_urls]
         valid_urls = [r for r in await asyncio.gather(*tasks) if r]
-
+        
         print(f"✅ 可用 JSON 地址: {len(valid_urls)} 个")
-        for u in valid_urls:
+        for u in valid_urls[:5]:  # 只显示前5个
             print(f"  - {u}")
-
+        if len(valid_urls) > 5:
+            print(f"  ... 和 {len(valid_urls) - 5} 个更多")
+        
+        # 抓取节目单JSON
         print("📥 开始抓取节目单 JSON...")
         tasks = [fetch_json(session, u, semaphore) for u in valid_urls]
-
-        results = []
         fetched = await asyncio.gather(*tasks)
-
+        
+        # 合并结果
+        all_channels = []
         for sublist in fetched:
-            results.extend(sublist)
-
-        print(f"📺 抓到频道总数: {len(results)} 条")
+            all_channels.extend(sublist)
         
-        # 去重，保留每个频道第一个出现的URL
-        unique_results = []
-        seen_channels = set()
-        for name, url in results:
-            if name not in seen_channels:
-                seen_channels.add(name)
-                unique_results.append((name, url))
+        print(f"📺 抓到原始频道总数: {len(all_channels)} 条")
         
-        print(f"🔍 去重后频道总数: {len(unique_results)} 条")
-
-        final_results = [(name, url, 0) for name, url in unique_results]
-
-        def is_valid_stream(url):
-            if url.startswith("rtp://") or url.startswith("udp://") or url.startswith("rtsp://"):
-                return False
-            if "239." in url:
-                return False
-            if url.startswith("http://16.") or url.startswith("http://10.") or url.startswith("http://192.168."):
-                return False
+        # 去重：基于频道名称和URL
+        unique_channels = {}
+        for name, url, ip, source_url in all_channels:
+            key = (name, url)
+            if key not in unique_channels:
+                unique_channels[key] = (name, url, ip, source_url)
+        
+        print(f"🔍 去重后频道总数: {len(unique_channels)} 条")
+        
+        # 处理每个频道：检查、测速、过滤
+        print("⏳ 开始处理频道（检查、测速、过滤）...")
+        tasks = []
+        for name, url, ip, source_url in unique_channels.values():
+            if is_valid_stream(url):
+                task = process_channel(session, name, url, ip, source_url, semaphore, test_speed=True, min_speed=100)
+                tasks.append(task)
+        
+        processed_results = await asyncio.gather(*tasks)
+        
+        # 过滤掉None结果
+        final_results = [r for r in processed_results if r is not None]
+        
+        print(f"✅ 最终有效频道: {len(final_results)} 条")
+        
+        # 按频道名称分组，统计速度
+        channel_stats = defaultdict(list)
+        for name, url, speed, province in final_results:
+            channel_stats[name].append((url, speed, province))
+        
+        # 分类频道
+        categorized_channels = {cat: [] for cat in CHANNEL_CATEGORIES}
+        
+        for name in channel_stats:
+            # 获取该频道的所有URL，按速度排序
+            urls_for_channel = channel_stats[name]
+            urls_for_channel.sort(key=lambda x: x[1], reverse=True)  # 按速度降序
             
-            valid_ext = (".m3u8", ".ts", ".flv", ".mp4", ".mkv")
-            return url.startswith("http") and any(ext in url for ext in valid_ext)
-
-        final_results = [
-            (name, url, speed)
-            for name, url, speed in final_results
-            if is_valid_stream(url)
-        ]
-
-        print(f"✅ 有效流总数: {len(final_results)} 条")
-
-        # 创建分类字典
-        itv_dict = {cat: [] for cat in CHANNEL_CATEGORIES}
+            # 每个频道最多保存RESULTS_PER_CHANNEL个最快的URL
+            for url, speed, province in urls_for_channel[:RESULTS_PER_CHANNEL]:
+                # 分类
+                categorized = False
+                for cat, channels in CHANNEL_CATEGORIES.items():
+                    if cat != "其它频道" and name in channels:
+                        categorized_channels[cat].append((name, url, speed, province))
+                        categorized = True
+                        break
+                
+                # 如果未分类，放入"其它频道"
+                if not categorized:
+                    categorized_channels["其它频道"].append((name, url, speed, province))
         
-        # 用于记录哪些频道已经被分类
-        categorized_channels = set()
-        
-        # 首先处理已定义的频道
-        for name, url, speed in final_results:
-            categorized = False
-            for cat, channels in CHANNEL_CATEGORIES.items():
-                if name in channels:
-                    itv_dict[cat].append((name, url, speed))
-                    categorized_channels.add(name)
-                    categorized = True
-                    break
-        
-        # 然后将未分类的频道放入"其它频道"
-        for name, url, speed in final_results:
-            if name not in categorized_channels:
-                itv_dict["其它频道"].append((name, url, speed))
-
-    for cat in CHANNEL_CATEGORIES:
-        print(f"📦 分类《{cat}》找到 {len(itv_dict[cat])} 条频道")
-
-    beijing_now = datetime.datetime.now(
-        datetime.timezone(datetime.timedelta(hours=8))
-    ).strftime("%Y-%m-%d %H:%M:%S")
-
-    disclaimer_url = "url"
-
-    with open("py/Hotel/hotel.txt", 'w', encoding='utf-8') as f:
-
-        f.write("更新时间,#genre#\n")
-        f.write(f"{beijing_now},{disclaimer_url}\n\n")
-
+        # 统计信息
         for cat in CHANNEL_CATEGORIES:
-            f.write(f"{cat},#genre#\n")
+            print(f"📦 分类《{cat}》找到 {len(categorized_channels[cat])} 条频道")
+        
+        # 生成输出文件
+        beijing_now = datetime.datetime.now(
+            datetime.timezone(datetime.timedelta(hours=8))
+        ).strftime("%Y-%m-%d %H:%M:%S")
+        
+        # 确保输出目录存在
+        os.makedirs("py/Hotel", exist_ok=True)
+        
+        with open("py/Hotel/hotel.txt", 'w', encoding='utf-8') as f:
+            f.write("更新时间,#genre#\n")
+            f.write(f"{beijing_now},\n\n")
             
-            if cat == "其它频道":
-                # 对"其它频道"按照频道名称排序
-                channels_in_category = {}
-                for name, url, speed in itv_dict[cat]:
-                    if name not in channels_in_category:
-                        channels_in_category[name] = []
-                    channels_in_category[name].append((name, url, speed))
-                
-                # 对频道名称排序
-                sorted_channel_names = sorted(channels_in_category.keys())
-                
-                for channel_name in sorted_channel_names:
-                    ch_items = channels_in_category[channel_name]
-                    ch_items = ch_items[:RESULTS_PER_CHANNEL]
+            for cat in CHANNEL_CATEGORIES:
+                channels_in_cat = categorized_channels[cat]
+                if channels_in_cat:
+                    f.write(f"{cat},#genre#\n")
                     
-                    for item in ch_items:
-                        f.write(f"{item[0]},{item[1]}\n")
-            else:
-                # 原逻辑：只写入在CHANNEL_CATEGORIES[cat]中定义的频道
-                for ch in CHANNEL_CATEGORIES[cat]:
-                    ch_items = [x for x in itv_dict[cat] if x[0] == ch]
-                    ch_items = ch_items[:RESULTS_PER_CHANNEL]
-
-                    for item in ch_items:
-                        f.write(f"{item[0]},{item[1]}\n")
-
-    print("🎉 hotel.txt 已生成完成！")
-    
-    # 打印未分类的频道信息
-    other_channels = sorted(set([name for name, _, _ in itv_dict["其它频道"]]))
-    if other_channels:
-        print(f"\n📊 未分类频道 ({len(other_channels)} 个):")
-        for i, channel in enumerate(other_channels, 1):
-            print(f"  {i:3}. {channel}")
+                    # 对频道按名称排序
+                    channels_by_name = defaultdict(list)
+                    for name, url, speed, province in channels_in_cat:
+                        channels_by_name[name].append((url, speed, province))
+                    
+                    # 对频道名称排序
+                    sorted_names = sorted(channels_by_name.keys())
+                    
+                    for name in sorted_names:
+                        urls_for_channel = channels_by_name[name]
+                        # 每个频道最多输出RESULTS_PER_CHANNEL个URL
+                        for url, speed, province in urls_for_channel[:RESULTS_PER_CHANNEL]:
+                            f.write(f"{name},{url}\n")
+                    f.write("\n")
+        
+        print("🎉 hotel.txt 已生成完成！")
+        
+        # 生成详细的统计信息
+        with open("py/Hotel/hotel_stats.txt", 'w', encoding='utf-8') as f:
+            f.write(f"Hotel IPTV 扫描统计\n")
+            f.write(f"更新时间: {beijing_now}\n")
+            f.write(f"="*50 + "\n\n")
+            
+            f.write(f"📊 总体统计:\n")
+            f.write(f"  - 原始频道数: {len(all_channels)}\n")
+            f.write(f"  - 去重后频道数: {len(unique_channels)}\n")
+            f.write(f"  - 最终有效频道数: {len(final_results)}\n")
+            f.write(f"  - 可用JSON源: {len(valid_urls)}\n\n")
+            
+            f.write(f"📈 分类统计:\n")
+            for cat in CHANNEL_CATEGORIES:
+                count = len(categorized_channels[cat])
+                f.write(f"  - {cat}: {count} 个频道\n")
+            
+            f.write(f"\n📡 各省份卫视测速统计:\n")
+            province_stats = defaultdict(int)
+            for name, url, speed, province in final_results:
+                if province and province in PROVINCE_CHANNELS and name in PROVINCE_CHANNELS[province]:
+                    province_stats[province] += 1
+            
+            for province, count in sorted(province_stats.items()):
+                f.write(f"  - {province}: {count} 个卫视频道\n")
+        
+        print("📊 详细统计已保存到 hotel_stats.txt")
 
 if __name__ == "__main__":
     asyncio.run(main())
