@@ -7,9 +7,9 @@ import os
 import socket
 import struct
 from urllib.parse import urljoin
-from concurrent.futures import ThreadPoolExecutor
 import json
 from collections import defaultdict
+import time
 
 URL_FILE = "https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/Hotel/hotel_ip.txt"
 
@@ -196,8 +196,7 @@ PROVINCE_CHANNELS = {
 
 RESULTS_PER_CHANNEL = 20
 
-# IP地址到省份的简单映射（基于IP地址库，这里简化处理）
-# 实际应用中可以使用更准确的IP地址库
+# IP地址到省份的映射
 IP_PREFIX_TO_PROVINCE = {
     "1.0.0.0": "北京",
     "14.0.0.0": "广东",
@@ -327,7 +326,6 @@ def get_province_by_ip(ip):
     if not ip:
         return None
     
-    # 检查IP地址格式
     try:
         parts = ip.split('.')
         if len(parts) != 4:
@@ -354,29 +352,80 @@ def get_province_by_ip(ip):
     except:
         return None
 
-async def test_channel_speed(session, name, url, timeout=2):
-    """测试频道速度，返回速度(KB/s)"""
-    try:
-        # 只测试视频流的头部，避免下载整个文件
-        headers = {'Range': 'bytes=0-10240'}  # 只请求前10KB
-        
-        start_time = asyncio.get_event_loop().time()
-        async with session.get(url, headers=headers, timeout=timeout) as response:
-            if response.status in [200, 206]:
-                content = await response.read()
-                end_time = asyncio.get_event_loop().time()
-                
-                if content and end_time > start_time:
-                    duration = end_time - start_time
-                    speed = len(content) / 1024 / duration  # KB/s
-                    return speed
-    except Exception as e:
-        pass
+async def test_channel_speed(session, name, url, timeout=3, retry_count=2):
+    """改进的测速函数，使用多种方法尝试，增加重试机制"""
+    data_sizes = [10240, 20480, 51200]  # 尝试不同的数据大小：10KB, 20KB, 50KB
     
-    return 0
+    for attempt in range(retry_count):
+        for data_size in data_sizes:
+            # 方法1: 使用Range请求
+            try:
+                headers = {'Range': f'bytes=0-{data_size-1}', 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+                start_time = asyncio.get_event_loop().time()
+                
+                async with session.get(url, headers=headers, timeout=timeout) as response:
+                    if response.status in [200, 206]:
+                        # 读取数据
+                        content = await response.read()
+                        end_time = asyncio.get_event_loop().time()
+                        
+                        if content and end_time > start_time:
+                            duration = end_time - start_time
+                            if duration > 0:
+                                speed = len(content) / 1024 / duration  # KB/s
+                                if speed > 0:
+                                    return speed
+            except asyncio.TimeoutError:
+                continue
+            except Exception:
+                continue
+            
+            # 方法2: 不使用Range，尝试读取部分数据
+            try:
+                start_time = asyncio.get_event_loop().time()
+                async with session.get(url, timeout=timeout) as response:
+                    if response.status == 200:
+                        # 尝试读取部分数据
+                        content = b''
+                        remaining = data_size
+                        
+                        async for chunk in response.content.iter_chunked(8192):
+                            content += chunk
+                            remaining -= len(chunk)
+                            if remaining <= 0:
+                                break
+                        
+                        end_time = asyncio.get_event_loop().time()
+                        
+                        if content and end_time > start_time:
+                            duration = end_time - start_time
+                            if duration > 0:
+                                speed = len(content) / 1024 / duration
+                                if speed > 0:
+                                    return speed
+            except asyncio.TimeoutError:
+                continue
+            except Exception:
+                continue
+    
+    return 0  # 所有尝试都失败
 
-async def check_url(session, url, semaphore):
-    """检查URL是否可用"""
+async def check_url_availability(session, url, semaphore, timeout=2):
+    """检查URL是否可用，返回响应时间"""
+    async with semaphore:
+        try:
+            start_time = asyncio.get_event_loop().time()
+            async with session.head(url, timeout=timeout) as resp:
+                if resp.status in [200, 206, 302, 301]:
+                    end_time = asyncio.get_event_loop().time()
+                    response_time = (end_time - start_time) * 1000  # 转换为毫秒
+                    return response_time
+        except:
+            pass
+        return None
+
+async def check_json_url(session, url, semaphore):
+    """检查JSON API是否可用"""
     async with semaphore:
         try:
             async with session.get(url, timeout=2) as resp:
@@ -385,10 +434,13 @@ async def check_url(session, url, semaphore):
         except:
             return None
 
-async def process_channel(session, name, url, ip, source_url, semaphore, test_speed=True, min_speed=100):
+async def process_channel(session, name, url, ip, source_url, semaphore, 
+                         test_speed=True, min_speed=100, 
+                         max_channels_per_province=5):
     """处理单个频道：检查、测速、过滤"""
-    # 首先检查URL是否有效
-    if not await check_url(session, url, semaphore):
+    
+    # 检查URL格式是否有效
+    if not is_valid_stream(url):
         return None
     
     # 获取IP对应的省份
@@ -396,27 +448,47 @@ async def process_channel(session, name, url, ip, source_url, semaphore, test_sp
     
     # 默认速度
     speed = 0
+    need_speed_test = False
+    skip_channel = False
     
-    # 如果需要测速，且这个频道是该省份的卫视节目
+    # 判断是否需要测速
     if test_speed and province and province in PROVINCE_CHANNELS:
         province_channels = PROVINCE_CHANNELS[province]
         if name in province_channels:
-            speed = await test_channel_speed(session, name, url)
-            print(f"📍 {name} ({province}) - 速度: {speed:.2f} KB/s")
+            need_speed_test = True
+    
+    # 如果需要测速，进行测速
+    if need_speed_test:
+        # 先检查URL基本可用性
+        response_time = await check_url_availability(session, url, semaphore)
+        if response_time is None:
+            print(f"  ❌ {name} ({province}) - 无法访问")
+            return None
+        
+        # 进行测速
+        speed = await test_channel_speed(session, name, url)
+        
+        if speed > 0:
+            print(f"  📡 {name} ({province}) - 速度: {speed:.2f} KB/s, 响应: {response_time:.0f}ms")
             
             # 如果速度小于最小要求，不保存
             if speed < min_speed:
-                print(f"  ❌ 速度不足 {min_speed} KB/s，跳过")
+                print(f"    ❌ 速度不足 {min_speed} KB/s，跳过")
                 return None
         else:
-            # 非该省份的卫视频道，不测速直接保存
-            pass
-    elif not province:
-        # 无法确定省份的频道，不测速直接保存
-        pass
+            print(f"  ⚠️  {name} ({province}) - 测速失败，响应: {response_time:.0f}ms")
+            # 测速失败但URL可访问，可以保存，但标记速度未知
+            speed = -1
     else:
-        # 非卫视频道，不测速直接保存
-        pass
+        # 不需要测速的频道，只检查可用性
+        response_time = await check_url_availability(session, url, semaphore)
+        if response_time is None:
+            return None
+        
+        if province:
+            print(f"  ✓ {name} ({province}) - 非卫视频道，不测速，响应: {response_time:.0f}ms")
+        else:
+            print(f"  ✓ {name} - 省份未知，不测速，响应: {response_time:.0f}ms")
     
     return (name, url, speed, province)
 
@@ -436,7 +508,7 @@ async def main():
     print("🚀 开始运行 hotel 脚本")
     
     # 设置并发数
-    semaphore = asyncio.Semaphore(100)
+    semaphore = asyncio.Semaphore(80)  # 稍微降低并发数以提高稳定性
     
     # 加载基础URL
     urls = load_urls()
@@ -452,7 +524,7 @@ async def main():
         
         # 检测可用的JSON API
         print("⏳ 开始检测可用 JSON API...")
-        tasks = [check_url(session, u, semaphore) for u in all_urls]
+        tasks = [check_json_url(session, u, semaphore) for u in all_urls]
         valid_urls = [r for r in await asyncio.gather(*tasks) if r]
         
         print(f"✅ 可用 JSON 地址: {len(valid_urls)} 个")
@@ -486,9 +558,9 @@ async def main():
         print("⏳ 开始处理频道（检查、测速、过滤）...")
         tasks = []
         for name, url, ip, source_url in unique_channels.values():
-            if is_valid_stream(url):
-                task = process_channel(session, name, url, ip, source_url, semaphore, test_speed=True, min_speed=100)
-                tasks.append(task)
+            task = process_channel(session, name, url, ip, source_url, semaphore, 
+                                 test_speed=True, min_speed=100)
+            tasks.append(task)
         
         processed_results = await asyncio.gather(*tasks)
         
@@ -508,7 +580,8 @@ async def main():
         for name in channel_stats:
             # 获取该频道的所有URL，按速度排序
             urls_for_channel = channel_stats[name]
-            urls_for_channel.sort(key=lambda x: x[1], reverse=True)  # 按速度降序
+            # 按速度降序排序（速度-1表示测速失败但可访问）
+            urls_for_channel.sort(key=lambda x: x[1] if x[1] != -1 else 0, reverse=True)
             
             # 每个频道最多保存RESULTS_PER_CHANNEL个最快的URL
             for url, speed, province in urls_for_channel[:RESULTS_PER_CHANNEL]:
@@ -526,7 +599,8 @@ async def main():
         
         # 统计信息
         for cat in CHANNEL_CATEGORIES:
-            print(f"📦 分类《{cat}》找到 {len(categorized_channels[cat])} 条频道")
+            count = len(categorized_channels[cat])
+            print(f"📦 分类《{cat}》找到 {count} 条频道")
         
         # 生成输出文件
         beijing_now = datetime.datetime.now(
@@ -580,13 +654,38 @@ async def main():
                 f.write(f"  - {cat}: {count} 个频道\n")
             
             f.write(f"\n📡 各省份卫视测速统计:\n")
-            province_stats = defaultdict(int)
+            province_stats = defaultdict(list)
             for name, url, speed, province in final_results:
                 if province and province in PROVINCE_CHANNELS and name in PROVINCE_CHANNELS[province]:
-                    province_stats[province] += 1
+                    province_stats[province].append(speed)
             
-            for province, count in sorted(province_stats.items()):
-                f.write(f"  - {province}: {count} 个卫视频道\n")
+            for province, speeds in sorted(province_stats.items()):
+                avg_speed = sum(speeds) / len(speeds) if speeds else 0
+                f.write(f"  - {province}: {len(speeds)} 个卫视频道，平均速度: {avg_speed:.2f} KB/s\n")
+            
+            f.write(f"\n⚡ 测速结果统计:\n")
+            speed_stats = {
+                "大于1000 KB/s": 0,
+                "500-1000 KB/s": 0,
+                "100-500 KB/s": 0,
+                "小于100 KB/s": 0,
+                "测速失败但可访问": 0
+            }
+            
+            for name, url, speed, province in final_results:
+                if speed == -1:
+                    speed_stats["测速失败但可访问"] += 1
+                elif speed > 1000:
+                    speed_stats["大于1000 KB/s"] += 1
+                elif speed > 500:
+                    speed_stats["500-1000 KB/s"] += 1
+                elif speed > 100:
+                    speed_stats["100-500 KB/s"] += 1
+                else:
+                    speed_stats["小于100 KB/s"] += 1
+            
+            for category, count in speed_stats.items():
+                f.write(f"  - {category}: {count} 个频道\n")
         
         print("📊 详细统计已保存到 hotel_stats.txt")
 
