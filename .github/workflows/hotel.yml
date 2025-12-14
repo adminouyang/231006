@@ -9,7 +9,7 @@ jobs:
   run-hotel:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # 添加写权限
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -17,7 +17,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 token 进行认证
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -33,8 +33,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git config pull.rebase false  # 设置合并而非 rebase
-          git config push.default current
+          git config pull.rebase false
       
       - name: Run hotel.py
         run: |
@@ -46,19 +45,21 @@ jobs:
         id: git-status
         run: |
           # 检查是否有文件变更
-          if git diff --quiet py/Hotel/hotel.txt; then
-            echo "没有检测到变更"
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
+          changed_files=""
+          if git status --porcelain py/Hotel/ | grep -q .; then
             echo "检测到变更"
             echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "changed_files=$(git status --porcelain py/Hotel/ | grep -E '\.txt$' | wc -l)" >> $GITHUB_OUTPUT
+          else
+            echo "没有检测到变更"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           fi
       
       - name: Pull latest changes
         if: steps.git-status.outputs.has_changes == 'true'
         run: |
           echo "拉取远程最新代码..."
-          # 先拉取远程更新，使用合并策略
+          git fetch origin
           git pull origin main --no-rebase || echo "拉取时遇到问题，继续执行..."
       
       - name: Commit and push
@@ -66,13 +67,32 @@ jobs:
         run: |
           echo "提交并推送变更..."
           
-          # 添加文件
-          git add py/Hotel/hotel.txt
+          # 添加所有变更的文件
+          git add py/Hotel/hotel.txt py/Hotel/已检测ip.txt
           
           # 提交
-          git commit -m "更新 hotel.txt"
+          git commit -m "更新 hotel.txt 和 已检测ip.txt"
           
           # 推送
           git push origin main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Display results
+        run: |
+          echo "=== 运行结果 ==="
+          if [ -f "py/Hotel/hotel.txt" ]; then
+            hotel_lines=$(wc -l < py/Hotel/hotel.txt)
+            echo "hotel.txt 行数: $hotel_lines"
+          else
+            echo "hotel.txt 未生成"
+          fi
+          
+          if [ -f "py/Hotel/已检测ip.txt" ]; then
+            ip_lines=$(wc -l < py/Hotel/已检测ip.txt)
+            echo "已检测ip.txt 行数: $ip_lines"
+            echo "=== 前10个合格IP ==="
+            head -10 py/Hotel/已检测ip.txt
+          else
+            echo "已检测ip.txt 未生成"
+          fi
