@@ -39,12 +39,10 @@ CHANNEL_CATEGORIES = {
     "山东频道": [
         "山东齐鲁", "山东影视", "山东公共", "山东体育", "山东综艺", "山东少儿", "济宁综合", "济宁公共", "梁山综合", "梁山影视"
     ],
-
     "新疆频道": [
         "新疆卫视-3","新疆卫视-5"
     ],
-    "其它频道": [
-        "野外","相声小品", "武术世界"
+    "其它频道": [  # 初始为空，用于存放未匹配的频道
     ],
 }
 
@@ -251,10 +249,18 @@ async def main():
             results.extend(sublist)
 
         print(f"📺 抓到频道总数: {len(results)} 条")
+        
+        # 去重，保留每个频道第一个出现的URL
+        unique_results = []
+        seen_channels = set()
         for name, url in results:
-            print(f"  - {name}: {url}")
+            if name not in seen_channels:
+                seen_channels.add(name)
+                unique_results.append((name, url))
+        
+        print(f"🔍 去重后频道总数: {len(unique_results)} 条")
 
-        final_results = [(name, url, 0) for name, url in results]
+        final_results = [(name, url, 0) for name, url in unique_results]
 
         def is_valid_stream(url):
             if url.startswith("rtp://") or url.startswith("udp://") or url.startswith("rtsp://"):
@@ -273,14 +279,28 @@ async def main():
             if is_valid_stream(url)
         ]
 
-        itv_dict = {cat: [] for cat in CHANNEL_CATEGORIES}
+        print(f"✅ 有效流总数: {len(final_results)} 条")
 
+        # 创建分类字典
+        itv_dict = {cat: [] for cat in CHANNEL_CATEGORIES}
+        
+        # 用于记录哪些频道已经被分类
+        categorized_channels = set()
+        
+        # 首先处理已定义的频道
         for name, url, speed in final_results:
+            categorized = False
             for cat, channels in CHANNEL_CATEGORIES.items():
                 if name in channels:
                     itv_dict[cat].append((name, url, speed))
+                    categorized_channels.add(name)
+                    categorized = True
                     break
-
+        
+        # 然后将未分类的频道放入"其它频道"
+        for name, url, speed in final_results:
+            if name not in categorized_channels:
+                itv_dict["其它频道"].append((name, url, speed))
 
     for cat in CHANNEL_CATEGORIES:
         print(f"📦 分类《{cat}》找到 {len(itv_dict[cat])} 条频道")
@@ -298,15 +318,41 @@ async def main():
 
         for cat in CHANNEL_CATEGORIES:
             f.write(f"{cat},#genre#\n")
+            
+            if cat == "其它频道":
+                # 对"其它频道"按照频道名称排序
+                channels_in_category = {}
+                for name, url, speed in itv_dict[cat]:
+                    if name not in channels_in_category:
+                        channels_in_category[name] = []
+                    channels_in_category[name].append((name, url, speed))
+                
+                # 对频道名称排序
+                sorted_channel_names = sorted(channels_in_category.keys())
+                
+                for channel_name in sorted_channel_names:
+                    ch_items = channels_in_category[channel_name]
+                    ch_items = ch_items[:RESULTS_PER_CHANNEL]
+                    
+                    for item in ch_items:
+                        f.write(f"{item[0]},{item[1]}\n")
+            else:
+                # 原逻辑：只写入在CHANNEL_CATEGORIES[cat]中定义的频道
+                for ch in CHANNEL_CATEGORIES[cat]:
+                    ch_items = [x for x in itv_dict[cat] if x[0] == ch]
+                    ch_items = ch_items[:RESULTS_PER_CHANNEL]
 
-            for ch in CHANNEL_CATEGORIES[cat]:
-                ch_items = [x for x in itv_dict[cat] if x[0] == ch]
-                ch_items = ch_items[:RESULTS_PER_CHANNEL]
-
-                for item in ch_items:
-                    f.write(f"{item[0]},{item[1]}\n")
+                    for item in ch_items:
+                        f.write(f"{item[0]},{item[1]}\n")
 
     print("🎉 hotel.txt 已生成完成！")
+    
+    # 打印未分类的频道信息
+    other_channels = sorted(set([name for name, _, _ in itv_dict["其它频道"]]))
+    if other_channels:
+        print(f"\n📊 未分类频道 ({len(other_channels)} 个):")
+        for i, channel in enumerate(other_channels, 1):
+            print(f"  {i:3}. {channel}")
 
 if __name__ == "__main__":
     asyncio.run(main())
