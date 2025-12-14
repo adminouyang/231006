@@ -8,12 +8,16 @@ on:
 jobs:
   run-hotel:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # 添加写权限
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}  # 使用 token 进行认证
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -24,22 +28,51 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install aiohttp requests
-
+      
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git config pull.rebase false  # 设置合并而非 rebase
+          git config push.default current
+      
       - name: Run hotel.py
         run: |
           echo "=== Starting hotel.py ==="
           python py/Hotel/hotel.py
           echo "=== Finished hotel.py ==="
-
-      - name: Commit and push results
+      
+      - name: Check for changes
+        id: git-status
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          # 检查是否有文件变更
+          if git diff --quiet py/Hotel/hotel.txt; then
+            echo "没有检测到变更"
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "检测到变更"
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Pull latest changes
+        if: steps.git-status.outputs.has_changes == 'true'
+        run: |
+          echo "拉取远程最新代码..."
+          # 先拉取远程更新，使用合并策略
+          git pull origin main --no-rebase || echo "拉取时遇到问题，继续执行..."
+      
+      - name: Commit and push
+        if: steps.git-status.outputs.has_changes == 'true'
+        run: |
+          echo "提交并推送变更..."
+          
+          # 添加文件
           git add py/Hotel/hotel.txt
-          git commit -m "更新 hotel.txt" || echo "没有更改，跳过提交"
           
-          # 先拉取最新的代码
-          git pull origin main
+          # 提交
+          git commit -m "更新 hotel.txt"
           
-          # 再推送
+          # 推送
           git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
