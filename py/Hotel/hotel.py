@@ -152,7 +152,7 @@ RESULTS_PER_CHANNEL = 20
 SPEED_THRESHOLD = 200  # KB/s
 TEST_DOWNLOAD_SIZE = 51200  # 50KB for speed test
 TEST_TIMEOUT = 8  # 单个测速任务超时时间
-SPEED_TEST_CONCURRENCY = 30  # 测速并发数
+SPEED_TEST_CONCURRENCY = 8  # 测速并发数
 
 def load_urls():
     """从 GitHub 下载 IPTV IP 段列表"""
