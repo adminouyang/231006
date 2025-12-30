@@ -246,11 +246,10 @@ async def generate_urls(url):
     port = url[ip_end:]
 
     json_paths = [
-        "/iptv/live/1000.json?key=txiptv",
-        "/iptv/live/1001.json?key=txiptv",
-        "/iptv/live/2000.json?key=txiptv",
-        "/iptv/live/2001.json?key=txiptv"
-    ]
+    "/iptv/live/1000.json?key=txiptv",
+    "/iptv/live/1001.json?key=txiptv",
+    "/ZHGXTV/Public/json/live_interface.txt",
+]
 
     for i in range(1, 256):
         ip = f"{base}{ip_prefix}.{i}{port}"
@@ -259,13 +258,20 @@ async def generate_urls(url):
 
     return modified_urls
 
+async def check_url(session, url, semaphore):
+    async with semaphore:
+        try:
+            async with session.get(url, timeout=1) as resp:
+                if resp.status == 200:
+                    return url
+        except:
+            return None
+            
 async def fetch_json(session, url, semaphore):
     """获取JSON数据并解析频道信息"""
     async with semaphore:
         try:
-            async with session.get(url, timeout=3) as resp:
-                if resp.status != 200:
-                    return []
+            async with session.get(url, timeout=2) as resp:
                 data = await resp.json()
                 results = []
                 for item in data.get('data', []):
@@ -284,18 +290,8 @@ async def fetch_json(session, url, semaphore):
 
                     results.append((name, urlx))
                 return results
-        except Exception as e:
-            return []
-
-async def check_url(session, url, semaphore):
-    """检查URL是否可用"""
-    async with semaphore:
-        try:
-            async with session.get(url, timeout=3) as resp:
-                if resp.status == 200:
-                    return url
         except:
-            return None
+            return []
 
 async def test_stream_speed_accurate(session, url, semaphore, test_id=0):
     """准确的速度测试函数，使用分段下载计算平均速度"""
