@@ -411,13 +411,14 @@ def is_valid_stream(url):
         return False
     if "239." in url:
         return False
-    if url.startswith("http://16.") or url.startswith("http://10.") or url.startswith("http://192.168."):
+    if url.startswith(("http://16.", "http://10.", "http://192.168.")):
+        return False
+    if "/paiptv/" in url or "/00/SNM/" in url or "/00/CHANNEL" in url:
         return False
     
     # 检查是否包含流媒体扩展名
     valid_ext = (".m3u8", ".ts", ".flv", ".mp4", ".mkv")
-    if any(ext in url.lower() for ext in valid_ext):
-        return True
+    return url.startswith("http") and any(ext in url for ext in valid_ext)
         
     # 或者检查是否包含流媒体路径关键字
     stream_keywords = ("/live/", "/stream/", "/hls/", "/live-stream/", "m3u8", "ts")
