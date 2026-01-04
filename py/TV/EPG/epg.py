@@ -21,7 +21,7 @@ from collections import defaultdict
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def read_epg_sources(file_path='TV/EPG/epg.txt'):
+def read_epg_sources(file_path='py/TV/EPG/epg.txt'):
     """从文件读取EPG订阅源地址"""
     sources = []
     try:
@@ -37,7 +37,7 @@ def read_epg_sources(file_path='TV/EPG/epg.txt'):
         return []
 
 
-def read_channel_names_template(template_file='TV/EPG/demo.txt'):
+def read_channel_names_template(template_file='py/TV/EPG/demo.txt'):
     """从模板文件读取频道名称列表"""
     channel_names = []
     try:
@@ -340,7 +340,7 @@ def main():
     print("=" * 60)
 
     # 1. 读取频道名称模板
-    template_names = read_channel_names_template('TV/EPG/demo.txt')
+    template_names = read_channel_names_template('py/TV/EPG/demo.txt')
 
     if not template_names:
         print("✗ 无法读取频道名称模板，程序退出")
@@ -350,7 +350,7 @@ def main():
     print(f"模板频道 (前10个): {', '.join(template_names[:10])}{'...' if len(template_names) > 10 else ''}")
 
     # 2. 读取EPG源列表
-    epg_sources = read_epg_sources('epg.txt')
+    epg_sources = read_epg_sources('py/TV/EPG/epg.txt')
 
     if not epg_sources:
         print("ℹ 使用默认EPG源")
@@ -450,7 +450,7 @@ def main():
     # 6. 生成输出XML
     print("\n" + "=" * 60)
     print("生成XML文件...")
-    if create_output_xml(sorted_channels, final_programmes, 'epg.xml'):
+    if create_output_xml(sorted_channels, final_programmes, 'py/TV/EPG/epg.xml'):
         print("\n" + "=" * 60)
         print("✓ 处理完成!")
         print(f"   输出文件: epg.xml")
