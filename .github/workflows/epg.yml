@@ -34,32 +34,7 @@ jobs:
         
     - name: 运行EPG脚本
       id: run-epg
-      run: |
-        # 检查必要的配置文件是否存在
-        if [ ! -f "py/TV/EPG/epg.txt" ]; then
-          echo "错误: epg.txt 文件不存在"
-          exit 1
-        fi
-        
-        if [ ! -f "py/TV/EPG/demo.txt" ]; then
-          echo "错误: demo.txt 文件不存在"
-          exit 1
-        fi
-        
-        if [ ! -f "py/TV/EPG/epg.py" ]; then
-          echo "错误: py/TV/EPG/epg.py 文件不存在"
-          exit 1
-        fi
-        
-        # 显示配置文件内容
-        echo "=== epg.txt 内容 ==="
-        head -20 epg.txt
-        echo ""
-        
-        echo "=== demo.txt 内容 ==="
-        head -20 demo.txt
-        echo ""
-        
+      run: |       
         # 运行EPG脚本
         echo "开始运行EPG脚本..."
         python py/TV/EPG/epg.py
