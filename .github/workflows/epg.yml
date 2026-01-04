@@ -48,14 +48,12 @@ jobs:
           git add py/TV/EPG/epg.xml
           git commit -m "自动更新epg.xml"
           
-          # 尝试推送，如果失败则先拉取远程更改
-          if ! git push; then
-            echo "推送失败，先拉取远程更改..."
-            # 设置拉取策略为合并（保留我们的更改）
-            git pull --strategy-option=ours origin main
-            # 重新推送
-            git push
-          fi
+          # 设置拉取策略为合并（而不是变基）
+          git config pull.rebase false
+          # 拉取远程更改并合并
+          git pull origin main
+          # 推送
+          git push
           
           echo "✅ EPG文件已更新并提交"
         else
