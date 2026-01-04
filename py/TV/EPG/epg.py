@@ -21,7 +21,7 @@ from collections import defaultdict
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def read_epg_sources(file_path='epg.txt'):
+def read_epg_sources(file_path='TV/EPG/epg.txt'):
     """从文件读取EPG订阅源地址"""
     sources = []
     try:
@@ -37,7 +37,7 @@ def read_epg_sources(file_path='epg.txt'):
         return []
 
 
-def read_channel_names_template(template_file='demo.txt'):
+def read_channel_names_template(template_file='TV/EPG/demo.txt'):
     """从模板文件读取频道名称列表"""
     channel_names = []
     try:
@@ -301,8 +301,7 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
             # 写入XML声明和根元素
-            f.write('<?xml version="1.0" encoding="UTF-8"?>')
-            f.write('<tv generator-info-name="https://vip.erw.cc" generator-info-url="kuke21@vip.qq.com">\n')
+            f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 
             # 写入频道信息
             # for channel_id, display_name in sorted_channels:
@@ -341,7 +340,7 @@ def main():
     print("=" * 60)
 
     # 1. 读取频道名称模板
-    template_names = read_channel_names_template('demo.txt')
+    template_names = read_channel_names_template('TV/EPG/demo.txt')
 
     if not template_names:
         print("✗ 无法读取频道名称模板，程序退出")
@@ -357,7 +356,7 @@ def main():
         print("ℹ 使用默认EPG源")
         epg_sources = [
             "https://e.erw.cc/all.xml.gz",
-            "http://epg.51zmt.top:8000/api/all.xml"
+            #"http://epg.51zmt.top:8000/api/all.xml"
         ]
 
     all_channels_list = []
