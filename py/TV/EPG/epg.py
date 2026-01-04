@@ -21,7 +21,7 @@ from collections import defaultdict
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def read_epg_sources(file_path='epg.txt'):
+def read_epg_sources(file_path='py/TV/EPG/epg.txt'):
     """从文件读取EPG订阅源地址"""
     sources = []
     try:
@@ -37,7 +37,7 @@ def read_epg_sources(file_path='epg.txt'):
         return []
 
 
-def read_channel_names_template(template_file='demo.txt'):
+def read_channel_names_template(template_file='py/TV/EPG/demo.txt'):
     """从模板文件读取频道名称列表"""
     channel_names = []
     try:
