@@ -36,12 +36,12 @@ jobs:
       id: run-epg
       run: |
         # 检查必要的配置文件是否存在
-        if [ ! -f "epg.txt" ]; then
+        if [ ! -f "py/TV/EPG/epg.txt" ]; then
           echo "错误: epg.txt 文件不存在"
           exit 1
         fi
         
-        if [ ! -f "demo.txt" ]; then
+        if [ ! -f "py/TV/EPG/demo.txt" ]; then
           echo "错误: demo.txt 文件不存在"
           exit 1
         fi
