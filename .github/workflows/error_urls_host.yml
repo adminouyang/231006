@@ -1,4 +1,4 @@
-name: error_urls_host
+name: EPG
 
 on:
   # 定时运行，例如每天16:00 UTC（即每天凌晨00:00上海时间）
@@ -25,7 +25,7 @@ jobs:
         pip install requests logging ping3 future parse split
         python -m pip install --upgrade pip
 
-    - name: Run Python Script
+    - name: Run epg.py
       run: |
         python py/TV/EPG/epg.py
 
