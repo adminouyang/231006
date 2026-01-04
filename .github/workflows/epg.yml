@@ -1,15 +1,35 @@
-name: EPG
+name: EPG Data Update
 
 on:
-  # 定时运行，例如每天16:00 UTC（即每天凌晨00:00上海时间）
-  # schedule:
-  #   - cron: '0 16 * * *'
+  # 定时触发：每天北京时间 8:00, 16:00, 20:00 运行
+  schedule:
+    - cron: '0 0 * * *'  # UTC 时间 0:00, 8:00, 12:00 (对应北京时间 8:00, 16:00, 20:00)
+  
   # 手动触发
   workflow_dispatch:
+    inputs:
+      skip_commit:
+        description: '跳过提交更新（仅测试运行）'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
-# 设置时区
+  # 当 epg.txt 或 demo.txt 配置文件更改时触发
+  push:
+    paths:
+      - 'py/TV/EPG/epg.txt'
+      - 'py/TV/EPG/demo.txt'
+      - 'py/TV/EPG/epg.py'
+      - '.github/workflows/epg.yml'
+
+# 设置环境变量
 env:
   TZ: 'Asia/Shanghai'
+  OUTPUT_FILE: 'py/TV/EPG/epg.xml'
+  LOG_FILE: 'epg_update.log'
 
 jobs:
   update-epg:
@@ -26,37 +46,155 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
+        cache: 'pip'
     
     - name: 安装Python依赖
       run: |
         python -m pip install --upgrade pip
         pip install requests
-        
-    - name: 运行EPG脚本
-      id: run-epg
-      run: |       
-        # 运行EPG脚本
-        echo "开始运行EPG脚本..."
-        python py/TV/EPG/epg.py
-          
-    - name: 提交更新的文件
+        echo "依赖安装完成"
+    
+    - name: 检查配置文件
       run: |
-        echo "准备提交更新的文件..."
+        echo "检查EPG配置文件..."
+        if [ -f "py/TV/EPG/epg.txt" ]; then
+          echo "✓ epg.txt 存在"
+          echo "EPG源列表:"
+          head -20 py/TV/EPG/epg.txt
+        else
+          echo "⚠ 警告: epg.txt 不存在，将使用默认EPG源"
+        fi
         
+        if [ -f "py/TV/EPG/demo.txt" ]; then
+          echo "✓ demo.txt 存在"
+          echo "频道模板 (前10个):"
+          head -10 py/TV/EPG/demo.txt
+        else
+          echo "✗ 错误: demo.txt 不存在，程序将无法运行"
+          exit 1
+        fi
+        
+        echo "配置文件检查完成"
+    
+    - name: 运行EPG脚本
+      id: run_script
+      run: |
+        echo "开始运行EPG脚本..."
+        echo "当前时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+        echo "========================================"
+        
+        # 运行脚本并记录日志
+        if python py/TV/EPG/epg.py 2>&1 | tee $LOG_FILE; then
+          echo "脚本运行完成"
+          
+          # 检查输出文件
+          if [ -f "$OUTPUT_FILE" ]; then
+            FILE_SIZE=$(stat -c%s "$OUTPUT_FILE")
+            echo "EPG文件大小: $((FILE_SIZE / 1024 / 1024)) MB ($FILE_SIZE 字节)"
+            echo "频道数量: $(grep -c '<channel id=' $OUTPUT_FILE 2>/dev/null || echo 0)"
+            echo "节目数量: $(grep -c '<programme ' $OUTPUT_FILE 2>/dev/null || echo 0)"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "错误: EPG文件未生成"
+            echo "status=failed" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+        else
+          echo "脚本运行失败"
+          echo "status=failed" >> $GITHUB_OUTPUT
+          exit 1
+        fi
+        
+        echo "========================================"
+        echo "脚本运行结束时间: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+    
+    - name: 生成运行报告
+      if: always()
+      run: |
+        echo "生成EPG更新报告..."
+        echo "## EPG 更新报告" > report.md
+        echo "" >> report.md
+        echo "**运行时间:** $(date '+%Y-%m-%d %H:%M:%S %Z')" >> report.md
+        echo "" >> report.md
+        
+        if [ -f "$OUTPUT_FILE" ]; then
+          FILE_SIZE=$(stat -c%s "$OUTPUT_FILE")
+          CHANNEL_COUNT=$(grep -c '<channel id=' $OUTPUT_FILE 2>/dev/null || echo 0)
+          PROGRAM_COUNT=$(grep -c '<programme ' $OUTPUT_FILE 2>/dev/null || echo 0)
+          
+          echo "**文件信息:**" >> report.md
+          echo "- 文件路径: $OUTPUT_FILE" >> report.md
+          echo "- 文件大小: $((FILE_SIZE / 1024 / 1024)) MB ($FILE_SIZE 字节)" >> report.md
+          echo "- 频道数量: $CHANNEL_COUNT" >> report.md
+          echo "- 节目数量: $PROGRAM_COUNT" >> report.md
+        else
+          echo "**错误:** EPG文件未生成" >> report.md
+        fi
+        
+        if [ -f "$LOG_FILE" ]; then
+          echo "" >> report.md
+          echo "**运行日志 (最后50行):**" >> report.md
+          echo '```' >> report.md
+          tail -50 $LOG_FILE >> report.md
+          echo '```' >> report.md
+        fi
+        
+        echo "报告已生成"
+    
+    - name: 提交更新的文件
+      if: steps.run_script.outputs.status == 'success' && github.event.inputs.skip_commit != 'true'
+      run: |
+        echo "提交更新的EPG文件..."
+        
+        # 配置Git用户
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         
-        # 检查当前git状态
-        echo "当前git状态:"
-        git status --porcelain
+        # 添加更新的文件
+        git add "$OUTPUT_FILE"
         
-        # 只添加epg.xml文件
-        git add py/TV/EPG/epg.xml
-        
-          echo "提交更改..."
-          git commit -m "自动更新epg.xml"
+        # 检查是否有更改
+        if ! git diff --cached --quiet; then
+          # 获取文件信息用于提交消息
+          FILE_SIZE=$(stat -c%s "$OUTPUT_FILE")
+          CHANNEL_COUNT=$(grep -c '<channel id=' $OUTPUT_FILE 2>/dev/null || echo 0)
+          PROGRAM_COUNT=$(grep -c '<programme ' $OUTPUT_FILE 2>/dev/null || echo 0)
+          
+          # 创建提交消息
+          COMMIT_MSG="自动更新EPG数据 [$CHANNEL_COUNT频道, $PROGRAM_COUNT节目, ${FILE_SIZE}字节]"
+          
+          echo "提交信息: $COMMIT_MSG"
+          git commit -m "$COMMIT_MSG"
+          
+          # 推送更改
+          echo "正在推送更改..."
           git push
-          echo "✅ 文件已成功提交到仓库"
+          echo "✓ 更改已推送"
         else
-          echo "⚠ 没有需要提交的更改"
+          echo "没有文件更改，跳过提交"
         fi
+    
+    - name: 上传EPG文件作为工件
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: epg-data
+        path: |
+          ${{ env.OUTPUT_FILE }}
+          ${{ env.LOG_FILE }}
+        retention-days: 7
+    
+    - name: 上传运行报告
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: epg-report
+        path: report.md
+        retention-days: 7
+    
+    - name: 清理临时文件
+      if: always()
+      run: |
+        echo "清理临时文件..."
+        rm -f "$LOG_FILE" report.md
+        echo "清理完成"
