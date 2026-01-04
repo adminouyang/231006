@@ -47,7 +47,16 @@ jobs:
         if [[ -n $(git status --porcelain py/TV/EPG/epg.xml) ]]; then
           git add py/TV/EPG/epg.xml
           git commit -m "自动更新epg.xml"
-          git push
+          
+          # 尝试推送，如果失败则先拉取远程更改
+          if ! git push; then
+            echo "推送失败，先拉取远程更改..."
+            # 设置拉取策略为合并（保留我们的更改）
+            git pull --strategy-option=ours origin main
+            # 重新推送
+            git push
+          fi
+          
           echo "✅ EPG文件已更新并提交"
         else
           echo "⚠ EPG文件无变化，无需提交"
