@@ -302,7 +302,7 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
         with open(output_file, 'w', encoding='utf-8') as f:
             # 写入XML声明和根元素
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-
+            f.write('<tv>\n')
             # 写入频道信息
             # for channel_id, display_name in sorted_channels:
             #     f.write(f'<channel id="{channel_id}">')
