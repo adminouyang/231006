@@ -27,7 +27,7 @@ jobs:
 
     - name: Run Python Script
       run: |
-        python py/TV/config/invalid_urls_check.py
+        python py/TV/EPG/epg.py
 
     - name: Commit Results
       run: |
