@@ -38,48 +38,8 @@ jobs:
         # 运行EPG脚本
         echo "开始运行EPG脚本..."
         python py/TV/EPG/epg.py
-        
-        # 检查生成的epg.xml文件
-        if [ -f "epg.xml" ]; then
-          echo "✅ EPG文件生成成功"
-          FILESIZE=$(stat -c%s "epg.xml")
-          echo "文件大小: $((FILESIZE / 1024)) KB"
           
-          # 统计频道数量
-          CHANNEL_COUNT=$(grep -c '<channel id="' epg.xml || echo "0")
-          echo "频道数量: $CHANNEL_COUNT"
-          
-          # 统计节目数量
-          PROGRAM_COUNT=$(grep -c '<programme ' epg.xml || echo "0")
-          echo "节目数量: $PROGRAM_COUNT"
-          
-          # 输出变量供后续步骤使用
-          echo "channel_count=$CHANNEL_COUNT" >> $GITHUB_OUTPUT
-          echo "program_count=$PROGRAM_COUNT" >> $GITHUB_OUTPUT
-        else
-          echo "❌ EPG文件生成失败"
-          exit 1
-        fi
-    
-    - name: 检查文件是否变化
-      id: check-changes
-      run: |
-        echo "检查文件是否发生变化..."
-        
-        # 检查是否有未提交的更改
-        git status
-        
-        # 检查是否有文件被修改
-        if ! git diff --quiet HEAD -- epg.xml; then
-          echo "epg.xml 文件已更新"
-          echo "changed=true" >> $GITHUB_OUTPUT
-        else
-          echo "文件无变化"
-          echo "changed=false" >> $GITHUB_OUTPUT
-        fi
-    
     - name: 提交更新的文件
-      if: steps.check-changes.outputs.changed == 'true'
       run: |
         echo "准备提交更新的文件..."
         
@@ -91,10 +51,8 @@ jobs:
         git status --porcelain
         
         # 只添加epg.xml文件
-        git add epg.xml
+        git add py/TV/EPG/epg.xml
         
-        # 检查是否有要提交的更改
-        if ! git diff --cached --quiet; then
           echo "提交更改..."
           git commit -m "自动更新epg.xml (频道: ${{ steps.run-epg.outputs.channel_count }}, 节目: ${{ steps.run-epg.outputs.program_count }})"
           git push
