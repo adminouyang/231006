@@ -1,62 +1,40 @@
 name: EPG
 
 on:
-  # 定时运行，例如每天16:00 UTC（即每天凌晨00:00上海时间）
   # schedule:
-  #   - cron: '0 16 * * *'
-  # 手动触发
-  workflow_dispatch:
-
+  #   - cron: "*/15 * * * *"
+  workflow_dispatch:          # 手动触发
 # 设置时区
 env:
   TZ: 'Asia/Shanghai'
-
+  
 jobs:
   update-epg:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - name: 检查仓库代码
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-        token: ${{ secrets.GITHUB_TOKEN }}
-    
-    - name: 设置Python环境
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-    
-    - name: 安装Python依赖
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests
-        
-    - name: 运行EPG脚本
-      id: run-epg
-      run: |       
-        # 运行EPG脚本
-        echo "开始运行EPG脚本..."
-        python py/TV/EPG/epg.py
-          
-    - name: 提交更新的文件
-      run: |
-        echo "准备提交更新的文件..."
-        
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        
-        # 检查当前git状态
-        echo "当前git状态:"
-        git status --porcelain
-        
-        # 只添加epg.xml文件
-        git add py/TV/EPG/epg.xml
-        
-          echo "提交更改..."
-          git commit -m "自动更新epg.xml (频道: ${{ steps.run-epg.outputs.channel_count }}, 节目: ${{ steps.run-epg.outputs.program_count }})"
-          git push
-          echo "✅ 文件已成功提交到仓库"
-        else
-          echo "⚠ 没有需要提交的更改"
-        fi
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: 运行EPG脚本
+        run:  py/TV/EPG/epg.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git add py/TV/EPG/epg.xml
+          git commit -m "自动更新：epg文件" || echo "⚠️ 无需提交"
+          git push origin main || echo "⚠️ 推送失败"
