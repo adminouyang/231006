@@ -33,22 +33,22 @@ jobs:
         pip install requests
         
     - name: 运行EPG脚本
-      id: run-epg
       run: |       
-        # 运行EPG脚本
         echo "开始运行EPG脚本..."
         python py/TV/EPG/epg.py
+        
+    - name: 配置Git用户
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
     - name: 提交更新的文件
       run: |
-        echo "准备提交更新的文件..."      
-        git status --porcelain
-        git add py/TV/EPG/epg.xml
-          echo "提交更改..."
-          git commit -m "自动更新epg.xml (频道: ${{ steps.run-epg.outputs.channel_count }}, 节目: ${{ steps.run-epg.outputs.program_count }})"
+        if [[ -n $(git status --porcelain py/TV/EPG/epg.xml) ]]; then
+          git add py/TV/EPG/epg.xml
+          git commit -m "自动更新epg.xml"
           git push
-          echo "✅ 文件已成功提交到仓库"
+          echo "✅ EPG文件已更新并提交"
         else
-          echo "⚠ 没有需要提交的更改"
+          echo "⚠ EPG文件无变化，无需提交"
         fi
-
-        
