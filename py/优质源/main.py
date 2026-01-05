@@ -517,9 +517,12 @@ def finalize_output(organized, group_order, channel_order):
                 urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
                 selected = [u[0] for u in urls[:10]]
 
-                # 生成TXT格式：频道名,url1#url2#url3txt_lines.append(f"{channel},{'#'.join(selected)}")    (f"{channel},{url}")
-                if selected:
-                    txt_lines.append(f"{channel},{'#'.join(selected)}")
+                # 生成TXT格式：频道名,url1#url2#url3   (f"{channel},{url}")
+                # if selected:
+                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
+                # 每个URL单独一行
+                for url in selected:
+                    txt_lines.append(f"{channel},{url}")
                 
                 # 生成M3U格式：每个URL单独一行
                 for url in selected:
