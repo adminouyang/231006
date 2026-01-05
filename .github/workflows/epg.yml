@@ -1,9 +1,8 @@
 name: EPG
 
 on:
-  # 定时运行，例如每天16:00 UTC（即每天凌晨00:00上海时间）
-  # schedule:
-  #   - cron: '0 16 * * *'
+  schedule:
+    - cron: '0 0 * * *'
   # 手动触发
   workflow_dispatch:
 
