@@ -89,7 +89,7 @@ def get_protocol(url):
 
 
 def test_https_certificate(domain, port=443):
-    """测试HTTPS证书有效性[6](@ref)"""
+    """测试HTTPS证书有效性"""
     try:
         context = ssl.create_default_context()
         with socket.create_connection((domain, port), timeout=5) as sock:
@@ -299,7 +299,7 @@ def test_rtmp(url):
 
 
 def test_https_specific(url, domain):
-    """HTTPS协议特殊检测[6](@ref)"""
+    """HTTPS协议特殊检测"""
     try:
         # 测试证书有效性
         cert_valid, cert_msg = test_https_certificate(domain)
@@ -346,7 +346,7 @@ def test_https_specific(url, domain):
 
 
 def test_speed(url):
-    """增强版测速函数，支持HTTPS检测[6](@ref)"""
+    """增强版测速函数，支持HTTPS检测"""
     try:
         protocol = get_protocol(url)
         
@@ -436,6 +436,8 @@ def process_sources(sources):
 
                 speed_str = f"{speed:>7.2f}KB/s".rjust(12)
                 protocol_icon = "🔒" if protocol == "https" else "🌐"
+                if protocol in ['rtmp', 'rtmps']:
+                    protocol_icon = "📹"
                 print(f"{progress} 📊 频道: {name[:15]:<15} | 速度:{speed_str} | {protocol_icon}{protocol.upper()} | {url}")
                 processed.append((name, url, speed, ip_type, protocol))
             except Exception as e:
@@ -443,8 +445,8 @@ def process_sources(sources):
 
     # 打印协议统计
     print(f"\n📊 协议统计:")
-    for protocol, count in protocol_stats.items():
-        icon = "🔒" if protocol == "https" else "🌐"
+    for protocol, count in sorted(protocol_stats.items()):
+        icon = "🔒" if protocol == "https" else ("📹" if protocol in ['rtmp', 'rtmps'] else "🌐")
         print(f"   {icon} {protocol.upper():<6}: {count} 个源")
 
     # 保存黑名单更新
@@ -489,97 +491,116 @@ def organize_channels(processed, alias_map, group_map):
 
 
 def finalize_output(organized, group_order, channel_order):
-    """生成输出文件"""
+    """生成输出文件 - 合并所有协议到单一文件"""
     print("\n📂 生成结果文件...")
     
     for ip_type in ['ipv4', 'ipv6']:
-        # 按协议分类输出
-        protocols = set()
+        txt_lines = []
+        m3u_lines = [
+            '#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"',
+        ]
+
+        # 按模板顺序处理分组
+        for group in group_order:
+            if group not in organized[ip_type]:
+                continue
+
+            txt_lines.append(f"{group},#genre#")
+
+            # 处理模板频道
+            for channel in channel_order[group]:
+                if channel not in organized[ip_type][group]:
+                    continue
+
+                # 合并所有协议的源，按速度排序
+                all_urls = organized[ip_type][group][channel]
+                urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
+                selected = [u[0] for u in urls[:10]]
+
+                # 生成TXT格式：频道名,url1#url2#url3
+                if selected:
+                    txt_lines.append(f"{channel},{'#'.join(selected)}")
+                
+                # 生成M3U格式：每个URL单独一行
+                for url in selected:
+                    # 获取协议图标
+                    protocol = next((u[2] for u in urls if u[0] == url), 'http')
+                    protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                    
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel}')
+                    m3u_lines.append(url)
+
+            # 处理额外频道
+            extra = sorted(
+                [c for c in organized[ip_type][group] if c not in channel_order[group]],
+                key=lambda x: x.lower()
+            )
+            for channel in extra:
+                all_urls = organized[ip_type][group][channel]
+                urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
+                selected = [u[0] for u in urls[:10]]
+                
+                if selected:
+                    txt_lines.append(f"{channel},{'#'.join(selected)}")
+                    for url in selected:
+                        protocol = next((u[2] for u in urls if u[0] == url), 'http')
+                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                        
+                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel}')
+                        m3u_lines.append(url)
+
+        # 处理其他分组
+        if '其他' in organized[ip_type]:
+            txt_lines.append("其他,#genre#")
+            for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
+                all_urls = organized[ip_type]['其他'][channel]
+                urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
+                selected = [u[0] for u in urls[:10]]
+                
+                if selected:
+                    txt_lines.append(f"{channel},{'#'.join(selected)}")
+                    for url in selected:
+                        protocol = next((u[2] for u in urls if u[0] == url), 'http')
+                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                        
+                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="其他",{protocol_icon} {channel}')
+                        m3u_lines.append(url)
+
+        # 写入文件
+        dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
+        
+        # 只生成两个文件：result.txt 和 result.m3u
+        with open(os.path.join(dir_path, 'result.txt'), 'w', encoding='utf-8') as f:
+            f.write('\n'.join(txt_lines))
+        with open(os.path.join(dir_path, 'result.m3u'), 'w', encoding='utf-8') as f:
+            f.write('\n'.join(m3u_lines))
+
+        print(f"✅ 已生成 {ip_type.upper()} 文件:")
+        print(f"   📄 {os.path.join(dir_path, 'result.txt')}")
+        print(f"   📺 {os.path.join(dir_path, 'result.m3u')}")
+        
+        # 统计协议信息
+        protocol_count = {}
         for group in organized[ip_type]:
             for channel in organized[ip_type][group]:
                 for url, speed, protocol in organized[ip_type][group][channel]:
-                    protocols.add(protocol)
+                    if protocol not in protocol_count:
+                        protocol_count[protocol] = 0
+                    protocol_count[protocol] += 1
         
-        for protocol in protocols:
-            txt_lines = []
-            m3u_lines = [
-                '#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"',
-            ]
-
-            protocol_icon = "🔒" if protocol == "https" else "🌐"
-            print(f"  处理 {ip_type.upper()} - {protocol_icon} {protocol.upper()} 协议...")
-
-            # 按模板顺序处理分组
-            for group in group_order:
-                if group not in organized[ip_type]:
-                    continue
-
-                txt_lines.append(f"{group},#genre#")
-
-                # 处理模板频道
-                for channel in channel_order[group]:
-                    if channel not in organized[ip_type][group]:
-                        continue
-
-                    # 过滤当前协议的源
-                    protocol_urls = [(u, s) for u, s, p in organized[ip_type][group][channel] if p == protocol]
-                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
-                    selected = [u[0] for u in urls[:10]]
-
-                    for url in selected:
-                        txt_lines.append(f"{channel},{url}")
-                    for url in selected:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}\n{url}')
-
-                # 处理额外频道
-                extra = sorted(
-                    [c for c in organized[ip_type][group] if c not in channel_order[group]],
-                    key=lambda x: x.lower()
-                )
-                for channel in extra:
-                    protocol_urls = [(u, s) for u, s, p in organized[ip_type][group][channel] if p == protocol]
-                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
-                    selected = [u[0] for u in urls[:10]]
-                    for url in selected:
-                        txt_lines.append(f"{channel},{url}")
-                    for url in selected:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}\n{url}')
-
-            # 处理其他分组
-            if '其他' in organized[ip_type]:
-                txt_lines.append("其他,#genre#")
-                m3u_lines.append('#EXTINF:-1 group-title="其他",其他\n#genre#')
-                for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
-                    protocol_urls = [(u, s) for u, s, p in organized[ip_type]['其他'][channel] if p == protocol]
-                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
-                    selected = [u[0] for u in urls[:10]]
-                    if selected:
-                        for url in selected:
-                            txt_lines.append(f"{channel},{url}")
-                        for url in selected:
-                            m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="其他",{channel}\n{url}')
-
-            # 写入文件
-            dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
-            protocol_file = f"result_{protocol}"
-            
-            with open(os.path.join(dir_path, f'{protocol_file}.txt'), 'w', encoding='utf-8') as f:
-                f.write('\n'.join(txt_lines))
-            with open(os.path.join(dir_path, f'{protocol_file}.m3u'), 'w', encoding='utf-8') as f:
-                f.write('\n'.join(m3u_lines))
-
-            print(f"   已生成 {protocol.upper()} 文件 → {dir_path}/{protocol_file}.*")
+        print(f"   📊 协议分布: {', '.join([f'{p.upper()}:{c}' for p, c in protocol_count.items()])}")
 
 
 if __name__ == '__main__':
     print("\n" + "=" * 60)
-    print("🎬 IPTV直播源处理脚本（HTTPS增强版）")
+    print("🎬 IPTV直播源处理脚本（多协议合并版）")
     print("=" * 60)
     
     print(f"🔧 配置参数:")
     print(f"   HTTPS证书验证: {'开启' if HTTPS_VERIFY else '关闭'}")
     print(f"   测速时长: {SPEED_TEST_DURATION}秒")
     print(f"   最大并发数: {MAX_WORKERS}")
+    print(f"   输出文件: result.txt, result.m3u")
 
     # 初始化日志文件
     with open(SPEED_LOG, 'w', encoding='utf-8') as f:
@@ -598,6 +619,9 @@ if __name__ == '__main__':
     finalize_output(organized, group_order, channel_order)
 
     print("\n" + "=" * 60)
-    print("🎉 处理完成！结果文件已保存至 output 目录")
-    print("📊 文件按协议分类: result_http.* 和 result_https.*")
+    print("🎉 处理完成！")
+    print("📁 结果文件:")
+    print(f"   IPv4: {IPV4_DIR}/result.txt, result.m3u")
+    print(f"   IPv6: {IPV6_DIR}/result.txt, result.m3u")
+    print("🔍 所有协议源已合并到同一文件中")
     print("=" * 60)
