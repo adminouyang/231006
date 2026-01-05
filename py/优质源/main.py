@@ -8,6 +8,8 @@ import concurrent.futures
 import time
 import threading
 from collections import OrderedDict
+import ssl
+import socket
 
 # 配置参数
 CONFIG_DIR = 'py/优质源/config'
@@ -23,6 +25,7 @@ SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
 
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 10
+HTTPS_VERIFY = False  # 设置为True会验证SSL证书，False则跳过验证
 
 # 全局变量
 failed_domains = set()
@@ -75,6 +78,34 @@ def get_ip_type(url):
     except Exception as e:
         print(f"⚠️ IP类型检测异常: {str(e)} ← {url}")
         return 'ipv4'
+
+
+def get_protocol(url):
+    """获取URL的协议类型"""
+    try:
+        return urlparse(url).scheme.lower()
+    except:
+        return 'unknown'
+
+
+def test_https_certificate(domain, port=443):
+    """测试HTTPS证书有效性[6](@ref)"""
+    try:
+        context = ssl.create_default_context()
+        with socket.create_connection((domain, port), timeout=5) as sock:
+            with context.wrap_socket(sock, server_hostname=domain) as ssock:
+                cert = ssock.getpeercert()
+                # 检查证书有效期
+                not_after = cert.get('notAfter', '')
+                if not_after:
+                    # 简单验证证书是否在有效期内
+                    return True, "证书有效"
+                return True, "证书信息获取成功"
+    except ssl.SSLError as e:
+        return False, f"SSL错误: {str(e)}"
+    except Exception as e:
+        return False, f"证书检查失败: {str(e)}"
+    return False, "未知错误"
 
 
 # --------------------------
@@ -131,7 +162,7 @@ def fetch_sources():
         for idx, url in enumerate(urls, 1):
             try:
                 print(f"\n🌐 正在获取源 ({idx}/{len(urls)})：{url}")
-                response = requests.get(url, timeout=15)
+                response = requests.get(url, timeout=15, verify=HTTPS_VERIFY)
                 content = response.text
 
                 if '#EXTM3U' in content or url.endswith('.m3u'):
@@ -267,20 +298,78 @@ def test_rtmp(url):
         return 0
 
 
-def test_speed(url):
-    """增强版测速函数"""
+def test_https_specific(url, domain):
+    """HTTPS协议特殊检测[6](@ref)"""
     try:
+        # 测试证书有效性
+        cert_valid, cert_msg = test_https_certificate(domain)
+        
+        # 进行常规速度测试
         start_time = time.time()
+        with requests.Session() as session:
+            response = session.get(url,
+                                   stream=True,
+                                   timeout=(3.05, 5),
+                                   allow_redirects=True,
+                                   verify=HTTPS_VERIFY,
+                                   headers={'User-Agent': 'Mozilla/5.0'})
 
+            total_bytes = 0
+            data_start = time.time()
+            for chunk in response.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    total_bytes += len(chunk)
+                if (time.time() - data_start) >= SPEED_TEST_DURATION:
+                    break
+
+            duration = max(time.time() - data_start, 0.001)
+            speed = (total_bytes / 1024) / duration
+            
+            # 记录HTTPS特定信息
+            https_info = f" | 证书: {'有效' if cert_valid else '无效'}"
+            log_msg = (f"✅ HTTPS测速成功: {url}\n"
+                       f"   速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB | "
+                       f"总耗时: {time.time() - start_time:.2f}s{https_info}")
+            write_log(log_msg)
+            return speed
+            
+    except requests.exceptions.SSLError as e:
+        log_msg = f"❌ HTTPS SSL错误: {url} | 错误: {str(e)}"
+        write_log(log_msg)
+        return 0
+    except Exception as e:
+        domain = get_domain(url)
+        update_blacklist(domain)
+        log_msg = f"❌ HTTPS测速失败: {url} | 错误: {str(e)}"
+        write_log(log_msg)
+        return 0
+
+
+def test_speed(url):
+    """增强版测速函数，支持HTTPS检测[6](@ref)"""
+    try:
+        protocol = get_protocol(url)
+        
         # RTMP协议处理
-        if url.startswith(('rtmp://', 'rtmps://')):
+        if protocol in ['rtmp', 'rtmps']:
             return test_rtmp(url)
 
+        # HTTPS协议特殊处理
+        if protocol == 'https':
+            domain = get_domain(url)
+            if domain:
+                return test_https_specific(url, domain)
+            else:
+                write_log(f"⚠️ 无法提取HTTPS域名: {url}")
+                return 0
+
         # HTTP协议处理
-        if not url.startswith(('http://', 'https://')):
+        if protocol not in ['http', 'https']:
             write_log(f"⚠️ 跳过非常规协议: {url}")
             return 0
 
+        # 普通HTTP请求
+        start_time = time.time()
         with requests.Session() as session:
             response = session.get(url,
                                    stream=True,
@@ -299,7 +388,7 @@ def test_speed(url):
 
             duration = max(time.time() - data_start, 0.001)
             speed = (total_bytes / 1024) / duration
-            log_msg = (f"✅ 测速成功: {url}\n"
+            log_msg = (f"✅ {protocol.upper()}测速成功: {url}\n"
                        f"   速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB | "
                        f"总耗时: {time.time() - start_time:.2f}s")
             write_log(log_msg)
@@ -308,7 +397,8 @@ def test_speed(url):
     except Exception as e:
         domain = get_domain(url)
         update_blacklist(domain)
-        log_msg = (f"❌ 测速失败: {url}\n"
+        protocol = get_protocol(url)
+        log_msg = (f"❌ {protocol.upper()}测速失败: {url}\n"
                    f"   错误: {str(e)} | 域名: {domain}")
         write_log(log_msg)
         return 0
@@ -321,22 +411,41 @@ def process_sources(sources):
     processed = []
     processed_count = 0
 
+    # 统计协议类型
+    protocol_stats = {}
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = {executor.submit(
-            lambda s: (s['name'], s['url'], test_speed(s['url']), get_ip_type(s['url'])), s) for s in sources}
+        futures = {}
+        for s in sources:
+            future = executor.submit(
+                lambda s: (s['name'], s['url'], test_speed(s['url']), 
+                          get_ip_type(s['url']), get_protocol(s['url'])), s)
+            futures[future] = s
 
         for future in concurrent.futures.as_completed(futures):
             try:
-                name, url, speed, ip_type = future.result()
+                name, url, speed, ip_type, protocol = future.result()
                 with counter_lock:
                     processed_count += 1
                     progress = f"[{processed_count}/{total}]"
+                    
+                    # 更新协议统计
+                    if protocol not in protocol_stats:
+                        protocol_stats[protocol] = 0
+                    protocol_stats[protocol] += 1
 
                 speed_str = f"{speed:>7.2f}KB/s".rjust(12)
-                print(f"{progress} 📊 频道: {name[:15]:<5}|速度:{speed_str} |{url} ,类型: {ip_type.upper()}  ")
-                processed.append((name, url, speed, ip_type))
+                protocol_icon = "🔒" if protocol == "https" else "🌐"
+                print(f"{progress} 📊 频道: {name[:15]:<15} | 速度:{speed_str} | {protocol_icon}{protocol.upper()} | {url}")
+                processed.append((name, url, speed, ip_type, protocol))
             except Exception as e:
                 print(f"⚠️ 处理异常: {str(e)}")
+
+    # 打印协议统计
+    print(f"\n📊 协议统计:")
+    for protocol, count in protocol_stats.items():
+        icon = "🔒" if protocol == "https" else "🌐"
+        print(f"   {icon} {protocol.upper():<6}: {count} 个源")
 
     # 保存黑名单更新
     if failed_domains:
@@ -361,7 +470,7 @@ def organize_channels(processed, alias_map, group_map):
     print("\n📚 整理频道数据...")
     organized = {'ipv4': OrderedDict(), 'ipv6': OrderedDict()}
 
-    for name, url, speed, ip_type in processed:
+    for name, url, speed, ip_type, protocol in processed:
         if ip_type not in ('ipv4', 'ipv6'):
             print(f"⚠️ 异常IP类型: {ip_type}，使用ipv4代替 ← {url}")
             ip_type = 'ipv4'
@@ -374,7 +483,7 @@ def organize_channels(processed, alias_map, group_map):
         if std_name not in organized[ip_type][group]:
             organized[ip_type][group][std_name] = []
 
-        organized[ip_type][group][std_name].append((url, speed))
+        organized[ip_type][group][std_name].append((url, speed, protocol))
 
     return organized
 
@@ -382,82 +491,100 @@ def organize_channels(processed, alias_map, group_map):
 def finalize_output(organized, group_order, channel_order):
     """生成输出文件"""
     print("\n📂 生成结果文件...")
+    
     for ip_type in ['ipv4', 'ipv6']:
-        txt_lines = []
-        m3u_lines = [
-            '#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"',  # 添加EPG地址
-        ]
+        # 按协议分类输出
+        protocols = set()
+        for group in organized[ip_type]:
+            for channel in organized[ip_type][group]:
+                for url, speed, protocol in organized[ip_type][group][channel]:
+                    protocols.add(protocol)
+        
+        for protocol in protocols:
+            txt_lines = []
+            m3u_lines = [
+                '#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"',
+            ]
 
-        # 按模板顺序处理分组
-        for group in group_order:
-            if group not in organized[ip_type]:
-                continue
+            protocol_icon = "🔒" if protocol == "https" else "🌐"
+            print(f"  处理 {ip_type.upper()} - {protocol_icon} {protocol.upper()} 协议...")
 
-            txt_lines.append(f"{group},#genre#")
-            #m3u_lines.append(f'#EXTINF:-1 group-title="{group}",{group}\n#genre#')
-
-            # 处理模板频道
-            for channel in channel_order[group]:
-                if channel not in organized[ip_type][group]:
+            # 按模板顺序处理分组
+            for group in group_order:
+                if group not in organized[ip_type]:
                     continue
 
-                urls = sorted(organized[ip_type][group][channel], key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls[:10]]
+                txt_lines.append(f"{group},#genre#")
 
-                # if selected:
-                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
-                    # 修改这里：每个URL单独一行
-                for url in selected:
-                    txt_lines.append(f"{channel},{url}")
-                for url in selected:
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}"tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}\n{url}')
+                # 处理模板频道
+                for channel in channel_order[group]:
+                    if channel not in organized[ip_type][group]:
+                        continue
 
-            # 处理额外频道
-            extra = sorted(
-                [c for c in organized[ip_type][group] if c not in channel_order[group]],
-                key=lambda x: x.lower()
-            )
-            for channel in extra:
-                urls = sorted(organized[ip_type][group][channel], key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls[:10]]
-                # if selected:
-                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
-                # 修改这里：每个URL单独一行
-                for url in selected:
-                    txt_lines.append(f"{channel},{url}")
-                for url in selected:
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}\n{url}')
+                    # 过滤当前协议的源
+                    protocol_urls = [(u, s) for u, s, p in organized[ip_type][group][channel] if p == protocol]
+                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
+                    selected = [u[0] for u in urls[:10]]
 
-        # 处理其他分组
-        if '其他' in organized[ip_type]:
-            txt_lines.append("其他,#genre#")
-            m3u_lines.append('#EXTINF:-1 group-title="其他",其他\n#genre#')
-            for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
-                urls = sorted(organized[ip_type]['其他'][channel], key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls[:10]]
-                if selected:
-                    txt_lines.append(f"{channel},{'#'.join(selected)}")
                     for url in selected:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="其他",{channel}\n{url}')
+                        txt_lines.append(f"{channel},{url}")
+                    for url in selected:
+                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}\n{url}')
 
-        # 写入文件
-        dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
-        with open(os.path.join(dir_path, 'result.txt'), 'w', encoding='utf-8') as f:
-            f.write('\n'.join(txt_lines))
-        with open(os.path.join(dir_path, 'result.m3u'), 'w', encoding='utf-8') as f:
-            f.write('\n'.join(m3u_lines))
+                # 处理额外频道
+                extra = sorted(
+                    [c for c in organized[ip_type][group] if c not in channel_order[group]],
+                    key=lambda x: x.lower()
+                )
+                for channel in extra:
+                    protocol_urls = [(u, s) for u, s, p in organized[ip_type][group][channel] if p == protocol]
+                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
+                    selected = [u[0] for u in urls[:10]]
+                    for url in selected:
+                        txt_lines.append(f"{channel},{url}")
+                    for url in selected:
+                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}\n{url}')
 
-        print(f"  已生成 {ip_type.upper()} 文件 → {dir_path}")
+            # 处理其他分组
+            if '其他' in organized[ip_type]:
+                txt_lines.append("其他,#genre#")
+                m3u_lines.append('#EXTINF:-1 group-title="其他",其他\n#genre#')
+                for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
+                    protocol_urls = [(u, s) for u, s, p in organized[ip_type]['其他'][channel] if p == protocol]
+                    urls = sorted(protocol_urls, key=lambda x: x[1], reverse=True)
+                    selected = [u[0] for u in urls[:10]]
+                    if selected:
+                        for url in selected:
+                            txt_lines.append(f"{channel},{url}")
+                        for url in selected:
+                            m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="其他",{channel}\n{url}')
+
+            # 写入文件
+            dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
+            protocol_file = f"result_{protocol}"
+            
+            with open(os.path.join(dir_path, f'{protocol_file}.txt'), 'w', encoding='utf-8') as f:
+                f.write('\n'.join(txt_lines))
+            with open(os.path.join(dir_path, f'{protocol_file}.m3u'), 'w', encoding='utf-8') as f:
+                f.write('\n'.join(m3u_lines))
+
+            print(f"   已生成 {protocol.upper()} 文件 → {dir_path}/{protocol_file}.*")
 
 
 if __name__ == '__main__':
-    print("\n" + "=" * 50)
-    print("🎬 IPTV直播源处理脚本（增强版）")
-    print("=" * 50)
+    print("\n" + "=" * 60)
+    print("🎬 IPTV直播源处理脚本（HTTPS增强版）")
+    print("=" * 60)
+    
+    print(f"🔧 配置参数:")
+    print(f"   HTTPS证书验证: {'开启' if HTTPS_VERIFY else '关闭'}")
+    print(f"   测速时长: {SPEED_TEST_DURATION}秒")
+    print(f"   最大并发数: {MAX_WORKERS}")
 
     # 初始化日志文件
-    with open(SPEED_LOG, 'w') as f:
+    with open(SPEED_LOG, 'w', encoding='utf-8') as f:
         f.write(f"测速日志 {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.write(f"HTTPS验证: {HTTPS_VERIFY}\n\n")
 
     # 初始化数据
     alias_map, group_map, group_order, channel_order = parse_demo_file()
@@ -470,6 +597,7 @@ if __name__ == '__main__':
     organized = organize_channels(processed, alias_map, group_map)
     finalize_output(organized, group_order, channel_order)
 
-    print("\n" + "=" * 50)
+    print("\n" + "=" * 60)
     print("🎉 处理完成！结果文件已保存至 output 目录")
-    print("=" * 50)
+    print("📊 文件按协议分类: result_http.* 和 result_https.*")
+    print("=" * 60)
