@@ -31,34 +31,33 @@
           "type":"0",
           "pass": true,
           "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/output/ipv4/result.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
+          "logo": ""
         },
         {
           "name": "ouyang_TV",
           "type":"0",
           "pass": true,
           "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV/refs/heads/master/output/ipv4/result.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
+          "logo": ""
         },
         {
           "name": "TvSources",
           "type":"0",
           "pass": true,
           "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TvSources/iptv_list.txt",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
+          "logo": ""
         }, 
 
         {
           "name": "优质源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/优质源/output/ipv4/result.txt
-            ",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/优质源/output/ipv4/result.m3u",
+          "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
+          "logo": ""
         }
     ],
   "sites": [
