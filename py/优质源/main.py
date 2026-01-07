@@ -530,7 +530,7 @@ def finalize_output(organized, group_order, channel_order):
                     protocol = next((u[2] for u in urls if u[0] == url), 'http')
                     protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
                     
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel}')
+                    m3u_lines.append(f'#EXTINF:-1 tvg-id="{channel}" tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel}')
                     m3u_lines.append(url)
 
             # 处理额外频道
