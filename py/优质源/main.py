@@ -588,13 +588,25 @@ def finalize_output(organized, group_order, channel_order):
                 # 合并所有协议的源，按速度排序
                 all_urls = organized[ip_type][group][channel]
                 urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls]  # 不再限制数量，因为已经通过阈值过滤
+                selected = [u[0] for u in urls[:10]]
 
+                # # 生成TXT格式：频道名,url1#url2#url3   (f"{channel},{url}")
+                # if selected:
+                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
+                # # 每个URL单独一行
+                # for url in selected:
+                #     txt_lines.append(f"{channel},{url}")                
+                selected = [u[0] for u in urls]  # 不再限制数量，因为已经通过阈值过滤
                 # 生成TXT格式：频道名,url1#url2#url3
-                if selected:
-                    txt_lines.append(f"{channel},{'#'.join(selected)}")
+                for url in selected:
+                    txt_lines.append(f"{channel},{url}")
                     total_sources += len(selected)
                     speed_stats.extend([u[1] for u in urls])
+                # # 生成TXT格式：频道名,url1#url2#url3
+                # if selected:
+                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
+                #     total_sources += len(selected)
+                #     speed_stats.extend([u[1] for u in urls])
                 
                 # 生成M3U格式：每个URL单独一行
                 for url, speed, protocol in urls:
