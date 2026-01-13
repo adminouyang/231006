@@ -223,21 +223,87 @@ def fetch_sources():
     return sources
 
 
+# def parse_m3u(content):
+#     """解析M3U格式内容"""
+#     channels = []
+#     current = {}
+#     for line in content.split('\n'):
+#         line = line.strip()
+#         if line.startswith('#EXTINF'):
+#             match = re.search(r'tvg-name="([^"]*)"', line)
+#             current = {'name': match.group(1) if match else '未知频道', 'urls': []}
+#         elif line and not line.startswith('#'):
+#             if current:
+#                 current['urls'].append(line)
+#                 channels.append(current)
+#                 current = {}
+#     return [{'name': c['name'], 'url': u} for c in channels for u in c['urls']]
 def parse_m3u(content):
     """解析M3U格式内容"""
     channels = []
-    current = {}
-    for line in content.split('\n'):
+    current = None
+    
+    for line in content.splitlines():
         line = line.strip()
-        if line.startswith('#EXTINF'):
-            match = re.search(r'tvg-name="([^"]*)"', line)
-            current = {'name': match.group(1) if match else '未知频道', 'urls': []}
+        
+        if not line:  # 跳过空行
+            continue
+            
+        if line.startswith('#EXTINF:'):
+            # 解析EXTINF行
+            name_match = re.search(r'tvg-name="([^"]*)"', line)
+            name = name_match.group(1) if name_match else '未知频道'
+            
+            # 可以提取更多属性
+            logo_match = re.search(r'tvg-logo="([^"]*)"', line)
+            group_match = re.search(r'group-title="([^"]*)"', line)
+            
+            # 从逗号后提取显示名称（如果有）
+            display_name = line.split(',')[-1] if ',' in line else name
+            
+            current = {
+                'name': name,
+                'display_name': display_name,
+                'logo': logo_match.group(1) if logo_match else '',
+                'group': group_match.group(1) if group_match else '',
+                'urls': []
+            }
+            
         elif line and not line.startswith('#'):
-            if current:
+            # URL行
+            if current is not None:
                 current['urls'].append(line)
-                channels.append(current)
-                current = {}
-    return [{'name': c['name'], 'url': u} for c in channels for u in c['urls']]
+                # 如果有多个URL，不立即添加，等下一个EXTINF行或文件结束
+            else:
+                # 没有EXTINF信息的URL，跳过或处理为匿名频道
+                pass
+                
+        elif line.startswith('#EXTM3U'):
+            # 文件头，可以处理版本信息等
+            continue
+            
+        elif line.startswith('#EXTGRP:'):
+            # 处理分组信息
+            if current is not None:
+                current['group'] = line.split(':', 1)[1]
+                
+    # 处理最后一个频道
+    if current is not None and current['urls']:
+        channels.append(current)
+        
+    # 展开多个URL
+    result = []
+    for channel in channels:
+        for url in channel['urls']:
+            result.append({
+                'name': channel['name'],
+                'display_name': channel.get('display_name', channel['name']),
+                'logo': channel.get('logo', ''),
+                'group': channel.get('group', ''),
+                'url': url
+            })
+    
+    return result
 
 
 def parse_txt(content):
