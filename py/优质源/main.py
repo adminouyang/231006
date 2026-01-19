@@ -2,7 +2,7 @@ import os
 import re
 import requests
 import subprocess
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urlunparse
 from ipaddress import ip_address, IPv4Address, IPv6Address
 import concurrent.futures
 import time
@@ -10,6 +10,7 @@ import threading
 from collections import OrderedDict
 import ssl
 import socket
+import hashlib
 
 # 配置参数
 CONFIG_DIR = 'py/优质源/config'
@@ -35,6 +36,8 @@ failed_domains = set()
 log_lock = threading.Lock()
 domain_lock = threading.Lock()
 counter_lock = threading.Lock()
+url_cache_lock = threading.Lock()
+url_cache = set()  # 全局URL缓存用于去重
 
 os.makedirs(IPV4_DIR, exist_ok=True)
 os.makedirs(IPV6_DIR, exist_ok=True)
@@ -94,6 +97,41 @@ def get_domain(url):
         return netloc.split(':')[0] if ':' in netloc else netloc
     except:
         return None
+
+
+def normalize_url(url):
+    """标准化URL，去除多余参数，用于去重比较"""
+    try:
+        parsed = urlparse(url)
+        # 保留基本部分：协议、域名、端口、路径
+        # 去掉查询参数和片段
+        normalized = urlunparse((
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path.rstrip('/') if parsed.path else '/',
+            '',  # params
+            '',  # query
+            ''   # fragment
+        ))
+        return normalized
+    except:
+        return url
+
+
+def get_url_hash(url):
+    """获取URL的哈希值，用于快速比较"""
+    normalized = normalize_url(url)
+    return hashlib.md5(normalized.encode('utf-8')).hexdigest()
+
+
+def is_duplicate_url(url):
+    """检查URL是否重复"""
+    url_hash = get_url_hash(url)
+    with url_cache_lock:
+        if url_hash in url_cache:
+            return True
+        url_cache.add(url_hash)
+        return False
 
 
 def update_blacklist(domain):
@@ -223,21 +261,6 @@ def fetch_sources():
     return sources
 
 
-# def parse_m3u(content):
-#     """解析M3U格式内容"""
-#     channels = []
-#     current = {}
-#     for line in content.split('\n'):
-#         line = line.strip()
-#         if line.startswith('#EXTINF'):
-#             match = re.search(r'tvg-name="([^"]*)"', line)
-#             current = {'name': match.group(1) if match else '未知频道', 'urls': []}
-#         elif line and not line.startswith('#'):
-#             if current:
-#                 current['urls'].append(line)
-#                 channels.append(current)
-#                 current = {}
-#     return [{'name': c['name'], 'url': u} for c in channels for u in c['urls']]
 def parse_m3u(content):
     """解析M3U格式内容"""
     channels = []
@@ -526,13 +549,23 @@ def process_sources(sources):
     processed = []
     processed_count = 0
     passed_count = 0  # 通过阈值计数
+    duplicate_count = 0  # 重复URL计数
 
     # 统计协议类型
     protocol_stats = {}
+    seen_urls = set()  # 用于去重的URL集合
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = {}
         for s in sources:
+            # 在提交任务前检查URL是否重复
+            url_hash = get_url_hash(s['url'])
+            if url_hash in seen_urls:
+                duplicate_count += 1
+                print(f"⏭️  跳过重复URL: {s['name']} | {s['url'][:50]}...")
+                continue
+            seen_urls.add(url_hash)
+            
             future = executor.submit(
                 lambda s: (s['name'], s['url'], test_speed(s['url']), 
                           get_ip_type(s['url']), get_protocol(s['url'])), s)
@@ -560,7 +593,13 @@ def process_sources(sources):
                     status = "✅"
                     passed_count += 1
                     protocol_stats[protocol]['passed'] += 1
-                    processed.append((name, url, speed, ip_type, protocol))
+                    
+                    # 再次检查URL重复（多线程环境下）
+                    if not is_duplicate_url(url):
+                        processed.append((name, url, speed, ip_type, protocol))
+                    else:
+                        print(f"🔁 检测到重复URL（已跳过）: {name} | {url[:50]}...")
+                        passed_count -= 1
                 else:
                     status = "❌"
                 
@@ -572,6 +611,7 @@ def process_sources(sources):
     # 打印统计信息
     print(f"\n📊 速度阈值过滤结果:")
     print(f"   📡 总检测数: {processed_count}")
+    print(f"   🔁 跳过重复: {duplicate_count}")
     print(f"   ✅ 通过数: {passed_count} (速度 > {SPEED_THRESHOLD}KB/s)")
     print(f"   ❌ 淘汰数: {processed_count - passed_count} (速度 ≤ {SPEED_THRESHOLD}KB/s)")
     print(f"   📈 通过率: {passed_count/max(processed_count,1)*100:.1f}%")
@@ -598,14 +638,15 @@ def process_sources(sources):
                     f.write(f"{domain}\n")
             print(f"🆕 新增 {len(new_domains)} 个域名到黑名单")
 
-    print("\n✅ 全部源检测完成")
+    print(f"\n✅ 全部源检测完成，最终保留 {len(processed)} 个不重复的有效源")
     return processed
 
 
 def organize_channels(processed, alias_map, group_map):
-    """整理频道数据"""
+    """整理频道数据，并进行URL去重"""
     print("\n📚 整理频道数据...")
     organized = {'ipv4': OrderedDict(), 'ipv6': OrderedDict()}
+    duplicate_stats = {'total': 0, 'channel': {}}
 
     for name, url, speed, ip_type, protocol in processed:
         if ip_type not in ('ipv4', 'ipv6'):
@@ -620,13 +661,97 @@ def organize_channels(processed, alias_map, group_map):
         if std_name not in organized[ip_type][group]:
             organized[ip_type][group][std_name] = []
 
-        organized[ip_type][group][std_name].append((url, speed, protocol))
+        # 检查同一频道下是否有重复URL
+        existing_urls = {normalize_url(u[0]) for u in organized[ip_type][group][std_name]}
+        normalized_url = normalize_url(url)
+        
+        if normalized_url in existing_urls:
+            # 找到重复的源，保留速度更快的
+            for i, (existing_url, existing_speed, existing_protocol) in enumerate(organized[ip_type][group][std_name]):
+                if normalize_url(existing_url) == normalized_url:
+                    if speed > existing_speed:
+                        # 用更快的替换
+                        organized[ip_type][group][std_name][i] = (url, speed, protocol)
+                        duplicate_stats['total'] += 1
+                        duplicate_stats['channel'][std_name] = duplicate_stats['channel'].get(std_name, 0) + 1
+                        print(f"🔄 频道 '{std_name}' 替换重复URL: 新速度 {speed:.1f}KB/s > 旧速度 {existing_speed:.1f}KB/s")
+                    break
+        else:
+            # 没有重复，添加新URL
+            organized[ip_type][group][std_name].append((url, speed, protocol))
 
+    # 打印去重统计
+    if duplicate_stats['total'] > 0:
+        print(f"🔁 频道内去重: 共清理 {duplicate_stats['total']} 个重复源")
+        if len(duplicate_stats['channel']) <= 10:  # 只显示前10个频道
+            for channel, count in duplicate_stats['channel'].items():
+                print(f"   📺 {channel}: {count} 个重复源")
+        else:
+            print(f"   📺 涉及 {len(duplicate_stats['channel'])} 个频道")
+    
+    # 对每个频道的源按速度排序
+    for ip_type in ['ipv4', 'ipv6']:
+        for group in organized[ip_type]:
+            for channel in organized[ip_type][group]:
+                organized[ip_type][group][channel].sort(key=lambda x: x[1], reverse=True)
+    
     return organized
 
 
+def deduplicate_final_output(txt_lines, m3u_lines):
+    """对最终输出进行去重"""
+    print("\n🔁 对最终输出进行去重...")
+    
+    # 对TXT格式去重
+    txt_dict = {}
+    txt_duplicates = 0
+    for line in txt_lines:
+        if line.endswith(',#genre#'):
+            txt_dict[line] = line
+        elif ',' in line:
+            channel, url = line.split(',', 1)
+            key = f"{channel},{normalize_url(url)}"
+            if key not in txt_dict:
+                txt_dict[key] = line
+            else:
+                txt_duplicates += 1
+    
+    deduped_txt = list(txt_dict.values())
+    
+    # 对M3U格式去重
+    m3u_dict = {}
+    m3u_duplicates = 0
+    i = 0
+    while i < len(m3u_lines):
+        if m3u_lines[i].startswith('#EXTINF:'):
+            if i + 1 < len(m3u_lines) and not m3u_lines[i + 1].startswith('#'):
+                extinf_line = m3u_lines[i]
+                url_line = m3u_lines[i + 1]
+                key = normalize_url(url_line)
+                if key not in m3u_dict:
+                    m3u_dict[key] = (extinf_line, url_line)
+                else:
+                    m3u_duplicates += 1
+                i += 2
+            else:
+                i += 1
+        else:
+            i += 1
+    
+    # 重新构建M3U文件
+    deduped_m3u = ['#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"']
+    for extinf, url in m3u_dict.values():
+        deduped_m3u.append(extinf)
+        deduped_m3u.append(url)
+    
+    if txt_duplicates > 0 or m3u_duplicates > 0:
+        print(f"✅ 去重完成: 移除 {txt_duplicates} 个重复TXT行，{m3u_duplicates} 个重复M3U源")
+    
+    return deduped_txt, deduped_m3u
+
+
 def finalize_output(organized, group_order, channel_order):
-    """生成输出文件 - 合并所有协议到单一文件"""
+    """生成输出文件 - 合并所有协议到单一文件，并进行去重"""
     print("\n📂 生成结果文件...")
     
     for ip_type in ['ipv4', 'ipv6']:
@@ -638,6 +763,7 @@ def finalize_output(organized, group_order, channel_order):
         # 统计信息
         total_sources = 0
         speed_stats = []
+        seen_channels = set()
 
         # 按模板顺序处理分组
         for group in group_order:
@@ -654,33 +780,28 @@ def finalize_output(organized, group_order, channel_order):
                 # 合并所有协议的源，按速度排序
                 all_urls = organized[ip_type][group][channel]
                 urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls[:10]]
-
-                # # 生成TXT格式：频道名,url1#url2#url3   (f"{channel},{url}")
-                # if selected:
-                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
-                # # 每个URL单独一行
-                # for url in selected:
-                #     txt_lines.append(f"{channel},{url}")                
-                selected = [u[0] for u in urls]  # 不再限制数量，因为已经通过阈值过滤
-                # 生成TXT格式：频道名,url1#url2#url3
-                for url in selected:
-                    txt_lines.append(f"{channel},{url}")
-                    total_sources += len(selected)
-                    speed_stats.extend([u[1] for u in urls])
-                # # 生成TXT格式：频道名,url1#url2#url3
-                # if selected:
-                #     txt_lines.append(f"{channel},{'#'.join(selected)}")
-                #     total_sources += len(selected)
-                #     speed_stats.extend([u[1] for u in urls])
                 
-                # 生成M3U格式：每个URL单独一行
+                # 对每个URL，只保留最佳（已排序，第一个最快）
+                seen_in_channel = set()
+                unique_urls = []
                 for url, speed, protocol in urls:
-                    # 获取协议图标
-                    protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                    normalized_url = normalize_url(url)
+                    if normalized_url not in seen_in_channel:
+                        seen_in_channel.add(normalized_url)
+                        unique_urls.append((url, speed, protocol))
+                
+                # 生成TXT格式：每个URL单独一行
+                for url, speed, protocol in unique_urls:
+                    txt_lines.append(f"{channel},{url}")
+                    total_sources += 1
+                    speed_stats.append(speed)
                     
+                    # 生成M3U格式
+                    protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
                     m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel} | {speed:.1f}KB/s')
                     m3u_lines.append(url)
+                
+                seen_channels.add(channel)
 
             # 处理额外频道
             extra = sorted(
@@ -690,38 +811,60 @@ def finalize_output(organized, group_order, channel_order):
             for channel in extra:
                 all_urls = organized[ip_type][group][channel]
                 urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls]
                 
-                if selected:
-                    txt_lines.append(f"{channel},{'#'.join(selected)}")
-                    total_sources += len(selected)
-                    speed_stats.extend([u[1] for u in urls])
-                    
-                    for url, speed, protocol in urls:
-                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                # 去重
+                seen_in_channel = set()
+                unique_urls = []
+                for url, speed, protocol in urls:
+                    normalized_url = normalize_url(url)
+                    if normalized_url not in seen_in_channel:
+                        seen_in_channel.add(normalized_url)
+                        unique_urls.append((url, speed, protocol))
+                
+                if unique_urls:
+                    for url, speed, protocol in unique_urls:
+                        txt_lines.append(f"{channel},{url}")
+                        total_sources += 1
+                        speed_stats.append(speed)
                         
+                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
                         m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel} | {speed:.1f}KB/s')
                         m3u_lines.append(url)
+                    
+                    seen_channels.add(channel)
 
         # 处理其他分组
         if '其他' in organized[ip_type]:
             txt_lines.append("其他,#genre#")
             for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
+                if channel in seen_channels:
+                    continue
+                    
                 all_urls = organized[ip_type]['其他'][channel]
                 urls = sorted(all_urls, key=lambda x: x[1], reverse=True)
-                selected = [u[0] for u in urls]
                 
-                if selected:
-                    txt_lines.append(f"{channel},{'#'.join(selected)}")
-                    total_sources += len(selected)
-                    speed_stats.extend([u[1] for u in urls])
-                    
-                    for url, speed, protocol in urls:
-                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
+                # 去重
+                seen_in_channel = set()
+                unique_urls = []
+                for url, speed, protocol in urls:
+                    normalized_url = normalize_url(url)
+                    if normalized_url not in seen_in_channel:
+                        seen_in_channel.add(normalized_url)
+                        unique_urls.append((url, speed, protocol))
+                
+                if unique_urls:
+                    for url, speed, protocol in unique_urls:
+                        txt_lines.append(f"{channel},{url}")
+                        total_sources += 1
+                        speed_stats.append(speed)
                         
+                        protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
                         m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="其他",{protocol_icon} {channel} | {speed:.1f}KB/s')
                         m3u_lines.append(url)
-
+        
+        # 最终去重
+        txt_lines, m3u_lines = deduplicate_final_output(txt_lines, m3u_lines)
+        
         # 写入文件
         dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
         
@@ -740,8 +883,8 @@ def finalize_output(organized, group_order, channel_order):
             avg_speed = max_speed = min_speed = 0
 
         print(f"✅ 已生成 {ip_type.upper()} 文件:")
-        print(f"   📄 {os.path.join(dir_path, 'result.txt')}")
-        print(f"   📺 {os.path.join(dir_path, 'result.m3u')}")
+        print(f"   📄 {os.path.join(dir_path, 'result.txt')} - {len(txt_lines)} 行")
+        print(f"   📺 {os.path.join(dir_path, 'result.m3u')} - {len(m3u_lines)} 行")
         print(f"   📊 统计: {total_sources} 个源 | 平均速度: {avg_speed:.1f}KB/s")
         print(f"   📈 速度范围: {min_speed:.1f} - {max_speed:.1f}KB/s")
         
@@ -773,6 +916,7 @@ if __name__ == '__main__':
     print(f"   ⏱️ 测速时长: {SPEED_TEST_DURATION}秒")
     print(f"   👥 最大并发数: {MAX_WORKERS}")
     print(f"   📁 输出文件: result.txt, result.m3u")
+    print(f"   🔁 去重功能: 已启用")
 
     # 初始化日志文件
     with open(SPEED_LOG, 'w', encoding='utf-8') as f:
@@ -780,6 +924,9 @@ if __name__ == '__main__':
         f.write(f"速度阈值: {SPEED_THRESHOLD}KB/s\n")
         f.write(f"运行次数: {run_count}\n")
         f.write(f"HTTPS验证: {HTTPS_VERIFY}\n\n")
+
+    # 清除URL缓存
+    url_cache.clear()
 
     # 初始化数据
     alias_map, group_map, group_order, channel_order = parse_demo_file()
@@ -801,4 +948,5 @@ if __name__ == '__main__':
     print(f"   IPv4: {IPV4_DIR}/result.txt, result.m3u")
     print(f"   IPv6: {IPV6_DIR}/result.txt, result.m3u")
     print("🔍 所有协议源已合并到同一文件中")
+    print("✅ 去重功能已启用，已移除重复的URL")
     print("=" * 60)
