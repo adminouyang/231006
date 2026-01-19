@@ -30,7 +30,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
       - name: Run fofa_fetch.py
-        run:  python py/fofa/fofa_fetch.py
+        run:  |
+          python py/fofa/fofa_fetch.py
+          python py/fofa/Detection_ip.py
 
       - name: Commit and push changes
         run: |
