@@ -2,11 +2,18 @@
     "wallpaper": "https://picsum.photos/1280/720/?blur=2",
     "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
-                {
-          "name": "测试组播源",
+                        {
+          "name": "优质酒店源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/测试/IPTV/all_channels.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/Hotel/iptv.m3u"
+
+        },
+                {
+          "name": "优质组播源",
+          "type":"0",
+          "pass": true,
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/zubo_all.m3u"
 
         },
         {
@@ -21,7 +28,7 @@
           "name": "咪咕源",
           "type":"0",
           "pass": true,
-          "url": "http://iptv.cqshushu.com/jiekou.php?jk=m3u&token=fd290f9a0bde26b521d755d6fef2bf5a",
+          "url": "http://iptv.cqshushu.com/jiekou.php?jk=m3u&token=4e50937608067d7cf1be822a743ac86d",
           "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           "logo": "https://epg.112114.xyz/logo/{name}.png"
         },
