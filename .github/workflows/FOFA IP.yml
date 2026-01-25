@@ -32,7 +32,7 @@ jobs:
       - name: Run fofa_fetch.py
         run:  |
           python py/fofa/fofa_fetch.py
-          python py/fofa/Detection_ip.py
+          #python py/fofa/Detection_ip.py
 
       - name: Commit and push changes
         run: |
