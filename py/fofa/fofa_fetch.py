@@ -293,7 +293,7 @@ def second_stage():
         return
 
     for ip_file in os.listdir(IP_DIR):
-        if not ip_file.endswith("_result_ip.txt"):
+        if not ip_file.endswith(".txt"):
             continue
 
         ip_path = os.path.join(IP_DIR, ip_file)
