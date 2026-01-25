@@ -3,7 +3,7 @@ name: FOFA IP
 
 on:
   schedule:
-    - cron: "0 */1 * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:          # 手动触发
 
 jobs:
