@@ -26,7 +26,7 @@ SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
 
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 10
-SPEED_THRESHOLD = 50  # 速度阈值，单位KB/s
+SPEED_THRESHOLD = 150  # 速度阈值，单位KB/s
 
 # GitHub代理列表
 GITHUB_PROXIES = [
