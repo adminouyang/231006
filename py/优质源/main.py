@@ -28,7 +28,7 @@ SPEED_LOG = os.path.join(OUTPUT_DIR, 'sort.log')
 SPEED_TEST_DURATION = 5
 MAX_WORKERS = 10
 HTTPS_VERIFY = False
-SPEED_THRESHOLD = 120  # 新增速度阈值120KB/s[6](@ref)
+SPEED_THRESHOLD = 500  # 新增速度阈值120KB/s[6](@ref)
 RESET_COUNT = 12       # 新增运行12次后重置黑名单[7](@ref)
 
 # 全局变量
