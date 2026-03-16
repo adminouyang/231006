@@ -739,7 +739,7 @@ def finalize_output(organized, group_order, channel_order):
     for ip_type in ['ipv4', 'ipv6']:
         txt_lines = []
         m3u_lines = [
-            '#EXTM3U x-tvg-url="https://gh.catmak.name/https://raw.githubusercontent.com/Guovin/iptv-api/refs/heads/master/output/epg/epg.gz"',
+            '#EXTM3U x-tvg-url="https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml"',
         ]
 
         # 统计通过的频道数量
@@ -787,7 +787,7 @@ def finalize_output(organized, group_order, channel_order):
                     # M3U格式
                     for url, speed in selected_urls:
                         m3u_lines.append(
-                            f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{channel}')
+                            f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gitee.com/mytv-android/myTVlogo/raw/main/img/{channel}.png" group-title="{group}",{channel}')
                         m3u_lines.append(url)
 
                     total_channels += 1
