@@ -787,7 +787,7 @@ def finalize_output(organized, group_order, channel_order):
                     # M3U格式
                     for url, speed in selected_urls:
                         m3u_lines.append(
-                            f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gitee.com/mytv-android/myTVlogo/raw/main/img/{channel}.png" group-title="{group}",{channel}')
+                            f'#EXTINF:-1 tvg-id"" tvg-name="{channel}" tvg-logo="https://gitee.com/mytv-android/myTVlogo/raw/main/img/{channel}.png" group-title="{group}",{channel}')
                         m3u_lines.append(url)
 
                     total_channels += 1
