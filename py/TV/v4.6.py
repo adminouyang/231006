@@ -2,6 +2,8 @@ import os
 import re
 import requests
 import subprocess
+import io
+import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
 from ipaddress import ip_address, IPv4Address, IPv6Address
 import concurrent.futures
@@ -28,9 +30,11 @@ SPEED_TEST_DURATION = 5
 MAX_WORKERS = 4
 SPEED_THRESHOLD = 140  # 速度阈值，单位KB/s
 
+# EPG源地址
+EPG_SOURCE_URL = 'http://epg.51zmt.top:8000/e.xml'
+
 # GitHub代理列表
 GITHUB_PROXIES = [
-    #'https://ghproxy.cc/',
     'https://gh.ddlc.top/',
     'https://gh-proxy.com/'
 ]
@@ -43,13 +47,71 @@ counter_lock = threading.Lock()
 domain_cache = {}  # 域名检测缓存
 available_proxy = None  # 可用的GitHub代理
 url_cache = {}  # URL去重缓存
+epg_id_map = {}  # EPG频道ID映射表
 
 os.makedirs(IPV4_DIR, exist_ok=True)
 os.makedirs(IPV6_DIR, exist_ok=True)
 
 
 # --------------------------
-# 新增：URL规范化函数
+# 新增：EPG频道ID处理函数
+# --------------------------
+def fetch_epg_id_map():
+    """
+    从指定的EPG XML文件中提取频道名称与tvg-id的映射关系。
+    返回一个字典，格式为 {"频道名称": "tvg-id值"}
+    """
+    print(f"\n📡 正在获取EPG频道ID映射表...")
+    epg_id_map_local = {}
+    
+    if not EPG_SOURCE_URL:
+        print("⚠️  未配置EPG URL，跳过EPG ID映射。")
+        return epg_id_map_local
+        
+    try:
+        # 尝试使用代理（如果EPG源是GitHub地址）
+        final_epg_url = add_proxy_to_github_url(EPG_SOURCE_URL)
+        print(f"  目标地址: {final_epg_url}")
+        
+        response = requests.get(final_epg_url, timeout=30)
+        response.raise_for_status()  # 检查HTTP错误
+        
+        # 解析XML
+        # 处理可能的命名空间，简化XML结构
+        it = ET.iterparse(io.StringIO(response.text))
+        for _, el in it:
+            if '}' in el.tag:
+                el.tag = el.tag.split('}', 1)[1]  # 剥离命名空间
+        root = it.root
+        
+        # 查找所有channel元素，并提取id和display-name
+        # 根据常见的EPG XML结构进行调整
+        for channel in root.findall('.//channel'):
+            channel_id = channel.get('id')
+            # 查找display-name，通常第一个是主要名称
+            display_name_elem = channel.find('display-name')
+            if channel_id is not None and display_name_elem is not None and display_name_elem.text:
+                channel_name = display_name_elem.text.strip()
+                epg_id_map_local[channel_name] = channel_id
+        
+        print(f"✅ 成功从EPG解析到 {len(epg_id_map_local)} 个频道的ID映射。")
+        if epg_id_map_local:
+            sample = list(epg_id_map_local.items())[:3]  # 显示前3个作为示例
+            for name, cid in sample:
+                print(f"    示例: {name} -> {cid}")
+                
+    except requests.exceptions.RequestException as e:
+        print(f"❌ 获取EPG文件失败: {e}")
+    except ET.ParseError as e:
+        print(f"❌ 解析EPG XML文件失败: {e}")
+    except Exception as e:
+        print(f"❌ 处理EPG时发生未知错误: {e}")
+    
+    return epg_id_map_local
+
+
+# --------------------------
+# URL规范化函数
 # --------------------------
 def normalize_url(url):
     """URL规范化处理，统一格式以便去重"""
@@ -732,14 +794,14 @@ def organize_channels(processed, alias_map, group_map):
     return organized
 
 
-def finalize_output(organized, group_order, channel_order):
-    """生成输出文件，并进行最终去重"""
+def finalize_output(organized, group_order, channel_order, epg_id_map):
+    """生成输出文件，并进行最终去重，并注入EPG ID"""
     print("\n📂 生成结果文件...")
     
     for ip_type in ['ipv4', 'ipv6']:
         txt_lines = []
         m3u_lines = [
-            '#EXTM3U x-tvg-url="https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml"',
+            f'#EXTM3U x-tvg-url="{EPG_SOURCE_URL}"',
         ]
 
         # 统计通过的频道数量
@@ -760,6 +822,9 @@ def finalize_output(organized, group_order, channel_order):
                 if channel not in organized[ip_type][group]:
                     continue
 
+                # 获取该频道的EPG ID
+                tvg_id = epg_id_map.get(channel, '')
+                
                 # 按速度排序
                 urls = sorted(organized[ip_type][group][channel], key=lambda x: x[1], reverse=True)
                 
@@ -787,11 +852,14 @@ def finalize_output(organized, group_order, channel_order):
                     # M3U格式
                     for url, speed in selected_urls:
                         m3u_lines.append(
-                            f'#EXTINF:-1 tvg-id"" tvg-name="{channel}" tvg-logo="https://gitee.com/mytv-android/myTVlogo/raw/main/img/{channel}.png" group-title="{group}",{channel}')
+                            f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel}" tvg-logo="{channel}.png" group-title="{group}",{channel}')
                         m3u_lines.append(url)
 
                     total_channels += 1
-                    print(f"  ✅ 频道: {channel} - 选择 {len(selected_urls)} 个去重后的URL")
+                    if tvg_id:
+                        print(f"  ✅ 频道: {channel} - EPG ID: {tvg_id} - 选择 {len(selected_urls)} 个去重后的URL")
+                    else:
+                        print(f"  ✅ 频道: {channel} - EPG ID: (未匹配) - 选择 {len(selected_urls)} 个去重后的URL")
 
             # 处理额外频道
             extra = sorted(
@@ -799,6 +867,7 @@ def finalize_output(organized, group_order, channel_order):
                 key=lambda x: x.lower()
             )
             for channel in extra:
+                tvg_id = epg_id_map.get(channel, '')
                 urls = sorted(organized[ip_type][group][channel], key=lambda x: x[1], reverse=True)
                 
                 # 去重并选择前10个
@@ -821,16 +890,20 @@ def finalize_output(organized, group_order, channel_order):
                     for url, speed in selected_urls:
                         txt_lines.append(f"{channel},{url}")
                     for url, speed in selected_urls:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="{group}",{channel}')
+                        m3u_lines.append(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel}" group-title="{group}",{channel}')
                         m3u_lines.append(url)
 
                     total_channels += 1
-                    print(f"  ➕ 额外频道: {channel} - 选择 {len(selected_urls)} 个去重后的URL")
+                    if tvg_id:
+                        print(f"  ➕ 额外频道: {channel} - EPG ID: {tvg_id} - 选择 {len(selected_urls)} 个去重后的URL")
+                    else:
+                        print(f"  ➕ 额外频道: {channel} - EPG ID: (未匹配) - 选择 {len(selected_urls)} 个去重后的URL")
 
         # 处理其他分组
         if '其他' in organized[ip_type]:
             txt_lines.append("其他,#genre#")
             for channel in sorted(organized[ip_type]['其他'].keys(), key=lambda x: x.lower()):
+                tvg_id = epg_id_map.get(channel, '')
                 urls = sorted(organized[ip_type]['其他'][channel], key=lambda x: x[1], reverse=True)
                 
                 # 去重并选择前10个
@@ -853,11 +926,14 @@ def finalize_output(organized, group_order, channel_order):
                     for url, speed in selected_urls:
                         txt_lines.append(f"{channel},{url}")
                     for url, speed in selected_urls:
-                        m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" group-title="其他",{channel}')
+                        m3u_lines.append(f'#EXTINF:-1 tvg-id="{tvg_id}" tvg-name="{channel}" group-title="其他",{channel}')
                         m3u_lines.append(url)
 
                     total_channels += 1
-                    print(f"  📁 其他分组: {channel} - 选择 {len(selected_urls)} 个去重后的URL")
+                    if tvg_id:
+                        print(f"  📁 其他分组: {channel} - EPG ID: {tvg_id} - 选择 {len(selected_urls)} 个去重后的URL")
+                    else:
+                        print(f"  📁 其他分组: {channel} - EPG ID: (未匹配) - 选择 {len(selected_urls)} 个去重后的URL")
 
         # 写入文件
         dir_path = IPV4_DIR if ip_type == 'ipv4' else IPV6_DIR
@@ -894,10 +970,11 @@ def finalize_output(organized, group_order, channel_order):
 
 if __name__ == '__main__':
     print("\n" + "=" * 50)
-    print("🎬 IPTV直播源处理脚本（优化版）")
+    print("🎬 IPTV直播源处理脚本（优化版 + EPG集成）")
     print("=" * 50)
     print(f"⚡ 速度阈值: {SPEED_THRESHOLD}KB/s")
     print(f"🔍 去重功能: 已启用")
+    print(f"📡 EPG源: {EPG_SOURCE_URL}")
     print("=" * 50)
 
     # 初始化运行计数器和黑名单
@@ -909,9 +986,14 @@ if __name__ == '__main__':
         f.write(f"测速日志 {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"速度阈值: {SPEED_THRESHOLD}KB/s\n")
         f.write(f"去重功能: 已启用\n")
+        f.write(f"EPG源: {EPG_SOURCE_URL}\n")
 
     # 初始化数据
     alias_map, group_map, group_order, channel_order = parse_demo_file()
+    
+    # 获取EPG频道ID映射
+    epg_id_map = fetch_epg_id_map()
+    
     sources = fetch_sources() + parse_local()
     blacklist = read_blacklist()
 
@@ -919,7 +1001,7 @@ if __name__ == '__main__':
     filtered = filter_sources(sources, blacklist)
     processed = process_sources_optimized(filtered)
     organized = organize_channels(processed, alias_map, group_map)
-    finalize_output(organized, group_order, channel_order)
+    finalize_output(organized, group_order, channel_order, epg_id_map)
 
     print("\n" + "=" * 50)
     print("🎉 处理完成！结果文件已保存至 output 目录")
