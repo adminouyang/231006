@@ -31,7 +31,7 @@ MAX_WORKERS = 4
 SPEED_THRESHOLD = 140  # 速度阈值，单位KB/s
 
 # EPG源地址http://epg.51zmt.top:8000/e.xml
-EPG_SOURCE_URL = 'https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml'
+EPG_SOURCE_URL = 'https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml'
 
 # GitHub代理列表
 GITHUB_PROXIES = [
