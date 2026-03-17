@@ -358,9 +358,9 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
                 f.write('  </channel>\n')
                 if channel_id in programmes:
                     for prog in programmes[channel_id]:
-                        f.write(f'  <programme channel="{display_name}" start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n')
-                        f.write(f'    <title lang="zh">{prog["title"]}</title>\n')
-                        f.write('  </programme>\n')
+                        f.write(f'    <programme channel="{display_name}" start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n')
+                        f.write(f'      <title lang="zh">{prog["title"]}</title>\n')
+                        f.write('    </programme>\n')
 
             # 关闭根元素
             f.write('</tv>')
