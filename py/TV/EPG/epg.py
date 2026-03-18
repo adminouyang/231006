@@ -351,14 +351,14 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
             # 写入XML声明和根元素
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             f.write('<tv>\n')
-            # 写入频道信息
+            # 写入频道信息channel="{display_name}" 
             for channel_id, display_name in sorted_channels:
                 f.write(f'  <channel id="{channel_id}">\n')
                 f.write(f'    <display-name lang="zh">{display_name}</display-name>\n')
                 f.write('  </channel>\n')
                 if channel_id in programmes:
                     for prog in programmes[channel_id]:
-                        f.write(f'    <programme channel="{display_name}" start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n') 
+                        f.write(f'    <programme start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n') 
                         f.write(f'      <title lang="zh">{prog["title"]}</title>\n')
                         f.write('    </programme>\n')
 
