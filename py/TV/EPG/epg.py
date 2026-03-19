@@ -3,6 +3,8 @@
 """
 EPG数据下载和合并脚本
 从epg.txt读取EPG源地址，按demo.txt中的频道名称排序，输出为指定格式的epg.xml
+说明：demo.txt中，每行第一列为主频道名，后续以“|”分隔的为别名。
+     脚本将使用主频道名和所有别名进行匹配，但最终输出的频道名称统一为主频道名。
 """
 
 import requests
@@ -38,40 +40,46 @@ def read_epg_sources(file_path='py/TV/EPG/epg.txt'):
 
 
 def read_channel_names_template(template_file='py/TV/EPG/demo.txt'):
-    """从模板文件读取频道名称列表"""
-    channel_names = []
+    """
+    从模板文件读取频道名称列表
+    新格式：每行第一列为主频道名，后续以‘|’分隔的为别名。
+    返回：列表，每个元素是一个字典 {'primary': 主频道名, 'all_names': [主频道名, 别名1, 别名2...]}
+    """
+    channel_entries = []
     try:
         with open(template_file, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                if line and not line.startswith('#'):
-                    channel_names.append(line)
+                # 跳过空行、注释行和分类行（如“央视频道,#genre#”）
+                if not line or line.startswith('#') or line.endswith('#genre#'):
+                    continue
+                
+                # 按‘|’分割，第一部分是主频道名
+                parts = line.split('|')
+                primary_name = parts[0].strip()
+                if not primary_name:
+                    continue  # 主频道名为空则跳过
+                
+                # 收集所有名称（主频道名 + 后续非空别名）
+                all_names = [primary_name]
+                for alias in parts[1:]:
+                    alias = alias.strip()
+                    if alias:  # 只添加非空别名
+                        all_names.append(alias)
+                
+                channel_entries.append({
+                    'primary': primary_name,
+                    'all_names': all_names
+                })
 
-        print(f"✓ 从 {template_file} 读取到 {len(channel_names)} 个频道名称模板")
-        return channel_names
+        print(f"✓ 从 {template_file} 解析到 {len(channel_entries)} 个频道模板条目")
+        return channel_entries
     except FileNotFoundError:
         print(f"✗ 模板文件 {template_file} 不存在")
         return []
     except Exception as e:
-        print(f"✗ 读取模板文件失败: {str(e)}")
+        print(f"✗ 读取/解析模板文件失败: {str(e)}")
         return []
-
-
-def load_channel_mapping():
-    """加载频道名称映射"""
-    mapping_file = 'py/TV/EPG/channel_mapping.json'
-    if not os.path.exists(mapping_file):
-        print(f"ℹ 映射文件 {mapping_file} 不存在，使用默认匹配方式")
-        return {}
-    
-    try:
-        with open(mapping_file, 'r', encoding='utf-8') as f:
-            mapping = json.load(f)
-        print(f"✓ 加载频道映射文件: {len(mapping)} 条映射规则")
-        return mapping
-    except Exception as e:
-        print(f"✗ 加载映射文件失败: {str(e)}")
-        return {}
 
 
 def download_epg_data(url, timeout=30):
@@ -124,7 +132,7 @@ def normalize_channel_name(name):
     return name
 
 
-def parse_epg_data(xml_content, template_names):
+def parse_epg_data(xml_content, template_entries):
     """解析EPG数据，提取频道和节目信息"""
     channels = []  # 列表，每个元素是 (channel_id, display_name, normalized_name)
     programmes = defaultdict(list)  # channel_id -> [programmes]
@@ -137,6 +145,12 @@ def parse_epg_data(xml_content, template_names):
 
         # 解析XML
         root = ET.fromstring(xml_str.encode('utf-8'))
+
+        # 为模板中的所有名称（主频道名+别名）创建标准化集合，用于快速判断“是否在模板中”
+        all_template_normalized_names = set()
+        for entry in template_entries:
+            for name in entry['all_names']:
+                all_template_normalized_names.add(normalize_channel_name(name))
 
         # 提取频道信息
         for channel_elem in root.findall('.//channel'):
@@ -156,9 +170,8 @@ def parse_epg_data(xml_content, template_names):
             # 标准化名称用于匹配
             normalized_name = normalize_channel_name(display_name)
 
-            # 检查是否在模板中
-            in_template = any(normalize_channel_name(template_name) == normalized_name
-                              for template_name in template_names)
+            # 检查是否在模板中（匹配主频道名或任意别名）
+            in_template = normalized_name in all_template_normalized_names
 
             channels.append({
                 'id': channel_id,
@@ -167,7 +180,7 @@ def parse_epg_data(xml_content, template_names):
                 'in_template': in_template
             })
 
-            # 建立名称到频道的映射
+            # 建立标准化名称到频道的映射
             if normalized_name not in name_to_channel_map:
                 name_to_channel_map[normalized_name] = []
             name_to_channel_map[normalized_name].append({
@@ -239,108 +252,114 @@ def normalize_time(time_str):
     return None
 
 
-def find_best_match_channel_with_mapping(template_name, name_to_channel_map, used_channel_ids, channel_mapping):
-    """为模板名称找到最佳匹配的频道（支持映射）"""
-    # 1. 检查是否有映射规则
-    mapped_name = None
-    if template_name in channel_mapping:
-        mapped_name = channel_mapping[template_name]
-        if not mapped_name:  # 空字符串表示跳过此频道
-            print(f"  ⏭ 跳过（映射为空）: {template_name}")
-            return None
-    
-    # 2. 如果有映射名称，优先使用映射名称
-    search_name = mapped_name if mapped_name else template_name
-    
-    # 3. 先尝试精确匹配
-    template_normalized = normalize_channel_name(search_name)
-    
-    if template_normalized in name_to_channel_map:
-        for channel in name_to_channel_map[template_normalized]:
-            if channel['id'] not in used_channel_ids:
-                if mapped_name:
-                    print(f"  ✓ 通过映射匹配: {template_name} -> {mapped_name} -> {channel['name']}")
-                else:
-                    print(f"  ✓ 直接匹配: {template_name} -> {channel['name']}")
-                return channel
-    
-    # 4. 然后尝试模糊匹配（模板名称是频道名称的一部分）
-    for normalized_name, channels in name_to_channel_map.items():
-        if template_normalized in normalized_name or normalized_name in template_normalized:
-            for channel in channels:
+def find_best_match_for_template_entry(template_entry, name_to_channel_map, used_channel_ids):
+    """
+    为模板条目找到最佳匹配的EPG频道。
+    template_entry: 字典，包含'primary'(主频道名)和'all_names'(所有名称列表)
+    优先使用精确匹配（标准化后的名称完全一致），其次尝试模糊/部分匹配。
+    返回匹配到的 (channel_id, channel_display_name)，但输出时应使用 template_entry['primary']。
+    若未找到，返回 None。
+    """
+    primary_name = template_entry['primary']
+    all_names = template_entry['all_names']
+
+    # 1. 精确匹配：遍历该条目的所有名称（主频道名+别名），检查是否有标准化的EPG频道名与之完全一致
+    for name_to_try in all_names:
+        template_normalized = normalize_channel_name(name_to_try)
+        if template_normalized in name_to_channel_map:
+            for channel in name_to_channel_map[template_normalized]:
                 if channel['id'] not in used_channel_ids:
-                    if mapped_name:
-                        print(f"  ✓ 通过映射模糊匹配: {template_name} -> {mapped_name} -> {channel['name']}")
-                    else:
-                        print(f"  ✓ 直接模糊匹配: {template_name} -> {channel['name']}")
-                    return channel
-    
-    # 5. 最后尝试部分匹配
-    for normalized_name, channels in name_to_channel_map.items():
-        # 检查是否有共同的部分
+                    # 匹配成功！记录匹配到的原始EPG频道名用于日志
+                    matched_source_name = channel['name']
+                    # 但返回的主频道名是我们想要输出的名字
+                    print(f"  ✓ 匹配成功: 模板“{primary_name}” (通过名称“{name_to_try}”) -> EPG频道“{matched_source_name}”")
+                    return {
+                        'id': channel['id'],
+                        'source_name': matched_source_name,  # EPG中的原名，用于日志
+                        'output_name': primary_name          # 最终输出到XML的名称
+                    }
+
+    # 2. 如果精确匹配失败，尝试模糊匹配（模板名称是EPG频道名称的一部分，或反之）
+    # 这里采用与原先脚本类似的逻辑，但遍历的是模板条目的所有名称
+    for name_to_try in all_names:
+        template_normalized = normalize_channel_name(name_to_try)
+        for epg_normalized_name, channels in name_to_channel_map.items():
+            if template_normalized in epg_normalized_name or epg_normalized_name in template_normalized:
+                for channel in channels:
+                    if channel['id'] not in used_channel_ids:
+                        matched_source_name = channel['name']
+                        print(f"  ⚠ 模糊匹配: 模板“{primary_name}” (通过名称“{name_to_try}”) -> EPG频道“{matched_source_name}”")
+                        return {
+                            'id': channel['id'],
+                            'source_name': matched_source_name,
+                            'output_name': primary_name
+                        }
+
+    # 3. 部分匹配（名称有共同部分）
+    for name_to_try in all_names:
+        template_normalized = normalize_channel_name(name_to_try)
         template_parts = set(re.findall(r'[a-z0-9]+', template_normalized))
-        channel_parts = set(re.findall(r'[a-z0-9]+', normalized_name))
-        
-        if template_parts.intersection(channel_parts):
-            for channel in channels:
-                if channel['id'] not in used_channel_ids:
-                    if mapped_name:
-                        print(f"  ⚠ 通过映射部分匹配: {template_name} -> {mapped_name} -> {channel['name']}")
-                    else:
-                        print(f"  ⚠ 直接部分匹配: {template_name} -> {channel['name']}")
-                    return channel
-    
-    # 6. 没有找到匹配
-    if mapped_name:
-        print(f"  ✗ 映射后未找到匹配: {template_name} -> {mapped_name}")
-    else:
-        print(f"  ✗ 未找到匹配: {template_name}")
+        for epg_normalized_name, channels in name_to_channel_map.items():
+            channel_parts = set(re.findall(r'[a-z0-9]+', epg_normalized_name))
+            if template_parts.intersection(channel_parts):
+                for channel in channels:
+                    if channel['id'] not in used_channel_ids:
+                        matched_source_name = channel['name']
+                        print(f"  ⚠ 部分匹配: 模板“{primary_name}” (通过名称“{name_to_try}”) -> EPG频道“{matched_source_name}”")
+                        return {
+                            'id': channel['id'],
+                            'source_name': matched_source_name,
+                            'output_name': primary_name
+                        }
+
+    # 4. 没有找到任何匹配
+    print(f"  ✗ 未找到匹配: 模板“{primary_name}” (尝试了: {', '.join(all_names)})")
     return None
 
 
-def merge_and_sort_by_template(channels, programmes, template_names, channel_mapping=None):
-    """按照模板频道名称合并和排序数据（支持映射）"""
-    sorted_channels = []
+def merge_and_sort_by_template(channels, programmes, template_entries):
+    """
+    按照模板条目合并和排序数据。
+    对每个模板条目，尝试匹配EPG频道。匹配成功后，输出频道名使用条目的主频道名(primary_name)。
+    """
+    sorted_channels = []  # 元素为 (channel_id, output_display_name)
     used_channel_ids = set()
-    
-    if channel_mapping is None:
-        channel_mapping = {}
-    
-    # 建立名称到频道的映射
+
+    # 建立标准化名称到频道的映射 (复用之前解析EPG时建立的映射，这里为了逻辑清晰再构建一次)
     name_to_channel_map = {}
     for channel in channels:
-        if channel['normalized'] not in name_to_channel_map:
-            name_to_channel_map[channel['normalized']] = []
-        name_to_channel_map[channel['normalized']].append({
+        normalized = channel['normalized']
+        if normalized not in name_to_channel_map:
+            name_to_channel_map[normalized] = []
+        name_to_channel_map[normalized].append({
             'id': channel['id'],
-            'name': channel['name']
+            'name': channel['name']  # EPG中的原始显示名
         })
-    
-    # 按照模板顺序添加频道
-    for template_name in template_names:
-        matched_channel = find_best_match_channel_with_mapping(
-            template_name, name_to_channel_map, used_channel_ids, channel_mapping
-        )
-        if matched_channel:
-            sorted_channels.append((matched_channel['id'], matched_channel['name']))
-            used_channel_ids.add(matched_channel['id'])
-        # 注意：如果返回None（如映射为空字符串），则不添加此频道
-    
-    # 添加剩余的频道
+
+    # 按照模板条目的顺序，为每个条目寻找匹配的EPG频道
+    for template_entry in template_entries:
+        matched = find_best_match_for_template_entry(template_entry, name_to_channel_map, used_channel_ids)
+        if matched:
+            # 使用匹配到的频道ID，但输出名称使用模板的主频道名
+            sorted_channels.append((matched['id'], matched['output_name']))
+            used_channel_ids.add(matched['id'])
+
+    # 添加剩余的、未匹配任何模板的EPG频道
     remaining_channels = []
     for channel in channels:
         if channel['id'] not in used_channel_ids:
+            # 对于未匹配的频道，使用其EPG中的原始名称
             remaining_channels.append((channel['id'], channel['name']))
-    
+
     # 对剩余频道按名称排序
     remaining_channels.sort(key=lambda x: x[1])
     sorted_channels.extend(remaining_channels)
-    
+
     # 对每个频道的节目按开始时间排序
     for channel_id in programmes:
         programmes[channel_id].sort(key=lambda x: x['start'])
-    
-    print(f"✓ 排序完成: {len(sorted_channels)} 个频道")
+
+    print(f"✓ 排序完成: {len(sorted_channels)} 个频道 (其中 {len(used_channel_ids)} 个通过模板匹配)")
     return sorted_channels, programmes
 
 
@@ -351,16 +370,20 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
             # 写入XML声明和根元素
             f.write('<?xml version="1.0" encoding="UTF-8"?>\n')
             f.write('<tv>\n')
-            # 写入频道信息channel="{display_name}" 
+
+            # 写入频道信息
             for channel_id, display_name in sorted_channels:
                 f.write(f'  <channel id="{channel_id}">\n')
                 f.write(f'    <display-name lang="zh">{display_name}</display-name>\n')
                 f.write('  </channel>\n')
+
+            # 写入节目信息
+            for channel_id, display_name in sorted_channels:
                 if channel_id in programmes:
                     for prog in programmes[channel_id]:
-                        f.write(f'    <programme start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n') 
-                        f.write(f'      <title lang="zh">{prog["title"]}</title>\n')
-                        f.write('    </programme>\n')
+                        f.write(f'  <programme start="{prog["start"]}" stop="{prog["stop"]}" channel="{channel_id}">\n')
+                        f.write(f'    <title lang="zh">{prog["title"]}</title>\n')
+                        f.write('  </programme>\n')
 
             # 关闭根元素
             f.write('</tv>')
@@ -368,7 +391,6 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
         file_size = os.path.getsize(output_file)
         print(f"✓ XML文件已保存: {output_file}")
         print(f"  文件大小: {file_size:,} 字节 ({file_size / 1024 / 1024:.2f} MB)")
-
         return True
     except Exception as e:
         print(f"✗ 保存XML文件失败: {str(e)}")
@@ -378,35 +400,24 @@ def create_output_xml(sorted_channels, programmes, output_file='epg.xml'):
 def main():
     """主函数"""
     print("=" * 60)
-    print("EPG数据下载和合并工具 (按频道名称排序)")
+    print("EPG数据下载和合并工具 (按模板主频道名输出)")
     print("=" * 60)
 
-    # 1. 读取频道名称模板
-    template_names = read_channel_names_template('py/TV/EPG/demo.txt')
-
-    if not template_names:
-        print("✗ 无法读取频道名称模板，程序退出")
+    # 1. 读取并解析频道名称模板
+    template_entries = read_channel_names_template('py/TV/EPG/demo.txt')
+    if not template_entries:
+        print("✗ 无法解析频道名称模板，程序退出")
         return
 
-    # 显示前10个模板名称
-    print(f"模板频道 (前10个): {', '.join(template_names[:10])}{'...' if len(template_names) > 10 else ''}")
-
-    # 1.5 加载频道名称映射
-    channel_mapping = load_channel_mapping()
-    
-    # 显示部分映射规则
-    if channel_mapping:
-        print("已加载映射规则 (部分):")
-        for i, (key, value) in enumerate(channel_mapping.items()):
-            if i < 5:  # 只显示前5条
-                status = "→ 跳过" if not value else f"→ {value}"
-                print(f"  {key}: {status}")
-        if len(channel_mapping) > 5:
-            print(f"  ... 还有 {len(channel_mapping) - 5} 条规则")
+    # 显示前几个模板条目
+    print("模板频道条目 (前5个):")
+    for i, entry in enumerate(template_entries[:5]):
+        print(f"  {i+1}. 主名: {entry['primary']}, 所有名称: {entry['all_names']}")
+    if len(template_entries) > 5:
+        print(f"  ... 还有 {len(template_entries) - 5} 个条目")
 
     # 2. 读取EPG源列表
     epg_sources = read_epg_sources('py/TV/EPG/epg.txt')
-
     if not epg_sources:
         print("ℹ 使用默认EPG源")
         epg_sources = [
@@ -435,7 +446,7 @@ def main():
             continue
 
         # 解析EPG数据
-        channels, programmes, name_map = parse_epg_data(decompressed, template_names)
+        channels, programmes, name_map = parse_epg_data(decompressed, template_entries)
         if channels or programmes:
             all_channels_list.append(channels)
             all_programmes_list.append(programmes)
@@ -495,8 +506,8 @@ def main():
 
     # 5. 按模板排序
     print("\n" + "=" * 60)
-    print("按模板频道名称排序...")
-    sorted_channels, final_programmes = merge_and_sort_by_template(merged_channels, merged_programmes, template_names, channel_mapping)
+    print("按模板频道名称排序并统一输出主频道名...")
+    sorted_channels, final_programmes = merge_and_sort_by_template(merged_channels, merged_programmes, template_entries)
 
     if not sorted_channels:
         print("✗ 错误: 合并后没有频道数据")
@@ -509,29 +520,28 @@ def main():
         print("\n" + "=" * 60)
         print("✓ 处理完成!")
         print(f"   输出文件: epg.xml")
-        print(f"   频道数量: {len(sorted_channels)}")
+        print(f"   频道总数: {len(sorted_channels)}")
 
-        # 统计匹配模板的情况
-        matched_count = 0
-        for template_name in template_names:
-            for channel_id, channel_name in sorted_channels[:len(template_names)]:
-                if normalize_channel_name(template_name) == normalize_channel_name(channel_name):
-                    matched_count += 1
-                    break
+        # 统计匹配模板的情况（前N个频道是模板匹配的）
+        matched_by_template_count = 0
+        for channel_id, output_name in sorted_channels:
+            # 检查这个输出名是否是某个模板条目的主频道名
+            if any(entry['primary'] == output_name for entry in template_entries):
+                matched_by_template_count += 1
 
-        print(f"   匹配模板频道: {matched_count} 个 (共 {len(template_names)} 个模板)")
-        print(f"   额外频道: {len(sorted_channels) - matched_count} 个")
+        print(f"   通过模板匹配的频道: {matched_by_template_count} 个 (共 {len(template_entries)} 个模板条目)")
+        print(f"   额外频道: {len(sorted_channels) - matched_by_template_count} 个")
 
         total_programs = sum(len(progs) for progs in final_programmes.values())
-        print(f"   节目数量: {total_programs}")
+        print(f"   节目总数: {total_programs}")
         print("=" * 60)
 
         # 显示前20个频道的排序
-        print("\n频道排序 (前20个):")
-        for i, (channel_id, name) in enumerate(list(sorted_channels)[:20], 1):
-            in_template = i <= len(template_names)
-            template_mark = "✓" if in_template else " "
-            print(f"  {i:2d}. [{template_mark}] {channel_id}: {name}")
+        print("\n频道排序 (前20个，[T]表示来自模板):")
+        for i, (channel_id, output_name) in enumerate(list(sorted_channels)[:20], 1):
+            from_template = any(entry['primary'] == output_name for entry in template_entries)
+            template_mark = "T" if from_template else " "
+            print(f"  {i:2d}. [{template_mark}] {channel_id}: {output_name}")
 
     else:
         print("\n✗ 处理失败!")
