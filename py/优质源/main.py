@@ -17,7 +17,7 @@ CONFIG_DIR = 'py/优质源/config'
 SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
 DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
 LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
-BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
+#BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
 RUN_COUNT_FILE = os.path.join(CONFIG_DIR, 'run_count.txt')  # 新增运行次数记录文件
 
 OUTPUT_DIR = 'py/优质源/output'
