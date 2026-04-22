@@ -798,7 +798,7 @@ def finalize_output(organized, group_order, channel_order):
                     
                     # 生成M3U格式
                     protocol_icon = "🔒" if protocol == "https" else "📹" if protocol in ['rtmp', 'rtmps'] else "🌐"
-                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://gh.catmak.name/https://raw.githubusercontent.com/fanmingming/live/main/tv/{channel}.png" group-title="{group}",{protocol_icon} {channel} | {speed:.1f}KB/s')
+                    m3u_lines.append(f'#EXTINF:-1 tvg-name="{channel}" tvg-logo="https://codeberg.org/ou-yang/TV/raw/branch/main/LOGO/{channel}.png" group-title="{group}",{protocol_icon} {channel} | {speed:.1f}KB/s')
                     m3u_lines.append(url)
                 
                 seen_channels.add(channel)
