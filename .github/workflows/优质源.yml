@@ -1,40 +1,34 @@
 name: 优质源
-
 on:
   schedule:
     - cron: '30 9,21 * * *'
-  workflow_dispatch:    
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-     TZ: Asia/Shanghai
-
+      TZ: Asia/Shanghai
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-    
+        uses: actions/checkout@v4  # 从 v2 升级到 v4
+        
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5  # 从 v2 升级到 v5
         with:
           python-version: 3.x
-
+      
       - name: Install dependencies
         run: pip install selenium requests futures eventlet
-
+      
       - name: Run main.py
         run: python ${{ github.workspace }}/py/优质源/main.py
-     
-        
+      
       - name: 提交更改
         run: |
-
           git config --local user.email "2856364053@qq.com"
-          git config --local user.name "adminouyang" 
+          git config --local user.name "adminouyang"
           git add .
           git commit -m "action: `date`"
-          #git commit -m "action: `date`"
           git push -f
-          #git pull --rebase
-
