@@ -268,21 +268,32 @@ def parse_m3u(content):
     
     for line in content.splitlines():
         line = line.strip()
-        
-        if not line:  # 跳过空行
+        if not line:
             continue
             
         if line.startswith('#EXTINF:'):
-            # 解析EXTINF行
-            name_match = re.search(r'tvg-name="([^"]*)"', line)
+            # 保存上一个频道（即使没有URL）
+            if current is not None:
+                channels.append(current)
+            
+            # 使用更健壮的正则表达式
+            # 匹配 tvg-name="值"
+            name_match = re.search(r'tvg-name\s*=\s*"([^"]*)"', line)
             name = name_match.group(1) if name_match else '未知频道'
             
-            # 可以提取更多属性
-            logo_match = re.search(r'tvg-logo="([^"]*)"', line)
-            group_match = re.search(r'group-title="([^"]*)"', line)
+            # 匹配 tvg-logo="值"
+            logo_match = re.search(r'tvg-logo\s*=\s*"([^"]*)"', line)
             
-            # 从逗号后提取显示名称（如果有）
-            display_name = line.split(',')[-1] if ',' in line else name
+            # 匹配 group-title="值"
+            group_match = re.search(r'group-title\s*=\s*"([^"]*)"', line)
+            
+            # 提取显示名称（最后一个逗号后的内容）
+            display_name = name
+            if ',' in line:
+                # 找到最后一个逗号后的内容
+                parts = line.split(',')
+                if len(parts) > 1:
+                    display_name = parts[-1].strip()
             
             current = {
                 'name': name,
@@ -295,25 +306,28 @@ def parse_m3u(content):
         elif line and not line.startswith('#'):
             # URL行
             if current is not None:
-                current['urls'].append(line)
-                # 如果有多个URL，不立即添加，等下一个EXTINF行或文件结束
+                # 清理URL（修复多余斜杠等问题）
+                url = line.strip()
+                if url.startswith('http:///'):
+                    url = url.replace('http:///', 'http://')
+                current['urls'].append(url)
             else:
-                # 没有EXTINF信息的URL，跳过或处理为匿名频道
-                pass
+                # 没有EXTINF信息的URL，创建匿名频道
+                channels.append({
+                    'name': '匿名频道',
+                    'display_name': '匿名频道',
+                    'logo': '',
+                    'group': '',
+                    'urls': [line.strip()]
+                })
                 
         elif line.startswith('#EXTM3U'):
-            # 文件头，可以处理版本信息等
             continue
             
-        elif line.startswith('#EXTGRP:'):
-            # 处理分组信息
-            if current is not None:
-                current['group'] = line.split(':', 1)[1]
-                
-    # 处理最后一个频道
-    if current is not None and current['urls']:
+    # 保存最后一个频道
+    if current is not None:
         channels.append(current)
-        
+    
     # 展开多个URL
     result = []
     for channel in channels:
