@@ -154,7 +154,22 @@
 			"searchable": 1,
 			"quickSearch": 1,
 			"filterable": 1,
+		    "jar": "https://ncstatic.clewm.net/rsrc/2026/0508/10/56d0b667615145949789418bff9f22a5.png;md5;B63A0EB8852BB7AB06500C424CCC3DAE",
 			"ext": "http://v.rbotv.cn"
+		},
+	  {
+			"key": "多多影音",
+			"name": "👲┃多多┃影音",
+			"type": 3,
+			"api": "csp_Ddyy",
+			"searchable": 1,
+			"quickSearch": 1,
+			"changeable": 1,
+			"timeout": 30,
+		    "jar": "https://ncstatic.clewm.net/rsrc/2026/0508/10/56d0b667615145949789418bff9f22a5.png;md5;B63A0EB8852BB7AB06500C424CCC3DAE",
+			"ext": {
+				"site": "https://tv.yydsys.top,https://tv.yydsys.cc,https://tv.214521.xyz,https://yydsys.us.ci,https://yydsys.de5.net"
+			}
 		},
     {
       "key": "星芽短剧",
