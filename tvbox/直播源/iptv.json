@@ -147,17 +147,14 @@
       "filterable": 1
     },
 	{
-			"key": "农民",
-			"name": "🧿┃农民┃影视",
+			"key": "热播",
+			"name": "🐠┃热播┃秒播",
 			"type": 3,
-			"api": "csp_XBPQ",
-			"jar": "https://ncstatic.clewm.net/rsrc/2026/0418/17/1d9136626610437ab0cac0dbe262d1ed.png;md5;4D860D06EC233DBCB891B76055F099D5",
-			"ext": {
-				"副标题": "保护正版，人人有责",
-				"请求头": "User-Agent$MOBILE_UA",
-				"编码": "UTF-8",
-				"分类url": "https://vip.wwgz.cn:5200/;;!H"
-			}
+			"api": "csp_TianTian",
+			"searchable": 1,
+			"quickSearch": 1,
+			"filterable": 1,
+			"ext": "http://v.rbotv.cn"
 		},
     {
       "key": "星芽短剧",
