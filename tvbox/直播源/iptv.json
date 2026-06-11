@@ -146,6 +146,23 @@
       "jar": "https://ncstatic.clewm.net/rsrc/2025/1018/20/1e6fcfbb0b074b3ea5bb216a234162e6.png;md5;946F8772261DF60FE5F4DC30965A3BB7",
       "filterable": 1
     },
+	{
+			"key": "狐狸电影",
+			"name": "🦊┃狐狸┃电影",
+			"type": 3,
+			"api": "csp_XBPQ",
+			"jar": "https://ncstatic.clewm.net/rsrc/2026/0418/17/1d9136626610437ab0cac0dbe262d1ed.png;md5;4D860D06EC233DBCB891B76055F099D5",
+			"ext": {
+				"副标题": "保护正版，人人有责",
+				"请求头": "User-Agent$MOBILE_UA",
+				"编码": "UTF-8",
+				"主页url": "https://www.budaichuchen.net/label/qq.html",
+				"线路数组": "<i class=\"fa ds-dianying\">&&</span>",
+				"播放数组": "anthology-list-play size\">&&</ul>",
+				"分类url": "https://www.budaichuchen.net/cupfox-list/{cateId}-{area}--{class}-----{catePg}---{year}.html",
+				"分类": "短剧$5#电视剧$2#电影$1#动漫$4#综艺$3"
+			}
+		},
     {
       "key": "星芽短剧",
       "name": "🌟┃星芽┃短剧",
@@ -160,16 +177,6 @@
       "jar": "https://ncstatic.clewm.net/rsrc/2025/1018/20/1e6fcfbb0b074b3ea5bb216a234162e6.png;md5;946F8772261DF60FE5F4DC30965A3BB7",
       "changeable": 0
     },
-    {
-      "key": "旺旺短剧",
-      "name": "😈旺旺┃短剧",
-      "type": 1,
-      "api": "https://api.wwzy.tv/api.php/provide/vod/?ac=list",
-      "searchable": 1,
-      "quickSearch": 1,
-      "categories": [
-     "短剧"
-      ]},
 
 
     {
