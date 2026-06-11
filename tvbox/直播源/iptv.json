@@ -2,21 +2,28 @@
     "wallpaper": "https://picsum.photos/1280/720/?blur=2",
     "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
-                                {
+        {
           "name": "咪咕源",
           "type":"0",
           "pass": true,
           "url": "https://gh-proxy.org/github.com/ioptu/migu_video/raw/refs/heads/main/migu.m3u"
 
         },
-                        {
+        {
+          "name": "代理mg",
+          "type":"0",
+          "pass": true,
+          "url": "https://gh-proxy.org/raw.githubusercontent.com/adminouyang/jy/refs/heads/main/proxy/mg.m3u"
+
+        },
+        {
           "name": "优质酒店源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/Hotel/iptv.txt"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/jy/refs/heads/main/Hotel/IPTV.txt"
 
         },
-                {
+        {
           "name": "优质组播源",
           "type":"0",
           "pass": true,
@@ -27,17 +34,17 @@
           "name": "安徽组播",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/output/%E5%AE%89%E5%BE%BD%E7%94%B5%E4%BF%A1.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/output/%E5%AE%89%E5%BE%BD%E7%94%B5%E4%BF%A1.m3u"
+          #"epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          #"logo": "https://epg.112114.xyz/logo/{name}.png"
         },
         {
           "name": "freetv",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/jy/refs/heads/main/freetv/freetv.m3u",
-          "epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
-          "logo": "https://epg.112114.xyz/logo/{name}.png"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/jy/refs/heads/main/freetv/freetv.m3u"
+          #"epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
+          #"logo": "https://epg.112114.xyz/logo/{name}.png"
         },
 
         {
