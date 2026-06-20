@@ -1,8 +1,8 @@
 name: ip_validity_检测
 
 on:
-  schedule:
-    - cron: "0 */12 * * *"
+  # schedule:
+  #   - cron: "0 */12 * * *"
   workflow_dispatch:          # 手动触发
 
 jobs:
