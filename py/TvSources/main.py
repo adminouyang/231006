@@ -358,7 +358,7 @@ def main():
                 merged_content += file.read() + "\n"
         # 获取当前时间
         now = datetime.now()
-        update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d-%H:%M:%S')},https://yzzy.play-cdn17.com/20230814/15863_8dcb8d63/index.m3u8"  #url\n{now.strftime('%H:%M:%S')},url\n
+        update_time_line = f"更新时间,#genre#\n{now.strftime('%Y-%m-%d-%H:%M:%S')},https://yzzy.play-cdn17.com/20230814/15863_8dcb8d63/index.m3u8\n"  #url\n{now.strftime('%H:%M:%S')},url\n
 
         # 将合并后的内容写入 iptv_list.txt 文件
         iptv_list_file_path = "py/TvSources/iptv_list.txt"
