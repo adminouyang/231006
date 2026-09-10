@@ -13,18 +13,19 @@ IP 扫描检测脚本（完善版 · 按省份分流 + 测速 + 生成频道链�
   4) 按 demo.txt 主频道名+别名匹配，合并输出 all.txt / all.m3u（带台标/EPG）
 
 test_ip.txt 维护规则：
-  场景                       test_ip.txt 处理
-  无区间 + 有效(通过测速)     保留（同时保存到省份 config）
-  有区间 + 有效(通过测速)     保留（同时保存到省份 config）
-  无区间 + 无效               删除（记录到 Invalid_ip_file/）
-  有区间 + 无效               保留（记录到 Invalid_ip_file/，下次继续扫描）
-  即：仅「无区间 + 无效」才从 test_ip.txt 删除。
+  场景                          test_ip.txt 处理
+  完全无有效IP(扫描完没找到)     删除（记录到 Invalid_ip_file/）
+  有区间 + 无效                  保留（记录到 Invalid_ip_file/，下次继续扫描）
+  测速未通过                     保留（留到以后设置区间）
+  即：仅「无区间 + 扫描完全无有效IP」才从 test_ip.txt 删除。
+  注：C+D段扫描因提前停止(凑满即停)导致测速未通过的情况，不删除原文件。
 """
 
 import asyncio
 import os
 import re
 import time
+from datetime import datetime, timezone, timedelta
 
 import aiohttp
 from aiohttp import ClientTimeout, TCPConnector
@@ -47,6 +48,9 @@ CD_STOP_COUNT = 1             # C+D / C区间 扫描停止阈值
 
 SPEED_TEST_DURATION = 3.0     # 测速采样时长(秒)
 SPEED_THRESHOLD_KB = 300.0    # 最低速率阈值(KB/s)，低于此值丢弃
+
+# EPG 地址（用于 m3u 文件头部 x-tvg-url）
+EPG_URL = "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml"
 # =================================================
 
 
@@ -165,39 +169,67 @@ async def scan_until(session, sem, ip_ports, stop_count, label):
 
 
 async def scan_group(a, b, c_str, d_str, port, has_range):
+    """
+    扫描一组配置，返回 (valid_ips, scan_fully_exhausted)
+    scan_fully_exhausted:
+      - True: 扫描已完全穷尽（D段全部扫完仍0有效，或有区间全部扫完0有效）
+      - False: 因提前停止（凑满即停）而未扫完
+    用于判断 test_ip.txt 是否删除：未扫完 → 不删除（留到以后设置区间）
+    """
     sem = asyncio.Semaphore(HTTP_CONCURRENCY)
     connector = TCPConnector(limit=0, limit_per_host=30, ttl_dns_cache=300)
     timeout = ClientTimeout(total=HTTP_TIMEOUT, connect=HTTP_CONNECT_TIMEOUT)
+
     all_valid = []
+    fully_exhausted = False
 
     async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+
         if not has_range:
+            # --- 无区间：先扫 D 段 ---
             ip_ports = generate_d_only(a, b, c_str, d_str, port)
             print(f"开始扫描：{a}.{b}.{c_str}.{d_str}:{port}  (D段 共 {len(ip_ports)} 个)")
             valid = await scan_until(session, sem, ip_ports, D_STOP_COUNT, "D段")
             all_valid.extend(valid)
+
             if all_valid:
-                return sorted(set(all_valid))
+                # D段找到了有效IP，但因 stop_count 可能提前停止 → 未完全穷尽
+                return sorted(set(all_valid)), False
+
+            # --- D 段 0 个有效，才转扫 C+D ---
             print(f"D段有效 0 个，扩展扫描 C(1-255)+D(1-255)")
             ip_ports_cd = generate_cd_full(a, b, c_str, d_str, port)
             print(f"开始扫描：{a}.{b}.*.{d_str}:{port}  (C+D 共 {len(ip_ports_cd)} 个)")
             valid_cd = await scan_until(session, sem, ip_ports_cd, CD_STOP_COUNT, "C+D段")
             all_valid.extend(valid_cd)
+
+            if valid_cd:
+                # C+D段找到了，但因 stop_count=1 提前停止 → 未完全穷尽
+                return sorted(set(all_valid)), False
+            else:
+                # C+D段全部扫完，0 个有效 → 完全穷尽
+                fully_exhausted = True
+
         else:
+            # --- 有区间：直接扫 C(区间)+D ---
             ip_ports = generate_c_range(a, b, c_str, d_str, port)
             print(f"开始扫描：{a}.{b}.{c_str}.{d_str}:{port}  (C区间 共 {len(ip_ports)} 个)")
             valid = await scan_until(session, sem, ip_ports, CD_STOP_COUNT, "C区间")
             all_valid.extend(valid)
-    return sorted(set(all_valid))
+
+            if valid:
+                # 找到了但因 stop_count 提前停止 → 未完全穷尽
+                return sorted(set(all_valid)), False
+            else:
+                # 有区间全部扫完，0 个有效 → 完全穷尽
+                fully_exhausted = True
+
+    return sorted(set(all_valid)), fully_exhausted
 
 
 # ==================== 测速 ====================
 
 async def speed_test_one(session, sem, ip_port, stream_path):
-    """
-    对 http://ip_port/stream_path 拉流 SPEED_TEST_DURATION 秒，
-    返回速率(KB/s)；失败返回 0.0
-    """
     url = f"http://{ip_port}/{stream_path}"
     try:
         async with sem:
@@ -220,7 +252,6 @@ async def speed_test_one(session, sem, ip_port, stream_path):
 
 
 async def speed_test_ip(ip_port, stream_paths):
-    """对一个 IP 用若干流地址测速，返回该 IP 的最大速率(KB/s)（任一达标即可）"""
     sem = asyncio.Semaphore(HTTP_CONCURRENCY)
     connector = TCPConnector(limit=0, limit_per_host=30, ttl_dns_cache=300)
     timeout = ClientTimeout(total=SPEED_TEST_DURATION + 5)
@@ -241,18 +272,12 @@ async def filter_by_speed(valid_ips, stream_paths):
     if not valid_ips:
         return []
     if not stream_paths:
-        # 无测速配置：全部保留（不测速直接通过）
         print("  无 CITY_STREAMS 测速配置，跳过测速，全部保留")
         return [(ip, 0.0) for ip in valid_ips]
 
     print(f"  测速中（阈值 {SPEED_THRESHOLD_KB} KB/s）...")
     sem = asyncio.Semaphore(HTTP_CONCURRENCY)
 
-    async def _do(ip):
-        # 复用单个 session 较复杂，这里对每个 IP 独立测速（结果已聚合到 speed_test_ip）
-        return ip, await speed_test_ip(ip, stream_paths)
-
-    # 串行控制并发：用信号量包装
     async def _sem_do(ip):
         async with sem:
             return ip, await speed_test_ip(ip, stream_paths)
@@ -305,7 +330,7 @@ def write_invalid_records(province, invalid_ips):
 
 def rewrite_test_ip(kept_raw_lines):
     with open(INPUT_FILE, 'w', encoding='utf-8') as f:
-        for line in kept_raw_lines:
+        for line in sorted(set(kept_raw_lines)):
             f.write(line + "\n")
 
 
@@ -321,17 +346,65 @@ def load_logo_map():
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
-            # 格式：CCTV1, https://...
             if ',' in line:
                 name, url = line.split(',', 1)
                 logo[name.strip()] = url.strip()
     return logo
 
 
+def get_beijing_time_str():
+    """返回北京时间字符串：YYYY/MM/DD HH:MM更新"""
+    tz_bj = timezone(timedelta(hours=8))
+    now = datetime.now(tz_bj)
+    return now.strftime("%Y/%m/%d %H:%M更新")
+
+
+def write_m3u_header(f, group_title):
+    """写入 m3u 头部（含 EPG 和分组信息）"""
+    f.write(f'#EXTM3U x-tvg-url="{EPG_URL}"\n')
+
+
+def write_m3u_channel(f, name, url, logo_url, group_title):
+    """按标准格式写入单个频道"""
+    logo_attr = f' tvg-logo="{logo_url}"' if logo_url else ''
+    f.write(f'#EXTINF:-1{logo_attr} group-title="{group_title}",{name}\n')
+    f.write(url + "\n")
+
+
+def parse_template_channels(template_path):
+    """
+    解析省份模板文件，返回：
+      channels: [(name, url), ...]   （url 中 ipipip 未替换）
+      genre_lines: 记录分类行位置，用于保持顺序
+      structure: [(is_genre, content_or_genre, channels_in_this_genre), ...]
+    """
+    channels = []
+    genres = []  # [(genre_name, [(name, url), ...]), ...]
+    current_genre = ""
+
+    with open(template_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            stripped = line.rstrip("\n").strip()
+            if not stripped:
+                continue
+            if stripped.endswith(",#genre#"):
+                current_genre = stripped
+            elif "," in stripped:
+                name, url = stripped.split(",", 1)
+                name = name.strip()
+                url = url.strip()
+                channels.append((name, url))
+                if not genres or genres[-1][0] != current_genre:
+                    genres.append((current_genre, [(name, url)]))
+                else:
+                    genres[-1][1].append((name, url))
+    return channels, genres
+
+
 def generate_province_files(province, ip_port):
     """
     用 ip_port 替换模板 py/udpxy/template/<省份>.txt 中的 ipipip，
-    输出 py/udpxy/output/<省份>.txt 与 .m3u
+    输出 py/udpxy/output/<省份>.txt 与 .m3u（标准格式，带 EPG/台标/分组/更新时间）
     返回该省份的频道列表 [(name, url), ...]，供合并使用
     """
     template_path = os.path.join(TEMPLATE_DIR, f"{province}.txt")
@@ -343,41 +416,57 @@ def generate_province_files(province, ip_port):
     out_txt = os.path.join(OUTPUT_DIR, f"{province}.txt")
     out_m3u = os.path.join(OUTPUT_DIR, f"{province}.m3u")
 
-    channels = []  # (name, url)
-    lines_out = []
-    with open(template_path, 'r', encoding='utf-8') as f:
-        for line in f:
-            stripped = line.rstrip("\n")
-            if not stripped.strip() or stripped.strip().endswith(",#genre#"):
-                # 分类标题行原样保留
-                lines_out.append(stripped)
-                continue
-            if "," in stripped:
-                name, url = stripped.split(",", 1)
-                name = name.strip()
-                url = url.strip().replace("ipipip", f"{ip_port}")
-                channels.append((name, url))
-                lines_out.append(f"{name},{url}")
-
-    # 写 .txt
-    with open(out_txt, 'w', encoding='utf-8') as f:
-        f.write("\n".join(lines_out) + "\n")
-
-    # 写 .m3u
     logo_map = load_logo_map()
-    with open(out_m3u, 'w', encoding='utf-8') as f:
-        f.write("#EXTM3U\n")
-        for name, url in channels:
-            logo = logo_map.get(name, "")
-            if logo:
-                f.write(f'#EXTINF:-1 tvg-logo="{logo}",{name}\n')
-            else:
-                f.write(f"#EXTINF:-1,{name}\n")
-            f.write(url + "\n")
+    update_time = get_beijing_time_str()
 
-    print(f"  生成频道链接：{out_txt} ({len(channels)} 个频道)")
-    print(f"  生成播放列表：{out_m3u}")
-    return channels
+    # 解析模板
+    _, genres = parse_template_channels(template_path)
+
+    # 替换 ipipip
+    all_channels = []  # [(name, url), ...]
+    for genre_line, ch_list in genres:
+        for name, url in ch_list:
+            real_url = url.replace("ipipip", f"{ip_port}")
+            all_channels.append((name, real_url))
+
+    # ---- 写 .txt（保持模板原始格式） ----
+    with open(template_path, 'r', encoding='utf-8') as f:
+        txt_content = f.read()
+
+    # 替换 ipipip
+    for name, url in all_channels:
+        # 找到原始行中的 ipipip 替换为实际 IP
+        pass
+
+    # 直接用 replace 替换所有 ipipip
+    txt_out = txt_content.replace("ipipip", f"{ip_port}")
+    with open(out_txt, 'w', encoding='utf-8') as f:
+        f.write(txt_out)
+
+    # ---- 写 .m3u（标准格式） ----
+    with open(out_m3u, 'w', encoding='utf-8') as f:
+        # 头部：EPG + 更新时间
+        f.write(f'#EXTM3U x-tvg-url="{EPG_URL}"\n')
+
+        # 计算全局第一个频道的位置
+        first_channel = True
+        for genre_line, ch_list in genres:
+            # 从 genre_line 提取分类名（如 "央视频道,#genre#" → "央视频道"）
+            group_title = genre_line.replace(",#genre#", "")
+            for i, (name, url) in enumerate(ch_list):
+                real_url = url.replace("ipipip", f"{ip_port}")
+                logo = logo_map.get(name, "")
+                # group-title：全局第一个频道用"更新时间"，其余用分类名
+                if first_channel:
+                    gt = update_time
+                    first_channel = False
+                else:
+                    gt = group_title
+                write_m3u_channel(f, name, real_url, logo, gt)
+
+    print(f"  生成频道链接：{out_txt} ({len(all_channels)} 个频道)")
+    print(f"  生成播放列表：{out_m3u}（标准格式，EPG + 台标 + 分组 + 更新时间）")
+    return all_channels
 
 
 # ==================== 合并（按 demo.txt 排序/分类，别名匹配） ====================
@@ -388,7 +477,7 @@ def parse_demo(demo_path):
       groups: [(分类名, [主频道名, [别名...]]), ...]
       顺序严格按 demo.txt
     """
-    groups = []  # (genre, [(primary, [aliases]), ...])
+    groups = []
     current_genre = ""
     current_list = []
     with open(demo_path, 'r', encoding='utf-8') as f:
@@ -397,13 +486,11 @@ def parse_demo(demo_path):
             if not line:
                 continue
             if line.endswith(",#genre#"):
-                # 保存上一个分类
                 if current_genre and current_list:
                     groups.append((current_genre, current_list))
                 current_genre = line
                 current_list = []
             else:
-                # 主频道名|别名1|别名2
                 parts = [p.strip() for p in line.split("|")]
                 primary = parts[0]
                 aliases = [p for p in parts[1:] if p]
@@ -414,10 +501,7 @@ def parse_demo(demo_path):
 
 
 def build_alias_index(all_channels):
-    """
-    all_channels: {province: [(name, url), ...]}
-    构建 name_lower -> url 索引；同名校重（后者覆盖），后续按优先级处理
-    """
+    """all_channels: {province: [(name, url), ...]} -> {name_lower: url}"""
     index = {}
     for prov, ch_list in all_channels.items():
         for name, url in ch_list:
@@ -427,9 +511,6 @@ def build_alias_index(all_channels):
 
 
 def match_channel(primary, aliases, alias_index):
-    """
-    按主频道名 + 别名依次匹配 alias_index，返回首个命中的 url 或 None
-    """
     candidates = [primary] + aliases
     for c in candidates:
         if not c:
@@ -443,7 +524,7 @@ def match_channel(primary, aliases, alias_index):
 def merge_and_output(all_channels, demo_path, logo_map, output_dir):
     """
     all_channels: {province: [(name, url), ...]}
-    按 demo.txt 的分类与顺序，用别名匹配，输出 all.txt / all.m3u
+    按 demo.txt 的分类与顺序，用别名匹配，输出 all.txt / all.m3u（标准格式）
     """
     os.makedirs(output_dir, exist_ok=True)
     groups = parse_demo(demo_path)
@@ -451,13 +532,14 @@ def merge_and_output(all_channels, demo_path, logo_map, output_dir):
 
     out_txt = os.path.join(output_dir, "all.txt")
     out_m3u = os.path.join(output_dir, "all.m3u")
+    update_time = get_beijing_time_str()
 
     txt_lines = []
-    m3u_lines = ["#EXTM3U"]
+    m3u_lines = []
 
     matched_any = False
     for genre, ch_list in groups:
-        group_items = []  # (name, url)
+        group_items = []
         for primary, aliases in ch_list:
             url = match_channel(primary, aliases, alias_index)
             if url:
@@ -467,34 +549,42 @@ def merge_and_output(all_channels, demo_path, logo_map, output_dir):
             continue
 
         matched_any = True
-        # txt 分类标题
+
+        # ---- txt 输出（按模板格式：分类行 + 频道行） ----
         txt_lines.append(f"{genre}")
         for name, url in group_items:
             txt_lines.append(f"{name},{url}")
+
+        # ---- m3u 输出（标准格式） ----
+        group_title = genre.replace(",#genre#", "")
+        for i, (name, url) in enumerate(group_items):
             logo = logo_map.get(name, "")
-            if logo:
-                m3u_lines.append(f'#EXTINF:-1 tvg-logo="{logo}",{name}')
+            # 每个分类的第一个频道：group-title 用更新时间；其余用分类名
+            if i == 0:
+                gt = update_time
             else:
-                m3u_lines.append(f"#EXTINF:-1,{name}")
+                gt = group_title
+            logo_attr = f' tvg-logo="{logo}"' if logo else ''
+            m3u_lines.append(f'#EXTINF:-1{logo_attr} group-title="{gt}",{name}')
             m3u_lines.append(url)
 
-    if not matched_any:
-        print("  合并：demo.txt 中未匹配到任何频道，all.txt/all.m3u 为空")
-    else:
-        total = 0
-        for _, ch_list in groups:
-            for primary, aliases in ch_list:
-                if match_channel(primary, aliases, alias_index):
-                    total += 1
-        print(f"  合并：匹配 {total} 个频道")
-
+    # 写 all.txt
     with open(out_txt, 'w', encoding='utf-8') as f:
         f.write("\n".join(txt_lines) + "\n")
+
+    # 写 all.m3u（标准格式，头部含 EPG）
     with open(out_m3u, 'w', encoding='utf-8') as f:
+        f.write(f'#EXTM3U x-tvg-url="{EPG_URL}"\n')
         f.write("\n".join(m3u_lines) + "\n")
 
+    if matched_any:
+        total = sum(len([primary for primary, _ in ch_list if match_channel(primary, aliases, alias_index)]) for _, ch_list in groups)
+        print(f"  合并：匹配 {total} 个频道")
+    else:
+        print("  合并：demo.txt 中未匹配到任何频道，all.txt/all.m3u 为空")
+
     print(f"  合并输出：{out_txt}")
-    print(f"  合并输出：{out_m3u}")
+    print(f"  合并输出：{out_m3u}（标准格式）")
 
 
 # ==================== 主流程 ====================
@@ -513,20 +603,29 @@ def main():
         return
 
     # province_results[province] = {
-    #     "valid": [(ip, speed), ...], "invalid": [], "kept_raw": []
+    #     "valid": [(ip, speed), ...],
+    #     "invalid_fully": [],    # 完全穷尽扫描仍无效 → 可能删除
+    #     "invalid_partial": [],  # 因提前停止/测速未过 → 保留
+    #     "kept_raw": []
     # }
     province_results = {}
 
     for idx, (a, b, c_str, d_str, port, has_range, province) in enumerate(groups, 1):
         if province not in province_results:
-            province_results[province] = {"valid": [], "invalid": [], "kept_raw": []}
+            province_results[province] = {
+                "valid": [], "invalid_fully": [], "invalid_partial": [], "kept_raw": []
+            }
         res = province_results[province]
 
         original_raw = f"{a}.{b}.{c_str}.{d_str}:{port}${province}"
         original_addr = f"{a}.{b}.{c_str}.{d_str}:{port}"
 
         print(f"\n--- 第 {idx}/{len(groups)} 组 ({province}) ---")
-        valid_ips = asyncio.run(scan_group(a, b, c_str, d_str, port, has_range))
+
+        # ---- 扫描（返回是否完全穷尽） ----
+        valid_ips, fully_exhausted = asyncio.run(
+            scan_group(a, b, c_str, d_str, port, has_range)
+        )
 
         # ---- 测速筛选 ----
         stream_paths = CITY_STREAMS.get(province, [])
@@ -537,27 +636,36 @@ def main():
             passed = []
 
         if passed:
-            # 取最快的一个作为该省份代表 IP（其余保留到 config）
+            # ===== 有效且通过测速 → 保留在 test_ip.txt + 保存到省份 config =====
             best_ip, best_speed = passed[0]
             res["valid"].append((best_ip, best_speed))
-            # 其余有效 IP 也记入 config（去重追加）
+            # 其余有效 IP 也记入 config
             extra_ips = [ip for ip, _ in passed[1:]]
             if extra_ips:
                 append_to_config(province, extra_ips)
-            # ===== 保留策略（新规则）：有效无论有无区间，均保留在 test_ip.txt =====
+            # 保留在 test_ip.txt
             res["kept_raw"].append(original_raw)
             print(f"  本组最佳 IP: http://{best_ip}  ({best_speed:.1f} KB/s)")
             print(f"  有效配置，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
+
         else:
-            # 未通过测速（或无可测 IP）→ 视为无效
-            res["invalid"].append(original_addr)
-            if has_range:
-                # 有区间：保留在 test_ip.txt，下次继续扫描
-                res["kept_raw"].append(original_raw)
-                print(f"  有区间配置，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
+            # ===== 无效（无有效IP 或 测速未过） =====
+            if fully_exhausted:
+                # 扫描完全穷尽（D段+C+D段全扫完仍0有效，或有区间全扫完0有效）
+                if has_range:
+                    # 有区间 + 完全无效 → 保留
+                    res["invalid_fully"].append(original_addr)
+                    res["kept_raw"].append(original_raw)
+                    print(f"  有区间 + 完全无效，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
+                else:
+                    # 无区间 + 完全无效（D段和C+D都扫完仍0有效）→ 删除
+                    res["invalid_fully"].append(original_addr)
+                    print(f"  无区间 + 完全无效，从 {os.path.basename(INPUT_FILE)} 删除：{original_addr}")
             else:
-                # 无区间 + 无效：从 test_ip.txt 删除（不加入 kept_raw）
-                print(f"  无区间配置，从 {os.path.basename(INPUT_FILE)} 删除：{original_addr}")
+                # 因提前停止（凑满即停）导致只扫了一部分 → 不删除，保留
+                res["invalid_partial"].append(original_addr)
+                res["kept_raw"].append(original_raw)
+                print(f"  扫描未完全（提前停止/测速未过），保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
 
     # ========== 汇总：写省份 config / 无效记录 / 生成频道链接 ==========
     print(f"\n{'='*30}\n  汇总保存\n{'='*30}")
@@ -568,30 +676,22 @@ def main():
         res = province_results[province]
 
         if res["valid"]:
-            # 记录速率到 config（可选：追加 speed 信息）
             passed_ips = [ip for ip, _ in res["valid"]]
             best_ip = passed_ips[0]
-            # 速率信息追加到 config（追加 # 注释行记录速率）
-            config_path = os.path.join(BASE_DIR, f"{province}_config.txt")
-            existing = set()
-            if os.path.exists(config_path):
-                with open(config_path, 'r', encoding='utf-8') as f:
-                    for line in f:
-                        existing.add(line.strip().split(',')[0].strip())
-            new_ips = [ip for ip in passed_ips if ip not in existing]
-            if new_ips:
-                with open(config_path, 'a', encoding='utf-8') as f:
-                    for ip in new_ips:
-                        f.write(ip + "\n")
 
-            # ---- 生成频道链接文件（用最佳 IP）----
+            # 写入省份 config（去重）
+            append_to_config(province, passed_ips)
+
+            # 生成频道链接文件（用最佳 IP）
             print(f"\n[{province}] 生成频道链接（代表 IP: {best_ip}）")
             channels = generate_province_files(province, best_ip)
             if channels:
                 all_channels[province] = channels
 
-        if res["invalid"]:
-            write_invalid_records(province, sorted(set(res["invalid"])))
+        # 无效记录（完全无效 + 部分无效）
+        all_invalid = sorted(set(res["invalid_fully"] + res["invalid_partial"]))
+        if all_invalid:
+            write_invalid_records(province, all_invalid)
 
     # ========== 合并输出 all.txt / all.m3u ==========
     if os.path.exists(DEMO_FILE) and all_channels:
