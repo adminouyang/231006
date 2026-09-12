@@ -151,12 +151,26 @@ def read_test_ip(input_file):
 # ==================== IP 生成 ====================
 
 def generate_d_only(a, b, c_str, d_str, port):
+    """
+    仅 D 段变化（1-255），C 固定。
+    D 从当前值+1 开始绕圈：例如当前 D=152 → 153..255, 1..152
+    """
     c = int(c_str)
-    return [f"{a}.{b}.{c}.{y}:{port}" for y in range(1, 256)]
+    start_d = int(d_str)
+    d_order = list(range(start_d + 1, 256)) + list(range(1, start_d + 1))
+    return [f"{a}.{b}.{c}.{y}:{port}" for y in d_order]
 
 
 def generate_cd_full(a, b, c_str, d_str, port):
-    return [f"{a}.{b}.{x}.{y}:{port}" for x in range(1, 256) for y in range(1, 256)]
+    """
+    C(1-255) + D(1-255) 全扫，C 从当前值+1 开始绕圈。
+    例如当前 C=23 → 24..255, 1..23；每段 D 同样从当前值+1 绕圈。
+    """
+    start_c = int(c_str)
+    c_order = list(range(start_c + 1, 256)) + list(range(1, start_c + 1))
+    start_d = int(d_str)
+    d_order = list(range(start_d + 1, 256)) + list(range(1, start_d + 1))
+    return [f"{a}.{b}.{x}.{y}:{port}" for x in c_order for y in d_order]
 
 
 def generate_c_range(a, b, c_str, d_str, port):
