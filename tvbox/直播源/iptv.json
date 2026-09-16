@@ -2,6 +2,13 @@
     "wallpaper": "https://picsum.photos/1280/720/?blur=2",
     "spider": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/main/tvbox/gao/jar/XYQ.jar",
     "lives": [
+		{
+          "name": "udpxy",
+          "type":"0",
+          "pass": true,
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/udpxy/output/all.m3u"
+
+        },
         {
           "name": "咪咕源",
           "type":"0",
