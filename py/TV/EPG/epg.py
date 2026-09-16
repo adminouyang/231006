@@ -9,7 +9,7 @@ EPG数据下载和合并脚本
 
 import requests
 import gzip
-import xml.etree.ElementTree as ET
+import defusedxml.ElementTree as ET
 from io import BytesIO
 import os
 import json
@@ -92,7 +92,7 @@ def download_epg_data(url, timeout=30):
             'Accept-Encoding': 'gzip, deflate',
         }
 
-        response = requests.get(url, headers=headers, timeout=timeout, verify=False)
+        response = requests.get(url, headers=headers, timeout=timeout, verify=True)
         response.raise_for_status()
 
         print(f"✓ 下载成功: {len(response.content)} 字节")
