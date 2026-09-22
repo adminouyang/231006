@@ -6,7 +6,7 @@
           "name": "udpxy",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/udpxy/output/all.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/udpxy/output/all.txt"
 
         },
         {
@@ -20,14 +20,14 @@
           "name": "代理mg",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.org/raw.githubusercontent.com/adminouyang/jy/refs/heads/main/proxy/mg.m3u"
+          "url": "https://gh-proxy.org/raw.githubusercontent.com/adminouyang/jy/refs/heads/main/proxy/mg.txt"
 
         },
 		{
           "name": "iptv-api",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/iptv-api/refs/heads/master/output/result.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/iptv-api/refs/heads/master/output/result.txt"
 
         },
         {
@@ -41,7 +41,7 @@
           "name": "优质组播源",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/zubo_all.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/zubo_all.txt"
 
         },
 
@@ -49,7 +49,7 @@
           "name": "安徽组播",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/output/%E5%AE%89%E5%BE%BD%E7%94%B5%E4%BF%A1.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV-yjc/refs/heads/main/IP_Scan/output/%E5%AE%89%E5%BE%BD%E7%94%B5%E4%BF%A1.txt"
           #"epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           #"logo": "https://epg.112114.xyz/logo/{name}.png"
         },
@@ -57,7 +57,7 @@
           "name": "freetv",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/jy/refs/heads/main/freetv/freetv.m3u"
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/jy/refs/heads/main/freetv/freetv.txt"
           #"epg": "https://epg.112114.xyz/?ch={name}&date={date}",     
           #"logo": "https://epg.112114.xyz/logo/{name}.png"
         },
@@ -66,7 +66,7 @@
           "name": "TV",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/output/ipv4/result.m3u",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/output/ipv4/result.txt",
           "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
           "logo": ""
         },
@@ -74,7 +74,7 @@
           "name": "ouyang_TV",
           "type":"0",
           "pass": true,
-          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV/refs/heads/master/output/ipv4/result.m3u",
+          "url": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/TV/refs/heads/master/output/ipv4/result.txt",
           "epg": "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml/?ch={name}&date={date}",     
           "logo": ""
         },
