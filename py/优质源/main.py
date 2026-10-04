@@ -339,6 +339,7 @@ def parse_m3u(content):
                 'group': channel.get('group', ''),
                 'url': url
             })
+            print(f"   📡 M3U源: {channel['name']} | {url}")
     
     return result
 
@@ -355,13 +356,13 @@ def parse_txt(content):
                     clean_url = url.split('$')[0].strip()
                     if clean_url:
                         channels.append({'name': name.strip(), 'url': clean_url})
+                        print(f"   📡 TXT源: {name.strip()} | {clean_url}")
             except Exception as e:
                 print(f"❌ 解析失败: {str(e)} ← {line}")
     return channels
 
 
 def parse_local():
-    """解析本地源文件（添加 local 标记）"""
     print("\n🔍 解析本地源...")
     sources = []
     try:
@@ -376,13 +377,14 @@ def parse_local():
                             source = {
                                 'name': name.strip(),
                                 'url': parts[0].strip(),
-                                'whitelist': True,      # 本地源始终跳过黑名单
-                                'local': True           # 新增标记，表示本地源
+                                'whitelist': True,
+                                'local': True
                             }
                             sources.append(source)
+                            print(f"   📺 本地源: {source['name']} | {source['url']}")  # 新增
                     except Exception as e:
                         print(f"❌ 解析失败: {str(e)} ← {line}")
-        print(f"✅ 找到 {len(sources)} 个本地源")
+        print(f"✅ 共找到 {len(sources)} 个本地源")
     except FileNotFoundError:
         print("⚠️ 本地源文件不存在")
     return sources
@@ -427,7 +429,7 @@ def filter_sources(sources, blacklist):
     return filtered
 
 
-def test_rtmp(url):
+def test_rtmp(url, name=None):
     """RTMP推流检测"""
     try:
         result = subprocess.run(
@@ -437,22 +439,23 @@ def test_rtmp(url):
             timeout=10
         )
         if result.returncode == 0:
-            write_log(f"RTMP检测成功: {url}")
+            log_msg = f"RTMP检测成功: {name+', ' if name else ''}{url}"
+            write_log(log_msg)
             return 100
-        write_log(f"RTMP检测失败: {url} | {result.stderr.decode()[:100]}")
+        log_msg = f"RTMP检测失败: {name+', ' if name else ''}{url} | {result.stderr.decode()[:100]}"
+        write_log(log_msg)
         return 0
     except Exception as e:
-        write_log(f"RTMP检测异常: {url} | {str(e)}")
+        log_msg = f"RTMP检测异常: {name+', ' if name else ''}{url} | {str(e)}"
+        write_log(log_msg)
         return 0
 
 
-def test_https_specific(url, domain):
+def test_https_specific(url, domain, name=None):
     """HTTPS协议特殊检测"""
     try:
-        # 测试证书有效性
         cert_valid, cert_msg = test_https_certificate(domain)
         
-        # 进行常规速度测试
         start_time = time.time()
         with requests.Session() as session:
             response = session.get(url,
@@ -473,47 +476,43 @@ def test_https_specific(url, domain):
             duration = max(time.time() - data_start, 0.001)
             speed = (total_bytes / 1024) / duration
             
-            # 记录HTTPS特定信息
             https_info = f" | 证书: {'有效' if cert_valid else '无效'}"
-            log_msg = (f"✅ HTTPS测速成功: {url}\n"
+            log_msg = (f"✅ HTTPS测速成功: {name+', ' if name else ''}{url}\n"
                        f"   速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB | "
                        f"总耗时: {time.time() - start_time:.2f}s{https_info}")
             write_log(log_msg)
             return speed
             
     except requests.exceptions.SSLError as e:
-        log_msg = f"❌ HTTPS SSL错误: {url} | 错误: {str(e)}"
+        log_msg = f"❌ HTTPS SSL错误: {name+', ' if name else ''}{url} | 错误: {str(e)}"
         write_log(log_msg)
         return 0
     except Exception as e:
         domain = get_domain(url)
         update_blacklist(domain)
-        log_msg = f"❌ HTTPS测速失败: {url} | 错误: {str(e)}"
+        log_msg = f"❌ HTTPS测速失败: {name+', ' if name else ''}{url} | 错误: {str(e)}"
         write_log(log_msg)
         return 0
 
 
-def test_speed(url):
+def test_speed(url, name=None):
     """增强版测速函数，支持HTTPS检测"""
     try:
         protocol = get_protocol(url)
         
-        # RTMP协议处理
         if protocol in ['rtmp', 'rtmps']:
-            return test_rtmp(url)
+            return test_rtmp(url, name)
 
-        # HTTPS协议特殊处理
         if protocol == 'https':
             domain = get_domain(url)
             if domain:
-                return test_https_specific(url, domain)
+                return test_https_specific(url, domain, name)
             else:
-                write_log(f"⚠️ 无法提取HTTPS域名: {url}")
+                write_log(f"⚠️ 无法提取HTTPS域名: {name+', ' if name else ''}{url}")
                 return 0
 
-        # HTTP协议处理
         if protocol not in ['http', 'https']:
-            write_log(f"⚠️ 跳过非常规协议: {url}")
+            write_log(f"⚠️ 跳过非常规协议: {name+', ' if name else ''}{url}")
             return 0
 
         # 普通HTTP请求
@@ -537,13 +536,12 @@ def test_speed(url):
             duration = max(time.time() - data_start, 0.001)
             speed = (total_bytes / 1024) / duration
             
-            # 新增速度阈值检查[6](@ref)
             if speed > SPEED_THRESHOLD:
                 status = "✅ 通过阈值"
             else:
                 status = "🚫 未达阈值"
                 
-            log_msg = (f"{status} {protocol.upper()}测速: {url}\n"
+            log_msg = (f"{status} {protocol.upper()}测速: {name+', ' if name else ''}{url}\n"
                        f"   速度: {speed:.2f}KB/s | 数据量: {total_bytes / 1024:.1f}KB | "
                        f"总耗时: {time.time() - start_time:.2f}s | 阈值: {SPEED_THRESHOLD}KB/s")
             write_log(log_msg)
@@ -553,11 +551,10 @@ def test_speed(url):
         domain = get_domain(url)
         update_blacklist(domain)
         protocol = get_protocol(url)
-        log_msg = (f"❌ {protocol.upper()}测速失败: {url}\n"
+        log_msg = (f"❌ {protocol.upper()}测速失败: {name+', ' if name else ''}{url}\n"
                    f"   错误: {str(e)} | 域名: {domain}")
         write_log(log_msg)
         return 0
-
 
 def process_sources(sources, alias_map, group_map):
     """
@@ -609,7 +606,7 @@ def process_sources(sources, alias_map, group_map):
             seen_urls.add(url_hash)
             
             future = executor.submit(
-                lambda s: (s['name'], s['url'], test_speed(s['url']), 
+                lambda s: (s['name'], s['url'], test_speed(s['url'], s['name']), 
                           get_ip_type(s['url']), get_protocol(s['url'])), s)
             futures[future] = s
 
