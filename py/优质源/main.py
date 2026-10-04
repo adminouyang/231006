@@ -398,10 +398,11 @@ def read_blacklist():
 
 
 def filter_sources(sources, blacklist):
-    """过滤黑名单源"""
+    """过滤黑名单源 - 精确域名匹配"""
     print("\n🔍 过滤黑名单...")
     filtered = []
-    blacklist_lower = [kw.lower() for kw in blacklist]
+    # 将黑名单转为小写set，便于快速查找
+    blacklist_set = set(kw.lower() for kw in blacklist if kw.strip())
 
     for s in sources:
         # URL格式校验
@@ -409,12 +410,15 @@ def filter_sources(sources, blacklist):
             print(f"🚫 无效URL格式: {s['url']}")
             continue
 
+        # 白名单（本地源）跳过黑名单检查
         if s.get('whitelist', False):
             filtered.append(s)
             continue
 
-        if any(kw in s['url'].lower() for kw in blacklist_lower):
-            print(f"🚫 拦截黑名单: {s['url']}")
+        # 提取域名
+        domain = get_domain(s['url'])
+        if domain and domain.lower() in blacklist_set:
+            print(f"🚫 拦截黑名单域名: {domain} ← {s['url']}")
             continue
 
         filtered.append(s)
