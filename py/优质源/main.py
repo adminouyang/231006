@@ -361,7 +361,7 @@ def parse_txt(content):
 
 
 def parse_local():
-    """解析本地源文件"""
+    """解析本地源文件（添加 local 标记）"""
     print("\n🔍 解析本地源...")
     sources = []
     try:
@@ -376,7 +376,8 @@ def parse_local():
                             source = {
                                 'name': name.strip(),
                                 'url': parts[0].strip(),
-                                'whitelist': len(parts) > 1
+                                'whitelist': True,      # 本地源始终跳过黑名单
+                                'local': True           # 新增标记，表示本地源
                             }
                             sources.append(source)
                     except Exception as e:
@@ -554,25 +555,48 @@ def test_speed(url):
         return 0
 
 
-def process_sources(sources):
-    """处理所有源并进行测速，应用速度阈值过滤[6](@ref)"""
+def process_sources(sources, alias_map, group_map):
+    """
+    处理所有源并进行测速，应用速度阈值过滤[6](@ref)
+    本地源（local=True）不测速，直接赋予速度9999，仅保留模板中存在的频道
+    """
     total = len(sources)
     print(f"\n🔍 开始检测 {total} 个源")
     print(f"📊 速度阈值: {SPEED_THRESHOLD}KB/s")
     
-    processed = []
+    processed = []               # 最终通过的所有源
+    local_processed = []         # 本地源结果
     processed_count = 0
-    passed_count = 0  # 通过阈值计数
-    duplicate_count = 0  # 重复URL计数
-
-    # 统计协议类型
+    passed_count = 0             # 通过阈值的总数（含本地源）
+    duplicate_count = 0          # 重复URL计数
     protocol_stats = {}
-    seen_urls = set()  # 用于去重的URL集合
+    seen_urls = set()            # 用于去重的URL集合
 
+    # ---------- 第一步：处理本地源（跳过测速） ----------
+    for s in sources:
+        if s.get('local'):
+            name = s['name']
+            url = s['url']
+            # 频道名称过滤：只保留在模板中存在的频道
+            std_name = alias_map.get(name, name)          # 标准化名称
+            if std_name in group_map:                     # 属于某个分组
+                ip_type = get_ip_type(url)
+                protocol = get_protocol(url)
+                # 赋予一个极大的速度，保证通过阈值
+                local_processed.append((name, url, 9999, ip_type, protocol))
+                passed_count += 1
+                print(f"✅ 本地源（跳过测速）: {name} | {url}")
+            else:
+                print(f"⏭️ 本地源频道名不在模板中，跳过: {name}")
+            continue
+
+    # ---------- 第二步：非本地源进行测速 ----------
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = {}
         for s in sources:
-            # 在提交任务前检查URL是否重复
+            if s.get('local'):
+                continue   # 已处理过
+            # 检查URL是否重复
             url_hash = get_url_hash(s['url'])
             if url_hash in seen_urls:
                 duplicate_count += 1
@@ -622,13 +646,17 @@ def process_sources(sources):
             except Exception as e:
                 print(f"⚠️ 处理异常: {str(e)}")
 
+    # ---------- 第三步：合并本地源和测速源 ----------
+    # 本地源在前，测速源在后（可根据需要调整顺序）
+    processed = local_processed + processed
+
     # 打印统计信息
     print(f"\n📊 速度阈值过滤结果:")
-    print(f"   📡 总检测数: {processed_count}")
+    print(f"   📡 总检测数: {processed_count + len(local_processed)}")
     print(f"   🔁 跳过重复: {duplicate_count}")
     print(f"   ✅ 通过数: {passed_count} (速度 > {SPEED_THRESHOLD}KB/s)")
-    print(f"   ❌ 淘汰数: {processed_count - passed_count} (速度 ≤ {SPEED_THRESHOLD}KB/s)")
-    print(f"   📈 通过率: {passed_count/max(processed_count,1)*100:.1f}%")
+    print(f"   ❌ 淘汰数: {processed_count - (passed_count - len(local_processed))} (速度 ≤ {SPEED_THRESHOLD}KB/s)")
+    print(f"   📈 通过率: {passed_count/max(processed_count+len(local_processed),1)*100:.1f}%")
     
     print(f"📊 协议分布:")
     for protocol, data in protocol_stats.items():
@@ -931,6 +959,7 @@ if __name__ == '__main__':
     print(f"   👥 最大并发数: {MAX_WORKERS}")
     print(f"   📁 输出文件: result.txt, result.m3u")
     print(f"   🔁 去重功能: 已启用")
+    print(f"   📦 本地源: 不测速，仅保留模板中存在的频道")
 
     # 初始化日志文件
     with open(SPEED_LOG, 'w', encoding='utf-8') as f:
@@ -949,7 +978,7 @@ if __name__ == '__main__':
 
     # 处理流程
     filtered = filter_sources(sources, blacklist)
-    processed = process_sources(filtered)
+    processed = process_sources(filtered, alias_map, group_map)   # 传入别名和分组映射
     organized = organize_channels(processed, alias_map, group_map)
     finalize_output(organized, group_order, channel_order)
 
