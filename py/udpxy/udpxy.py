@@ -9,21 +9,33 @@ IP 扫描检测脚本（完善版 · 按省份分流 + 测速 + 生成频道链�
 流程：
   1) 扫描检测有效 IP（/status -> /stat）
   2) 对有效 IP 用 CITY_STREAMS 测速，> SPEED_THRESHOLD_KB 才保留
-  3) 用省份模板生成 <省份>.txt / <省份>.m3u（替换 ipipip）
+  3) 用省份模板生成 <省份>.txt / <省份>.m3u（替换 ipipip，同频道多链接按速度降序，最多 N 个）
   4) 按 demo.txt 主频道名+别名匹配，合并输出 all.txt / all.m3u（带台标/EPG）
 
-test_ip.txt 维护规则：
-  场景                          test_ip.txt 处理
-  完全无有效IP(扫描完没找到)     删除（记录到 Invalid_ip_file/）
-  有区间 + 无效                  保留（记录到 Invalid_ip_file/，下次继续扫描）
-  测速未通过                     保留（留到以后设置区间）
-  即：仅「无区间 + 扫描完全无有效IP」才从 test_ip.txt 删除。
-  注：C+D段扫描因提前停止(凑满即停)导致测速未通过的情况，不删除原文件。
+test_ip.txt 维护规则（核心）：
+  场景                                test_ip.txt   Invalid_ip_file/
+  ------------------------------------------------------------------------
+  无区间 + 扫描完全穷尽(C+D全扫)仍0有效   删除           存档 ✓
+  有区间 + 区间全扫完仍0有效              保留           存档 ✓
+  因"凑满即停"提前停止(未扫完)           保留           不存档
+  有效但测速未通过(未扫完)               保留           不存档
+  有效且测速通过                         保留           不存档
+
+  即：仅「完全穷尽扫描(C段和D段都扫了)仍未扫出有效IP」才：
+       - 从 test_ip.txt 删除该行
+       - 记录到 Invalid_ip_file/  （相当于存档文件）
+
+<省份>_config.txt 规则：
+  - 只保存「测速通过」的 IP
+  - 每次运行前，先对本文件已有 IP 做"在线复检"（/status -> /stat），
+    失效(离线/非 udpxy)的 IP 自动删除，只保留当前仍然有效的 IP
+  - 再把本轮新测速通过的 IP 追加进去（去重）
+  即：<省份>_config.txt 始终是"当前存活的有效 IP 白名单"
 """
 
 import asyncio
 import os
-import re
+import sys
 import time
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
@@ -44,13 +56,16 @@ DEMO_FILE = os.path.join(TEMPLATE_DIR, "demo.txt")
 HTTP_CONCURRENCY = 300        # 并发数
 HTTP_TIMEOUT = 4.0            # 总超时(秒)
 HTTP_CONNECT_TIMEOUT = 1.0    # 连接超时(秒)
-D_STOP_COUNT = 2              # D 段扫描停止阈值
+D_STOP_COUNT = 2              # D 段扫描停止阈值（凑满即停）
 CD_STOP_COUNT = 1             # C+D / C区间 扫描停止阈值
 
 SPEED_TEST_DURATION = 3.0     # 测速采样时长(秒)
 SPEED_THRESHOLD_KB = 300.0    # 最低速率阈值(KB/s)，低于此值丢弃
 MAX_LINKS_PER_CHANNEL = 5     # 同一频道最多保留的链接数（按速度降序取前 N）
-GROUP_FIRST_USE_UPDATE_TIME = True  # 每个分组第一个频道 group-title 用"更新时间"
+GROUP_FIRST_USE_UPDATE_TIME = True  # 分组第一个频道 group-title 用"更新时间"
+
+# <省份>_config.txt 已有 IP 的在线复检开关
+CONFIG_HEALTH_CHECK = True    # True: 每次运行清理失效 IP；False: 只追加不清理
 
 # EPG 地址（用于 m3u 文件头部 x-tvg-url）
 EPG_URL = "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml"
@@ -61,46 +76,7 @@ EPG_URL = "https://gh-proxy.com/https://raw.githubusercontent.com/adminouyang/23
 # 用户维护：每个省份对应若干 rtp/udp 流地址，用于测速
 CITY_STREAMS = {
     "安徽电信": ["udp/238.1.78.150:7072"],
-    "北京电信": ["rtp/225.1.8.21:8002"],
-    "北京联通": ["rtp/239.3.1.241:8000"],
-    "江苏电信": ["udp/239.49.8.19:9614"],
     "四川电信": ["udp/239.94.0.59:5140"],
-    "四川移动": ["rtp/239.11.0.77:5140"],
-    "四川联通": ["rtp/239.0.0.1:5140"],
-    "上海电信": ["rtp/233.18.204.51:5140"],
-    "云南电信": ["rtp/239.200.200.145:8840"],
-    "内蒙古电信": ["rtp/239.29.0.2:5000"],
-    "吉林电信": ["rtp/239.37.0.125:5540"],
-    "天津电信": ["rtp/239.5.1.1:5000"],
-    "天津联通": ["rtp/225.1.1.111:5002"],
-    "宁夏电信": ["rtp/239.121.4.94:8538"],
-    "山东电信": ["udp/239.21.1.87:5002"],
-    "山东联通": ["rtp/239.253.254.78:8000"],
-    "山西电信": ["udp/239.1.1.1:8001"],
-    "山西联通": ["rtp/226.0.2.152:9128"],
-    "广东电信": ["udp/239.77.1.19:5146"],
-    "广东移动": ["rtp/239.20.0.101:2000"],
-    "广东联通": ["udp/239.0.1.1:5001"],
-    "广西电信": ["udp/239.81.0.107:4056"],
-    "新疆电信": ["udp/238.125.3.174:5140"],
-    "江西电信": ["udp/239.252.220.63:5140"],
-    "河北电信": ["rtp/239.254.200.174:6000"],
-    "河南电信": ["rtp/239.16.20.21:10210"],    
-    "河南联通": ["rtp/225.1.4.98:1127"],
-    "浙江电信": ["udp/233.50.201.100:5140"],
-    "海南电信": ["rtp/239.253.64.253:5140"],
-    "湖北电信": ["rtp/239.254.96.115:8664"],
-    "湖北联通": ["rtp/228.0.0.60:6108"],
-    "湖南电信": ["udp/239.76.253.101:1234"],
-    "甘肃电信": ["udp/239.255.30.249:8231"],
-    "福建电信": ["rtp/239.61.2.132:8708"],
-    "贵州电信": ["rtp/238.255.2.1:5999"],
-    "辽宁联通": ["rtp/232.0.0.126:1234"],
-    "重庆电信": ["rtp/235.254.196.249:1268"],
-    "重庆联通": ["udp/225.0.4.187:7980"],
-    "陕西电信": ["rtp/239.111.205.35:5140"],
-    "青海电信": ["rtp/239.120.1.64:8332"],
-    "黑龙江联通": ["rtp/229.58.190.150:5000"],
 }
 
 
@@ -182,6 +158,7 @@ def generate_c_range(a, b, c_str, d_str, port):
 # ==================== 单 IP 检测 ====================
 
 async def check_one(session, sem, ip_port):
+    """检测单个 ip:port 是否为可用 udpxy（先 /status，失败再 /stat）"""
     for path in ["/status", "/stat"]:
         url = f"http://{ip_port}{path}"
         try:
@@ -228,9 +205,10 @@ async def scan_group(a, b, c_str, d_str, port, has_range):
     """
     扫描一组配置，返回 (valid_ips, scan_fully_exhausted)
     scan_fully_exhausted:
-      - True: 扫描已完全穷尽（D段全部扫完仍0有效，或有区间全部扫完0有效）
-      - False: 因提前停止（凑满即停）而未扫完
-    用于判断 test_ip.txt 是否删除：未扫完 → 不删除（留到以后设置区间）
+      - True:  扫描已完全穷尽（D段全部扫完仍0有效 → 转 C+D 全扫；C+D 也全扫完仍0有效）
+      - False: 因"凑满即停"提前停止，未扫完
+    用于判断 test_ip.txt 是否删除：
+      只有"完全穷尽扫描(C段和D段都扫了)仍未扫出有效IP"才删除并记录到 Invalid_ip_file
     """
     sem = asyncio.Semaphore(HTTP_CONCURRENCY)
     connector = TCPConnector(limit=0, limit_per_host=30, ttl_dns_cache=300)
@@ -249,10 +227,10 @@ async def scan_group(a, b, c_str, d_str, port, has_range):
             all_valid.extend(valid)
 
             if all_valid:
-                # D段找到了有效IP，但因 stop_count 可能提前停止 → 未完全穷尽
+                # D段找到有效IP，但因 stop_count 提前停止 → 未完全穷尽
                 return sorted(set(all_valid)), False
 
-            # --- D 段 0 个有效，才转扫 C+D ---
+            # --- D 段 0 个有效，才转扫 C+D（此时才算"扫了C段和D段"）---
             print(f"D段有效 0 个，扩展扫描 C(1-255)+D(1-255)")
             ip_ports_cd = generate_cd_full(a, b, c_str, d_str, port)
             print(f"开始扫描：{a}.{b}.*.{d_str}:{port}  (C+D 共 {len(ip_ports_cd)} 个)")
@@ -260,10 +238,10 @@ async def scan_group(a, b, c_str, d_str, port, has_range):
             all_valid.extend(valid_cd)
 
             if valid_cd:
-                # C+D段找到了，但因 stop_count=1 提前停止 → 未完全穷尽
+                # C+D段找到有效IP，但因 stop_count=1 提前停止 → 未完全穷尽
                 return sorted(set(all_valid)), False
             else:
-                # C+D段全部扫完，0 个有效 → 完全穷尽
+                # C+D段全部扫完，0 个有效 → 完全穷尽（C段和D段都扫了）
                 fully_exhausted = True
 
         else:
@@ -274,7 +252,7 @@ async def scan_group(a, b, c_str, d_str, port, has_range):
             all_valid.extend(valid)
 
             if valid:
-                # 找到了但因 stop_count 提前停止 → 未完全穷尽
+                # 找到有效IP，但因 stop_count 提前停止 → 未完全穷尽
                 return sorted(set(all_valid)), False
             else:
                 # 有区间全部扫完，0 个有效 → 完全穷尽
@@ -323,7 +301,7 @@ async def speed_test_ip(ip_port, stream_paths):
 async def filter_by_speed(valid_ips, stream_paths):
     """
     对有效 IP 列表并发测速，仅保留速率 > SPEED_THRESHOLD_KB 的 IP
-    返回 [(ip_port, speed), ...] 排序（快的在前）
+    返回 [(ip_port, speed), ...] 按速度降序
     """
     if not valid_ips:
         return []
@@ -351,29 +329,99 @@ async def filter_by_speed(valid_ips, stream_paths):
     return passed
 
 
-# ==================== 结果回写（省份 config） ====================
+# ==================== 结果回写（省份 _config.txt）====================
+# 规则：只保存测速通过的 IP；每次运行先清理失效 IP，再追加新通过 IP
 
-def append_to_config(province, valid_ips):
+def read_config_ips(province):
+    """读取 <省份>_config.txt 中已有的 IP（每行一个 ip:port）"""
     config_path = os.path.join(BASE_DIR, f"{province}_config.txt")
-    existing = set()
+    ips = []
     if os.path.exists(config_path):
         with open(config_path, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
                 if line and not line.startswith("#"):
-                    existing.add(line.split(',')[0].strip())
-    new_ips = [ip for ip in valid_ips if ip not in existing]
-    if new_ips:
-        with open(config_path, 'a', encoding='utf-8') as f:
-            for ip in new_ips:
+                    ips.append(line.split(',')[0].strip())
+    return ips
+
+
+async def health_check_config(province):
+    """
+    对本省份 _config.txt 中已有的 IP 做在线复检：
+      - 仍在线且为 udpxy → 保留
+      - 离线/非 udpxy → 删除（失效）
+    返回存活的 IP 列表，并直接重写文件。
+    """
+    existing = read_config_ips(province)
+    if not existing:
+        return []
+
+    sem = asyncio.Semaphore(HTTP_CONCURRENCY)
+    connector = TCPConnector(limit=0, limit_per_host=30, ttl_dns_cache=300)
+    timeout = ClientTimeout(total=HTTP_TIMEOUT, connect=HTTP_CONNECT_TIMEOUT)
+
+    async with aiohttp.ClientSession(connector=connector, timeout=timeout) as session:
+        tasks = [asyncio.create_task(check_one(session, sem, ip)) for ip in existing]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+    alive = []
+    dead = []
+    for ip, r in zip(existing, results):
+        if r is not None and not isinstance(r, Exception):
+            alive.append(ip)
+        else:
+            dead.append(ip)
+
+    if dead:
+        config_path = os.path.join(BASE_DIR, f"{province}_config.txt")
+        with open(config_path, 'w', encoding='utf-8') as f:
+            for ip in alive:
                 f.write(ip + "\n")
-        print(f"  追加 {len(new_ips)} 个有效 IP 至 {config_path}")
+        print(f"  _config 复检：{len(dead)} 个失效 IP 已清理（{province}），保留 {len(alive)} 个")
     else:
-        print(f"  无新增有效 IP（{config_path} 已包含所有结果）")
-    return new_ips
+        if alive:
+            print(f"  _config 复检：{province} 全部 {len(alive)} 个 IP 仍有效")
+
+    return alive
+
+
+async def sync_config(province, new_passed_ips):
+    """
+    同步 <省份>_config.txt：
+      1) 先对已有 IP 做在线复检，删除失效 IP
+      2) 再把本轮新测速通过的 IP 追加进去（去重）
+    最终文件 = 仅包含"当前仍然有效的、测速通过的 IP"
+    """
+    # Step 1: 清理失效
+    if CONFIG_HEALTH_CHECK:
+        alive = await health_check_config(province)
+    else:
+        alive = read_config_ips(province)
+
+    # Step 2: 追加本轮新通过（去重）
+    alive_set = set(alive)
+    added = []
+    for ip in new_passed_ips:
+        if ip not in alive_set:
+            alive_set.add(ip)
+            added.append(ip)
+
+    config_path = os.path.join(BASE_DIR, f"{province}_config.txt")
+    with open(config_path, 'w', encoding='utf-8') as f:
+        for ip in sorted(alive_set):
+            f.write(ip + "\n")
+
+    if added:
+        print(f"  _config 更新：新增 {len(added)} 个测速通过 IP → {config_path}")
+    print(f"  _config 当前共 {len(alive_set)} 个有效 IP（{province}）")
+    return added, len(alive_set)
 
 
 def write_invalid_records(province, invalid_ips):
+    """
+    将"完全穷尽扫描仍无效"的 IP 记录到 Invalid_ip_file/
+    （相当于存档文件：C段和D段都扫了，仍未扫出有效IP）
+    """
     if not invalid_ips:
         return
     os.makedirs(INVALID_DIR, exist_ok=True)
@@ -381,10 +429,11 @@ def write_invalid_records(province, invalid_ips):
     with open(invalid_path, 'a', encoding='utf-8') as f:
         for ip in invalid_ips:
             f.write(ip + "\n")
-    print(f"  无效 IP 已记录至 {invalid_path} ({len(invalid_ips)} 条)")
+    print(f"  存档至 {invalid_path}（完全穷尽仍无效，共 {len(invalid_ips)} 条）")
 
 
 def rewrite_test_ip(kept_raw_lines):
+    """回写 test_ip.txt（仅保留应保留的行）"""
     with open(INPUT_FILE, 'w', encoding='utf-8') as f:
         for line in sorted(set(kept_raw_lines)):
             f.write(line + "\n")
@@ -402,6 +451,8 @@ def load_logo_map():
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
+            if line.upper().startswith("EPG:"):
+                continue
             if ',' in line:
                 name, url = line.split(',', 1)
                 logo[name.strip()] = url.strip()
@@ -415,27 +466,14 @@ def get_beijing_time_str():
     return now.strftime("%Y/%m/%d %H:%M更新")
 
 
-def write_m3u_header(f, group_title):
-    """写入 m3u 头部（含 EPG 和分组信息）"""
-    f.write(f'#EXTM3U x-tvg-url="{EPG_URL}"\n')
-
-
-def write_m3u_channel(f, name, url, logo_url, group_title):
-    """按标准格式写入单个频道"""
-    logo_attr = f' tvg-logo="{logo_url}"' if logo_url else ''
-    f.write(f'#EXTINF:-1{logo_attr} group-title="{group_title}",{name}\n')
-    f.write(url + "\n")
-
-
 def parse_template_channels(template_path):
     """
     解析省份模板文件，返回：
       channels: [(name, url), ...]   （url 中 ipipip 未替换）
-      genre_lines: 记录分类行位置，用于保持顺序
-      structure: [(is_genre, content_or_genre, channels_in_this_genre), ...]
+      genres:   [(genre_line, [(name, url), ...]), ...]  保持分类顺序
     """
     channels = []
-    genres = []  # [(genre_name, [(name, url), ...]), ...]
+    genres = []
     current_genre = ""
 
     with open(template_path, 'r', encoding='utf-8') as f:
@@ -459,7 +497,7 @@ def parse_template_channels(template_path):
 
 def generate_province_files(province, ip_ports):
     """
-    用 ip_ports（该省份通过测速的 IP 列表，按速度降序）替换模板中的 ipipip，
+    用 ip_ports（该省份测速通过的 IP 列表，按速度降序）替换模板中的 ipipip，
     为每个频道在每个 IP 下生成一条链接 → 同一频道可有多个链接。
     输出 py/udpxy/output/<省份>.txt 与 .m3u（标准格式，带 EPG/台标/分组/更新时间）
 
@@ -478,7 +516,6 @@ def generate_province_files(province, ip_ports):
     logo_map = load_logo_map()
     update_time = get_beijing_time_str()
 
-    # 解析模板，得到分类与频道（url 中 ipipip 未替换）
     _, genres = parse_template_channels(template_path)
 
     # 构建每个频道的多个链接：按 ip_ports 顺序（已按速度降序），每个 IP 一条，
@@ -526,7 +563,9 @@ def generate_province_files(province, ip_ports):
                         first_channel = False
                     else:
                         gt = group_title
-                    write_m3u_channel(f, name, u, logo, gt)
+                    logo_attr = f' tvg-logo="{logo}"' if logo else ''
+                    f.write(f'#EXTINF:-1{logo_attr} group-title="{gt}",{name}\n')
+                    f.write(u + "\n")
 
     total_links = sum(len(urls) for _, urls in channel_links)
     print(f"  生成频道链接：{out_txt} ({len(channel_links)} 个频道, {total_links} 条链接)")
@@ -684,7 +723,7 @@ def merge_and_output(all_channels, demo_path, logo_map, output_dir):
 
 # ==================== 主流程 ====================
 
-def main():
+async def _main_async():
     start = time.time()
     os.makedirs(INVALID_DIR, exist_ok=True)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -698,10 +737,10 @@ def main():
         return
 
     # province_results[province] = {
-    #     "valid": [(ip, speed), ...],   # 本组通过测速的 IP（速度降序）
-    #     "invalid_fully": [],    # 完全穷尽扫描仍无效 → 可能删除
-    #     "invalid_partial": [],  # 因提前停止/测速未过 → 保留
-    #     "kept_raw": []
+    #     "valid":   [(ip, speed), ...],  # 本轮测速通过的 IP（速度降序）
+    #     "invalid_fully":   [],          # 完全穷尽扫描仍无效 → 删 test_ip + 存档 Invalid
+    #     "invalid_partial": [],          # 未扫完(提前停止/测速未过) → 保留 test_ip，不存档
+    #     "kept_raw": []                  # 需保留在 test_ip.txt 的原始行
     # }
     province_results = {}
 
@@ -718,47 +757,44 @@ def main():
         print(f"\n--- 第 {idx}/{len(groups)} 组 ({province}) ---")
 
         # ---- 扫描（返回是否完全穷尽） ----
-        valid_ips, fully_exhausted = asyncio.run(
-            scan_group(a, b, c_str, d_str, port, has_range)
-        )
+        valid_ips, fully_exhausted = await scan_group(a, b, c_str, d_str, port, has_range)
 
         # ---- 测速筛选 ----
         stream_paths = CITY_STREAMS.get(province, [])
         if valid_ips:
             print(f"  检测到 {len(valid_ips)} 个有效 IP，开始测速...")
-            passed = asyncio.run(filter_by_speed(valid_ips, stream_paths))
+            passed = await filter_by_speed(valid_ips, stream_paths)
         else:
             passed = []
 
         if passed:
-            # ===== 有效且通过测速 → 保留在 test_ip.txt + 保存到省份 config =====
-            # 累积本省份所有通过测速的 IP（带速度，供多链接/排序使用）
+            # ===== 有效且通过测速 → 保留在 test_ip.txt + 同步到省份 _config =====
             res["valid"].extend(passed)
-            # 全部通过 IP 都记入省份 config（去重）
-            all_passed_ips = [ip for ip, _ in passed]
-            append_to_config(province, all_passed_ips)
-            # 保留在 test_ip.txt
+            # 保留在 test_ip.txt（有效即保留，无论有无区间）
             res["kept_raw"].append(original_raw)
             best_ip, best_speed = passed[0]
             print(f"  本组最佳 IP: http://{best_ip}  ({best_speed:.1f} KB/s)")
-            print(f"  有效配置，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
+            print(f"  测速通过，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
 
         else:
             # ===== 无效（无有效IP 或 测速未过） =====
             if fully_exhausted:
+                # C段和D段都扫了，仍未扫出有效IP
+                res["invalid_fully"].append(original_addr)
                 if has_range:
-                    res["invalid_fully"].append(original_addr)
+                    # 有区间：保留在 test_ip.txt（下次继续扫），但仍存档到 Invalid
                     res["kept_raw"].append(original_raw)
-                    print(f"  有区间 + 完全无效，保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
+                    print(f"  有区间 + 完全穷尽仍无效，保留在 {os.path.basename(INPUT_FILE)}（存档）：{original_addr}")
                 else:
-                    res["invalid_fully"].append(original_addr)
-                    print(f"  无区间 + 完全无效，从 {os.path.basename(INPUT_FILE)} 删除：{original_addr}")
+                    # 无区间：从 test_ip.txt 删除，并存档到 Invalid_ip_file
+                    print(f"  无区间 + C/D段全扫仍无效，从 {os.path.basename(INPUT_FILE)} 删除并存档：{original_addr}")
             else:
+                # 因"凑满即停"提前停止 或 测速未过 → 未扫完，不删除、不存档
                 res["invalid_partial"].append(original_addr)
                 res["kept_raw"].append(original_raw)
                 print(f"  扫描未完全（提前停止/测速未过），保留在 {os.path.basename(INPUT_FILE)}：{original_addr}")
 
-    # ========== 汇总：写省份 config / 无效记录 / 生成频道链接 ==========
+    # ========== 汇总：同步省份 _config / 存档无效 / 生成频道链接 ==========
     print(f"\n{'='*30}\n  汇总保存\n{'='*30}")
 
     # all_channels: province -> [(name, [(url, speed), ...]), ...]
@@ -768,14 +804,21 @@ def main():
         res = province_results[province]
 
         if res["valid"]:
-            # 本省份所有通过测速 IP，按速度降序、去重
+            # 本省份本轮测速通过的 IP，按速度降序、去重
             by_speed = sorted(set(res["valid"]), key=lambda x: x[1], reverse=True)
-            ip_ports = [ip for ip, _ in by_speed]
-            # key 用 hostname（不含端口），与 urlparse(u).hostname 一致
+            new_passed_ips = [ip for ip, _ in by_speed]
+
+            # ---- 同步 _config.txt：先清理失效 IP，再追加本轮新通过 IP ----
+            print(f"\n[{province}] 同步 _config.txt（只保留测速通过且当前在线的 IP）")
+            await sync_config(province, new_passed_ips)
+
+            # 用于生成频道链接的 IP 顺序 = 本轮通过的 IP（速度降序）
+            ip_ports = new_passed_ips
+            # IP→速度 映射（key 用 hostname，与 urlparse(u).hostname 一致）
             ip_speed_map = {urlparse(f"http://{ip}").hostname or ip: spd for ip, spd in by_speed}
 
             # 生成频道链接文件（每个频道 = 多 IP 链接，按速度降序，最多 MAX）
-            print(f"\n[{province}] 生成频道链接（{len(ip_ports)} 个有效 IP，按速度降序）")
+            print(f"[{province}] 生成频道链接（{len(ip_ports)} 个测速通过 IP，按速度降序）")
             channel_links = generate_province_files(province, ip_ports)
 
             # 为合并构建带速度的结构：province -> [(name, [(url, speed), ...])]
@@ -789,10 +832,9 @@ def main():
                     named.append((name, url_speed))
                 all_channels[province] = named
 
-        # 无效记录（完全无效 + 部分无效）
-        all_invalid = sorted(set(res["invalid_fully"] + res["invalid_partial"]))
-        if all_invalid:
-            write_invalid_records(province, all_invalid)
+        # 无效记录（仅"完全穷尽仍无效"才存档到 Invalid_ip_file）
+        if res["invalid_fully"]:
+            write_invalid_records(province, sorted(set(res["invalid_fully"])))
 
     # ========== 合并输出 all.txt / all.m3u ==========
     if os.path.exists(DEMO_FILE) and all_channels:
@@ -811,6 +853,10 @@ def main():
     rewrite_test_ip(kept_all)
 
     print(f"\n全部扫描完成，耗时 {time.time() - start:.1f} 秒")
+
+
+def main():
+    asyncio.run(_main_async())
 
 
 if __name__ == "__main__":
