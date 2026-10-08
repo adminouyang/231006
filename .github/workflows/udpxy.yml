@@ -2,7 +2,7 @@ name: udpxy IP 扫描检测
 
 on:
   schedule:
-    - cron: "30 19 * * *"
+    - cron: "30 17 * * *"
   workflow_dispatch:
     inputs:
       concurrency:
