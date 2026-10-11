@@ -1,4 +1,4 @@
-name: udp-ip检测2.1版
+name: udp-ip检测
 on:
   schedule:
     - cron: 0 0 */3 * *
