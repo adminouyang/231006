@@ -419,14 +419,23 @@ jobs:
            main()
        EOF
 
-    - name: 提交更新
+    - name: List generated files
+      run: |
+        echo "Listing files under py/udpxy/iptv_udp_results:"
+        ls -la py/udpxy/iptv_udp_results || echo "Directory does not exist"
+
+    - name: Commit and Push Results
       run: |
         cd $GITHUB_WORKSPACE
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
-        # 修改提交信息，包含北京时间
-        BEIJING_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
-        git commit -m "更新组播源ip(北京时间: $BEIJING_TIME)"
-        git pull --rebase origin main
-        git push origin main
+        # 检查是否有待提交的变更
+        if git diff --cached --quiet; then
+          echo "No changes to commit. Skipping push."
+        else
+          BEIJING_TIME=$(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')
+          git commit -m "更新组播源ip(北京时间: $BEIJING_TIME)"
+          git pull --rebase origin main
+          git push origin main
+        fi
