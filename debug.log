@@ -1,1 +1,11 @@
-python: can't open file '/home/runner/work/231006/231006/scripts/iptv_crawler.py': [Errno 2] No such file or directory
+
+--- 正在获取第 1 页: https://tonkiang.us/iptvmulticast.php ---
+请求失败: https://tonkiang.us/iptvmulticast.php -> 403
+第 1 页获取失败，跳过
+
+--- 正在获取第 2 页: https://tonkiang.us/iptvmulticast.php?page=2 ---
+请求失败: https://tonkiang.us/iptvmulticast.php?page=2 -> 403
+第 2 页获取失败，跳过
+
+合并后共 0 个唯一IP
+未获取到任何IP
