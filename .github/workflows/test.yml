@@ -33,7 +33,10 @@ jobs:
     - name: Run IPTV Crawler with debug
       run: |
         python py/udpxy/iptv_crawler.py --pages 2 --output py/udpxy/iptv_udp_results --debug 2>&1 | tee debug.log
-
+    - name: Debug - check response
+      run: |
+        curl -s -o /tmp/test.html -w "%{http_code}" https://tonkiang.us/iptvmulticast.php
+        head -100 /tmp/test.html
     - name: Upload debug log
       if: always()
       uses: actions/upload-artifact@v4
