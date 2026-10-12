@@ -32,7 +32,7 @@ jobs:
 
     - name: Run IPTV Crawler with debug
       run: |
-        python scripts/iptv_crawler.py --pages 2 --output py/udpxy/iptv_udp_results --debug 2>&1 | tee debug.log
+        python py/udpxy/iptv_crawler.py --pages 2 --output py/udpxy/iptv_udp_results --debug 2>&1 | tee debug.log
 
     - name: Upload debug log
       if: always()
