@@ -21,7 +21,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 from bs4 import BeautifulSoup
+import random, gzip
+from io import BytesIO
 
+UA_POOL = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+]
 
 def clean_region(region):
     """清理地区字段，去除IP、括号等无效字符"""
@@ -43,53 +50,82 @@ def get_ip_prefix(ip):
 
 
 class IPTVProxyCrawler:
-    def __init__(self, base_url="https://tonkiang.us", delay=0.5):
-        self.base_url = base_url
+    def __init__(self, base_url="https://tonkiang.us", delay=1.5):
+        self.base_url = base_url.rstrip('/')
         self.delay = delay
         self._session = requests.Session()
         self._session.headers.update({
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                          "AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "User-Agent": random.choice(UA_POOL),
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
             "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+            "Accept-Encoding": "gzip, deflate",
             "Connection": "keep-alive",
+            "Upgrade-Insecure-Requests": "1",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
+            "Sec-Fetch-Site": "same-origin",
         })
         self._last_request_time = 0
         self._debug_dir = None
 
-    def _get(self, url, referer=None):
-        """带礼貌延迟的GET请求，强制UTF-8解码"""
-        wait = self.delay - (time.time() - self._last_request_time)
+    def _get(self, url, referer=None, retry=1):
+        # 礼貌延时（带随机抖动）
+        base_wait = self.delay + random.uniform(0, 1.5)
+        wait = base_wait - (time.time() - self._last_request_time)
         if wait > 0:
             time.sleep(wait)
         self._last_request_time = time.time()
 
-        headers = {"Referer": referer} if referer else {}
+        headers = {}
+        if referer:
+            headers["Referer"] = referer
+        # 每次可轻微换UA，但别每请求都换导致指纹异常
+        headers["User-Agent"] = random.choice(UA_POOL)
+
+        for attempt in range(retry + 1):
+            try:
+                resp = self._session.get(url, timeout=20, headers=headers, allow_redirects=True)
+            except requests.RequestException as e:
+                print(f"请求异常: {url} -> {e}")
+                return None
+
+            if resp.status_code == 403:
+                print(f"403被拒: {url}")
+                print("  响应头:", dict(resp.headers))
+                print("  响应体前500:", resp.text[:500])
+                # 可选：首次403回首页重种cookie再试一次
+                if attempt == 0:
+                    self._warm_cookies()
+                    time.sleep(random.uniform(2, 4))
+                    continue
+                return None
+
+            if resp.status_code != 200:
+                print(f"请求失败: {url} -> {resp.status_code}")
+                return None
+
+            # 自动解gzip
+            raw = resp.content
+            enc = resp.headers.get("Content-Encoding", "")
+            if "gzip" in enc:
+                try:
+                    raw = gzip.decompress(raw)
+                except Exception:
+                    pass
+            for enc_name in ("utf-8", "gbk", "gb18030"):
+                try:
+                    return raw.decode(enc_name)
+                except UnicodeDecodeError:
+                    continue
+            return raw.decode("utf-8", errors="replace")
+
+    def _warm_cookies(self):
+        """先访问首页/根，让session拿到cookie再进列表页"""
         try:
-            resp = self._session.get(url, timeout=15, headers=headers)
-        except requests.RequestException as e:
-            print(f"请求异常: {url} -> {e}")
-            return None
-
-        if resp.status_code != 200:
-            print(f"请求失败: {url} -> {resp.status_code}")
-            return None
-
-        try:
-            text = resp.content.decode("utf-8")
-        except UnicodeDecodeError:
-            text = resp.content.decode("gbk", errors="replace")
-            print("警告: UTF-8解码失败，已尝试GBK")
-
-        if self._debug_dir:
-            os.makedirs(self._debug_dir, exist_ok=True)
-            safe_name = re.sub(r'[^a-zA-Z0-9]', '_', url[:80])
-            with open(os.path.join(self._debug_dir, safe_name + ".html"), "w", encoding="utf-8") as f:
-                f.write(text)
-
-        return text
-
+            self._session.get(self.base_url + "/", timeout=15,
+                              headers={"User-Agent": random.choice(UA_POOL)})
+        except Exception as e:
+            print("预热cookie失败:", e)
     @staticmethod
     def _is_invalid_page(html_text):
         invalid_keywords = ["暂时失效", "源暂时失效", "的源暂时失效"]
@@ -190,6 +226,7 @@ class IPTVProxyCrawler:
     def fetch_channel_page(self, ip_info):
         url = ip_info["full_url"]
         referer = self.base_url + "/iptvmulticast.php"
+        html_text = self._get(url, referer=referer, retry=1)
 
         ports = []
         status = "error"
@@ -337,7 +374,12 @@ def main():
     parser.add_argument("--debug", action="store_true", help="保存每个页面HTML到debug_html/")
     args = parser.parse_args()
 
-    crawler = IPTVProxyCrawler(delay=args.delay)
+    crawler = IPTVProxyCrawler(delay=2.0)
+    crawler._warm_cookies()
+
+    for page in range(1, args.pages + 1):
+        url = crawler.base_url + "/iptvmulticast.php" if page == 1 else f"{crawler.base_url}/iptvmulticast.php?page={page}"
+        html_text = crawler._get(url, referer=crawler.base_url + "/", retry=1)
     if args.debug:
         crawler._debug_dir = "debug_html"
 
