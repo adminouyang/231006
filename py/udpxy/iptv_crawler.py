@@ -63,18 +63,22 @@ class IPTVProxyCrawler:
         self._debug_dir = None
 
     def _get(self, url, referer=None):
-        """带礼貌延迟的GET请求，强制UTF-8解码"""
-        wait = self.delay - (time.time() - self._last_request_time)
-        if wait > 0:
-            time.sleep(wait)
-        self._last_request_time = time.time()
+      wait = self.delay - (time.time() - self._last_request_time)
+      if wait > 0:
+          time.sleep(wait)
+      self._last_request_time = time.time()
 
-        headers = {"Referer": referer} if referer else {}
-        try:
-            resp = self._session.get(url, timeout=15, headers=headers)
-        except requests.RequestException as e:
-            print(f"请求异常: {url} -> {e}")
-            return None
+      headers = {"Referer": referer} if referer else {}
+      try:
+          print(f"Requesting: {url}")
+          resp = self._session.get(url, timeout=30, headers=headers)  # 增加超时
+          print(f"Status: {resp.status_code}, Content length: {len(resp.content)}")
+          if resp.status_code != 200:
+              print(f"Response text (first 300 chars): {resp.text[:300]}")
+              return None
+      except requests.RequestException as e:
+          print(f"请求异常: {url} -> {e}")
+          return None
 
         if resp.status_code != 200:
             print(f"请求失败: {url} -> {resp.status_code}")
