@@ -3,15 +3,11 @@
 """
 IPTV组播源爬虫 - 地区提取修复版 (端口修正版 v3)
 功能：
-  1. 从 tonkiang.us 提取 IP 和地区（优先从详情页获取）
-  2. 支持多页爬取（默认2页）
-  3. 访问 getall26.php 页面提取端口，自动跳过失效源
-  4. 输出合并文件 ips.txt，格式: IP:端口$地区
-  5. 去重规则：地区相同时，IP前两段+端口相同则去重
-用法：
-  python iptv_crawler.py                     # 完整爬取（2页）
-  python iptv_crawler.py --pages 5           # 爬取5页
-  python iptv_crawler.py --update-ports summary.json   # 回填端口
+ 1. 从 tonkiang.us 提取 IP 和地区（优先从详情页获取）
+ 2. 支持多页爬取（默认2页）
+ 3. 访问 getall26.php 页面提取端口，自动跳过失效源
+ 4. 输出合并文件 test_ip.txt，格式: IP:端口$地区
+ 5. 去重规则：地区相同时，IP前两段+端口相同则去重
 """
 
 import re
@@ -63,22 +59,18 @@ class IPTVProxyCrawler:
         self._debug_dir = None
 
     def _get(self, url, referer=None):
-      wait = self.delay - (time.time() - self._last_request_time)
-      if wait > 0:
-          time.sleep(wait)
-      self._last_request_time = time.time()
+        """带礼貌延迟的GET请求，强制UTF-8解码"""
+        wait = self.delay - (time.time() - self._last_request_time)
+        if wait > 0:
+            time.sleep(wait)
+        self._last_request_time = time.time()
 
-      headers = {"Referer": referer} if referer else {}
-      try:
-          print(f"Requesting: {url}")
-          resp = self._session.get(url, timeout=30, headers=headers)  # 增加超时
-          print(f"Status: {resp.status_code}, Content length: {len(resp.content)}")
-          if resp.status_code != 200:
-              print(f"Response text (first 300 chars): {resp.text[:300]}")
-              return None
-      except requests.RequestException as e:
-          print(f"请求异常: {url} -> {e}")
-          return None
+        headers = {"Referer": referer} if referer else {}
+        try:
+            resp = self._session.get(url, timeout=15, headers=headers)
+        except requests.RequestException as e:
+            print(f"请求异常: {url} -> {e}")
+            return None
 
         if resp.status_code != 200:
             print(f"请求失败: {url} -> {resp.status_code}")
@@ -329,10 +321,10 @@ class IPTVProxyCrawler:
                     seen.add(key)
                     lines.append(f"{item['ip']}:{port}${region}\n")
 
-        ips_path = os.path.join(os.path.dirname(out), "ips.txt")
+        ips_path = os.path.join(os.path.dirname(out), "test_ip.txt")
         with open(ips_path, "w", encoding="utf-8") as f:
             f.writelines(lines)
-        print(f"ips.txt 已更新: {ips_path} ({len(lines)} 条)")
+        print(f"test_ip.txt 已更新: {ips_path} ({len(lines)} 条)")
 
 
 def main():
