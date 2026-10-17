@@ -1,0 +1,92 @@
+name: update-index
+
+# 你在网页上直接改 TV_JS/xxx.js 并提交后，这里会自动把 index.json 里的
+# sha256、台数、更新日期重新算好并提交回去 —— 不需要本地跑脚本。
+# 只在 TV_JS 下的 js 变化时触发；index.json 自身的提交不会再次触发，不会死循环。
+
+on:
+  push:
+    paths:
+      - 'TV_JS/*.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 重算 index.json
+        run: |
+          python3 - <<'PY'
+          import io, os, json, hashlib, re, datetime
+
+          base = 'TV_JS'
+          idx_path = os.path.join(base, 'index.json')
+          idx = json.load(io.open(idx_path, encoding='utf-8'))
+          today = datetime.date.today().isoformat()
+          groups = idx.get('groups', [])
+          byfile = {g['file']: g for g in groups if g.get('file')}
+
+          def count_of(p):
+              t = io.open(p, encoding='utf-8').read()
+              return len(re.findall(r'\{\s*number\s*:', t))
+
+          # 1) 已在清单里的：刷新 sha256 / 台数 / 日期
+          for f, g in byfile.items():
+              p = os.path.join(base, f)
+              if not os.path.exists(p):
+                  print('清单里的 %s 文件不存在，跳过' % f)
+                  continue
+              h = hashlib.sha256(open(p, 'rb').read()).hexdigest()
+              n = count_of(p)
+              if g.get('sha256') != h or g.get('count') != n:
+                  g['sha256'] = h
+                  g['count'] = n
+                  g['updated'] = today
+                  print('更新 %s  %d 个台' % (f, n))
+
+          # 2) 新加的 js：自动补一条
+          for fn in sorted(os.listdir(base)):
+              if not fn.endswith('.js') or fn in byfile:
+                  continue
+              p = os.path.join(base, fn)
+              t = io.open(p, encoding='utf-8').read()
+
+              def grab(k, d=''):
+                  m = re.search(k + r'\s*:\s*["\']([^"\']*)["\']', t)
+                  return m.group(1) if m else d
+
+              groups.append({
+                  'key': grab('key', fn[:-3]),
+                  'group': grab('group', fn[:-3]),
+                  'file': fn,
+                  'count': count_of(p),
+                  'updated': today,
+                  'sha256': hashlib.sha256(open(p, 'rb').read()).hexdigest(),
+                  'note': grab('note', '')
+              })
+              print('新增分组 %s' % fn)
+
+          idx['groups'] = groups
+          idx['updated'] = datetime.datetime.now().astimezone().replace(
+              microsecond=0).isoformat()
+          io.open(idx_path, 'w', encoding='utf-8', newline='\n').write(
+              json.dumps(idx, ensure_ascii=False, indent=2) + '\n')
+          print('index.json 已刷新，共 %d 个分组' % len(groups))
+          PY
+
+      - name: 提交
+        run: |
+          if git diff --quiet -- TV_JS/index.json; then
+            echo "index.json 没有变化"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add TV_JS/index.json
+          git commit -m "auto: 同步 index.json 的 sha256 与台数"
+          git push
