@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-10-19T00:12:03+00:00",
+  "updated": "2026-10-19T00:25:24+00:00",
   "note": "TVLive 省级广电台频道订阅清单。改了哪个省就更新对应 js，再把这一项里的 sha256 换掉。",
   "groups": [
     {
@@ -10,7 +10,7 @@
       "file": "beijing.js",
       "count": 10,
       "updated": "2026-10-19",
-      "sha256": "df1aef377c037c262c894b7794fd597496cfe042b2ad821b8da2dbf845e8e910",
+      "sha256": "1aa403c15fc637cf27b2f2a399bb09036e83529b1ca9cdc306adf478cc6abb38",
       "note": "BRTV 各频道（公开 IPTV 转发源，非官网直连）"
     },
     {
