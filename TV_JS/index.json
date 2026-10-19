@@ -1,16 +1,16 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-10-19T01:32:29+00:00",
+  "updated": "2026-10-19T03:55:13+00:00",
   "note": "TVLive 省级广电台频道订阅清单。改了哪个省就更新对应 js，再把这一项里的 sha256 换掉。",
   "groups": [
     {
       "key": "anhui",
       "group": "安徽",
       "file": "anhui.js",
-      "count": 17,
+      "count": 77,
       "updated": "2026-10-19",
-      "sha256": "",
+      "sha256": "8b00954e240d34cdae32f94e18f68391a57b91977b7f91d5ff06460825f37605",
       "note": "安徽省、市、县级频道"
     },
     {
