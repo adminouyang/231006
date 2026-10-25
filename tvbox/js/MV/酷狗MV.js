@@ -1,9 +1,10 @@
+var LINHUN_API_KEY = process.env.LINHUN_API_KEY || '';
 var rule = {
     title:'酷狗MV',
     host:'https://www.kugou.com',
     homeUrl:'/mvweb/html/',
     url:'/mvweb/html/index_fyclass_fypage.html',
-    searchUrl:'https://api.linhun.vip/api/kgmv?apiKey=e7e165ab27316db14467c07e00f3820d&name=**&n=',
+    searchUrl:'https://api.linhun.vip/api/kgmv?apiKey='+LINHUN_API_KEY+'&name=**&n=',
     searchable:2,
     quickSearch:0,
     class_parse:'#radioList&&dd;a&&Text;a&&href;.*/index_(\\d+)_1.html',
@@ -12,7 +13,7 @@ var rule = {
     },
     timeout:5000,
     play_parse:true,
-    lazy:'js:if(/mp4/.test(input)){input}else{var mv_name=request(input).match(/mv_name = "(.*?)"/)[1];input=JSON.parse(request("https://api.linhun.vip/api/kgmv?apiKey=e7e165ab27316db14467c07e00f3820d&name="+mv_name+"&n=1")).video}',
+    lazy:'js:if(/mp4/.test(input)){input}else{var mv_name=request(input).match(/mv_name = "(.*?)"/)[1];input=JSON.parse(request("https://api.linhun.vip/api/kgmv?apiKey='+LINHUN_API_KEY+'&name="+mv_name+"&n=1")).video}',
     limit:6,
     推荐:'*',
     一级:'.mvlist li;a&&title;img&&_src;;a&&href',
