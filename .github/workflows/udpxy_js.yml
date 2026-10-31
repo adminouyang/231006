@@ -48,9 +48,9 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           mkdir -p TV_JS/udpxy-js/template TV_JS/udpxy-js//output TV_JS/udpxy-js//Invalid_ip_file
-          [ -f TV_JS /udpxy-js/ip.txt ] || touch TV_JS /udpxy-js/ip.txt
-          [ -f TV_JS /udpxy-js/template/logo.txt ] || touch TV_JS /udpxy-js/template/logo.txt
-          [ -f TV_JS /udpxy-js/template/demo.txt ] || touch TV_JS /udpxy-js/template/demo.txt
+          [ -f TV_JS/udpxy-js/ip.txt ] || touch TV_JS/udpxy-js/ip.txt
+          [ -f TV_JS/udpxy-js/template/logo.txt ] || touch TV_JS/udpxy-js/template/logo.txt
+          [ -f TV_JS/udpxy-js/template/demo.txt ] || touch TV_JS/udpxy-js/template/demo.txt
 
       - name: 运行扫描脚本
         working-directory: ${{ github.workspace }}
@@ -58,18 +58,18 @@ jobs:
           HTTP_CONCURRENCY: ${{ github.event.inputs.concurrency || '300' }}
           SPEED_THRESHOLD_KB: ${{ github.event.inputs.speed_threshold || '300' }}
         run: |
-          python TV_JS /udpxy-js/udpxy_js.py
+          python TV_JS/udpxy-js/udpxy_js.py
 
       - name: 汇总输出文件列表
         if: always()
         working-directory: ${{ github.workspace }}
         run: |
           echo "===== output/ ====="
-          ls -lh TV_JS /udpxy-js/output/ 2>/dev/null || echo "(空)"
+          ls -lh TV_JS/udpxy-js/output/ 2>/dev/null || echo "(空)"
           echo "===== 各省 config ====="
-          ls -lh TV_JS /udpxy-js/*.txt 2>/dev/null || echo "(空)"
+          ls -lh TV_JS/udpxy-js/*.txt 2>/dev/null || echo "(空)"
           echo "===== 无效记录 ====="
-          ls -lh TV_JS /udpxy-js/Invalid_ip_file/ 2>/dev/null || echo "(空)"
+          ls -lh TV_JS/udpxy-js/Invalid_ip_file/ 2>/dev/null || echo "(空)"
 
       - name: 上传产物 (output / config / invalid)
         if: always()
@@ -77,9 +77,9 @@ jobs:
         with:
           name: ip-scan-results-${{ github.run_number }}
           path: |
-            TV_JS /udpxy-js/output/
-            TV_JS /udpxy-js/*.txt
-            TV_JS /udpxy-js/Invalid_ip_file/
+            TV_JS/udpxy-js/output/
+            TV_JS/udpxy-js/*.txt
+            TV_JS/udpxy-js/Invalid_ip_file/
           retention-days: 30
 
       - name: 提交结果回仓库
@@ -90,7 +90,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # 只添加扫描结果相关文件，避免误提交其他改动
-          git add TV_JS /udpxy-js/output/ TV_JS /udpxy-js/*.txt TV_JS /udpxy-js/Invalid_ip_file/ TV_JS /udpxy-js/ip.txt || true
+          git add TV_JS/udpxy-js/output/ TV_JS/udpxy-js/*.txt TV_JS/udpxy-js/Invalid_ip_file/ TV_JS/udpxy-js/ip.txt || true
           
           if git diff --cached --quiet; then
             echo "无变更，跳过提交"
