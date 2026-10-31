@@ -37,11 +37,11 @@ import aiohttp
 from aiohttp import ClientTimeout, TCPConnector
 
 # ==================== 可调参数 ====================
-BASE_DIR = "TV_JS"
-INPUT_FILE = os.path.join(BASE_DIR, "udpxy-js/ip.txt")
-INVALID_DIR = os.path.join(BASE_DIR, "udpxy-js/Invalid_ip_file")
-TEMPLATE_DIR = os.path.join(BASE_DIR, "udpxy-js/template")
-OUTPUT_DIR = os.path.join(BASE_DIR, "")
+BASE_DIR = "TV_JS/udpxy-js"
+INPUT_FILE = os.path.join(BASE_DIR, "ip.txt")
+INVALID_DIR = os.path.join(BASE_DIR, "Invalid_ip_file")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "template")
+OUTPUT_DIR = os.path.join(os.path.dirname(BASE_DIR))
 
 HTTP_CONCURRENCY = 300        # 并发数
 HTTP_TIMEOUT = 4.0            # 总超时(秒)
