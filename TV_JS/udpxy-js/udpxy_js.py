@@ -41,7 +41,7 @@ BASE_DIR = "TV_JS/udpxy-js"
 INPUT_FILE = os.path.join(BASE_DIR, "ip.txt")
 INVALID_DIR = os.path.join(BASE_DIR, "Invalid_ip_file")
 TEMPLATE_DIR = os.path.join(BASE_DIR, "template")
-OUTPUT_DIR = os.path.join(BASE_DIR, "output")
+OUTPUT_DIR = os.path.join(TV_JS, "")
 
 HTTP_CONCURRENCY = 300        # 并发数
 HTTP_TIMEOUT = 4.0            # 总超时(秒)
