@@ -23,7 +23,7 @@
 
 TVRemote.define({
   key: "cctv",
-  group: "央视公共频道",
+  group: "央视频道",
   updated: "2026-11-04",
   note: "CCTV-1~17 及 4K / 8K，央视频公开源",
   list: [
