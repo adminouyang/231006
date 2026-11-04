@@ -14,7 +14,7 @@
 
 TVRemote.define({
   key: "satellite",
-  group: "卫星电视",
+  group: "卫视频道",
   updated: "2026-11-04",
   note: "32 个省级卫视 + CETV-1",
   list: [
