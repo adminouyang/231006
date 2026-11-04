@@ -32,7 +32,7 @@ TVRemote.define({
     { number: 3,  name: "CCTV-3 综艺",       short: "CCTV-3",  pid: "600001801", fallback: "https://tv.cctv.com/live/cctv3/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV3.png",  epg: "CCTV3" },
     { number: 4,  name: "CCTV-4 中文国际",   short: "CCTV-4",  pid: "600001814", fallback: "https://tv.cctv.com/live/cctv4/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV4.png",  epg: "CCTV4" },
     { number: 5,  name: "CCTV-5 体育",       short: "CCTV-5",  pid: "600001818", fallback: "https://tv.cctv.com/live/cctv5/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV5.png",  epg: "CCTV5" },
-    { number: 6,  name: "CCTV-5+ 体育赛事",  short: "CCTV-5+", pid: "600001817", fallback: "" },
+    { number: 6,  name: "CCTV-5+ 体育赛事",  short: "CCTV-5+", pid: "600001817", fallback: "",   logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV5+.png",  epg: "CCTV5+"  },
     { number: 7,  name: "CCTV-6 电影",       short: "CCTV-6",  pid: "600108442", fallback: "https://tv.cctv.com/live/cctv6/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV6.png",  epg: "CCTV6" },
     { number: 8,  name: "CCTV-7 国防军事",   short: "CCTV-7",  pid: "600004092", fallback: "https://tv.cctv.com/live/cctv7/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV7.png",  epg: "CCTV7" },
     { number: 9,  name: "CCTV-8 电视剧",     short: "CCTV-8",  pid: "600001803", fallback: "https://tv.cctv.com/live/cctv8/",      logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV8.png",  epg: "CCTV8" },
@@ -44,9 +44,9 @@ TVRemote.define({
     { number: 15, name: "CCTV-14 少儿",      short: "CCTV-14", pid: "600001809", fallback: "https://tv.cctv.com/live/cctvchild/",  logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV14.png", epg: "CCTV14" },
     { number: 16, name: "CCTV-15 音乐",      short: "CCTV-15", pid: "600001815", fallback: "https://tv.cctv.com/live/cctv15/",     logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV15.png", epg: "CCTV15" },
     { number: 17, name: "CCTV-16 奥林匹克",  short: "CCTV-16", pid: "600098637", fallback: "https://tv.cctv.com/live/cctv16/",     logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV16.png", epg: "CCTV16" },
-    { number: 18, name: "CCTV-16 奥林匹克 4K", short: "CCTV-16 4K", pid: "600099502", fallback: "" },
+    { number: 18, name: "CCTV-16 奥林匹克 4K", short: "CCTV-16 4K", pid: "600099502", fallback: "",    logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV164K.png",  epg: "CCTV164K" },
     { number: 19, name: "CCTV-17 农业农村",  short: "CCTV-17", pid: "600001810", fallback: "https://tv.cctv.com/live/cctv17/",     logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV17.png", epg: "CCTV17" },
-    { number: 20, name: "CCTV-4K 超高清",    short: "CCTV-4K", pid: "600002264", fallback: "" },
-    { number: 21, name: "CCTV-8K 超高清",    short: "CCTV-8K", pid: "600156816", fallback: "" }
+    { number: 20, name: "CCTV-4K 超高清",    short: "CCTV-4K", pid: "600002264", fallback: "",    logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV4K.png",  epg: "CCTV4K"  },
+    { number: 21, name: "CCTV-8K 超高清",    short: "CCTV-8K", pid: "600156816", fallback: "",    logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/CCTV8K.png",  epg: "CCTV8K" }
   ]
 });
