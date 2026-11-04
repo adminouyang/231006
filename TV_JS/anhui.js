@@ -2,32 +2,32 @@ TVRemote.define({
   key: "anhui",
   group: "安徽",
   list: [
-    { name: "安徽经济生活",
+    { name: "安徽经济生活", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽经济生活.png",  epg: "安徽经济生活",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.79.44:4464",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.79.44:4464"   // 线路2
   ] },
-    { name: "安徽影视",
+    { name: "安徽影视", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽影视频道.png",  epg: "安徽影视",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.79.42:4448",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.79.42:4448"   // 线路2
   ] },
-    { name: "安徽农业科教",
+    { name: "安徽农业科教", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽科教.png",  epg: "安徽农业科教",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.79.40:4432",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.79.40:4432"   // 线路2
   ] },
-    { name: "安徽国际",
+    { name: "安徽国际", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽国际.png",  epg: "安徽国际",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.78.61:6360",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.78.61:6360"   // 线路2
   ] },
-    { name: "安徽公共",
+    { name: "安徽公共", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽公共频道.png",  epg: "安徽公共",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.79.43:4456",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.79.43:4456"   // 线路2
   ] },
-    { name: "安徽综艺体育",
+    { name: "安徽综艺体育", logo: "https://gitee.com/mytv-android/myTVlogo/raw/main/img/安徽综艺体育.png",  epg: "安徽综艺体育",
   urls: [
     "http://183.164.72.138:4022/rtp/238.1.79.41:4440",   // 线路1
     "http://183.164.72.190:4022/rtp/238.1.79.41:4440"   // 线路2
