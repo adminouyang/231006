@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-11-04T14:22:31+00:00",
+  "updated": "2026-11-04T14:53:12+00:00",
   "note": "TVLive 省级广电台频道订阅清单。改了哪个省就更新对应 js，再把这一项里的 sha256 换掉。",
   "groups": [
     {
@@ -190,7 +190,7 @@
       "file": "satellite.js",
       "count": 33,
       "updated": "2026-11-04",
-      "sha256": "46fdc956633e70f6974f35ccd1b3c33fdeb94c3cbf3fdeb400f5327ecb94298a",
+      "sha256": "0e619fcdaa4b6f9fe485d32a6b462fd8b39dbe472a2180d31b1cd78ce993b163",
       "note": "32 个省级卫视 + CETV-1"
     }
   ]
