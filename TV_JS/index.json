@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-10-31T10:55:20+00:00",
+  "updated": "2026-11-04T14:22:31+00:00",
   "note": "TVLive 省级广电台频道订阅清单。改了哪个省就更新对应 js，再把这一项里的 sha256 换掉。",
   "groups": [
     {
@@ -9,17 +9,17 @@
       "group": "安徽",
       "file": "anhui.js",
       "count": 0,
-      "updated": "2026-10-31",
-      "sha256": "c02ff30472398291657dc43a74b4fb93707916cdfc9379d34229b9d664b05d66",
+      "updated": "2026-11-04",
+      "sha256": "d9760939809efa7cf3fe82b7e0699ad11cdf15728ec98436694d908ce7bd4078",
       "note": "安徽省、市、县级频道"
     },
     {
       "key": "beijing",
       "group": "北京",
       "file": "beijing.js",
-      "count": 17,
-      "updated": "2026-10-19",
-      "sha256": "21bd73c4bbfa468859ed869684267e6e415be1ecad45e1416f2f2613b7904508",
+      "count": 0,
+      "updated": "2026-11-04",
+      "sha256": "d5dab421c10d874c3bde301a97fd73a778d48fb36e921062aee6521bed268441",
       "note": "BRTV 各频道（公开 IPTV 转发源，非官网直连）"
     },
     {
@@ -156,6 +156,42 @@
       "updated": "2026-10-16",
       "sha256": "e46f624ba32b131e3ac0c2a7e4affc80fe1d956512bd1dbea9212c24b51f506d",
       "note": "静态地址，无需解析"
+    },
+    {
+      "key": "cctv",
+      "group": "央视公共频道",
+      "file": "cctv.js",
+      "count": 21,
+      "updated": "2026-11-04",
+      "sha256": "f6d7ac003139b8a5ffc6511b609644e7fb751fafad230ab6fd7599aacc2f2cc2",
+      "note": "CCTV-1~17 及 4K / 8K，央视频公开源"
+    },
+    {
+      "key": "cctv_pay",
+      "group": "央视数字付费频道",
+      "file": "cctv_pay.js",
+      "count": 13,
+      "updated": "2026-11-04",
+      "sha256": "a53c94800231775cb13da0fe32aa296537b6cca1c5436f1703c79f6e3a47215b",
+      "note": "标清免费，超清需会员"
+    },
+    {
+      "key": "cgtn",
+      "group": "CGTN 外语频道",
+      "file": "cgtn.js",
+      "count": 6,
+      "updated": "2026-11-04",
+      "sha256": "9e4ee61ddd51d6a53e5b9db77b8c577592c4e70795c5b521ddcd471d5d42dc20",
+      "note": "英语 / 法 / 俄 / 阿 / 西 / 纪录"
+    },
+    {
+      "key": "satellite",
+      "group": "卫星电视",
+      "file": "satellite.js",
+      "count": 33,
+      "updated": "2026-11-04",
+      "sha256": "46fdc956633e70f6974f35ccd1b3c33fdeb94c3cbf3fdeb400f5327ecb94298a",
+      "note": "32 个省级卫视 + CETV-1"
     }
   ]
 }
