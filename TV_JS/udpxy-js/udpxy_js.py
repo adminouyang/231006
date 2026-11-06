@@ -38,6 +38,7 @@ from aiohttp import ClientTimeout, TCPConnector
 
 # ==================== 可调参数 ====================
 BASE_DIR = "TV_JS/udpxy-js"
+LOGO_BASE_URL = "https://gitee.com/mytv-android/myTVlogo/raw/main/img/"
 INPUT_FILE = os.path.join(BASE_DIR, "ip.txt")
 INVALID_DIR = os.path.join(BASE_DIR, "Invalid_ip_file")
 TEMPLATE_DIR = os.path.join(BASE_DIR, "template")
@@ -558,7 +559,11 @@ def generate_province_js(province, ip_ports):
 
     for idx, (name, url_speed_list) in enumerate(channel_links):
         safe_name = name.replace('"', '\\"')
+        logo_url = f"{LOGO_BASE_URL}{safe_name}.png"
+        epg_value = safe_name
         js_lines.append("    { name: \"" + safe_name + "\",")
+        js_lines.append(f"  logo: \"{logo_url}\",")
+        js_lines.append(f"  epg: \"{epg_value}\",")
         js_lines.append("  urls: [")
         for j, (url, speed) in enumerate(url_speed_list, 1):
             comma = "," if j < len(url_speed_list) else ""
