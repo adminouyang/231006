@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-11-04T15:27:21+00:00",
+  "updated": "2026-11-08T12:35:45+00:00",
   "note": "TVLive 频道订阅清单。央视 / 卫视也在远程了，APK 里只剩这个接口地址。",
   "groups": [
     {
@@ -45,8 +45,8 @@
       "group": "安徽",
       "file": "anhui.js",
       "count": 0,
-      "updated": "2026-11-04",
-      "sha256": "99e5a50d6ef8552911739ee8bc08ecdf6079618cb6d1b1d5cde7c8b16353e0cf",
+      "updated": "2026-11-08",
+      "sha256": "79b5a25b6e82a836f725c05607ecb665f692207e26cb5d16cc5ba72c746e8293",
       "note": "安徽省、市、县级频道"
     },
     {
@@ -54,8 +54,8 @@
       "group": "北京",
       "file": "beijing.js",
       "count": 0,
-      "updated": "2026-11-04",
-      "sha256": "d5dab421c10d874c3bde301a97fd73a778d48fb36e921062aee6521bed268441",
+      "updated": "2026-11-08",
+      "sha256": "67ec91aabda694c5e1f0e2034444a521ec869932f9797288d3c8d845eb41c0ea",
       "note": "BRTV 各频道（公开 IPTV 转发源，非官网直连）"
     },
     {
@@ -107,9 +107,9 @@
       "key": "jiangsu",
       "group": "江苏",
       "file": "jiangsu.js",
-      "count": 13,
-      "updated": "2026-10-16",
-      "sha256": "1e6a49e8c236ac9ec8b3ec71ee9285f584491726902c3044c07b6401329aef17",
+      "count": 19,
+      "updated": "2026-11-08",
+      "sha256": "6f65e883b3b556370d5a989a08bdd45db918df45411d2e5129bb19a6719fe1eb",
       "note": "江苏台 9（腾讯云签名本地重算）+ 南京台 4（静态）"
     },
     {
