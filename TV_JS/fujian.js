@@ -26,7 +26,8 @@ TVRemote.define({
     { number: 203, name: "福建综合频道", url: "https://live2-fuyun.fjtv.net/zhpd/hd/live.m3u8?_upt=4f4470731791658567", provider: "fujian", param: "4" },
     { number: 204, name: "福建新闻频道", url: "https://live1-fuyun.fjtv.net/xwpd/hd/live.m3u8?_upt=f2d4ea371791658582", provider: "fujian", param: "13" },
     { number: 205, name: "福建少儿频道", url: "https://live2-fuyun.fjtv.net/child/hd/live.m3u8?_upt=b43fe33b1791658561", provider: "fujian", param: "2" },
-    { number: 206, name: "福建文旅体育频道", url: "https://live1-fuyun.fjtv.net/dspd/hd/live.m3u8?_upt=79d8dfd41791658576", provider: "fujian", param: "8" }
+    { number: 206, name: "福建文旅体育频道", url: "https://live1-fuyun.fjtv.net/dspd/hd/live.m3u8?_upt=79d8dfd41791658576", provider: "fujian", param: "8" },
+    { number: 206, name: "德化电视台", url: "https://play.cmptp.fjgdwl.com/live/63a563ec75764af588f3215b0afa2588.m3u8" }
   ]
 });
 
