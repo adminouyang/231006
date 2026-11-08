@@ -33,7 +33,13 @@ TVRemote.define({
     { number: 158, name: "南京 新闻综合频道", url: "https://nklive.nbs.cn/hls/d511bc9d-a694-4453-b3a2-4fc842cc97a1/index.m3u8" },
     { number: 159, name: "南京 教科频道", url: "https://nklive.nbs.cn/hls/75b3c462-b831-4de7-a34b-5d3221db2069/index.m3u8" },
     { number: 160, name: "南京 十八·生活频道", url: "https://nklive.nbs.cn/hls/1173a815-bfdb-4c3c-9f73-89ec37ae7716/index.m3u8" },
-    { number: 161, name: "南京 文旅纪录频道", url: "https://nklive.nbs.cn/hls/9b2005c4-046c-422f-ba45-e6adc4f4de07/index.m3u8" }
+    { number: 161, name: "南京 文旅纪录频道", url: "https://nklive.nbs.cn/hls/9b2005c4-046c-422f-ba45-e6adc4f4de07/index.m3u8" },
+    { number: 162, name: "苏州新闻综合", url: "https://live-auth.51kandianshi.com/szgd/csztv1.m3u8" },
+    { number: 163, name: "苏州社会经济", url: "https://live-auth.51kandianshi.com/szgd/csztv2.m3u8" },
+    { number: 164, name: "苏州文化生活", url: "https://live-auth.51kandianshi.com/szgd/csztv3.m3u8" },
+    { number: 165, name: "苏州电影娱乐", url: "https://live-auth.51kandianshi.com/szgd/csztv4.m3u8" },
+    { number: 167, name: "苏州生活资讯", url: "https://live-auth.51kandianshi.com/szgd/csztv5.m3u8" },
+    { number: 168, name: "苏州4K", url: "https://live-auth.51kandianshi.com/szgd/csztv4k_4k.m3u8" }
   ]
 });
 
