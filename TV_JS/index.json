@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-11-08T12:38:21+00:00",
+  "updated": "2026-11-10T04:33:43+00:00",
   "note": "TVLive 频道订阅清单。央视 / 卫视也在远程了，APK 里只剩这个接口地址。",
   "groups": [
     {
@@ -45,8 +45,8 @@
       "group": "安徽",
       "file": "anhui.js",
       "count": 0,
-      "updated": "2026-11-08",
-      "sha256": "79b5a25b6e82a836f725c05607ecb665f692207e26cb5d16cc5ba72c746e8293",
+      "updated": "2026-11-10",
+      "sha256": "32fcab6ab6200fb413d136a879fc5bdd09907c4df3c3bb7fd9aa899598c55ddf",
       "note": "安徽省、市、县级频道"
     },
     {
@@ -228,6 +228,15 @@
       "updated": "2026-11-04",
       "sha256": "c2290b85ca20aa8d60fcad023ba6dd5b928f3191a5c2c942747c296edb612a66",
       "note": "32 个省级卫视 + CETV-1"
+    },
+    {
+      "key": "hainan",
+      "group": "海南",
+      "file": "hainan.js",
+      "count": 7,
+      "updated": "2026-11-10",
+      "sha256": "a98c62ea803df4c1a4f0b58c8a71e5434543264071c2ddd1cf08c74859c8b604",
+      "note": "静态地址，无需解析"
     }
   ]
 }
