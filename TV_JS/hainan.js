@@ -24,10 +24,10 @@ TVRemote.define({
     { number: 1, name: "海南卫视", url: "http://hainan.lbds.us.ci/?id=13" },
     { number: 2, name: "三沙卫视", url: "http://hainan.lbds.us.ci/?id=5 },
     { number: 3, name: "海南自贸", url: "http://hainan.lbds.us.ci/?id=1" },
-	  { number: 4, name: "海南新闻", url: "http://hainan.lbds.us.ci/?id=3" },
-	  { number: 5, name: "海南社会与法", url: "http://hainan.lbds.us.ci/?id=4" },
-	  { number: 6, name: "海南文旅", url: "http://hainan.lbds.us.ci/?id=6" },
-	  { number: 7, name: "海南少儿", url: "http://hainan.lbds.us.ci/?id=7" }
+	{ number: 4, name: "海南新闻", url: "http://hainan.lbds.us.ci/?id=3" },
+	{ number: 5, name: "海南社会与法", url: "http://hainan.lbds.us.ci/?id=4" },
+	{ number: 6, name: "海南文旅", url: "http://hainan.lbds.us.ci/?id=6" },
+	{ number: 7, name: "海南少儿", url: "http://hainan.lbds.us.ci/?id=7" }
   ]
 });
 
