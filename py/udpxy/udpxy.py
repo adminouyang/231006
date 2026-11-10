@@ -709,7 +709,7 @@ def merge_and_output(all_channels, demo_path, logo_map, output_dir):
                 else:
                     gt = group_title
                 logo_attr = f' tvg-logo="{logo}"' if logo else ''
-                m3u_lines.append(f'#EXTINF:-1{logo_attr} group-title="{gt}",{name}')
+                m3u_lines.append(f'#EXTINF:-1 tvg-name="{name}"{logo_attr} group-title="{gt}",{name}')
                 m3u_lines.append(u)
 
     # 写 all.txt
