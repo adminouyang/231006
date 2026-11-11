@@ -950,7 +950,7 @@ if __name__ == '__main__':
     print("=" * 60)
     
     # 新增运行次数管理[7](@ref)
-    run_count = manage_run_count()
+    # run_count = manage_run_count()
     
     print(f"🔧 配置参数:")
     print(f"   📊 速度阈值: {SPEED_THRESHOLD}KB/s")
@@ -966,7 +966,7 @@ if __name__ == '__main__':
     with open(SPEED_LOG, 'w', encoding='utf-8') as f:
         f.write(f"测速日志 {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
         f.write(f"速度阈值: {SPEED_THRESHOLD}KB/s\n")
-        f.write(f"运行次数: {run_count}\n")
+        # f.write(f"运行次数: {run_count}\n")
         f.write(f"HTTPS验证: {HTTPS_VERIFY}\n\n")
 
     # 清除URL缓存
@@ -985,9 +985,9 @@ if __name__ == '__main__':
 
     print("\n" + "=" * 60)
     print("🎉 处理完成！")
-    print(f"🔢 本次运行次数: {run_count}")
-    if run_count >= RESET_COUNT - 1:
-        print(f"⚠️ 下次运行将清空黑名单")
+    # print(f"🔢 本次运行次数: {run_count}")
+    # if run_count >= RESET_COUNT - 1:
+    #     print(f"⚠️ 下次运行将清空黑名单")
     print("📁 结果文件:")
     print(f"   IPv4: {IPV4_DIR}/result.txt, result.m3u")
     print(f"   IPv6: {IPV6_DIR}/result.txt, result.m3u")
