@@ -18,7 +18,7 @@ SUBSCRIBE_FILE = os.path.join(CONFIG_DIR, 'subscribe.txt')
 DEMO_FILE = os.path.join(CONFIG_DIR, 'demo.txt')
 LOCAL_FILE = os.path.join(CONFIG_DIR, 'local.txt')
 BLACKLIST_FILE = os.path.join(CONFIG_DIR, 'blacklist.txt')
-RUN_COUNT_FILE = os.path.join(CONFIG_DIR, 'run_count.txt')  # 新增运行次数记录文件
+# RUN_COUNT_FILE = os.path.join(CONFIG_DIR, 'run_count.txt')  # 新增运行次数记录文件
 
 OUTPUT_DIR = 'py/优质源/output'
 IPV4_DIR = os.path.join(OUTPUT_DIR, 'ipv4')
@@ -954,7 +954,7 @@ if __name__ == '__main__':
     
     print(f"🔧 配置参数:")
     print(f"   📊 速度阈值: {SPEED_THRESHOLD}KB/s")
-    print(f"   🔢 运行次数: {run_count}/{RESET_COUNT}")
+    # print(f"   🔢 运行次数: {run_count}/{RESET_COUNT}")
     print(f"   🔐 HTTPS证书验证: {'开启' if HTTPS_VERIFY else '关闭'}")
     print(f"   ⏱️ 测速时长: {SPEED_TEST_DURATION}秒")
     print(f"   👥 最大并发数: {MAX_WORKERS}")
