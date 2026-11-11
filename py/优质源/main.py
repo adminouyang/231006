@@ -29,7 +29,7 @@ SPEED_TEST_DURATION = 5
 MAX_WORKERS = 10
 HTTPS_VERIFY = False
 SPEED_THRESHOLD = 300  # 新增速度阈值120KB/s[6](@ref)
-RESET_COUNT = 12       # 新增运行12次后重置黑名单[7](@ref)
+# RESET_COUNT = 12       # 新增运行12次后重置黑名单[7](@ref)
 
 # 全局变量
 failed_domains = set()
@@ -46,38 +46,38 @@ os.makedirs(IPV6_DIR, exist_ok=True)
 # --------------------------
 # 新增运行次数管理函数
 # --------------------------
-def manage_run_count():
-    """管理运行次数并在第12次时清空黑名单[7](@ref)"""
-    try:
-        # 读取当前运行次数
-        if os.path.exists(RUN_COUNT_FILE):
-            with open(RUN_COUNT_FILE, 'r') as f:
-                current_count = int(f.read().strip())
-        else:
-            current_count = 0
+# def manage_run_count():
+#     """管理运行次数并在第12次时清空黑名单[7](@ref)"""
+#     try:
+#         # 读取当前运行次数
+#         if os.path.exists(RUN_COUNT_FILE):
+#             with open(RUN_COUNT_FILE, 'r') as f:
+#                 current_count = int(f.read().strip())
+#         else:
+#             current_count = 0
         
-        # 增加运行次数
-        current_count += 1
-        print(f"🔢 当前是第 {current_count} 次运行")
+#         # 增加运行次数
+#         current_count += 1
+#         print(f"🔢 当前是第 {current_count} 次运行")
         
-        # 检查是否需要清空黑名单[8](@ref)
-        if current_count >= RESET_COUNT:
-            print("🔄 达到12次运行，清空黑名单文件")
-            if os.path.exists(BLACKLIST_FILE):
-                with open(BLACKLIST_FILE, 'w') as f:
-                    f.write('')  # 清空文件内容
-                print("✅ 黑名单文件已清空")
-            current_count = 0  # 重置计数器
+#         # 检查是否需要清空黑名单[8](@ref)
+#         if current_count >= RESET_COUNT:
+#             print("🔄 达到12次运行，清空黑名单文件")
+#             if os.path.exists(BLACKLIST_FILE):
+#                 with open(BLACKLIST_FILE, 'w') as f:
+#                     f.write('')  # 清空文件内容
+#                 print("✅ 黑名单文件已清空")
+#             current_count = 0  # 重置计数器
         
-        # 保存更新后的运行次数
-        with open(RUN_COUNT_FILE, 'w') as f:
-            f.write(str(current_count))
+#         # 保存更新后的运行次数
+#         with open(RUN_COUNT_FILE, 'w') as f:
+#             f.write(str(current_count))
         
-        return current_count
+#         return current_count
         
-    except Exception as e:
-        print(f"❌ 运行次数管理错误: {str(e)}")
-        return 1
+#     except Exception as e:
+#         print(f"❌ 运行次数管理错误: {str(e)}")
+#         return 1
 
 
 # --------------------------
