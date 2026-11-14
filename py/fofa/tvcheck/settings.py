@@ -7,15 +7,15 @@ import argparse
 from dataclasses import dataclass, field
 from pathlib import Path
 
-# py/TV
-TV_DIR = Path(__file__).resolve().parent.parent
+# py/fofa
+fofa_DIR = Path(__file__).resolve().parent.parent
 
 
 @dataclass
 class Settings:
-    tv_dir: Path = TV_DIR
-    config_dir: Path = field(default_factory=lambda: TV_DIR / "config")
-    output_dir: Path = field(default_factory=lambda: TV_DIR / "output")
+    fofa_dir: Path = fofa_DIR
+    config_dir: Path = field(default_factory=lambda: fofa_DIR / "config")
+    output_dir: Path = field(default_factory=lambda: fofa_DIR / "output")
 
     # ---- 测速 ----
     # 默认按分辨率取阈值（见 resolution.SPEED_THRESHOLD_KBPS）；
@@ -67,9 +67,9 @@ class Settings:
     # ---- 元数据 ----
     epg_url: str = (
         "https://gh-proxy.com/https://raw.githubusercontent.com/"
-        "adminouyang/231006/refs/heads/main/py/TV/EPG/epg.xml"
+        "adminouyang/231006/refs/heads/main/py/fofa/EPG/epg.xml"
     )
-    logo_base: str = "https://codeberg.org/ou-yang/TV/raw/branch/main/LOGO/"
+    logo_base: str = "https://codeberg.org/ou-yang/fofa/raw/branch/main/LOGO/"
 
     # ---- 运行控制 ----
     verbose: bool = False
@@ -108,7 +108,7 @@ class Settings:
 
 def parse_args(argv: list[str] | None = None) -> Settings:
     parser = argparse.ArgumentParser(
-        description="IPTV 直播源检测脚本：拉取订阅 -> 校正频道名 -> 测速 -> 输出 txt/m3u"
+        description="IPfofa 直播源检测脚本：拉取订阅 -> 校正频道名 -> 测速 -> 输出 txt/m3u"
     )
     parser.add_argument("--workers", type=int, default=None, help="并发线程数，默认 96")
     parser.add_argument(
