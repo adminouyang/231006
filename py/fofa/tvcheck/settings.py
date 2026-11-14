@@ -14,8 +14,8 @@ TV_DIR = Path(__file__).resolve().parent.parent
 @dataclass
 class Settings:
     TV_dir: Path = TV_DIR
-    config_dir: Path = field(default_factory=lambda: TV_DIR / "config")
-    output_dir: Path = field(default_factory=lambda: TV_DIR / "output")
+    config_dir: Path = field(default_factory=lambda: TV_DIR / "py/fofa/config")
+    output_dir: Path = field(default_factory=lambda: TV_DIR / "py/fofa/output")
 
     # ---- 测速 ----
     # 默认按分辨率取阈值（见 resolution.SPEED_THRESHOLD_KBPS）；
