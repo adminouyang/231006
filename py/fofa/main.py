@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""IPfofa 直播源检测入口。
+"""IPTV 直播源检测入口。
 
 流程：
     1. 读取 config/subscribe.txt 中的远程订阅，拉取并解析 txt / m3u
@@ -11,9 +11,9 @@
     6. 输出 output/ipv4、output/ipv6 下的 txt + m3u，以及 output/sort.log
 
 用法：
-    python py/fofa/main.py                    # 全量检测
-    python py/fofa/main.py --limit 2 -v       # 只跑前 2 个订阅源，调试用
-    python py/fofa/main.py --skip-test        # 只合并改名，不测速
+    python py/TV/main.py                    # 全量检测
+    python py/TV/main.py --limit 2 -v       # 只跑前 2 个订阅源，调试用
+    python py/TV/main.py --skip-test        # 只合并改名，不测速
 """
 
 from __future__ import annotations
@@ -25,21 +25,21 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from pathlib import Path
 
-fofa_DIR = Path(__file__).resolve().parent
-if str(fofa_DIR) not in sys.path:
-    sys.path.insert(0, str(fofa_DIR))
+TV_DIR = Path(__file__).resolve().parent
+if str(TV_DIR) not in sys.path:
+    sys.path.insert(0, str(TV_DIR))
 
-from fofacheck.blacklist import Blacklist, is_dead_status  # noqa: E402
-from fofacheck.models import Candidate  # noqa: E402
-from fofacheck.names import ChannelDB, clean_name, normalize  # noqa: E402
-from fofacheck.resolution import (  # noqa: E402
+from TVcheck.blacklist import Blacklist, is_dead_status  # noqa: E402
+from TVcheck.models import Candidate  # noqa: E402
+from TVcheck.names import ChannelDB, clean_name, normalize  # noqa: E402
+from TVcheck.resolution import (  # noqa: E402
     UNKNOWN,
     describe_table,
     from_text as resolution_from_text,
     threshold_for,
 )
-from fofacheck.settings import Settings, parse_args  # noqa: E402
-from fofacheck.sources import (  # noqa: E402
+from TVcheck.settings import Settings, parse_args  # noqa: E402
+from TVcheck.sources import (  # noqa: E402
     Entry,
     classify_ipver,
     fetch_text,
@@ -49,8 +49,8 @@ from fofacheck.sources import (  # noqa: E402
     read_subscribe,
     url_host,
 )
-from fofacheck.speedtest import SpeedTester  # noqa: E402
-from fofacheck.writer import (  # noqa: E402
+from TVcheck.speedtest import SpeedTester  # noqa: E402
+from TVcheck.writer import (  # noqa: E402
     build_groups,
     count_stats,
     write_log,
@@ -127,12 +127,12 @@ def build_candidates(
         seen.add(url)
         stats["uniq"] += 1
 
-        info = db.match(entry.name, entry.fofag_name)
+        info = db.match(entry.name, entry.TVg_name)
         if info is not None:
             name, group, matched = info.name, info.group, True
         else:
             # 名称不在 demo.txt 里：不改名，统一归入模板的兜底分组（其它频道）
-            name = clean_name(entry.name) or clean_name(entry.fofag_name)
+            name = clean_name(entry.name) or clean_name(entry.TVg_name)
             if not name:
                 stats["no_name"] += 1
                 continue
@@ -159,7 +159,7 @@ def build_candidates(
         resolution = (
             resolution_from_text(name)
             or resolution_from_text(entry.name)
-            or resolution_from_text(entry.fofag_name)
+            or resolution_from_text(entry.TVg_name)
             or UNKNOWN
         )
 
@@ -365,7 +365,7 @@ def log_sort_key(c: Candidate, db: ChannelDB):
 def main(argv: list[str] | None = None) -> int:
     settings = parse_args(argv)
     if settings.self_test:
-        from fofacheck.selftest import run_selftest
+        from TVcheck.selftest import run_selftest
 
         return run_selftest()
 
@@ -419,10 +419,10 @@ def main(argv: list[str] | None = None) -> int:
         )
         return 1
 
-    write_txt(settings.ipv4_dir / "fofa.txt", groups["ipv4"])
-    write_m3u(settings.ipv4_dir / "fofa.m3u", groups["ipv4"], settings)
-    write_txt(settings.ipv6_dir / "fofa.txt", groups["ipv6"])
-    write_m3u(settings.ipv6_dir / "fofa.m3u", groups["ipv6"], settings)
+    write_txt(settings.ipv4_dir / "TV.txt", groups["ipv4"])
+    write_m3u(settings.ipv4_dir / "TV.m3u", groups["ipv4"], settings)
+    write_txt(settings.ipv6_dir / "TV.txt", groups["ipv6"])
+    write_m3u(settings.ipv6_dir / "TV.m3u", groups["ipv6"], settings)
 
     blacklist.save()
 
