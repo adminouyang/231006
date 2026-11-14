@@ -29,17 +29,17 @@ TV_DIR = Path(__file__).resolve().parent
 if str(TV_DIR) not in sys.path:
     sys.path.insert(0, str(TV_DIR))
 
-from py.fofa.TVcheck.blacklist import Blacklist, is_dead_status  # noqa: E402
-from py.fofa.TVcheck.models import Candidate  # noqa: E402
-from py.fofa.TVcheck.names import ChannelDB, clean_name, normalize  # noqa: E402
-from py.fofa.TVcheck.resolution import (  # noqa: E402
+from TVcheck.blacklist import Blacklist, is_dead_status  # noqa: E402
+from TVcheck.models import Candidate  # noqa: E402
+from TVcheck.names import ChannelDB, clean_name, normalize  # noqa: E402
+from TVcheck.resolution import (  # noqa: E402
     UNKNOWN,
     describe_table,
     from_text as resolution_from_text,
     threshold_for,
 )
-from py.fofa.TVcheck.settings import Settings, parse_args  # noqa: E402
-from py.fofa.TVcheck.sources import (  # noqa: E402
+from TVcheck.settings import Settings, parse_args  # noqa: E402
+from TVcheck.sources import (  # noqa: E402
     Entry,
     classify_ipver,
     fetch_text,
@@ -49,8 +49,8 @@ from py.fofa.TVcheck.sources import (  # noqa: E402
     read_subscribe,
     url_host,
 )
-from py.fofa.TVcheck.speedtest import SpeedTester  # noqa: E402
-from py.fofa.TVcheck.writer import (  # noqa: E402
+from TVcheck.speedtest import SpeedTester  # noqa: E402
+from TVcheck.writer import (  # noqa: E402
     build_groups,
     count_stats,
     write_log,
