@@ -1,0 +1,53 @@
+name: IPfofa 直播源检测
+
+on:
+  schedule:
+    # 每天 UTC 20:00（北京时间 04:00）跑一次
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "py/fofa/**"
+      - ".github/workflows/fofa-check.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ipfofa-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r py/fofa/requirements.txt
+
+      - name: Run checker
+        run: python py/fofa/main.py --workers 128
+
+      - name: Upload log artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sort-log
+          path: py/fofa/output/sort.log
+          if-no-files-found: ignore
+
+      - name: Commit results
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: 自动更新直播源与黑名单"
+          file_pattern: "py/fofa/output py/fofa/config/blacklist.txt"
