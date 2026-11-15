@@ -1,9 +1,9 @@
 name: Hotel
 
 on:
-  schedule:
-    - cron: "0 1,17 * * *"
-  workflow_dispatch:
+#   schedule:
+#     - cron: "0 1,17 * * *"
+#   workflow_dispatch:
 
 jobs:
   run-hotel:
