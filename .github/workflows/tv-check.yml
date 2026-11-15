@@ -6,9 +6,9 @@ on:
     - cron: "0 20 * * *"
   workflow_dispatch:
   push:
-    paths:
-      - "py/iptv/**"
-      - ".github/workflows/tv-check.yml"
+    # paths:
+    #   - "py/iptv/**"
+    #   - ".github/workflows/tv-check.yml"
 
 permissions:
   contents: write
