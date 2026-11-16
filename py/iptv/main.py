@@ -53,6 +53,7 @@ from tvcheck.speedtest import SpeedTester  # noqa: E402
 from tvcheck.writer import (  # noqa: E402
     build_groups,
     count_stats,
+    truncation_report,
     write_log,
     write_m3u,
     write_txt,
@@ -207,7 +208,15 @@ def run_tests(
     candidates: list[Candidate], settings: Settings, blacklist: Blacklist
 ) -> dict[str, int]:
     todo = interleave([c for c in candidates if c.testable])
-    result = {"tested": 0, "passed": 0, "dead": 0, "retested": 0, "retest_pass": 0}
+    result = {
+        "tested": 0,
+        "passed": 0,
+        "dead": 0,
+        "retested": 0,
+        "retest_pass": 0,
+        "weak": 0,
+        "rejected": 0,
+    }
     if not todo:
         return result
 
@@ -251,6 +260,15 @@ def run_tests(
             if cand.ok:
                 blacklist.record_ok(cand.url)
                 result["passed"] += 1
+            elif cand.weak:
+                # 临界源也记一次成功：它确实活着，别让它被黑名单误伤
+                blacklist.record_ok(cand.url)
+                result["weak"] += 1
+            elif cand.reject_kind:
+                # DRM 加密 / 静止画面 / 点播短片：速度没问题，但放不出画面。
+                # 这类不算失效，不写黑名单（换台机器、换播放器也一样放不了，重试没意义，
+                # 但也不该按"域名失效"处理）。
+                result["rejected"] += 1
             elif is_dead_status(cand.status):
                 # 只有明确的 HTTP 错误状态码才写进黑名单
                 blacklist.record_fail(cand.url, f"HTTP {cand.status}")
@@ -258,8 +276,8 @@ def run_tests(
 
             if done % 50 == 0 or done == total:
                 log(
-                    f"[测速] {done}/{total} | 通过 {result['passed']} | "
-                    f"{time.monotonic() - started:.1f}s"
+                    f"[测速] {done}/{total} | 达标 {result['passed']} | "
+                    f"临界 {result['weak']} | {time.monotonic() - started:.1f}s"
                 )
     result["tested"] = total
 
@@ -270,10 +288,16 @@ def run_tests(
 
 
 def absorb(cand: Candidate, res, suffix: str = "") -> None:
-    """把一次测速结果写回候选，速度取历史最好值。"""
-    cand.ok = res.ok
+    """把一次测速结果写回候选，速度取历史最好值。
+
+    ok 只升不降：首轮通过、重测抖动一下不该把源弄丢。
+    """
+    cand.ok = cand.ok or res.ok
+    cand.weak = (cand.weak or res.weak_ok) and not cand.ok
     if res.speed_kbps > cand.speed:
         cand.speed = res.speed_kbps
+    if res.speed_peak > cand.speed_peak:
+        cand.speed_peak = res.speed_peak
     cand.speed_avg = res.speed_avg or cand.speed_avg
     cand.total_bytes = max(cand.total_bytes, res.total_bytes)
     cand.elapsed = res.elapsed
@@ -286,6 +310,8 @@ def absorb(cand: Candidate, res, suffix: str = "") -> None:
     if res.bitrate_kbps:
         cand.bitrate = res.bitrate_kbps
     cand.reason = res.reason
+    if res.reject_kind and not (cand.ok or cand.weak):
+        cand.reject_kind = res.reject_kind
 
 
 def retest_borderline(
@@ -334,12 +360,17 @@ def retest_borderline(
             result["retested"] += 1
             if not res.valid:
                 continue
+            was_weak = cand.weak
             absorb(cand, res, suffix="(重测)")
             cand.ts = datetime.now().strftime(TIME_FMT)
             if cand.ok:
+                if was_weak:
+                    result["weak"] = max(0, result["weak"] - 1)
                 blacklist.record_ok(cand.url)
                 result["passed"] += 1
                 result["retest_pass"] += 1
+            elif cand.weak and not was_weak:
+                result["weak"] += 1
             if done % 50 == 0 or done == total:
                 log(
                     f"[重测] {done}/{total} | 救回 {result['retest_pass']} | "
@@ -357,7 +388,7 @@ def log_sort_key(c: Candidate, db: ChannelDB):
         db.group_index(c.group),
         db.order_of(c.name_key),
         c.name,
-        0 if c.ok else 1,
+        0 if c.ok else (1 if c.weak else 2),
         -c.speed,
     )
 
@@ -434,14 +465,17 @@ def main(argv: list[str] | None = None) -> int:
         "blocked": stats["blocked"],
         "tested": test_stats["tested"],
         "passed": test_stats["passed"],
+        "weak": test_stats.get("weak", 0),
         "dead": test_stats["dead"],
         "retested": test_stats.get("retested", 0),
         "retest_pass": test_stats.get("retest_pass", 0),
+        "rejected": test_stats.get("rejected", 0),
         "cost": cost,
         "v4_channels": v4_channels,
         "v4_urls": v4_urls,
         "v6_channels": v6_channels,
         "v6_urls": v6_urls,
+        "truncation": truncation_report(candidates, settings),
     }
 
     rows = sorted(
@@ -451,8 +485,8 @@ def main(argv: list[str] | None = None) -> int:
 
     log("")
     log(
-        f"[完成] 订阅 {source_count} 个 | 去重 {stats['uniq']} | 通过 {test_stats['passed']}"
-        f"/{test_stats['tested']}"
+        f"[完成] 订阅 {source_count} 个 | 去重 {stats['uniq']} | 达标 {test_stats['passed']}"
+        f" + 临界 {test_stats.get('weak', 0)} / 测速 {test_stats['tested']}"
         + (
             f"（重测救回 {test_stats['retest_pass']}）"
             if test_stats.get("retest_pass")
@@ -460,6 +494,8 @@ def main(argv: list[str] | None = None) -> int:
         )
         + f" | 耗时 {cost:.1f}s"
     )
+    if test_stats.get("rejected"):
+        log(f"[内容] 剔除 {test_stats['rejected']} 个放不出画面的源（DRM/静止画面/点播短片）")
     log(f"[输出] IPv4: {v4_channels} 频道 / {v4_urls} 地址  ({settings.ipv4_dir})")
     log(f"[输出] IPv6: {v6_channels} 频道 / {v6_urls} 地址  ({settings.ipv6_dir})")
     log(f"[输出] 日志: {settings.log_file}")
