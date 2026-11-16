@@ -1,4 +1,4 @@
-name: IPiptv 直播源检测
+name: IPTV 直播源检测
 
 on:
   schedule:
@@ -6,15 +6,15 @@ on:
     - cron: "0 20 * * *"
   workflow_dispatch:
   push:
-    # paths:
-    #   - "py/iptv/**"
-    #   - ".github/workflows/tv-check.yml"
+    paths:
+      - "py/TV/**"
+      - ".github/workflows/tv-check.yml"
 
 permissions:
   contents: write
 
 concurrency:
-  group: tv-check
+  group: iptv-check
   cancel-in-progress: false
 
 jobs:
@@ -33,21 +33,23 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r py/iptv/requirements.txt
+          pip install -r py/TV/requirements.txt
 
       - name: Run checker
-        run: python py/iptv/main.py --workers 128
+        # 并发不要开太高：runner 出口带宽有限，128 线程同跑会互相抢带宽，
+        # 测出来的速度普遍偏低，反而把能播的源判死。64 线程 + 二阶段重测更准。
+        run: python py/TV/main.py --workers 64
 
       - name: Upload log artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sort-log
-          path: py/iptv/output/sort.log
+          path: py/TV/output/sort.log
           if-no-files-found: ignore
 
       - name: Commit results
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "chore: 自动更新直播源与黑名单"
-          file_pattern: "py/iptv/output py/iptv/config/blacklist.txt"
+          file_pattern: "py/TV/output py/TV/config/blacklist.txt"
