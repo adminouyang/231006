@@ -24,10 +24,10 @@ class Settings:
     https_verify: bool = False             # 是否校验 HTTPS 证书
     connect_timeout: float = 6.0           # 建连超时
     read_timeout: float = 8.0              # 单次读取超时
-    test_timeout: float = 20.0             # 单个源的总耗时上限
-    max_bytes: int = 3072 * 1024           # 单源最多下载多少字节
-    soft_bytes: int = 768 * 1024           # 快源攒够这么多字节且窗口足够就提前收手
-    soft_window: float = 2.5               # 软阈值对应的最短测速窗口（秒）
+    test_timeout: float = 24.0             # 单个源的总耗时上限
+    max_bytes: int = 6144 * 1024           # 单源最多下载多少字节
+    soft_bytes: int = 1280 * 1024          # 快源攒够这么多字节且窗口足够就提前收手
+    soft_window: float = 3.0               # 软阈值对应的最短测速窗口（秒）
     min_bytes: int = 20 * 1024             # 低于此数据量视为无效流
     playlist_max_bytes: int = 512 * 1024   # m3u8 播放列表最大读取量
     max_segments: int = 4                  # 最多取几个分片测速
@@ -46,10 +46,25 @@ class Settings:
     min_floor_kbps: float = 100.0          # 任何源都不得低于此速度，挡住劣质源
     # 3) 首轮高并发会互相抢带宽，临界源用低并发补测一次
     retest: bool = True
-    retest_ratio: float = 0.6              # 首轮达到目标的百分之多少才值得重测
+    # 只有「差一点点」的源才值得补测：临界源（≥60%）已经会输出，
+    # 再花 8 并发去补测上千个临界源只会把总耗时拉长十几分钟。
+    retest_ratio: float = 0.85             # 首轮达到目标的百分之多少才值得重测
     retest_workers: int = 8                # 重测并发，远低于首轮
-    retest_max: int = 1500                 # 重测数量上限，防止无限拖延
+    retest_max: int = 600                  # 重测数量上限，防止无限拖延
     strict: bool = False                   # 严格模式：退回旧的单轮判定行为
+    # 4) 分级输出：检测机（GitHub runner）到源的跨境链路往往比用户家宽差一个量级，
+    #    「在这台机器上跑不到标称速度」不等于「用户那边播不动」。
+    #    因此达不到硬阈值的源不直接丢弃，而是标成「临界」排在达标源之后。
+    weak_enabled: bool = True
+    weak_ratio: float = 0.6                # 稳态速度达到目标的这个比例即视为临界可用
+    peak_window: float = 2.0               # 峰值速度的滑动窗口（秒），抗抖动
+
+    # ---- 内容校验（拿到数据 ≠ 能播出画面）----
+    # 有的源 HTTP 200、字节数也够，但载荷是 DRM 加密的，或者干脆是张静止图片。
+    # 这类源速度再快也没有意义，必须在测速之后再过一道内容关。
+    reject_drm: bool = True                # 拒绝 DRM 加密载荷 / 不可解的加密播放列表
+    static_detect: bool = True             # 拒绝静止画面（帧大小中位数极低）
+    min_live_seconds: float = 600.0        # 点播列表总时长低于此值视为短片，0 表示不限制
 
     # ---- 并发 ----
     workers: int = 96
@@ -146,6 +161,29 @@ def parse_args(argv: list[str] | None = None) -> Settings:
         action="store_true",
         help="完全按流码率判定（连高码率源也按真实需求收紧），默认只放宽不收紧",
     )
+    parser.add_argument(
+        "--no-weak",
+        action="store_true",
+        help="关闭临界源输出（只输出确实达到阈值的源）",
+    )
+    parser.add_argument(
+        "--weak-ratio",
+        type=float,
+        default=None,
+        help="临界源门槛系数，默认 0.6（达到目标的 60%% 就标为临界可用）",
+    )
+    parser.add_argument(
+        "--keep-drm", action="store_true", help="保留 DRM 加密源（默认剔除，播放器放不出画面）"
+    )
+    parser.add_argument(
+        "--no-static", action="store_true", help="保留静止画面源（默认剔除）"
+    )
+    parser.add_argument(
+        "--min-live",
+        type=float,
+        default=None,
+        help="点播列表最短时长（秒），低于此值视为短片，默认 600；0 表示不限制",
+    )
     args = parser.parse_args(argv)
 
     s = Settings()
@@ -175,11 +213,22 @@ def parse_args(argv: list[str] | None = None) -> Settings:
         s.retest = False
     if args.bitrate_strict:
         s.bitrate_strict = True
+    if args.no_weak:
+        s.weak_enabled = False
+    if args.weak_ratio is not None:
+        s.weak_ratio = min(max(args.weak_ratio, 0.0), 1.0)
+    if args.keep_drm:
+        s.reject_drm = False
+    if args.no_static:
+        s.static_detect = False
+    if args.min_live is not None:
+        s.min_live_seconds = max(args.min_live, 0.0)
     if args.strict:
-        # 一次性回到旧行为：不剔慢启动、不按码率放宽、不重测、短窗口
+        # 一次性回到旧行为：不剔慢启动、不按码率放宽、不重测、短窗口、不要临界源
         s.strict = True
         s.warmup = 0.0
         s.bitrate_aware = False
         s.retest = False
+        s.weak_enabled = False
         s.soft_window = 1.0
     return s

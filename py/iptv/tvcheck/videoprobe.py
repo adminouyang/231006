@@ -11,6 +11,8 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 from .resolution import bucket_from_size
 
 _TS_PACKET = 188
@@ -340,3 +342,149 @@ def probe_resolution(data: bytes) -> str:
         if size:
             return bucket_from_size(size[0], size[1])
     return ""
+
+
+# --------------------------------------------------------------------------- #
+# 画面活跃度
+# --------------------------------------------------------------------------- #
+@dataclass
+class VideoStats:
+    """一段码流里的视频帧统计，用于识别「静止画面」。"""
+
+    width: int = 0
+    height: int = 0
+    frames: int = 0            # 带 PTS 的视频 PES 数（TS 里通常 1 PES = 1 帧）
+    video_bytes: int = 0       # 该帧序列的 ES 总字节
+    median_frame: int = 0      # 帧大小中位数（字节）
+    max_frame: int = 0
+    span: float = 0.0          # 首末 PTS 跨度（秒）
+
+    @property
+    def fps(self) -> float:
+        if self.span <= 0 or self.frames < 2:
+            return 0.0
+        return (self.frames - 1) / self.span
+
+    @property
+    def bpp(self) -> float:
+        """每像素每帧的比特数。静止画面会低到 0.001 量级（正常 1080p 约 0.05~0.1）。"""
+        if not (self.width and self.height and self.frames):
+            return 0.0
+        return self.median_frame * 8.0 / (self.width * self.height)
+
+    @property
+    def static(self) -> bool:
+        """是否静止画面。
+
+        判据是「帧大小中位数极低」而不是总码率：静止画面里每一帧都是跳过的 P 帧，
+        普遍只有一两百字节（实测 500 帧全部 148~176 字节）；哪怕偶尔夹一个 IDR 也不影响中位数。
+        正常视频单帧通常在几 KB 到几十 KB，最低码率的直播也不会中位到 500 字节。
+        """
+        return self.frames >= 30 and 0 < self.median_frame < 500
+
+
+def _pts_of(pes: bytes) -> int | None:
+    """pes 从 stream_id 开始。返回 PTS（90kHz），没有则 None。"""
+    if len(pes) < 11:
+        return None
+    if (pes[3] >> 6) & 0x03 == 0:  # PTS_DTS_flags
+        return None
+    p = pes[6:11]
+    return (
+        (((p[0] >> 1) & 0x07) << 30)
+        | (p[1] << 22)
+        | (((p[2] >> 1) & 0x7F) << 15)
+        | (p[3] << 7)
+        | (p[4] >> 1)
+    )
+
+
+def _video_pid_by_pes(data: bytes) -> int | None:
+    """PMT 缺失时，按「视频 PES 起始最多」猜一个视频 PID。"""
+    counter: dict[int, int] = {}
+    for offset in _iter_packets(data):
+        pid, pusi, body = _payload(data, offset)
+        if not pusi or len(body) < 4:
+            continue
+        sp = body.find(b"\x00\x00\x01", 0, 8)
+        if sp >= 0 and 0xE0 <= body[sp + 3] <= 0xEF:
+            counter[pid] = counter.get(pid, 0) + 1
+    if not counter:
+        return None
+    return max(counter.items(), key=lambda kv: kv[1])[0]
+
+
+def _pid_frames(data: bytes, pid: int) -> tuple[list[int], float]:
+    """返回 (每个 PES 的 ES 字节列表, 首末 PTS 跨度秒)。"""
+    sizes: list[int] = []
+    pending = 0
+    pts_lo = -1
+    pts_hi = -1
+    for offset in _iter_packets(data):
+        p, pusi, body = _payload(data, offset)
+        if p != pid or not body:
+            continue
+        if not pusi:
+            if pending:
+                pending += len(body)
+            continue
+        if pending:
+            sizes.append(pending)
+            pending = 0
+        sp = body.find(b"\x00\x00\x01", 0, 8)
+        if sp < 0 or len(body) < sp + 9:
+            continue
+        sid = body[sp + 3]
+        if not 0xE0 <= sid <= 0xEF:  # 0xBE 填充、音频等都跳过
+            continue
+        pes = body[sp + 3:]
+        es_start = sp + 9 + body[sp + 8]
+        if es_start > len(body):
+            continue
+        pending = len(body) - es_start
+        t = _pts_of(pes)
+        if t is not None:
+            if pts_lo < 0 or t < pts_lo:
+                pts_lo = t
+            if t > pts_hi:
+                pts_hi = t
+    if pending:
+        sizes.append(pending)
+    span = (pts_hi - pts_lo) / 90000.0 if pts_lo >= 0 and pts_hi > pts_lo else 0.0
+    return sizes, span
+
+
+def analyze_stream(data: bytes) -> VideoStats:
+    """分析一段 TS 的视频帧大小分布，用于判断静止画面 / 低活跃度。"""
+    stats = VideoStats()
+    if not data or len(data) < _TS_PACKET * 8 or data[0] != 0x47:
+        return stats
+
+    pids: list[int] = []
+    pmt_pid = _pmt_pid(data)
+    if pmt_pid is not None:
+        pids = _video_pids(data, pmt_pid)
+    if not pids:
+        guess = _video_pid_by_pes(data)
+        if guess is not None:
+            pids = [guess]
+    if not pids:
+        return stats
+
+    pid = pids[0]
+    sizes, span = _pid_frames(data, pid)
+    if not sizes:
+        return stats
+
+    ordered = sorted(sizes)
+    mid = len(ordered) // 2
+    stats.frames = len(ordered)
+    stats.video_bytes = sum(ordered)
+    stats.median_frame = ordered[mid]
+    stats.max_frame = ordered[-1]
+    stats.span = span
+
+    size = size_from_es(_es_bytes(data, pid))
+    if size:
+        stats.width, stats.height = size
+    return stats

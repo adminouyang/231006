@@ -33,9 +33,10 @@ import requests
 import urllib3
 from requests.adapters import HTTPAdapter
 
+from .content import drm_label, playlist_drm, short_vod_reason, static_reason
 from .resolution import UNKNOWN, bucket_from_size, threshold_for
 from .settings import Settings
-from .videoprobe import probe_resolution
+from .videoprobe import analyze_stream, probe_resolution
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -71,6 +72,9 @@ class TestResult:
     threshold: float = 0.0    # 实际使用的判定目标 KB/s
     bitrate_kbps: float = 0.0  # 流自身码率 KB/s（实测优先，其次 BANDWIDTH 声明）
     basis: str = ""           # 判定依据：分辨率阈值 / 码率基准
+    speed_peak: float = 0.0   # 最佳滑动窗口速度 KB/s
+    weak_ok: bool = False     # 未达硬阈值但属于「临界可用」
+    reject_kind: str = ""     # 内容不合格类型：drm / static / vod
 
 
 @dataclass
@@ -115,6 +119,10 @@ class _Meter:
         if pumped.total <= 0:
             return
         base = self.nbytes
+        # 两次请求之间的空档（建连、等播放列表、切分片）必须体现为「这段时间没进数据」，
+        # 否则最后一段的突发会被当成稳态速度（曾出现 稳态 2761KB/s / 均速 314KB/s 的鬼数据）。
+        if self.marks and pumped.t_first > self.last + 0.05:
+            self.marks.append((pumped.t_first, base))
         self.nbytes += pumped.total
         if self.first <= 0 or pumped.t_first < self.first:
             self.first = pumped.t_first
@@ -128,37 +136,69 @@ class _Meter:
 
     # -- 速度 ---------------------------------------------------------- #
     def average_kbps(self, elapsed: float) -> float:
-        span = self.last - self.first
-        if span <= 0.05:
-            span = max(elapsed, 0.001)
-        return self.nbytes / 1024.0 / span if span > 0 else 0.0
+        """全程吞吐：总字节 ÷ 实际耗时（含建连与空档），反映「多久能拿到这些数据」。"""
+        span = max(elapsed, 0.001)
+        return self.nbytes / 1024.0 / span
+
+    def _bytes_at(self, t: float) -> float:
+        """按线性插值求 t 时刻的累计字节。"""
+        prev_t = 0.0
+        prev_n = 0.0
+        for mark_t, mark_n in self.marks:
+            if mark_t >= t:
+                if mark_t <= prev_t:
+                    return float(mark_n)
+                ratio = (t - prev_t) / (mark_t - prev_t)
+                return prev_n + (mark_n - prev_n) * ratio
+            prev_t, prev_n = mark_t, mark_n
+        return float(self.nbytes)
 
     def steady_kbps(self, elapsed: float, warmup: float = 0.0) -> float:
         """丢掉前 warmup 秒的慢启动阶段，用剩余窗口算速度。
 
-        窗口本来就短于预热期时无法剔除，退回平均速度（否则会因为没有采样点算出 0）。
+        切点按时间插值，不取「第一个晚于切点的采样点」——否则切点后面正好是
+        一段空档时，窗口会被压缩成最后那一小段突发，速度直接虚高一个量级。
         """
         avg = self.average_kbps(elapsed)
         span = self.last - self.first
-        if warmup <= 0 or span <= warmup * 1.4 or len(self.marks) < 3:
+        if warmup <= 0 or span <= warmup * 1.4 or not self.marks:
             return avg
 
         cut = self.first + warmup
-        base_t = 0.0
-        base_b = 0
-        for t, n in self.marks:
-            if t >= cut:
-                base_t, base_b = t, n
-                break
-        if base_t <= 0:
-            return avg
-
-        sspan = self.last - base_t
-        sbytes = self.nbytes - base_b
+        base_n = self._bytes_at(cut)
+        sspan = self.last - cut
+        sbytes = self.nbytes - base_n
         if sspan < 0.5 or sbytes <= 0:
-            # 稳态窗口太短，噪声大，宁可退回平均速度
+            # 稳态窗口太短，噪声大，宁可退回全程平均
             return avg
         return sbytes / 1024.0 / sspan
+
+    def peak_kbps(self, window: float) -> float:
+        """最佳滑动窗口速度：整段里任意 window 秒内最猛的那一段。
+
+        跨境链路对单条源经常是「一段一段地给」，稳态平均会把这种源判死；
+        播放器有缓冲，只要持续有窗口能跑满，实际就能连续播。
+        这个值只用于「临界」判定，不参与硬阈值，避免把抖动的源算成高速源。
+        """
+        span = self.last - self.first
+        if span <= 0 or not self.marks:
+            return 0.0
+        if span < window:
+            return self.nbytes / 1024.0 / span
+        best = 0.0
+        left = 0
+        for right, (tr, nr) in enumerate(self.marks):
+            while tr - self.marks[left][0] > window:
+                left += 1
+            if right <= left:
+                continue
+            dt = tr - self.marks[left][0]
+            if dt < window * 0.8:
+                continue
+            value = (nr - self.marks[left][1]) / 1024.0 / dt
+            if value > best:
+                best = value
+        return best
 
 
 class SpeedTester:
@@ -273,10 +313,24 @@ class SpeedTester:
         result.threshold = target
         result.basis = basis
         result.ok = result.speed_kbps >= target
+        result.weak_ok = False
         if result.ok:
             result.reason = ""
+            return
+
+        short = f"速度 {result.speed_kbps:.2f}KB/s 低于 {basis} 的 {target:g}KB/s"
+        best = max(result.speed_kbps, result.speed_peak)
+        weak_floor = max(target * self.s.weak_ratio, self.s.min_floor_kbps)
+        if self.s.weak_enabled and best >= weak_floor:
+            # 检测机到源的链路常常只有用户家宽的一个零头，
+            # 达不到硬阈值不等于播不了，因此降级为「临界」而非直接丢弃。
+            result.weak_ok = True
+            result.reason = (
+                f"{short}，峰值 {best:.2f}KB/s 已达 {best / target:.0%}（临界线 "
+                f"{weak_floor:g}KB/s），列为临界源"
+            )
         else:
-            result.reason = f"速度 {result.speed_kbps:.2f}KB/s 低于 {basis} 的 {target:g}KB/s"
+            result.reason = short
 
     # ------------------------------------------------------------------ #
     # 单次请求
@@ -404,6 +458,45 @@ class SpeedTester:
                 status=status,
             )
 
+        # 播放列表层面的内容校验：加密方式、是不是伪直播短片
+        if self.s.reject_drm:
+            locked = playlist_drm(playlist)
+            if locked:
+                return TestResult(
+                    url=url,
+                    reason=locked,
+                    reject_kind="drm",
+                    elapsed=time.monotonic() - start,
+                    total_bytes=meter.nbytes,
+                    status=status,
+                )
+        if self.s.min_live_seconds > 0:
+            short = short_vod_reason(playlist, self.s.min_live_seconds)
+            if short:
+                return TestResult(
+                    url=url,
+                    reason=short,
+                    reject_kind="vod",
+                    elapsed=time.monotonic() - start,
+                    total_bytes=meter.nbytes,
+                    status=status,
+                )
+
+        # AES-128 是标准 HLS 加密，播放器能正常解，只是我们解不了载荷，
+        # 因此要跳过「载荷是否加密/是否静止画面」的判断，否则会误杀。
+        aes128 = "METHOD=AES-128" in playlist.upper()
+        if aes128 and self.s.reject_drm:
+            key_bad = self._check_key(playlist, base, headers, verify)
+            if key_bad:
+                return TestResult(
+                    url=url,
+                    reason=key_bad,
+                    reject_kind="drm",
+                    elapsed=time.monotonic() - start,
+                    total_bytes=meter.nbytes,
+                    status=status,
+                )
+
         got = 0
         probe = b""
         bit_bytes = 0            # 只用「完整下载」的分片算码率
@@ -450,7 +543,9 @@ class SpeedTester:
             bitrate = bit_bytes / 1024.0 / bit_seconds
         elif declared_bps > 0:
             bitrate = declared_bps / 8.0 / 1024.0
-        return self._measure(url, meter, start, resolution, status, probe, bitrate)
+        return self._measure(
+            url, meter, start, resolution, status, probe, bitrate, encrypted=aes128
+        )
 
     @staticmethod
     def _variants(playlist: str, base: str) -> list[tuple[int, str, str]]:
@@ -499,6 +594,30 @@ class SpeedTester:
             out.append((urljoin(base, line), duration))
             duration = 0.0
         return out
+
+    def _check_key(
+        self, playlist: str, base: str, headers: dict, verify: bool
+    ) -> str:
+        """AES-128 的密钥地址是否还能取到。只在明确返回错误状态码时判死。"""
+        m = re.search(r'#EXT-X-(?:SESSION-)?KEY:[^\n]*URI="([^"]+)"', playlist)
+        if not m:
+            return ""
+        uri = urljoin(base, m.group(1))
+        try:
+            with self._session().get(
+                uri,
+                headers=headers,
+                stream=True,
+                verify=verify,
+                timeout=(3.0, 3.0),
+                allow_redirects=True,
+            ) as resp:
+                if resp.status_code >= 400:
+                    return f"加密密钥不可用（HTTP {resp.status_code}）"
+                resp.raw.read(64)
+        except Exception:  # noqa: BLE001 - 网络抖动不参与判定，避免误杀
+            return ""
+        return ""
 
     def _fetch_text(
         self, url: str, headers: dict, verify: bool, deadline: float, meter: _Meter
@@ -650,6 +769,7 @@ class SpeedTester:
         status: int,
         probe: bytes = b"",
         bitrate: float = 0.0,
+        encrypted: bool = False,
     ) -> TestResult:
         """只负责给出客观测量值；是否达标交给 _finalize 判定。"""
         elapsed = time.monotonic() - start
@@ -664,6 +784,35 @@ class SpeedTester:
                 total_bytes=total,
                 status=status,
             )
+
+        # 拿到字节 ≠ 能出画面。先过内容关，再看速度。
+        if probe and not encrypted:
+            if self.s.reject_drm:
+                label = drm_label(probe)
+                if label:
+                    return TestResult(
+                        url=url,
+                        reason=f"DRM加密（{label}）",
+                        reject_kind="drm",
+                        elapsed=elapsed,
+                        total_bytes=total,
+                        status=status,
+                    )
+            if self.s.static_detect:
+                stats = analyze_stream(probe)
+                bad = static_reason(stats, resolution or UNKNOWN)
+                if bad:
+                    return TestResult(
+                        url=url,
+                        reason=bad,
+                        reject_kind="static",
+                        elapsed=elapsed,
+                        total_bytes=total,
+                        status=status,
+                    )
+                if not resolution and stats.height:
+                    resolution = bucket_from_size(stats.width, stats.height)
+
         if not resolution and probe:
             # 播放列表没写分辨率时，直接从码流 SPS 里读
             resolution = probe_resolution(probe)
@@ -672,6 +821,7 @@ class SpeedTester:
             valid=True,
             speed_kbps=steady,
             speed_avg=avg,
+            speed_peak=meter.peak_kbps(self.s.peak_window),
             total_bytes=total,
             elapsed=elapsed,
             status=status,
