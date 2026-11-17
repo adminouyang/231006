@@ -265,7 +265,7 @@ def run_tests(
                 blacklist.record_ok(cand.url)
                 result["weak"] += 1
             elif cand.reject_kind:
-                # DRM 加密 / 静止画面 / 点播短片：速度没问题，但放不出画面。
+                # DRM 加密 / 纯音频 / 静止画面 / 点播短片：速度没问题，但放不出画面。
                 # 这类不算失效，不写黑名单（换台机器、换播放器也一样放不了，重试没意义，
                 # 但也不该按"域名失效"处理）。
                 result["rejected"] += 1
@@ -495,7 +495,7 @@ def main(argv: list[str] | None = None) -> int:
         + f" | 耗时 {cost:.1f}s"
     )
     if test_stats.get("rejected"):
-        log(f"[内容] 剔除 {test_stats['rejected']} 个放不出画面的源（DRM/静止画面/点播短片）")
+        log(f"[内容] 剔除 {test_stats['rejected']} 个放不出画面的源（DRM/纯音频/静止画面/点播短片）")
     log(f"[输出] IPv4: {v4_channels} 频道 / {v4_urls} 地址  ({settings.ipv4_dir})")
     log(f"[输出] IPv6: {v6_channels} 频道 / {v6_urls} 地址  ({settings.ipv6_dir})")
     log(f"[输出] 日志: {settings.log_file}")
