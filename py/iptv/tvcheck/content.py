@@ -15,12 +15,17 @@
     3. 静止画面
        1080p 分辨率、码率几十 KB/s，帧率正常但每一帧都是跳过帧，
        播放器显示一张不动的图。具体判定在 videoprobe.analyze_stream。
+
+    4. 纯音频
+       电台源在 TS 里只有音频 stream_type，没有视频 PID，SPS 当然也解不出来；
+       测速同样能跑到几百 KB/s，但打开就是一片黑。
 """
 
 from __future__ import annotations
 
 import math
 import re
+from urllib.parse import urlparse
 
 from .resolution import UNKNOWN
 
@@ -165,3 +170,69 @@ def static_reason(stats, bucket: str = UNKNOWN) -> str:
         f"静止画面（{size}，{stats.frames} 帧中位 {stats.median_frame}B、"
         f"最大 {stats.max_frame}B，帧率 {stats.fps:.0f}fps）"
     )
+
+
+# --------------------------------------------------------------------------- #
+# 纯音频判定
+# --------------------------------------------------------------------------- #
+# 播放列表里全是这些后缀，说明这条「频道」其实是电台
+_AUDIO_EXTS = (".aac", ".mp3", ".m4a", ".ac3", ".eac3", ".ogg", ".opus", ".flac", ".wma")
+
+
+def playlist_audio_only(text: str) -> str:
+    """HLS 分片全是音频文件时返回说明。
+
+    只对媒体播放列表生效：主播放列表里的行是变体地址，不能按扩展名判断。
+    """
+    if not text or "#EXT-X-STREAM-INF" in text:
+        return ""
+    segments = [
+        line.strip()
+        for line in text.splitlines()
+        if line.strip() and not line.startswith("#")
+    ]
+    if not segments:
+        return ""
+    for seg in segments:
+        if not urlparse(seg).path.lower().endswith(_AUDIO_EXTS):
+            return ""
+    return "纯音频源（HLS 分片全为音频文件）"
+
+
+def audio_reason(
+    kind: str,
+    video: int = -1,
+    audio: int = -1,
+    data: bytes = b"",
+    video_frames: int = -1,
+    has_video_sps: bool = False,
+) -> str:
+    """只有音频轨的源返回说明。
+
+    判定依据按可靠性排序：
+        1. 容器本身就是音频（ADTS / MP3 裸流）
+        2. TS 里抓不到任何视频帧，只有音频在跑
+        3. FLV 头 / MP4 轨信息里只有音频
+
+    第 2 条有两种情况：PMT 里就没有视频条目；或者 PMT 声明了视频 PID、但那个 PID
+    上一个包都没有（实测蜻蜓FM 的电台流就是这样：PMT 写着 H.264，码流里全是音频）。
+    为了不误杀「HEVC 用非标准 stream_id/PID」的频道，只要还能从码流解出 SPS
+    （has_video_sps），就不判纯音频。
+    """
+    if kind == "adts":
+        return "纯音频源（AAC/ADTS）"
+    if kind == "mpeg-audio":
+        return "纯音频源（MP3）"
+    if kind == "flv" and len(data) >= 5:
+        flags = data[4]
+        if flags & 0x01 and not flags & 0x04:
+            return "纯音频源（FLV 仅音频轨）"
+    if kind == "mp4" and data:
+        head = data[:512 * 1024]
+        if b"vide" not in head and b"soun" in head:
+            return "纯音频源（MP4 仅音频轨）"
+    if kind == "ts" and audio > 0 and video_frames == 0 and not has_video_sps:
+        if video == 0:
+            return f"纯音频源（PMT 中 {audio} 条音频流、无视频流）"
+        return "纯音频源（PMT 声明了视频流，但码流里没有任何视频帧）"
+    return ""

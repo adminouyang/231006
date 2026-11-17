@@ -3,13 +3,14 @@
 
 from __future__ import annotations
 
+from collections import Counter
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
 
 from .models import Candidate
 from .names import ChannelDB
-from .resolution import UNKNOWN, describe_table, threshold_for
+from .resolution import UNKNOWN, describe_table, rank, threshold_for
 from .settings import Settings
 
 
@@ -36,19 +37,55 @@ def logo_for(name: str, settings: Settings) -> str:
     return f"{settings.logo_base}{quote(name, safe='')}.png"
 
 
-def _url_sort_key(c: Candidate) -> tuple[int, float]:
-    """排序优先级：达标源 > 临界源 > 本地源 > 未测速源，同层按速度降序。
+def _quality_key(c: Candidate) -> tuple[int, int, float]:
+    """输出顺序：分辨率档位优先，同档内达标优先、速度降序。
 
-    测过的源必须排在未测速的源前面——否则 local.txt 或非 HTTP 源会白占名额，
-    把实测最快的地址挤掉（这正是「日志里通过、输出里找不到」的典型成因）。
+    用户要的是「同一频道先写 1080p，不够再用 720p 补」，
+    所以档位是主键，速度只在同档内决定先后——不能按速度混排，
+    否则一个 800KB/s 的 720p 会插到 500KB/s 的 1080p 前面。
     """
     if c.ok:
-        return (0, -c.speed)
-    if c.weak:
-        return (1, -c.speed)
-    if c.local:
-        return (2, 0.0)
-    return (3, 0.0)
+        level = 0
+    elif c.weak:
+        level = 1
+    elif c.local:
+        level = 2
+    else:
+        level = 3
+    return (rank(c.resolution), level, -c.speed)
+
+
+def pick_items(items: list[Candidate], settings: Settings) -> list[Candidate]:
+    """按档位配额挑选一个频道要输出的地址。
+
+    第一轮守配额：默认 1080p 最多 4 个、720p 最多 4 个，总数 8——
+    这样「1080p 有 10 个」的频道不会整列堆成 1080p，留出 720p 做兜底。
+    高分辨率源不够、名额空着时，第二轮按质量顺序补满：
+    1080p 稀缺就往 720p 补，720p 稀缺就用多出来的 1080p 填，
+    避免「某个频道只剩 4 个地址」这种浪费。
+    """
+    total = max(settings.max_urls_per_channel, 1)
+    ordered = sorted(items, key=_quality_key)
+    quota = settings.tier_quota
+    chosen: list[Candidate] = []
+    used: dict[str, int] = {}
+    overflow: list[Candidate] = []
+
+    for c in ordered:
+        bucket = c.resolution or UNKNOWN
+        if len(chosen) >= total or used.get(bucket, 0) >= quota.get(bucket, total):
+            overflow.append(c)
+            continue
+        chosen.append(c)
+        used[bucket] = used.get(bucket, 0) + 1
+
+    if settings.tier_fill and len(chosen) < total:
+        for c in overflow:
+            if len(chosen) >= total:
+                break
+            chosen.append(c)
+
+    return sorted(chosen, key=_quality_key)
 
 
 # --------------------------------------------------------------------------- #
@@ -71,7 +108,7 @@ def build_groups(
 
     tree: dict[str, dict[str, list[dict[str, Any]]]] = {"ipv4": {}, "ipv6": {}}
     for (ipver, _key), bucket in buckets.items():
-        items = sorted(bucket["items"], key=_url_sort_key)[: settings.max_urls_per_channel]
+        items = pick_items(bucket["items"], settings)
         tree.setdefault(ipver, {}).setdefault(bucket["group"], []).append(
             {"name": bucket["name"], "key": bucket["key"], "items": items}
         )
@@ -99,10 +136,9 @@ def count_stats(groups: list[tuple[str, list[dict[str, Any]]]]) -> tuple[int, in
 def truncation_report(
     candidates: list[Candidate], settings: Settings, top: int = 15
 ) -> list[str]:
-    """列出「可用地址数超过每频道上限」的频道及其被淘汰的地址。
+    """说明每个频道「可用多少、实际输出多少、为什么被截掉」。
 
-    日志里有通过记录、输出文件里却找不到某个地址时，八成是被每频道上限截掉了。
-    把这件事写进日志，省得下次再去猜。
+    日志里有通过记录、输出文件里却找不到某个地址时，基本就是被档位配额截掉了。
     """
     buckets: dict[tuple[str, str], list[Candidate]] = {}
     for c in candidates:
@@ -110,26 +146,42 @@ def truncation_report(
             continue
         buckets.setdefault((c.ipver, c.name_key), []).append(c)
 
-    rows: list[tuple[int, str, list[Candidate]]] = []
+    dropped_rows: list[tuple[int, str, int, str]] = []
+    short = 0
     for items in buckets.values():
-        if len(items) <= settings.max_urls_per_channel:
+        picked = pick_items(items, settings)
+        if len(picked) < settings.max_urls_per_channel:
+            short += 1
+        lost = len(items) - len(picked)
+        if lost <= 0:
             continue
-        ordered = sorted(items, key=_url_sort_key)
-        dropped = ordered[settings.max_urls_per_channel :]
-        rows.append((len(dropped), ordered[0].name, dropped))
-
-    if not rows:
-        return []
-
-    rows.sort(key=lambda r: -r[0])
-    lines = [f"截断明细: {len(rows)} 个频道的可用地址超过每频道上限 {settings.max_urls_per_channel}"]
-    for dropped_n, name, dropped in rows[:top]:
-        lines.append(
-            f"  {name}: 淘汰 {dropped_n} 个较慢地址"
-            f"（最慢 {dropped[-1].speed:.0f}KB/s，最快被淘汰 {dropped[0].speed:.0f}KB/s）"
+        mix = "/".join(
+            f"{bucket}{count}"
+            for bucket, count in Counter(c.resolution or UNKNOWN for c in picked).most_common()
         )
-    if len(rows) > top:
-        lines.append(f"  … 另有 {len(rows) - top} 个频道同类截断")
+        dropped_rows.append((lost, picked[0].name, len(items), mix))
+
+    quota_desc = "、".join(
+        f"{bucket} {count} 个" for bucket, count in settings.tier_quota.items()
+    )
+    lines = [
+        f"输出配额: 每频道最多 {settings.max_urls_per_channel} 个"
+        + (f"（{quota_desc}）" if quota_desc else "")
+        + "，按 8K→4K→1080p→720p→… 的档位优先级依次写入"
+    ]
+    if dropped_rows:
+        dropped_rows.sort(key=lambda row: -row[0])
+        lines.append(f"截断明细: {len(dropped_rows)} 个频道的可用地址超过配额")
+        for lost, name, total, mix in dropped_rows[:top]:
+            lines.append(
+                f"  {name}: 可用 {total} 个 → 保留 {total - lost} 个（{mix}），淘汰 {lost} 个"
+            )
+        if len(dropped_rows) > top:
+            lines.append(f"  … 另有 {len(dropped_rows) - top} 个频道同类截断")
+    if short:
+        lines.append(
+            f"凑不满: {short} 个频道的可用地址不足 {settings.max_urls_per_channel} 个"
+        )
     return lines
 
 
@@ -209,6 +261,8 @@ def write_log(
     checks = []
     if settings.reject_drm:
         checks.append("DRM加密")
+    if settings.reject_audio:
+        checks.append("纯音频")
     if settings.static_detect:
         checks.append("静止画面")
     if settings.min_live_seconds > 0:
@@ -254,9 +308,12 @@ def write_log(
                 headline = "未通过阈值"
             elif c.reject_kind:
                 # 内容不合格单独成类，一眼能看出「不是慢，是根本放不出画面」
-                headline = {"drm": "DRM加密", "static": "静止画面", "vod": "点播短片"}.get(
-                    c.reject_kind, "内容不合格"
-                )
+                headline = {
+                    "drm": "DRM加密",
+                    "audio": "纯音频",
+                    "static": "静止画面",
+                    "vod": "点播短片",
+                }.get(c.reject_kind, "内容不合格")
             else:
                 headline = reason.split("（", 1)[0]
             lines.append(f"[{stamp}] ❌ {headline} {c.method}: {c.name}, {c.url}")

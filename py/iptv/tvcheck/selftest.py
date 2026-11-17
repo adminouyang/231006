@@ -7,12 +7,15 @@
 from __future__ import annotations
 
 import tempfile
+import time
 from pathlib import Path
 
 from .blacklist import Blacklist, is_dead_status
 from .content import (
+    audio_reason,
     drm_label,
     payload_kind,
+    playlist_audio_only,
     playlist_drm,
     short_vod_reason,
     static_reason,
@@ -23,8 +26,8 @@ from .resolution import SPEED_THRESHOLD_KBPS, bucket_from_size, from_text, thres
 from .settings import Settings
 from .sources import classify_ipver, normalize_url, parse_m3u, parse_txt
 from .speedtest import SpeedTester, TestResult, _Meter, _Pumped
-from .videoprobe import analyze_stream
-from .writer import build_groups, truncation_report, write_m3u, write_txt
+from .videoprobe import analyze_stream, stream_kinds
+from .writer import build_groups, pick_items, truncation_report, write_m3u, write_txt
 
 DEMO = """主频道名|别名1|别名2|
 央视频道,#genre#
@@ -80,7 +83,7 @@ def _ramp(
 def run_selftest() -> int:
     steps = 0
 
-    print("[1/10] demo.txt 别名校正与兜底分组")
+    print("[1/11] demo.txt 别名校正与兜底分组")
     db = ChannelDB()
     db.feed(DEMO)
     _check(db.match("CCTV-1 综合 高清") is not None, "CCTV-1 综合 高清 命中别名")
@@ -93,14 +96,14 @@ def run_selftest() -> int:
     _check(clean_name("CCTV1高清") == "CCTV1", "展示名去掉画质后缀")
     steps += 1
 
-    print("[2/10] txt 解析")
+    print("[2/11] txt 解析")
     entries = parse_txt(TXT)
     _check(len(entries) == 4, f"共解析出 4 条地址（实际 {len(entries)}）")
     _check(entries[0].group == "央视频道", "继承 #genre# 分组")
     _check(entries[1].url == "http://1.1.1.2/live/cctv1.m3u8", "一个频道多地址按 # 拆分")
     steps += 1
 
-    print("[3/10] m3u 解析")
+    print("[3/11] m3u 解析")
     m3u_entries = parse_m3u(M3U)
     _check(len(m3u_entries) == 2, f"共解析出 2 条（实际 {len(m3u_entries)}）")
     _check(m3u_entries[0].name == "CCTV2", "EXTINF 名称解析正确（忽略属性里的逗号）")
@@ -108,7 +111,7 @@ def run_selftest() -> int:
     _check(m3u_entries[1].group == "港台", "group-title 解析正确")
     steps += 1
 
-    print("[4/10] 地址清洗与协议族判定")
+    print("[4/11] 地址清洗与协议族判定")
     _check(normalize_url("1.2.3.4:8080/a.m3u8") == "http://1.2.3.4:8080/a.m3u8", "缺失协议自动补 http://")
     _check(normalize_url("http://a.com/x.m3u8$User-Agent=1") == "http://a.com/x.m3u8", "去掉 $ 后缀参数")
     _check(normalize_url("token") == "", "碎片文本不会当成地址")
@@ -116,7 +119,7 @@ def run_selftest() -> int:
     _check(classify_ipver("http://1.2.3.4:8080/live.m3u8") == "ipv4", "IPv4 归入 ipv4")
     steps += 1
 
-    print("[5/10] 分辨率档位与阈值")
+    print("[5/11] 分辨率档位与阈值")
     _check(SPEED_THRESHOLD_KBPS["unknown"] == 1024, "unknown 兜底阈值 1024KB/s")
     _check(bucket_from_size(1920, 1080) == "1080p", "1920x1080 -> 1080p")
     _check(bucket_from_size(3840, 2160) == "4K", "3840x2160 -> 4K")
@@ -131,7 +134,7 @@ def run_selftest() -> int:
     _check(not is_dead_status(429) and not is_dead_status(200), "429 与 200 不拉黑")
     steps += 1
 
-    print("[6/10] 排序与文件输出")
+    print("[6/11] 排序与文件输出")
     settings = Settings()
     cands = [
         Candidate(name="CCTV2", name_key="cctv2", group="央视频道", resolution="1080p",
@@ -165,7 +168,7 @@ def run_selftest() -> int:
         _check('group-title="央视频道",CCTV1' in m3u, "m3u 分组与名称正确")
     steps += 1
 
-    print("[7/10] 测速口径（稳态速度 / 码率基准）")
+    print("[7/11] 测速口径（稳态速度 / 码率基准）")
     # 模拟一条「前 1 秒慢启动爬升到 200KB/s，之后稳定跑 800KB/s」的源
     meter = _Meter()
     meter.feed(_ramp(200, 800, warm_s=1.0, steady_s=3.0))
@@ -208,7 +211,7 @@ def run_selftest() -> int:
     _check(segs[1][0] == "http://h/b.ts", "分片地址相对路径解析正确")
     steps += 1
 
-    print("[8/10] 黑名单计数口径")
+    print("[8/11] 黑名单计数口径")
     with tempfile.TemporaryDirectory() as tmp:
         bl = Blacklist(Path(tmp) / "bl.txt", ttl_days=7, threshold=3)
         # 同一台主机下 5 个频道同轮全挂，只能算 1 次失败
@@ -225,7 +228,7 @@ def run_selftest() -> int:
         _check(not bl.is_bad("http://1.2.3.4:8080/live/x.m3u8"), "一次成功即解除")
     steps += 1
 
-    print("[9/10] 临界分级与每频道截断")
+    print("[9/11] 临界分级与每频道截断")
     # 用户反馈的真实场景：unknown 档目标 1024，实测 672KB/s / 峰值 760，实际能流畅播放
     tester_w = SpeedTester(Settings())
     rw = TestResult(
@@ -252,7 +255,7 @@ def run_selftest() -> int:
     peak = meter_p.peak_kbps(2.0)
     _check(abs(peak - 600) < 120, f"匀速源的峰值速度与稳态一致（{peak:.0f}KB/s）")
 
-    # 排序与截断：达标源按速度降序占满 6 个名额，临界源/本地源不得挤占
+    # 排序与截断：达标源按速度降序占满 8 个名额，临界源/本地源不得挤占
     cap = Settings()
     batch: list[Candidate] = []
     for sp in (100.0, 250.0, 400.0, 550.0, 700.0, 850.0, 950.0, 1100.0):
@@ -271,7 +274,7 @@ def run_selftest() -> int:
     g = build_groups(batch, db, cap)
     chan = next(ch for ch in g["ipv4"][0][1] if ch["key"] == "cctv1")
     speeds = [c.speed for c in chan["items"]]
-    _check(len(chan["items"]) == cap.max_urls_per_channel, "每频道最多保留 6 个地址")
+    _check(len(chan["items"]) == cap.max_urls_per_channel, "每频道最多保留 8 个地址")
     _check(speeds == sorted(speeds, reverse=True), f"频道内按速度降序输出（{[int(s) for s in speeds]}）")
     _check(
         all(c.ok and not c.weak and not c.local for c in chan["items"]),
@@ -279,10 +282,14 @@ def run_selftest() -> int:
     )
     _check(speeds[0] == 1100.0, "最快的地址一定排在第一位")
     rep = truncation_report(batch, cap)
-    _check(bool(rep) and "CCTV1" in rep[1], "日志会说明某频道被上限截掉了多少地址")
+    _check(
+        bool(rep) and any("CCTV1" in line for line in rep),
+        "日志会说明某频道被配额截掉了多少地址",
+    )
+    _check(any("输出配额" in line for line in rep), "日志表头写明每频道的档位配额")
     steps += 1
 
-    print("[10/10] 内容校验（DRM / 静止画面 / 点播短片）")
+    print("[10/11] 内容校验（DRM / 静止画面 / 点播短片）")
     _check(payload_kind(b"\x47\x40\x00\x10" + b"\x00" * 400) == "ts", "TS 载荷识别正确")
     arc = b"ARCVIDEO-PROTECTED" + bytes(range(256)) * 40
     _check(payload_kind(arc) == "encrypted", "私有加密头被判为加密载荷")
@@ -293,6 +300,33 @@ def run_selftest() -> int:
     _check("SAMPLE-AES" in playlist_drm(lock), "SAMPLE-AES 加密列表被拦下")
     _check(playlist_drm("#EXTM3U\n#EXT-X-KEY:METHOD=AES-128,URI=\"k\"\n") == "",
            "AES-128 是标准可播加密，不拦")
+
+    radio = "#EXTM3U\n#EXTINF:10.0,\na.aac\n#EXTINF:10.0,\nb.aac\n"
+    _check(bool(playlist_audio_only(radio)), "分片全是 .aac 的 HLS 被识别为纯音频")
+    _check(playlist_audio_only("#EXTM3U\n#EXTINF:10,\na.ts\n") == "", "普通 TS 分片不会被当成音频")
+    master = '#EXTM3U\n#EXT-X-STREAM-INF:BANDWIDTH=800000\naudio.m3u8\n'
+    _check(playlist_audio_only(master) == "", "主播放列表不按扩展名判断")
+    _check("AAC" in audio_reason("adts"), "ADTS 裸流被判为纯音频")
+    _check(bool(audio_reason("mpeg-audio")), "MP3 裸流被判为纯音频")
+    _check(audio_reason("ts", 1, 2) == "", "PMT 里有视频流时不做纯音频判定")
+    _check("音频流" in audio_reason("ts", 0, 3, video_frames=0), "PMT 里只有音频流被判为纯音频")
+    _check(
+        audio_reason("ts", 0, 3, video_frames=30) == "",
+        "PMT 里没视频条目、但码流有视频帧（0x06 私有封装）时不判纯音频",
+    )
+    _check(
+        bool(audio_reason("ts", 1, 1, video_frames=0)),
+        "PMT 声明了视频 PID 但一个视频帧都没有 -> 纯音频",
+    )
+    _check(
+        audio_reason("ts", 1, 1, video_frames=0, has_video_sps=True) == "",
+        "能解出 SPS 就说明有画面，不判纯音频",
+    )
+    _check(audio_reason("ts", -1, -1) == "", "PMT 解析不出来时不做音频判定")
+    _check(audio_reason("flv", data=b"FLV\x01\x01\x00\x00\x00\x09") != "",
+           "FLV 头标了音频没标视频 -> 纯音频")
+    _check(audio_reason("flv", data=b"FLV\x01\x05\x00\x00\x00\x09") == "",
+           "FLV 头同时标了音视频 -> 正常")
 
     vod = "#EXTM3U\n" + "#EXTINF:16.666667,\na.ts\n" * 8 + "#EXT-X-ENDLIST\n"
     _check(bool(short_vod_reason(vod, 600)), "带 ENDLIST 的短列表被识别为点播短片")
@@ -330,6 +364,89 @@ def run_selftest() -> int:
     live = analyze_stream(_ts([9000] * 60))
     _check(not live.static, f"正常帧大小的码流不会被误判（中位 {live.median_frame}B）")
     _check(static_reason(live) == "", "正常码流不产生拒绝原因")
+    steps += 1
+
+    print("[11/11] 档位配额与纯音频剔除")
+    quota = Settings()
+
+    def _mk(resolution: str, speed: float, tag: str) -> Candidate:
+        return Candidate(
+            name="CCTV1", name_key="cctv1", group="央视频道", resolution=resolution,
+            ok=True, speed=speed, url=f"http://a/{tag}.m3u8", ts="now",
+        )
+
+    mixed = [_mk("1080p", sp, f"1080-{i}") for i, sp in enumerate((900.0, 800.0, 700.0, 600.0, 500.0, 400.0))]
+    mixed += [_mk("720p", sp, f"720-{i}") for i, sp in enumerate((950.0, 850.0, 750.0, 650.0, 550.0, 450.0))]
+    picked = pick_items(mixed, quota)
+    _check(len(picked) == 8, f"每频道共 8 个地址（实际 {len(picked)}）")
+    _check(
+        [c.resolution for c in picked] == ["1080p"] * 4 + ["720p"] * 4,
+        "先写 4 个 1080p，再用 4 个 720p 补满",
+    )
+    _check(
+        picked[0].speed == 900.0 and picked[4].speed == 950.0,
+        "档位优先于速度：再快的 720p 也排在 1080p 之后",
+    )
+
+    scarce = [_mk("1080p", 300.0, "a"), _mk("1080p", 200.0, "b")]
+    scarce += [_mk("720p", 900.0 - i * 10, f"s{i}") for i in range(10)]
+    picked2 = pick_items(scarce, quota)
+    _check(len(picked2) == 8, "1080p 只有 2 个时用 720p 补满 8 个")
+    _check(
+        sum(1 for c in picked2 if c.resolution == "1080p") == 2,
+        "补位不会把 1080p 漏掉",
+    )
+    _check([c.resolution for c in picked2[:2]] == ["1080p"] * 2, "补进来的 720p 排在后面")
+
+    only_hd = [_mk("1080p", 900.0 - i * 10, f"o{i}") for i in range(8)]
+    _check(len(pick_items(only_hd, quota)) == 8, "没有 720p 时多余的 1080p 照样补满")
+
+    strict_q = Settings()
+    strict_q.tier_fill = False
+    strict_batch = [_mk("1080p", 900.0 - i, f"x{i}") for i in range(6)]
+    strict_batch += [_mk("720p", 800.0 - i, f"y{i}") for i in range(2)]
+    _check(len(pick_items(strict_batch, strict_q)) == 6, "--no-tier-fill 时严格按 4+2 输出")
+
+    # TS 层：PMT 里只有音频 stream_type 时，必须能解析出来
+    def _psi(pid: int, table_id: int, body: bytes) -> bytes:
+        size = len(body)
+        sec = bytes([table_id, 0xB0 | ((size >> 8) & 0x0F), size & 0xFF]) + body
+        payload = b"\x00" + sec            # pointer_field = 0
+        return bytes([0x47, 0x40 | (pid >> 8), pid & 0xFF, 0x10]) + payload.ljust(184, b"\xff")
+
+    def _pat(pmt_pid: int) -> bytes:
+        body = b"\x00\x01\xc1\x00\x00" + bytes([0x00, 0x01, 0xE0 | (pmt_pid >> 8), pmt_pid & 0xFF])
+        return _psi(0, 0x00, body + b"\x00\x00\x00\x00")
+
+    def _pmt(stream_types: list[int]) -> bytes:
+        body = bytearray(b"\x00\x01\xc1\x00\x00\x01\x00\xf0\x00")
+        for i, st in enumerate(stream_types):
+            epid = 0x100 + i
+            body += bytes([st, 0xE0 | (epid >> 8), epid & 0xFF, 0xF0, 0x00])
+        return _psi(0x1000, 0x02, bytes(body) + b"\x00\x00\x00\x00")
+
+    pad = bytes([0x47, 0x01, 0x00, 0x10]) + b"\xff" * 184
+    ts_video = _pat(0x1000) + _pmt([0x1B, 0x0F, 0x03]) + pad * 8
+    ts_radio = _pat(0x1000) + _pmt([0x0F, 0x03]) + pad * 8
+    _check(stream_kinds(ts_video) == (1, 2), f"视频流的 PMT 解析出 1 视频/2 音频（{stream_kinds(ts_video)}）")
+    _check(stream_kinds(ts_radio) == (0, 2), f"电台的 PMT 解析出 0 视频/2 音频（{stream_kinds(ts_radio)}）")
+    _check(audio_reason("ts", *stream_kinds(ts_radio), video_frames=0) != "", "电台 TS 被判为纯音频")
+    _check(
+        audio_reason("ts", *stream_kinds(ts_video), video_frames=30) == "",
+        "视频 TS 不会误判",
+    )
+
+    # 纯音频在测速路径里必须被拦下（否则电台会混进频道列表）
+    tester_a = SpeedTester(Settings())
+    meter_a = _Meter()
+    meter_a.feed(_ramp(600, 600, warm_s=0.2, steady_s=3.0))
+    res_audio = tester_a._measure(
+        "x", meter_a, time.monotonic() - 3.2, "", 200, b"\xff\xf1" + b"\x50" * 512
+    )
+    _check(res_audio.reject_kind == "audio", "ADTS 载荷在测速路径里被判为纯音频")
+    _check(not res_audio.valid, "纯音频源不进入可用列表")
+    res_video = tester_a._measure("x", meter_a, time.monotonic() - 3.2, "", 200, _ts([9000] * 60))
+    _check(res_video.reject_kind == "" and res_video.valid, "正常视频流不会被误判为纯音频")
     steps += 1
 
     print(f"\n自检通过（{steps} 组用例全部正常）。")

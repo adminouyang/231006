@@ -17,6 +17,8 @@ from .resolution import bucket_from_size
 
 _TS_PACKET = 188
 _STREAM_TYPES = (0x01, 0x02, 0x10, 0x1B, 0x24, 0x42, 0xD1, 0xEA)
+# PMT 里的音频 stream_type：MP1/MP2/MP3、AAC(ADTS/LATM)、AC-3/E-AC-3、MPEG-4 audio
+_AUDIO_STREAM_TYPES = (0x03, 0x04, 0x0F, 0x11, 0x1C, 0x81, 0x87, 0x8A)
 _MAX_SCAN = 700 * 1024
 
 
@@ -150,6 +152,37 @@ def _video_pids(data: bytes, pmt_pid: int) -> list[int]:
             pids.append(epid)
         pos += 5 + es_info_length
     return pids
+
+
+def stream_kinds(data: bytes) -> tuple[int, int]:
+    """统计 PMT 里的 (视频流数, 音频流数)。
+
+    纯音频的广播源在 TS 层就是「PMT 里只有音频 stream_type」——
+    它没有视频 PID，SPS 当然也解不出来，看起来就像个低码率直播。
+    PMT 解析不出来（非 TS、或探测窗口里没赶上 PAT/PMT）返回 (-1, -1)，调用方不做判断。
+    """
+    if not data or len(data) < _TS_PACKET or data[0] != 0x47:
+        return -1, -1
+    pmt_pid = _pmt_pid(data)
+    if pmt_pid is None:
+        return -1, -1
+    pmt = _section(data, pmt_pid)
+    if len(pmt) < 12 or pmt[0] != 0x02:
+        return -1, -1
+    section_length = ((pmt[1] & 0x0F) << 8) | pmt[2]
+    end = min(3 + section_length - 4, len(pmt))
+    program_info_length = ((pmt[10] & 0x0F) << 8) | pmt[11]
+    pos = 12 + program_info_length
+    video = audio = 0
+    while pos + 5 <= end:
+        stream_type = pmt[pos]
+        es_info_length = ((pmt[pos + 3] & 0x0F) << 8) | pmt[pos + 4]
+        if stream_type in _STREAM_TYPES:
+            video += 1
+        elif stream_type in _AUDIO_STREAM_TYPES:
+            audio += 1
+        pos += 5 + es_info_length
+    return video, audio
 
 
 def _es_bytes(data: bytes, pid: int) -> bytes:

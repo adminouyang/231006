@@ -94,6 +94,14 @@ def from_text(text: str) -> str:
     return ""
 
 
+def rank(bucket: str) -> int:
+    """档位优先级序号：8K 最小、unknown 最大，用于「高分辨率优先输出」排序。"""
+    try:
+        return ORDER.index(bucket or UNKNOWN)
+    except ValueError:
+        return len(ORDER) - 1
+
+
 def describe_table() -> str:
     """日志表头用的一行说明。"""
     parts = [f"{name}={SPEED_THRESHOLD_KBPS[name]:g}" for name in ORDER]

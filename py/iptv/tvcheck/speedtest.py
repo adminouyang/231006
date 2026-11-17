@@ -33,10 +33,18 @@ import requests
 import urllib3
 from requests.adapters import HTTPAdapter
 
-from .content import drm_label, playlist_drm, short_vod_reason, static_reason
+from .content import (
+    audio_reason,
+    drm_label,
+    payload_kind,
+    playlist_audio_only,
+    playlist_drm,
+    short_vod_reason,
+    static_reason,
+)
 from .resolution import UNKNOWN, bucket_from_size, threshold_for
 from .settings import Settings
-from .videoprobe import analyze_stream, probe_resolution
+from .videoprobe import analyze_stream, probe_resolution, stream_kinds
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -74,7 +82,7 @@ class TestResult:
     basis: str = ""           # 判定依据：分辨率阈值 / 码率基准
     speed_peak: float = 0.0   # 最佳滑动窗口速度 KB/s
     weak_ok: bool = False     # 未达硬阈值但属于「临界可用」
-    reject_kind: str = ""     # 内容不合格类型：drm / static / vod
+    reject_kind: str = ""     # 内容不合格类型：drm / audio / static / vod
 
 
 @dataclass
@@ -482,6 +490,19 @@ class SpeedTester:
                     status=status,
                 )
 
+        # 分片全是 .aac/.mp3 的 HLS，是电台不是电视台
+        if self.s.reject_audio:
+            radio = playlist_audio_only(playlist)
+            if radio:
+                return TestResult(
+                    url=url,
+                    reason=radio,
+                    reject_kind="audio",
+                    elapsed=time.monotonic() - start,
+                    total_bytes=meter.nbytes,
+                    status=status,
+                )
+
         # AES-128 是标准 HLS 加密，播放器能正常解，只是我们解不了载荷，
         # 因此要跳过「载荷是否加密/是否静止画面」的判断，否则会误杀。
         aes128 = "METHOD=AES-128" in playlist.upper()
@@ -798,8 +819,32 @@ class SpeedTester:
                         total_bytes=total,
                         status=status,
                     )
-            if self.s.static_detect:
+            stats = None
+            if self.s.reject_audio or self.s.static_detect:
                 stats = analyze_stream(probe)
+            if self.s.reject_audio:
+                # 没有视频轨的源（电台）测速正常，但打开只有声音、没有画面
+                kind = payload_kind(probe)
+                v_count, a_count = stream_kinds(probe)
+                frames = stats.frames if stats else -1
+                # 只在「看着像音频」时才去解 SPS：能解出 SPS 说明确实有视频，
+                # 用来兜住 PMT 写错、或 HEVC 用了非标准 PID 的频道
+                sps = (
+                    probe_resolution(probe)
+                    if kind == "ts" and frames == 0 and a_count > 0
+                    else ""
+                )
+                radio = audio_reason(kind, v_count, a_count, probe, frames, bool(sps))
+                if radio:
+                    return TestResult(
+                        url=url,
+                        reason=radio,
+                        reject_kind="audio",
+                        elapsed=elapsed,
+                        total_bytes=total,
+                        status=status,
+                    )
+            if self.s.static_detect and stats is not None:
                 bad = static_reason(stats, resolution or UNKNOWN)
                 if bad:
                     return TestResult(

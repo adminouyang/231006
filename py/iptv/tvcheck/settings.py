@@ -63,6 +63,7 @@ class Settings:
     # 有的源 HTTP 200、字节数也够，但载荷是 DRM 加密的，或者干脆是张静止图片。
     # 这类源速度再快也没有意义，必须在测速之后再过一道内容关。
     reject_drm: bool = True                # 拒绝 DRM 加密载荷 / 不可解的加密播放列表
+    reject_audio: bool = True              # 拒绝只有音频轨的源（广播频道不是电视频道）
     static_detect: bool = True             # 拒绝静止画面（帧大小中位数极低）
     min_live_seconds: float = 600.0        # 点播列表总时长低于此值视为短片，0 表示不限制
 
@@ -71,7 +72,13 @@ class Settings:
     per_host_workers: int = 6              # 同一 host 的并发上限，防止把源站打死
 
     # ---- 输出 ----
-    max_urls_per_channel: int = 6          # 每个频道最多保留几个可用地址
+    # 同一频道按分辨率档位从高到低写入：先铺满 1080p，名额没满再用 720p 补，
+    # 总数封顶。「档位:名额」之外的档位（8K/4K 等）直接用剩余名额。
+    max_urls_per_channel: int = 8          # 每个频道最多保留几个可用地址
+    tier_quota: dict[str, int] = field(
+        default_factory=lambda: {"1080p": 4, "720p": 4}
+    )
+    tier_fill: bool = True                 # 高分辨率档位不够时，允许 720p 及以下补满总名额
     keep_non_http: bool = False            # 是否保留 rtmp/rtsp 等非 HTTP 协议源
     include_local: bool = True             # 是否把 local.txt 合并进输出
 
@@ -133,7 +140,19 @@ def parse_args(argv: list[str] | None = None) -> Settings:
         help="强制统一速度阈值 KB/s（默认按分辨率判定：8K/2048 4K/1900 1080p/465 720p/282 …）",
     )
     parser.add_argument("--timeout", type=float, default=None, help="单源总超时（秒），默认 20")
-    parser.add_argument("--max-per-channel", type=int, default=None, help="每频道保留地址数，默认 6")
+    parser.add_argument(
+        "--max-per-channel", type=int, default=None, help="每频道保留地址数，默认 8"
+    )
+    parser.add_argument(
+        "--tier-quota",
+        default=None,
+        help="每档位名额，默认 1080p:4,720p:4（按分辨率优先级依次填充，总数见 --max-per-channel）",
+    )
+    parser.add_argument(
+        "--no-tier-fill",
+        action="store_true",
+        help="档位名额不足时不补满（默认 1080p 不够会用 720p 补到总数）",
+    )
     parser.add_argument("--verify", action="store_true", help="强制校验 HTTPS 证书")
     parser.add_argument("--keep-non-http", action="store_true", help="保留 rtmp/rtsp 等非 HTTP 源")
     parser.add_argument("--no-local", action="store_true", help="不合并 local.txt")
@@ -176,6 +195,9 @@ def parse_args(argv: list[str] | None = None) -> Settings:
         "--keep-drm", action="store_true", help="保留 DRM 加密源（默认剔除，播放器放不出画面）"
     )
     parser.add_argument(
+        "--keep-audio", action="store_true", help="保留纯音频源（默认剔除，电台不是电视频道）"
+    )
+    parser.add_argument(
         "--no-static", action="store_true", help="保留静止画面源（默认剔除）"
     )
     parser.add_argument(
@@ -194,7 +216,18 @@ def parse_args(argv: list[str] | None = None) -> Settings:
     if args.timeout:
         s.test_timeout = args.timeout
     if args.max_per_channel:
-        s.max_urls_per_channel = args.max_per_channel
+        s.max_urls_per_channel = max(args.max_per_channel, 1)
+    if args.tier_quota:
+        quota: dict[str, int] = {}
+        for part in args.tier_quota.replace("，", ",").split(","):
+            name, _, value = part.partition(":")
+            name, value = name.strip(), value.strip()
+            if name and value.isdigit():
+                quota[name] = int(value)
+        if quota:
+            s.tier_quota = quota
+    if args.no_tier_fill:
+        s.tier_fill = False
     s.https_verify = bool(args.verify)
     s.keep_non_http = bool(args.keep_non_http)
     s.include_local = not args.no_local
@@ -219,6 +252,8 @@ def parse_args(argv: list[str] | None = None) -> Settings:
         s.weak_ratio = min(max(args.weak_ratio, 0.0), 1.0)
     if args.keep_drm:
         s.reject_drm = False
+    if args.keep_audio:
+        s.reject_audio = False
     if args.no_static:
         s.static_detect = False
     if args.min_live is not None:
