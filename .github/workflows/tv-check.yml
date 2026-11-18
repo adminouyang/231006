@@ -5,10 +5,10 @@ on:
     # 每天 UTC 20:00（北京时间 04:00）跑一次
     - cron: "0 20 * * *"
   workflow_dispatch:
-  push:
-    paths:
-      - "py/iptv/**"
-      - ".github/workflows/tv-check.yml"
+  # push:
+  #   paths:
+  #     - "py/iptv/**"
+  #     - ".github/workflows/tv-check.yml"
 
 permissions:
   contents: write
