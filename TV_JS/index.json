@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "app": "tvlive",
-  "updated": "2026-11-10T04:41:25+00:00",
+  "updated": "2026-11-21T07:45:28+00:00",
   "note": "TVLive 频道订阅清单。央视 / 卫视也在远程了，APK 里只剩这个接口地址。",
   "groups": [
     {
@@ -9,8 +9,8 @@
       "group": "央视频道",
       "file": "cctv.js",
       "count": 21,
-      "updated": "2026-11-04",
-      "sha256": "f6d7ac003139b8a5ffc6511b609644e7fb751fafad230ab6fd7599aacc2f2cc2",
+      "updated": "2026-11-21",
+      "sha256": "77ba159b0673d7e4bb878d7d4243dc40d8b70b3b0d3071c7b2508761f68a8048",
       "note": "CCTV-1~17 / 4K / 8K，央视频公开源"
     },
     {
@@ -36,8 +36,8 @@
       "group": "卫视频道",
       "file": "satellite.js",
       "count": 33,
-      "updated": "2026-11-04",
-      "sha256": "46fdc956633e70f6974f35ccd1b3c33fdeb94c3cbf3fdeb400f5327ecb94298a",
+      "updated": "2026-11-21",
+      "sha256": "c2290b85ca20aa8d60fcad023ba6dd5b928f3191a5c2c942747c296edb612a66",
       "note": "32 个省级卫视 + CETV-1"
     },
     {
@@ -45,8 +45,8 @@
       "group": "安徽",
       "file": "anhui.js",
       "count": 0,
-      "updated": "2026-11-10",
-      "sha256": "32fcab6ab6200fb413d136a879fc5bdd09907c4df3c3bb7fd9aa899598c55ddf",
+      "updated": "2026-11-21",
+      "sha256": "de955bbbeda03e0b91c496f73060e260bcaddbace7e61ae6134074c923b5a847",
       "note": "安徽省、市、县级频道"
     },
     {
@@ -54,8 +54,8 @@
       "group": "北京",
       "file": "beijing.js",
       "count": 0,
-      "updated": "2026-11-08",
-      "sha256": "67ec91aabda694c5e1f0e2034444a521ec869932f9797288d3c8d845eb41c0ea",
+      "updated": "2026-11-21",
+      "sha256": "33ba4521634767caf8abadd20e9595bbcd73d59bf6ce8c2d50dbdfcc011c6079",
       "note": "BRTV 各频道（公开 IPTV 转发源，非官网直连）"
     },
     {
@@ -107,9 +107,9 @@
       "key": "jiangsu",
       "group": "江苏",
       "file": "jiangsu.js",
-      "count": 19,
-      "updated": "2026-11-08",
-      "sha256": "6f65e883b3b556370d5a989a08bdd45db918df45411d2e5129bb19a6719fe1eb",
+      "count": 13,
+      "updated": "2026-11-21",
+      "sha256": "c3a417b84b9cb6ea9e0d3c7028ca140db1d2ca20439f520655ef2082ced6c807",
       "note": "江苏台 9（腾讯云签名本地重算）+ 南京台 4（静态）"
     },
     {
