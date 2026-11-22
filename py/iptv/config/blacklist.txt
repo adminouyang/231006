@@ -5,7 +5,6 @@
 # 所以要连续多轮都返回错误状态码才会真正被跳过
 # 也可只写 host:port 或 host（代表该主机所有端口），视为失效
 103.58.160.157:8278,3,2026-11-17 15:51:13,HTTP 401
-113.57.140.161:10081,1,2026-11-21 01:14:16,HTTP 404
 113.64.146.48:1688,3,2026-11-16 00:15:13,HTTP 404
 114.242.62.109:888,1,2026-11-15 10:41:06,HTTP 404
 114.254.36.150:8888,1,2026-11-21 01:15:16,HTTP 503
@@ -13,7 +12,6 @@
 124.165.251.82:85,1,2026-11-16 08:33:53,HTTP 404
 138.121.15.230:9002,1,2026-11-17 03:28:14,HTTP 404
 139.196.151.191:80,1,2026-11-18 13:43:44,HTTP 401
-139.211.217.79:9004,2,2026-11-19 01:47:44,HTTP 404
 173.249.60.54:80,3,2026-11-17 03:23:17,HTTP 404
 175.24.134.198:1234,3,2026-11-15 13:18:47,HTTP 403
 182.150.112.112:2025,1,2026-11-15 13:19:33,HTTP 404
@@ -21,6 +19,7 @@
 190.107.232.9:8082,1,2026-11-16 00:16:09,HTTP 403
 212.2.225.30:1935,2,2026-11-17 03:23:27,HTTP 404
 219.139.231.209:7777,1,2026-11-20 01:43:49,HTTP 404
+222.179.155.21:1935,1,2026-11-22 00:10:51,HTTP 404
 284824cf70404fdfb6ddf9349009c710.mediatailor.eu-west-1.amazonaws.com:443,1,2026-11-17 03:22:54,HTTP 403
 2gblive.akamaized.net:443,1,2026-11-16 08:34:29,HTTP 404
 30515.hlsplay.aodianyun.com:80,3,2026-11-19 01:47:26,HTTP 403
@@ -37,8 +36,9 @@
 51.75.118.169:20372,1,2026-11-20 01:43:35,HTTP 503
 5f2c1b0d880e5.streamlock.net:443,1,2026-11-17 03:24:10,HTTP 404
 60.220.167.47:9003,1,2026-11-18 02:17:26,HTTP 404
+61.162.52.6:8088,1,2026-11-22 00:10:03,HTTP 404
 71db867f03ce4d71a29e92155f07ab87.mediatailor.eu-west-1.amazonaws.com:443,1,2026-11-17 03:22:54,HTTP 403
-74.91.26.218:82,1,2026-11-21 01:13:00,HTTP 404
+74.91.26.218:82,1,2026-11-22 00:13:10,HTTP 404
 82.212.74.2:8000,3,2026-11-17 03:24:16,HTTP 404
 82.212.74.98:8000,2,2026-11-17 03:23:09,HTTP 404
 968754c2483045c1a9a7f677caec35b6.mediatailor.eu-west-1.amazonaws.com:443,3,2026-11-17 03:22:54,HTTP 403
@@ -72,7 +72,7 @@ d39g1vxj2ef6in.cloudfront.net:443,1,2026-11-17 03:26:04,HTTP 504
 d3cm8xyrjwa22p.cloudfront.net:443,3,2026-11-17 03:23:21,HTTP 403
 d3vgs3ro3x6v8a.cloudfront.net:443,3,2026-11-17 03:22:36,HTTP 403
 dai.google.com:443,3,2026-11-21 01:09:12,HTTP 404
-dassby.qqff.top:99,1,2026-11-21 01:11:10,HTTP 404
+dassby.qqff.top:99,2,2026-11-22 00:11:18,HTTP 404
 dayeyun.live.tempsource.cjyun.org:80,3,2026-11-17 15:51:50,HTTP 503
 directes-tv-int.3catdirectes.cat:443,1,2026-11-16 08:34:15,HTTP 403
 diretta.arcapuglia.it:8080,1,2026-11-17 03:24:07,HTTP 404
@@ -96,7 +96,7 @@ gx.484947.xyz:443,3,2026-11-16 08:35:31,HTTP 403
 h057.video-stream-hosting.de:443,1,2026-11-17 03:23:01,HTTP 404
 hefeng.live.tempsource.cjyun.org:80,3,2026-11-17 15:51:11,HTTP 503
 hls-ott-zhibo.wasu.tv:80,3,2026-11-17 15:51:01,HTTP 403
-hls-qhmh.lanzhousobey.cn:443,2,2026-11-21 01:09:13,HTTP 500
+hls-qhmh.lanzhousobey.cn:443,3,2026-11-22 00:09:24,HTTP 500
 hls.gstv.com.cn:443,3,2026-11-18 02:13:35,HTTP 403
 hls.newworldtv.com:443,3,2026-11-16 08:34:37,HTTP 403
 hlsztemgsplive.miguvideo.com:8080,3,2026-11-16 08:41:10,HTTP 403
@@ -112,7 +112,7 @@ live-uk.s4c-cdn.co.uk:443,1,2026-11-15 13:19:11,HTTP 403
 live.eac-news.com:443,3,2026-11-17 15:50:57,HTTP 500
 live.jobplustv.or.kr:443,2,2026-11-17 03:23:17,HTTP 400
 live.mediacdn.ru:443,1,2026-11-17 03:24:07,HTTP 404
-live.streamingfast.net:443,1,2026-11-21 01:13:24,HTTP 404
+live.streamingfast.net:443,1,2026-11-22 00:13:36,HTTP 404
 live2.mediacdn.ru:443,1,2026-11-17 03:22:39,HTTP 404
 live2.rxip.sc96655.com:80,3,2026-11-17 15:50:59,HTTP 403
 livealone302.iqilu.com:80,3,2026-11-17 15:53:28,HTTP 403
@@ -154,7 +154,6 @@ reflect-stlucie-ps-fl.cablecast.tv:443,3,2026-11-17 03:22:34,HTTP 403
 reflect-stream-bronxnet.cablecast.tv:443,3,2026-11-16 08:33:59,HTTP 403
 reflect-tacm.cablecast.tv:443,3,2026-11-17 03:22:32,HTTP 403
 reflect-vod-cmac.cablecast.tv:443,2,2026-11-16 08:34:01,HTTP 403
-restream.pdtvhd.com:443,1,2026-11-21 01:10:12,HTTP 404
 rthklive2-lh.akamaihd.net:443,3,2026-11-17 15:51:08,HTTP 403
 rthktv32-live.akamaized.net:443,3,2026-11-17 15:51:08,HTTP 403
 rthktv33-live.akamaized.net:443,3,2026-11-17 15:51:08,HTTP 403
@@ -167,10 +166,10 @@ sbs6classic.prd1.talpatvcdn.nl:443,3,2026-11-17 03:22:47,HTTP 403
 shls-live-ak.akamaized.net:443,1,2026-11-16 08:34:24,HTTP 404
 shuyang-tv-hls.cm.jstv.com:443,3,2026-11-16 08:33:42,HTTP 404
 smt.1678520.xyz:443,3,2026-11-16 00:16:18,HTTP 502
-st-video.xjmty.com:443,2,2026-11-21 01:09:37,HTTP 502
+st-video.xjmty.com:443,3,2026-11-22 00:09:57,HTTP 502
 stream.convergen.co:443,1,2026-11-16 08:34:40,HTTP 404
 stream.giostreaming.app:443,1,2026-11-17 03:23:23,HTTP 404
-stream.sun0769.com:443,1,2026-11-21 01:10:16,HTTP 404
+stream.sun0769.com:443,1,2026-11-22 00:10:33,HTTP 404
 stream4.xdevel.com:443,2,2026-11-17 03:22:46,HTTP 403
 streamipcf.akamaized.net:80,3,2026-11-17 15:51:09,HTTP 403
 svip.high24-playback.com:443,2,2026-11-17 03:22:32,HTTP 403
